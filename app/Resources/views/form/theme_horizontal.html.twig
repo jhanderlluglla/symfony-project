@@ -1,0 +1,68 @@
+{% extends 'bootstrap_3_horizontal_layout.html.twig' %}
+
+{% use 'form/fields.html.twig' %}
+
+{%- block form_widget_simple -%}
+    {% if type is defined and type in ['file'] %}
+        <div class="fileinput fileinput-new input-group" data-provides="fileinput">
+            <div class="form-control" data-trigger="fileinput">
+                <i class="glyphicon glyphicon-file fileinput-exists"></i>
+                <span class="fileinput-filename"></span>
+            </div>
+            <span class="input-group-addon btn btn-default btn-file">
+                <span class="fileinput-new">{{ 'file.select_file'|trans({}, 'form') }}</span>
+                <span class="fileinput-exists">{{ 'file.change'|trans({}, 'form') }}</span>
+                <input type="file"{{ block('widget_attributes') }} {% if value is not empty %}value="{{ value }}" {% endif %}/>
+            </span>
+            <a href="#" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput">{{ 'file.remove'|trans({}, 'form') }}</a>
+        </div>
+    {% else %}
+        {{- parent() -}}
+    {% endif %}
+{%- endblock form_widget_simple -%}
+
+{% block form_label_class -%}
+    col-sm-3
+{%- endblock form_label_class %}
+
+{% block form_group_class -%}
+    col-sm-9
+{%- endblock form_group_class %}
+
+{% block form_row -%}
+    <div class="form-group{% if (not compound or force_error|default(false)) and not valid %} has-error{% endif %}">
+        {{- form_label(form) -}}
+        <div class="{{ block('form_group_class') }}">
+            {{- form_widget(form) -}}
+            {% for attrname,attrvalue in attr %}
+                {% if attrname == 'help' %}
+                    <span class="help-block">{{ attrvalue | trans }}</span>
+                {% endif %}
+            {% endfor %}
+            {{- form_errors(form) -}}
+        </div>
+    </div>
+{%- endblock form_row %}
+
+
+
+{% block checkbox_row -%}
+    {{- block('checkbox_radio_row') -}}
+{%- endblock checkbox_row %}
+
+{% block radio_row -%}
+    {{- block('checkbox_radio_row') -}}
+{%- endblock radio_row %}
+
+
+{% block checkbox_radio_row -%}
+    {% spaceless %}
+        <div class="form-group{% if not valid %} has-error{% endif %}">
+            <div class="{{ block('form_label_class') }}"></div>
+            <div class="{{ block('form_group_class') }}">
+                {{ form_widget(form) }}
+                {{ form_errors(form) }}
+            </div>
+        </div>
+    {% endspaceless %}
+{%- endblock checkbox_radio_row %}

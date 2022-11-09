@@ -1,0 +1,25 @@
+admin_category:
+    path:     /
+    defaults: { _controller: UserBundle:Category:index }
+
+admin_category_add:
+    path:     /add
+    defaults: { _controller: UserBundle:Category:add }
+
+admin_category_edit:
+    path:     /edit/{id}
+    defaults: { _controller: UserBundle:Category:edit }
+    requirements:
+        id: '\d+'
+
+admin_category_delete:
+    path:     /delete/{id}
+    defaults: { _controller: UserBundle:Category:delete }
+    requirements:
+        id: '\d+'
+
+category_list:
+    path:     /list
+    defaults: { _controller: UserBundle:Category:getCategories }
+    options:
+        expose: true

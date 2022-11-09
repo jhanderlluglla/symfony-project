@@ -1,0 +1,22 @@
+{% extends 'bootstrap_3_layout.html.twig' %}
+
+{% use 'form/fields.html.twig' %}
+
+{%- block form_widget_simple -%}
+    {% if type is defined and type in ['file'] %}
+        <div class="fileinput fileinput-new input-group" data-provides="fileinput">
+            <div class="form-control" data-trigger="fileinput">
+                <i class="glyphicon glyphicon-file fileinput-exists"></i>
+                <span class="fileinput-filename"></span>
+            </div>
+            <span class="input-group-addon btn btn-default btn-file">
+                <span class="fileinput-new">{{ 'file.select_file'|trans({}, 'form') }}</span>
+                <span class="fileinput-exists">{{ 'file.change'|trans({}, 'form') }}</span>
+                <input type="file"{{ block('widget_attributes') }} {% if value is not empty %}value="{{ value }}" {% endif %}/>
+            </span>
+            <a href="#" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput">{{ 'file.remove'|trans({}, 'form') }}</a>
+        </div>
+    {% else %}
+        {{- parent() -}}
+    {% endif %}
+{%- endblock form_widget_simple -%}

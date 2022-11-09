@@ -1,0 +1,23 @@
+title: Tableau de bord
+sites:
+    title: Nouveaux sites susceptibles de vous intéresser !
+    table:
+        site: Site
+        category: Categorie(s)
+        price: Prix
+        semrush_traffic: Trafic Semrush
+        tc: TC
+        show_detail: Voir les détails
+
+netlinking:
+    title: Référencement
+
+copywriting:
+    title: Rédaction
+
+express:
+    expired: Expiré
+
+credit_information: Le nouvel Ereferer n'utilise plus le crédit pour l'article d'échange. Vos crédits %count_credit% seront rendus pour la somme de %count_euro% euros.
+credit_button: je comprends
+credit_title: Information de crédit

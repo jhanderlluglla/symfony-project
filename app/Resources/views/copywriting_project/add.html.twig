@@ -1,0 +1,13 @@
+{% extends 'copywriting_project/edit.html.twig' %}
+
+{% trans_default_domain 'copywriting' %}
+
+{% block breadcrumb %}
+    {{ include('breadcrumb/copywriting.html.twig',
+        {'childrens': [block('title')]})
+    }}
+{% endblock %}
+
+{% block title %}
+    {{ 'add_title'|trans }}
+{% endblock %}

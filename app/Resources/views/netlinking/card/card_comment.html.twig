@@ -1,0 +1,13 @@
+{% trans_default_domain 'netlinking' %}
+
+<div class="border-top">
+    <div class="text-block">
+        {% if entity.comment is not empty %}
+            <div class="j-netlinking-comment">
+                {{ entity.comment | nl2br}}
+            </div>
+        {% else %}
+            {{ 'table.no_comment'|trans }}
+        {% endif %}
+    </div>
+</div>

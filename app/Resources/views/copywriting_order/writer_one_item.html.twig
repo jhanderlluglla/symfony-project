@@ -1,0 +1,140 @@
+{% trans_default_domain 'copywriting' %}
+
+{% set not_consulted = false %}
+{% if order.status == constant('STATUS_COMPLETED', order) %}
+    {% if app.user.isWebmaster and not order.article.isConsulted %}
+        {% set not_consulted = true %}
+    {% endif %}
+{% endif %}
+
+<div class="copywriting-project project-card {% if not_consulted %}not-consulted{% endif %}">
+    <div class="description-block">
+        {% block description %}
+            <h3 class="description-block__title ellipsis">{{ order.title }}</h3>
+            {% if order.project.description %}
+                <p class="description-block__item ellipsis "><span>{{ 'description'|trans }}:</span>{{ order.project.description|nl2br }}</p>
+            {% endif %}
+            {% if order.instructions %}
+                <p class="description-block__item ellipsis "><span>{{ 'instructions'|trans }}:</span>{{ order.instructions|nl2br }}</p>
+            {% endif %}
+
+            {% if order.express and order.deadline %}
+                <div class="description-block__item">
+                    <span>{{ 'express.article'|trans }}:</span><br>
+                    {% if order.deadline > date() %}
+                        <div class="m-l-md text-danger font-italic" data-express-timer="{{ order.deadline.getTimestamp() - date().getTimestamp() }}"></div>
+                        {% if app.user.writer %}
+                            <span class="m-l-md">{{ 'express.bonus'|trans }}:</span>
+                            <span><b class="text-info">+{{ order.writerExpressBonus }}€</b></span>
+                        {% endif %}
+                    {% else %}
+                        <b class="text-danger small">{{ 'express.expired'|trans }}</b>
+                    {% endif %}
+                </div>
+            {% endif %}
+        {% endblock %}
+    </div>
+    <div class="statistick-data">
+
+        {% if not_consulted %}
+            <span class="not-consulted__badge">{{ 'not_consulted'|trans }}</span>
+        {% endif %}
+
+        <h4 class="project-status status-{{ order.status }}">
+            {% if app.user.isWriterCopywriting or app.user.isWriterAdmin %}
+                {% if order.status in [constant('STATUS_SUBMITTED_TO_WEBMASTER', order), constant('STATUS_SUBMITTED_TO_ADMIN', order)] %}
+                    {{ 'under_review'|trans }}
+                {% else %}
+                    {{ order.status|trans }}
+                {% endif %}
+            {% endif %}
+            {% if app.user.isWebmaster %}
+                {{ order.status|trans }}
+            {% endif %}
+        </h4>
+
+        <ul class="statistick-data_list">
+            <li>
+                <div class="statistick-data_title">{{ 'proposed_on'|trans }}</div>
+                <div class="statistick-data_value small">{{ order.createdAt|date('Y/m/d') }}</div>
+            </li>
+            <li>
+                {% if order.status == constant('STATUS_WAITING', order) %}
+                    <div class="statistick-data_title">{{ 'launch_date'|trans }}</div>
+                    <div class="statistick-data_value small">{{ order.launchedAt|date('Y/m/d') }}</div>
+                {% elseif order.status == constant('STATUS_DECLINED', order) %}
+                    <div class="statistick-data_title">{{ 'declined_at'|trans }}</div>
+                    <div class="statistick-data_value small">{{ order.declinedAt|date('Y/m/d') }}</div>
+                {% elseif order.status == constant('STATUS_COMPLETED', order) %}
+                    <div class="statistick-data_title">{{ 'completed_at'|trans }}</div>
+                    <div class="statistick-data_value small">{{ order.completedAt|date('Y/m/d') }}</div>
+                    {% if app.user.isWebmaster and not order.article.isConsulted %}
+                        <span class="text-danger">{{ 'not_consulted'|trans }}</span>
+                    {% endif %}
+                {% else %}
+                    <div class="statistick-data_title">{{ 'taken_at'|trans }}</div>
+                    <div class="statistick-data_value small">{{ order.takenAt|date('Y/m/d') }}</div>
+                {% endif %}
+            </li>
+            {% if app.user.isWriterCopywriting or app.user.isWriterAdmin %}
+                <li>
+                    <div class="statistick-data_title">{{ 'potential_earning'|trans }}</div>
+                    <div class="statistick-data_value"><span class="text-info">{{ calculate_potential_earning(order, app.user) }}€</span></div>
+                </li>
+                <li>
+                    <div class="statistick-data_title">{{ 'photos_max'|trans }}</div>
+                    <div class="statistick-data_value">{{ order.imagesPerArticleTo }}</div>
+                </li>
+            {% endif %}
+            {% block dayLate %}
+                {% include "copywriting_order/day_late.html.twig" %}
+            {% endblock %}
+
+            <li>
+                <div class="statistick-data_title">{{ 'words_number'|trans }}</div>
+                <div class="statistick-data_value">{{ order.wordsNumber }}</div>
+            </li>
+            {% if app.user.hasRole('ROLE_WEBMASTER') %}
+                <li>
+                    <div class="statistick-data_title">{{ 'cost'|trans }}</div>
+                    <div class="statistick-data_value"><span class="text-info">{{ order.amount }}€</span></div>
+                </li>
+            {% endif %}
+        </ul>
+    </div>
+    <div class="action-block clearfix">
+        {% if app.user.isWriterCopywriting %}
+            <div class="buttons-wrapper">
+                {% if order.status in [constant('STATUS_PROGRESS', order), constant('STATUS_DECLINED', order)] %}
+                    <a href="{{ path('copywriting_article_edit', {'id': order.article.id}) }}" class="btn btn-warning" ><i class="fa fa-eye"></i>{{ 'see_task'|trans }}</a>
+                {% elseif order.status ==  constant('STATUS_WAITING', order) %}
+                    <a href="{{ path('copywriting_order_take_to_work', {'id': order.id}) }}" class="btn btn-warning" ><i class="fa fa-check"></i>{{ 'take_to_work'|trans }}</a>
+                {% elseif order.status in [constant('STATUS_SUBMITTED_TO_WEBMASTER', order), constant('STATUS_SUBMITTED_TO_ADMIN', order)] %}
+                    <a href="{{ path('copywriting_order_show', {'id': order.id}) }}"
+                       class="btn btn-warning" >
+                        <i class="fa fa-eye"></i> {{ 'show'|trans }}
+                    </a>
+                {% endif %}
+            </div>
+        {% endif %}
+
+        {% if app.user.isWebmaster %}
+            <div class="buttons-wrapper">
+                {% if order.status ==  constant('STATUS_WAITING', order) %}
+                    <a href="{{ path('copywriting_order_edit', {'id': order.id}) }}" class="btn btn-primary" ><i class="fa fa-edit"></i>{{ 'edit'|trans }}</a>
+                    {% if order.exchangeProposition is null or order.exchangeProposition.type is same as(constant('OWN_TYPE', order.exchangeProposition)) %}
+                        <a href="{{ path('copywriting_order_remove', {'id': order.id}) }}" class="btn btn-danger delete"><i class="fa fa-trash"></i>{{ 'remove'|trans }}</a>
+                    {% endif %}
+                {% elseif order.status == constant('STATUS_SUBMITTED_TO_WEBMASTER', order) or order.status == constant('STATUS_COMPLETED', order) %}
+                    <a href="{{ path('copywriting_order_show', {'id': order.id}) }}"
+                       class="btn btn-warning" >
+                        <i class="fa fa-eye"></i> {{ 'show'|trans }}
+                    </a>
+                    <a href="{{ path('copywriting_article_edit', {'id': order.article.id}) }}" class="btn btn-primary" >
+                        <i class="fa fa-edit"></i> {{ 'edit'|trans }}
+                    </a>
+                {% endif %}
+            </div>
+        {% endif %}
+    </div>
+</div>

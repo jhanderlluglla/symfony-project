@@ -1,0 +1,22 @@
+{% trans_default_domain 'exchange_site_proposals' %}
+
+<input type="hidden" id="proposition_id" name="proposition_id" value="{{ id }}" />
+
+<div class="form-group">
+    <p>{{ 'modal.modification_refuse.text'|trans }}</p>
+    <label>{{ 'modal.modification_refuse.reason'|trans }} *</label>
+    <textarea id="comment_refuse" name="comment_refuse" class="form-control"></textarea>
+</div>
+<div class="form-group">
+    <div class="checkbox">
+        <label class="radio-inline" for="modification_refuse_final">
+            <span class="checkbox_radio_widget_wrapper">
+                <input type="checkbox" name="final" id="modification_refuse_final" value="1">
+                <label for="modification_refuse_final"></label>
+            </span>
+            {{ 'modal.modification_refuse.checkbox'|trans }}
+
+        </label>
+    </div>
+</div>
+<button id="modification_refuse_send" type="button" class="btn btn-w-m btn-danger pull-right m-t">{{ 'modal.modification_refuse.button'|trans }}</button>

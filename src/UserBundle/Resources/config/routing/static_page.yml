@@ -1,0 +1,19 @@
+admin_static_page:
+    path:     /
+    defaults: { _controller: UserBundle:StaticPages:index }
+
+admin_static_page_add:
+    path:     /add
+    defaults: { _controller: UserBundle:StaticPages:add }
+
+admin_static_page_edit:
+    path:     /edit/{id}
+    defaults: { _controller: UserBundle:StaticPages:edit }
+    requirements:
+        id: '\d+'
+
+admin_static_page_delete:
+    path:     /delete/{id}
+    defaults: { _controller: UserBundle:StaticPages:delete }
+    requirements:
+        id: '\d+'

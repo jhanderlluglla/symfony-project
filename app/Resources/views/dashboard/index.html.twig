@@ -1,0 +1,195 @@
+{% extends 'layout.html.twig' %}
+
+{% trans_default_domain 'dashboard' %}
+
+{% block title %}
+    {{ 'dashboard'|trans({}, 'menu') }}
+{% endblock %}
+
+{% block content %}
+    {% if app.user.showCredit %}
+        <div class="modal modal-centered fade moreDetail" id="creditInfo" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">{{ 'credit_title'|trans }}</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    </div>
+                    <div class="modal-body">{{ 'credit_information'|trans({'%count_credit%': app.user.credit , '%count_euro%': app.user.euroCredit}) }}</div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">{{ 'credit_button'|trans }}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+    {% if help is not null %}
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="ibox">
+                    <div class="ibox-content">
+                        {{ help | raw }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+    {% if app.user.isWebmaster() and sites %}
+    <div class="row">
+        <div class="col-lg-12">
+            {% block recomend_sites %}
+                <div class="ibox">
+                    <div class="ibox-title">
+                        <h5>{{ 'sites.title'|trans }}</h5>
+                        <div class="ibox-tools">
+                            <a class="collapse-link">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+                        <table class="footable table table-striped m-b-none footable-without-toggler">
+                            <thead>
+                                <tr>
+                                    {% embed 'dashboard/details_th.html.twig'%}
+                                        {% block price %}
+                                            <th data-breakpoints="s">{{ 'table.price'|trans({}, 'general') }}</th>
+                                        {% endblock %}
+                                    {% endembed %}
+                                </tr>
+                            </thead>
+                            <tbody>
+                            {% for entity in sites %}
+                                <tr>
+                                    {% embed 'exchange_site/details_td.html.twig'%}
+                                        {% block price %}
+                                            <td><b class="text-primary text-bigger no-wrap">{{ entity.credits }}€</b></td>
+                                        {% endblock %}
+                                        {% block additionalDetailes %}
+                                            {% embed 'exchange_site/additional-details.html.twig'%}
+                                            {% endembed %}
+                                        {% endblock %}
+                                    {% endembed %}
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            {% endblock %}
+        </div>
+    </div>
+    {% endif %}
+
+<div>
+    {% if app.user.isWebmaster %}
+        {% block copywriting %}
+            {% if copywritingProjects is not empty %}
+                <div class="ibox">
+                    <div class="ibox-title">
+                        <h5>{{ 'copywriting.title'|trans }}</h5>
+                        <div class="ibox-tools">
+                            <a class="collapse-link">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+                        {{ include('copywriting_order/order_table.html.twig', {'collection': copywritingProjects}) }}
+                    </div>
+
+                    {% if copywritingProjects.haveToPaginate is defined and copywritingProjects.haveToPaginate %}
+                        <div class="ibox-footer">
+                            {% if copywritingProjects.haveToPaginate %}
+                                <div class="pagerfanta">
+                                    {{ pagerfanta(copywritingProjects) }}
+                                </div>
+                            {% endif %}
+                        </div>
+                    {% endif %}
+                </div>
+            {% endif %}
+        {% endblock %}
+        {% block netlinking %}
+        {% if netlinkingProjects is not empty %}
+            <div class="ibox">
+                <div class="ibox-title">
+                    <h5>{{ 'netlinking.title'|trans }}</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    {{ include('netlinking/current.html.twig', {'collection': netlinkingProjects }) }}
+                </div>
+            </div>
+        {% endif %}
+    {% endblock %}
+    {% else %}
+        {% if netlinkingAndCopywriting.haveToPaginate %}
+            <div class="pagerfanta">
+                {{ pagerfanta(netlinkingAndCopywriting) }}
+            </div>
+        {% endif %}
+        <div class="project-wrapper admin-dashboard">
+            {% for project in netlinkingAndCopywriting %}
+                {% if instanceof(project, 'CoreBundle\\Entity\\NetlinkingProject') %}
+                    {% if app.user.isSuperAdmin or app.user.isWriterAdmin %}
+                        {% include 'netlinking/admin_current_item_without_checkbox.html.twig' with {'entity':project} %}
+                    {% else %}
+                        {% include 'netlinking/writer_current_item.html.twig' with {'entity':project} %}
+                    {% endif %}
+                {% else %}
+                    {% if app.user.isSuperAdmin or app.user.isWriterAdmin %}
+                        {% include 'copywriting_order/admin_one_item_without_checkbox.html.twig' with {'order':project} %}
+                    {% else %}
+                        {% include 'copywriting_order/writer_one_item.html.twig' with {'order':project} %}
+                    {% endif %}
+                {% endif %}
+            {% endfor %}
+        </div>
+        {% if netlinkingAndCopywriting.haveToPaginate %}
+            <div class="pagerfanta">
+                {{ pagerfanta(netlinkingAndCopywriting) }}
+            </div>
+        {% endif %}
+    {% endif %}
+</div>
+{% endblock %}
+
+{% block javascript %}
+    {{ parent() }}
+
+    <script type="text/javascript">
+        translations.modal.waiting_admin = {
+            title: '{{ 'modal.waiting_admin.title'|trans }}',
+            text: '{{ 'modal.waiting_admin.text'|trans }}'
+        };
+        translations.express = {
+            expired: '{{ 'express.expired'|trans }}',
+        };
+    </script>
+    <script src="{{ asset('js/front/netlinking/netlinking_waiting_admin.js') }}"></script>
+    <script src="{{ asset('js/front/copywriting/admin_index.js') }}"></script>
+    <script src="{{ asset('js/front/copywriting/express-timer.js') }}"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#creditInfo').modal('show');
+            $('#creditInfo').on('hide.bs.modal', function() {
+                sendGetRequest(Routing.generate('user_hide_credit_info'),
+                    function(response) {
+                        toastr.success(response.message);
+                    }
+                )
+            })
+
+        })
+    </script>
+
+    {% if accessManager().canManageWriterUser() %}
+        <script src="{{ asset('js/front/copywriting/assign_form.js') }}"></script>
+    {% endif %}
+{% endblock %}

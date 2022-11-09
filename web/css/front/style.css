@@ -1,0 +1,103 @@
+.loading-modal {
+    display:    none;
+    position:   fixed;
+    z-index:    1000;
+    top:        0;
+    left:       0;
+    height:     100%;
+    width:      100%;
+    background: rgba( 255, 255, 255, .8 )
+    url('/img/ajax-loader.gif')
+    50% 50%
+    no-repeat;
+}
+
+/* When the body has the loading class, we turn
+   the scrollbar off with overflow:hidden */
+body.loading {
+    overflow: hidden;
+}
+
+/* Anytime the body has the loading class, our
+   modal element will be visible */
+body.loading .loading-modal {
+    display: block;
+}
+
+.form-group .bootstrap-tagsinput {
+    display: block;
+}
+
+.remove-order {
+    margin-top: 0.5em;
+    margin-bottom: 1em;
+}
+
+.articles-table th {
+    text-align: right;
+    width: 25%;
+}
+
+.articles-actions {
+    text-align: right;
+}
+
+.list-header {
+    background-color: #ffffff;
+    border-color: #e7eaec;
+    border-image: none;
+    border-style: solid solid none;
+    border-width: 2px 0 0;
+    color: inherit;
+    margin-bottom: 0;
+    padding: 15px 15px 7px;
+    min-height: 48px;
+}
+
+.nonconform {
+    margin-top: 1em;
+}
+
+.has-error.note-editor.note-frame.panel.panel-default {
+    border: 1px solid #e80f0f;
+}
+
+.decline-button, .btn-download {
+    float: right;
+}
+
+.rating {
+    font-size: 40px;
+    cursor: pointer;
+}
+
+.rating-like:hover, .rating-like.hovered {
+    color: green;
+}
+
+.rating-dislike:hover, .rating-dislike.hovered {
+    color: red;
+}
+
+form[name="exchange_site_find"] .input-group-btn {
+    width: inherit;
+}
+
+.bootstrap-tagsinput {
+    border-radius: inherit;
+}
+
+.data-tooltip {
+    cursor: help;
+    width: max-content;
+}
+
+.ibox-title h5.order-header, .list-header h5.order-header {
+    display: inline-block;
+    margin-right: 15px;
+}
+
+.express-timer {
+    display: inline;
+    white-space: nowrap;
+}

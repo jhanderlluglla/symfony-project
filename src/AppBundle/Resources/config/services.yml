@@ -1,0 +1,7 @@
+services:
+    app.service.affiliation:
+        class: AppBundle\Services\AffiliationService
+        arguments: ["@doctrine.orm.entity_manager", "@core.service.transaction"]
+    app.service.plugin:
+        class: AppBundle\Services\PluginService
+        arguments: ["%plugin_folder%", "%install_file%"]

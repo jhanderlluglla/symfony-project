@@ -1,0 +1,87 @@
+{% extends 'layout.html.twig' %}
+
+{% trans_default_domain 'submission' %}
+
+{% block title %}
+    {{ 'netlinking.submissions'|trans({}, 'menu') }}
+{% endblock %}
+
+{% block breadcrumb %}
+    {{ include('breadcrumb/netlinking.html.twig', {'childrens': [block('title')]}) }}
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox">
+                <div class="ibox-content  wrap-table-center">
+                    {% for message in app.session.flashBag.get('error') %}
+                        <div class="alert alert-warning">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+
+                    {% if collection.haveToPaginate %}
+                        <div class="pagerfanta">
+                            {{ pagerfanta(collection) }}
+                        </div>
+                    {% endif %}
+
+                    <table class="footable table table-striped">
+                        <thead>
+                        <tr>
+                            <th>{{ 'table.project'|trans }}</th>
+                            <th data-breakpoints="m">{{ 'table.directory'|trans }}</th>
+                            <th data-breakpoints="l">{{ 'table.submitted_on'|trans }}</th>
+                            <th data-breakpoints="xl">{{ 'table.copywriter'|trans }}</th>
+                            <th data-breakpoints="all">{{ 'table.comment'|trans }}</th>
+                            <th class="text-right action">{{ 'table.action'|trans }}</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for job in collection %}
+                            <tr data-comment-id="{{ job.netlinkingProjectComment.id }}" data-job-id="{{ job.id }}">
+                                <td>{{ job.netlinkingProject.url }}</td>
+                                <td>{{ job.scheduleTask.taskUrl }}</td>
+                                <td>{{ job.createdAt|date("d/m/Y") }}</td>
+                                <td>{{ job.affectedToUser ? job.affectedToUser.fullName }}</td>
+                                <td><div id="npc_{{ job.netlinkingProjectComment.id }}">{{ job.netlinkingProjectComment.comment }}</div></td>
+                                <td>
+                                    <div class="buttons-wrapper">
+                                        <button class="btn btn-warning" data-action="editComment"><i class="fa fa-edit"></i>{{ 'table.modify_comment'|trans }}</button>
+                                        <button class="btn btn-warning" data-action="rejectTask"><i class="fa fa-times-circle"></i>{{ 'table.reject_task'|trans }}</button>
+                                        <button class="btn btn-danger" data-action="deleteComment"><i class="fa fa-trash"></i>{{ 'table.delete_comment'|trans }}</button>
+                                    </div>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+
+                    {% if collection.haveToPaginate %}
+                        <div class="pagerfanta">
+                            {{ pagerfanta(collection) }}
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="submission_modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title"></h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body"></div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascript %}
+    {{ parent() }}
+    <script src="{{ asset('js/front/netlinking/submission/index_page.js') }}"></script>
+    <script src="{{ asset('js/front/netlinking/submission/reject.js') }}"></script>
+{% endblock %}

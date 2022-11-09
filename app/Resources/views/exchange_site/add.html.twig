@@ -1,0 +1,51 @@
+{% extends 'layout.html.twig' %}
+
+{% trans_default_domain 'exchange_site' %}
+
+{% block title %}
+    {{ 'add_title'|trans }}
+{% endblock %}
+
+{% block breadcrumb %}
+    {{ include('breadcrumb/exchange_site.html.twig',
+        {'childrens': [
+            {'name': 'exchange_site.management'|trans({}, 'menu'), 'path': 'admin_exchange_site'},
+            block('title')
+        ]})
+    }}
+{% endblock %}
+{% set createNew = true %}
+{% block content %}
+    {% include "exchange_site/form.html.twig" %}
+{% endblock %}
+
+{% block javascript %}
+{{ parent() }}
+    <script>
+        translations.fileNameError = "{{ 'invalid_file_name' | trans({}, 'errors') }}";
+    </script>
+    <!-- Clipboard -->
+    <script src="{{ asset('js/admin/plugins/clipboard/clipboard.min.js') }}"></script>
+    <script src="{{ asset('js/front/exchange_site/exchange_site.js') }}"></script>
+    <script src="{{ asset('js/front/exchange_site/validate_checkboxes.js') }}"></script>
+    <script src="{{ asset('js/front/plugin/download_plugin.js') }}"></script>
+    <script type="text/javascript">
+        var formValid = {{ form.vars.valid ? 1 : 0 }};
+
+        if(formValid === 1) {
+          var steps = $('.steps-item').slice(1);
+            steps.each(function (index, element) {
+                $(element).addClass('disabled');
+            });
+        }
+    </script>
+    <script src="{{ asset('js/front/next_step.js') }}"></script>
+    <script>
+        $(document).ready(function () {
+            if($('#exchange_site_url').val()) {
+                getPrice();
+            }
+            initMultipleSelect($('#admin_exchange_site_categories'), 2)
+        });
+    </script>
+{% endblock %}

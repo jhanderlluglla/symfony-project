@@ -1,0 +1,9 @@
+{% trans_default_domain 'exchange_site_proposals' %}
+
+<input type="hidden" id="proposition_id" name="proposition_id" value="{{ id }}" />
+
+<div class="form-group">
+    <label>{{ 'modal.modification.comment'|trans }} *</label>
+    <textarea id="comment_modification" name="comment_modification" class="form-control"></textarea>
+</div>
+<button id="modification_send" type="button" class="btn btn-w-m btn-primary pull-right m-t">{{ 'modal.modification.button'|trans }}</button>

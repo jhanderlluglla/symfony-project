@@ -1,0 +1,35 @@
+{% trans_default_domain 'FOSUserBundle' %}
+
+<div class="ibox-content">
+    <h2 class="font-bold text-center">{{ "form.login"|trans({}, "general") }}</h2>
+
+    {% if error %}
+        <h3 class="text-danger text-center">{{ error.messageKey|trans(error.messageData, 'security') }}</h3>
+    {% endif %}
+
+    <form action="{{ path("fos_user_security_check") }}" method="post" role="form" class="m-t">
+        {% if csrf_token %}
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+        {% endif %}
+
+        <div class="form-group {% if error %}has-error{% endif %}">
+            <label class="control-label" for="username">{{ 'form.email'|trans }}</label>
+            <input type="text" id="username" name="_username" value="{{ last_username }}" required="required" class="form-control input-lg"/>
+        </div>
+
+        <div class="form-group {% if error %}has-error{% endif %}">
+            <label class="control-label" for="password">{{ 'security.login.password'|trans }}</label>
+            <input type="password" id="password" name="_password" required="required" class="form-control input-lg" />
+        </div>
+
+        <div class="form-group">
+            <label><input type="checkbox" id="remember_me" name="_remember_me" value="on" class="i-checks"> {{ 'security.login.remember_me'|trans }} </label>
+        </div>
+
+        <input type="submit" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans }}" class="btn btn-primary block full-width m-b" />
+
+        <a href="{{ path('fos_user_resetting_request') }}">{{ "form.forgot_pass"|trans({},'general') }}</a>
+        <p class="text-muted text-center m-t">{{ "form.dont_have_acc"|trans({},'general') }}</p>
+        <a class="btn btn-primary btn-transparent block full-width" href="{{ path('fos_user_registration_register') }}">{{ "form.create_acc"|trans({},'general') }}</a>
+    </form>
+</div>

@@ -1,0 +1,19 @@
+<div class="row">
+    <div class="col-lg-offset-2 col-lg-8">
+        {{ form_start(form) }}
+        {{ form_errors(form) }}
+            <div class="form-group">
+                <h3>{{ form_label(form) }}</h3>
+            </div>
+            {{ form_row(form.title) }}
+            {{ form_row(form.language) }}
+            {{ form_row(form.urlPath) }}
+            {{ form_row(form.text) }}
+            {{ form_row(form.metaKeywords) }}
+            {{ form_row(form.metaDescription) }}
+            <div class="horizontal-line">
+                {{ form_row(form.isEnable) }}
+            </div>
+        {{ form_end(form) }}
+    </div>
+</div>

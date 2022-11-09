@@ -1,0 +1,241 @@
+title: Exchange Sites
+copywriting_site_title: Copywriting Sites
+add_title: Add new Exchange Site
+add_copywriting_title: Add new Copywriting Site
+edit_title: Edit Exchange Site
+edit_copywriting_title: Edit Copywriting Site
+show_title: Exchange Site Details
+private_title: Private Exchange Sites
+
+add_new: Add new
+add_new_private_site: Add new private site
+edit: Edit
+delete: Delete
+make_public: Make public
+attention: Attention
+
+table:
+    sites: Sites
+    site: Site
+    url: URL
+    credit_requested: Credit requested
+    categories: Categories
+    tags: Tags
+    note: Note
+    metrics: Metrics
+    subcategories:
+          majestic_metrics: Majestic Metrics
+          semrush_metrics: Semrush Metrics
+          moz_metrics: Moz Metrics
+          google_metrics: Google Metrics
+          age: Age
+          other_metrics: Other metrics
+    words: Words
+    links: Links
+    min_images: Min images
+    max_images: Max images
+    min: min
+    max: max
+    to: to
+    images: Images
+    preferences: Preferences
+    age: Age
+    alexa: Alexa
+    trust_flow: Trust flow
+    referring_domains: Referring domains
+    action: Action
+    majestic_backlinks: Backlinks
+    majestic_edu_backlinks: EDU Backlinks
+    majestic_gov_backlinks: GOV Backlinks
+    bwa_age: Whois age
+    archive_age: Archive.org age
+    hide_url: Hide URL
+    max_credits: Maximum credits
+    rubrics: WP rubrics
+    language: Language
+    google_news: Google News
+    google_analytics: Google analytics
+    moz_page_authority: Page authority
+    moz_domain_authority: Domain authority
+    authorized_anchor: Authorized anchor
+    semrush_traffic: Semrush traffic
+    publication_rules: Publication rules
+    majestic_citation: Citation
+    majestic_ttf_categories: Trust flow categories
+    semrush_keyword: Semrush keyword
+    semrush_traffic_cost: Semrush traffic cost
+    user: Owner
+    show_details: Show details
+    header_two_start: Header two start
+    header_two_end: Header two end
+    header_three_start: Header three start
+    header_three_end: Header three end
+    plugin_status: Plugin status
+    plugin: Plugin
+    price: Price
+    actions:
+        writing_ereferer: Writing by ereferer
+        writing_webmaster: Writing by the webmaster
+        submit_your_article: Submit your article
+    common: Common information
+    publication_requirements: Publication requirements
+    publication_metrics: Metrics
+    site_type: Site type
+    hide_details: Hide details
+    nofollow_link: Nofollow link
+    sponsorised_article: Sponsorised article
+
+form:
+    step: Step
+    step_heading_general: General information
+    step_heading_rules: Publication rules
+    step_heading_accept: Accept rules
+    meta_title: Meta title
+    meta_title_label: Display a meta title tag in the article header
+    meta_description: Meta description
+    meta_description_label: Add a meta description in the header of the article
+    placeholder_number: Enter number
+    placeholder_rules: Enter rules
+    header_one_set: H1
+    header_one_set_label: Using an H1 tag
+    header_two_start_end: H2
+    header_three_start_end: H3
+    bold_text: Bold text
+    quoted_text: Quoted text
+    italic_text: Italic text
+    ul_tag: UL tag
+    images_range: Images in article
+    min: Min
+    max: Max
+    meta_desc: Meta Description
+    download_plugin: Download plugin
+    custom_file_name: Enter custom file name
+    price: Price
+    google_news: Google news
+    tags_text: You can enter a maximum of 3 TAGs
+    categories_text: You can select a maximum of 2 categories
+    next: Next
+    info-box_title: Information box
+
+attributes:
+    meta_title:
+        popup_message: This is the title of the page that will be displayed at the top of your browser and, usually, by the search engines on their results pages.
+    meta_description:
+        popup_message: Search engines essentially use this very short description and retranscribe it on their results pages. (Description of 20 words)
+    header_h1:
+        description:
+        popup_message: This is the main title of your article. This title is crucial for a good structure of your article and for optimization in terms of SEO. This tag is essential to any article.
+    header_h2:
+        popup_message: This is a subtitle to your article and, by definition, to your title H1. It is essential for a good fitness if your article is particularly long.
+    header_h3:
+        popup_message: This is a sub-subtitle to your article or a subtitle to your title H3. It is advisable for a good formatting if your article is particularly long.
+    bold_text:
+        description: Put some important expressions in bold
+    ul_tag:
+        description: Using bullets in your text (your text tsmallhen contains an enumeration list)
+    headers:
+        part1: The use of
+        part2: at
+        part3: %header% tags in your text
+
+popup_title: What is it?
+
+yes: Yes
+no: No
+to: to
+optional: Optional
+url: URL of the site / blog on which the articles will be published
+api_key: API key
+affected_webmaster: Webmaster
+select_webmaster: Select webmaster
+button_key: Generate the key
+hide_url: Hide my URL (Not recommended!)
+hide_text: Check this box if you want to hide your url. The URL will not be displayed publicly. Hidden URLs receive up to 3 times fewer proposals and are not prioritized in the display list.
+webmaster: Would you like trusted webmasters to see your URL?
+webmaster_text: By "trusted webmaster", I mean agencies, referencers and recognized SEO specialists. NO person I do not know a minimum will be able to see the URL of your site.
+displayed_url_text: 'The URL that will be displayed is:'
+credits: How many money do you want to earn per publication?
+credits_text: Remember, the less price you'll need and the more likely you'll receive publications!
+credits_maximum: Maximum
+categories: 'Select category(ies) : (maximum 2)'
+categories_placeholder: 'Select category'
+tags: 'Enter TAGs to define your site: (maximum 3)'
+publication_rules: Publication rules
+accept_rules: Accept rules
+min_words_number: Minimum number of words
+max_links_number: Number of links maximum
+min_images_number: Number of images minimum
+publication_rules_help: Tip! To make sure the images are royalty-free, ask for the source in the form below!
+other_rules: Other publication rules
+specific_rules: Specific Rules
+proposals: Proposals
+accept_eref: I accept articles written by Ereferer
+accept_web: I accept articles written by webmasters
+accept_self: I agree to write the articles myself (remuneration of %webmaster_additional_pay% additional credit per article)
+nofollow_link: I will create a nofollow link
+nofollow_link_rule: Nofollow link
+sponsorised_article: Article will mention that it's a sponsorised article
+sponsorised_article_rule: Sponsorised article mention
+additional_external_link: The article will contain additional links to external sources.
+additional_external_link_rule: count_link additional links to external website
+count_additional_external_link_start: Until
+count_additional_external_link_end: additional external links
+accept_commission: "I understand that Ereferer takes a %commission_percent%% commission on an article sale + an additional commission of %withdraw_percent%% in case of withdraw of earnings."
+
+authorized_anchor: Authorized anchor
+authorized_anchor_unoptimized: Unoptimized anchor only
+authorized_anchor_semioptimized: Semioptimized and unoptimized anchor only
+authorized_anchor_optimized: Optimized, semioptimized and unoptimized anchor accepted
+accept_authorized_anchor_unoptimized: The partner accept only unoptimized link!
+accept_authorized_anchor_semioptimized: The partner accept only unoptimized or semi-optimized link!
+accept_authorized_anchor_optimized: The partner accept optimized, semi-optimized or unoptimized link!
+
+earning_type: Earning type
+final_price_text: "After the %percent%% commission, you will earn %final_price%€"
+language: Language
+save: Save
+type: Type
+private_error: Can not add site to private
+private_success: Successfully added to private
+check_credits:
+    errors:
+        host: "URL doesn't contain <b>http://</b>"
+        duplicate: The URL <b>%url%</b> is already added
+        duplicate_copywriting: Plugin for <b>%url%</b> is already used for Copywriting. Do you wish to use the plugin for article exchange as well? <br><a href="#" class="duplicate_copywriting btn btn-primary btn-outline m-t-md" data-id="%id%">Activate it</a>
+        duplicate_exchange: Plugin for <b>%url%</b> is already used for Exchange article. Do you wish to use the plugin for copywriting as well? <br><a href="#" class="duplicate_copywriting btn btn-primary btn-outline m-t-md" data-id="%id%">Activate it</a>
+        duplicate_universal: The URL <b>%url%</b> is already added
+        duplicate_by_another : The URL <b>%url%</b> is already added by another account. If we are the owner and want to add your website, pease contact us
+
+modal:
+    close: Close
+    add_to_private: Add to private
+
+successfully_changed_type: "Type was changed on %type%"
+successfully_site_disabled: "Site is disabled"
+successfully_changed_autopublish:
+    enabled: "Plugin is enabled"
+    disabled: "Plugin is disabled"
+redirect_to_edit: Redirect to the edit page
+invalid_data: Invalid data
+site_type:
+    exchange: Exchange
+    sponsored: Sponsored article
+    copywriting: Copywriting
+    universal: Universal
+    change_on_exchange: Change on exchange
+    change_on_copywriting: Change on copywriting
+    change_on_universal: Change on universal
+
+download_plugin_ad: Do you wish to Dowload the plugin for automatic publication on your blog ? You will have nothing to do - Download the plugin
+download_plugin_helper: To download file, enter the custom name of it and push the button
+download_plugin_success: It means that your website has lost connection with the plugin
+download_plugin_failed: It means that your website has the plugin installed
+more_information: More information
+optional_plugin: Optional plugin
+
+popup_disabled_exchange_site:
+    title: Are you sure?
+    text: Do you want to stop using the plugin (you will still sell articles but without the plugin) or delete your website (your website will be removed from the listing) ?
+    buttons:
+        cancel: Disable the plugin
+        confirm: Delete my website

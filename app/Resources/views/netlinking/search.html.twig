@@ -1,0 +1,40 @@
+{% extends 'netlinking/index.html.twig' %}
+
+{% trans_default_domain 'netlinking' %}
+
+{% block title %}
+    {{ 'netlinking.search'|trans({}, 'menu') }}
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-lg-12">
+            {% for message in app.session.flashBag.get('error') %}
+                <div class="alert alert-warning">
+                    {{ message }}
+                </div>
+            {% endfor %}
+            {% if collection['waiting'] is defined and collection['waiting'] is not empty %}
+                <div>
+                    {% set status = 'waiting' %}
+                    <h2>{{ ('title_' ~ status)|trans }}</h2>
+                    {% include 'netlinking/waiting.html.twig' with {'collection': collection['waiting']} %}
+                </div>
+            {% endif %}
+            {% if collection['in_progress'] is defined and collection['in_progress'] is not empty %}
+                <div>
+                    {% set status = 'current' %}
+                    <h2>{{ ('title_' ~ status)|trans }}</h2>
+                    {% include 'netlinking/current.html.twig' with {'collection': collection['in_progress']} %}
+                </div>
+            {% endif %}
+            {% if collection['finished'] is defined and collection['finished'] is not empty %}
+                <div>
+                    {% set status = 'finished' %}
+                    <h2>{{ ('title_' ~ status)|trans }}</h2>
+                    {% include 'netlinking/finished.html.twig' with {'collection': collection['finished']} %}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

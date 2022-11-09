@@ -1,0 +1,76 @@
+title: Results of your proposals
+
+table:
+    sites: Sites
+    url: URL
+    owner: Owner
+    client: Client
+    date: Date
+    price: Price
+    age: Age (years)
+    trust_flow: Trust flow
+    referring_domains: Referring domains
+    status: Status
+    comments: Comments
+    action: Actions
+
+statuses:
+    awaiting_webmaster: Waiting for a response
+    awaiting_writer: Awaiting writing
+    in_progress: Writing
+    expired: Expired
+    changed: To modify
+    refused: Refuse
+    accepted: Accepted
+    published: Accepted and Published
+    impossible: Impossible
+
+comments:
+    awaiting_webmaster: The webmaster still has %days% day(s) to decide your request.
+    expired: The partner did not respond to your request despite our reminders
+    accepted: The webmaster has accepted your post but has not published your article yet. He still has %days% day(s) to do it.
+    changed: Modification instructions
+    refused: Reason for refusal
+    retrieve_article: '<a href="%href%">Retrieve my article</a>'
+    modification_status_1: An amendment request has been submitted ...
+    modification_status_2: Your change request has been made
+    modification_status_3: 'Your change request was declined: %comment%'
+    publish_article_by_ereferer: Your article successfuly published
+    impossible: Writer can not perform your request
+    in_progress: Writer is writing your article
+    awaiting_writer: Awaiting writing
+
+actions:
+    satisfied_exchange: Are you satisfied with your exchange?
+    share_opinion: Share your opinion
+    re_propose: Re-propose your article
+    request_modification: Request a modification
+    do_modification: Do a correction
+    request_closed: Requests for amendments are closed.
+    or: or
+    delete: Delete
+
+modal:
+    close: Close
+    error: Error
+    re_propose:
+        title: Re-propose your article
+        text:
+    vote:
+        title: Share your opinion
+        text: What did you think of your publication?  Does this publication meet your expectations? <br/> Rate this exchange <span class="font-bold font-italic">anonymously</span>
+        your_note: Your note
+        your_comment: 'Your comment: (optional)'
+        button: Send
+        success:
+            done: Success
+            message: Your opinion has been taken into account
+    modification:
+        title: Change request
+        text: What change (s) do you want the webmaster to make to your article?
+        button: Send
+        success:
+            done: Success
+            change_request_taken: The change request has been taken into account
+            message: An amendment request has been submitted...
+

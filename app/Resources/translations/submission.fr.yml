@@ -1,0 +1,23 @@
+title: Soumission
+
+modal:
+    modify_comment: Modifier le commentaire
+    close: Fermer
+    save: Enregistrer
+
+table:
+    project: Projet de référencement
+    directory: Annuaire
+    submitted_on: Effectué le
+    copywriter: Rédacteur
+    comment: Commentaire
+    action: Actions
+    modify_comment: Modifier le commentaire
+    delete_comment: Supprimer le commentaire
+    reject_task: Rejeter la tâche
+
+form:
+    new_comment: Nouveau commentaire
+
+notify:
+    submission_comment_edit: Commentaire édité

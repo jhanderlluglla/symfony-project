@@ -1,0 +1,201 @@
+title: User profile
+add_title: Add new User
+edit_title: Edit User
+title_email_notification: Email notification
+title_comission: Comission
+title_comission_detail: Comission detail
+get_credits: Get credits
+credits_exp: These are your available credits for exchanging items
+save: Save
+
+title_seo: List of writers
+title_webmaster: List of webmasters
+title_administrator: List of administrators
+title_writer_admin: List of admin writers
+title_writer_netlinking: List of netlinking writers
+title_writer_copywriting: List of copywriting writers
+title_reset: Reset
+title_reset_password: Reset password
+title_search: Search result
+warning_payment_message: You will receive a list of writers with a non-zero balance. The balance of these writers will be zero
+make_payment: Make payment
+
+permission_form:
+    permission_manage_copywriting_project: Can manage Copywriting project
+    permission_manage_netlinking_project: Can manage Netlinking project
+    permission_manage_webmaster_user: Can manage client user
+    permission_manage_writer_user: Can manage writer user
+    permission_answer_message: Can answer message
+    permission_manage_earning: Can manage earning
+
+add_new: Add new
+action:
+    title: Action
+    send_message: Send a message
+    list_projects: List of projects
+    list_submissions: List of submissions
+    change_permission: Permission
+    edit_password: Change password
+    modify_balance: Modify balance
+    edit_user: Edit
+    delete: Delete
+
+user_settings:
+    notification_zero_amount: Receive an email when your balance is exhausted
+    notification_project_finished: Receive an email when one of your projects is finished
+    notification_backlink_found: Receive a daily email summarizing the links found
+    notification_new_prop: Receive an email whenever an article is proposed on one of your blogs
+    notification_mod_prop: Receive an email each time a change request on one of your blogs has been made
+    notification_site_disabled: Receive an email each time one of your blogs becomes inactive
+
+registration:
+    full_name: Full name
+    phone: Phone
+    address: Address
+    zip: ZIP
+    company: Company
+    web_site: Web site
+    country: Country
+    city: City
+    avatar: Avatar
+    words_per_day: Words per day
+    country_placeholder: Select your country
+    work_language: Working language
+    vat_number: VAT Number
+    conditions: I agree with the CGU
+
+profile:
+    settings:
+        notification_zero_amount: Receive an email when your balance is exhausted
+        notification_netlinking_project_finished: Receive an email when one of your netlinking projects is finished
+        notification_copywriting_project_finished: Receive an email when one of your copywriting projects is finished
+        notification_backlink_found: Receive a daily email summarizing the links found
+        notification_new_proposal: Receive an email whenever an article is proposed on one of your blogs
+        notification_change_proposal: Receive an email each time a change request on one of your blogs has been made
+        notification_article_ready: Receive an email every time an article is ready
+        notification_start_new_netlinking_project: Receive an email every time Webmaster creates a new Netlinking project
+        notification_new_message: Receive an email every time you receive a new message on Ereferer
+        notification_new_proposal_reminder:
+            part_1: 'remind me this proposition every '
+            part_2: ' day(s)'
+
+user_data:
+    account_type: Account type
+    balance: Balance
+    billing: Billing
+    submission: submission
+
+account_type:
+    seo: SEO
+    webmaster: Webmaster
+    administrator: Administrator
+    none: None
+
+edit: Profile edit
+change_password: Change my password
+
+modal:
+    save: Save
+    close: Close
+    error:
+        header: Error
+        user_not_found: User not found
+    send_message:
+        title: Send a message
+    edit_password:
+        title: Change password
+    modify_balance:
+        title: Modify balance
+    change_permission:
+        title: Change permission
+
+table:
+    information: Information
+    action: Action
+    fullname: Full name
+    email : E-mail
+    phone: Phone
+    zip: Post code
+    city: City
+    company: Company
+    projects: Project(s)
+    status: Status
+    statistics: Statistics
+    last_connection: Last connection
+    registration: Registration
+    active: Active
+    not_active: Not active
+    balance: Balance
+    seo:
+        total_month_passed: Total month passed
+        total_current_month: Total current month
+        links_found: Link(s) found
+        links_pending: Link(s) pending
+        links_not_found: Links Not Found
+        submission: submission(s)
+        connections: connection(s)
+        redaction_likes: "Redaction's likes"
+        were_loved: '%texts% texts were loved by %customers% different customers'
+        were_not_liked: "%texts% texts were not liked by %customers% different customers"
+        mention: Mention
+        remuneration: Remuneration
+        count_projects: "%current% in progress / %completed% completed"
+        netlinking_project: netlinking
+        copywriting_project: copywriting
+        earning_bonus: Earning bonus
+        netlinking_likes_bonus: Netlinking likes bonus
+        netlinking_backlinks_bonus: Netlinking backlinks bonus
+        copywriting_rating_bonus: Copywriting rating bonus
+
+form:
+    balance: Balance
+    role: Role
+    role_superadmin: Super admin
+    role_writer_admin: Writer admin
+    role_writer_netlinking: Writer netlinking
+    role_writer_copywriting: Writer copywriting
+    role_writer: SEO
+    role_webmaster: Webmaster
+    spending: Price per submission
+    affiliation_tariff: Affiliation tariff
+    spending_helper: 'Reset this field to "0" to apply the current default rate: %spending%'
+    affiliation_tariff_helper: 'Set this field to "0" to apply the current default rate: %affiliation_tariff%'
+    trusted: Trusted Webmaster
+    project_hidden_editor: Project hidden to the editor
+    bonus_projects: Bonus project
+    copywriting_rate: Copywriting rate
+    writer_directory: Directory
+    writer_writing: Writing
+    edit_password:
+        button: Change password
+    show_affiliation: Do show affiliation menu
+    amount_wire_transfer: Amount of wire transfer
+    discount_rate: Discount rate
+
+comission:
+    summary: Summary of your commissions during the last 12 months
+    validated_links: Validated links
+    earnings: Earnings
+    action: Action
+    details: Details
+    period: 'Details of the winnings. Period: %%month%%/%%year%%'
+    directory: Directory
+    validated_site: Validated site
+    gain : Gain
+    date: Date
+
+resetmessage:
+    emailsent: An email has been sent.
+    aboutemail: It contains a link you must click to reset your password.
+    note: Note
+    noteabouttime: You can only request a new password once within
+    hours: hours
+    checkspam: If you don't get an email check your spam folder or try again.
+    user_not_found: Sorry, there is no user in our database using this email!
+
+resetrequest:
+    forgot_password: Forgot password
+    enter_email: Enter your email address and your password will be reset and emailed to you.
+
+validation:
+    vat_number: You must put TVA Number for European country

@@ -1,0 +1,21 @@
+{{ form_start(form, {'attr': {'id': 'add-new-record' }}) }}
+    <input type="hidden" id="eSid" name="id" value="{{ id }}">
+    <input type="hidden" id="eStype" name="type" value="{{ type }}">
+
+    {#{% do form.save.setRendered %}#}
+    {#{% do form.discard.setRendered %}#}
+    {#{{ form_widget(form) }}#}
+    {{ form_errors(form) }}
+    {{ form_row(form.recipient, {'attr': {'class' : 'chosen-select'}}) }}
+    {{ form_row(form.subject) }}
+    {{ form_row(form.content) }}
+    <div class="horizontal-line m-t-sm">
+        {{ form_row(form.sendMessage) }}
+    </div>
+    <div class="text-right">
+        {{ form_widget(form.discard) }}
+        {{ form_widget(form.save) }}
+    </div>
+    {{ form_rest(form) }}
+
+{{ form_end(form) }}

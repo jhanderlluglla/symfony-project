@@ -1,0 +1,131 @@
+netlinking_all:
+    path:     /
+    defaults: { _controller: UserBundle:Netlinking:index }
+
+netlinking_check_url:
+    path:     /check-url
+    defaults: { _controller: UserBundle:Netlinking:checkUrl }
+    options:
+        expose: true
+
+netlinking_add:
+    path:     /add
+    defaults: { _controller: UserBundle:Netlinking:add }
+
+netlinking_start:
+    path:     /start/{id}
+    defaults: { _controller: UserBundle:Netlinking:start }
+    requirements:
+        id: '\d+'
+
+netlinking_stop:
+    path:     /stop/{id}
+    defaults: { _controller: UserBundle:Netlinking:stop }
+    requirements:
+        id: '\d+'
+
+netlinking_inprogress:
+    path:     /inprogress/{id}
+    defaults: { _controller: UserBundle:Netlinking:inprogress }
+    requirements:
+        id: '\d+'
+
+netlinking_detail:
+    path:     /detail/{id}
+    defaults: { _controller: UserBundle:Netlinking:detail }
+    requirements:
+        id: '\d+'
+    options:
+        expose: true
+
+netlinking_job_complete:
+    path:     /job/{jobId}/complete
+    defaults: { _controller: UserBundle:Netlinking:jobComplete }
+    methods: [POST]
+    options:
+        expose: true
+
+netlinking_schedule_task_impossible:
+    path:     /schedule-task/{scheduleTaskId}/impossible
+    defaults: { _controller: UserBundle:Netlinking:jobImpossible }
+    methods: [POST]
+    options:
+        expose: true
+
+netlinking_delete_mass:
+    path:     /delete-mass
+    defaults: { _controller: UserBundle:Netlinking:deleteMass }
+    methods: [POST]
+    options:
+        expose: true
+
+netlinking_assign_mass:
+    path:     /assign-mass
+    defaults: { _controller: UserBundle:Netlinking:assignMass }
+    methods: [POST]
+    options:
+        expose: true
+
+netlinking_detail_writer:
+    path:     /detail-writer/{taskId}
+    defaults: { _controller: UserBundle:Netlinking:detailWriter }
+    requirements:
+        taskId: '\d+'
+    options:
+        expose: true
+
+netlinking_edit:
+    path:     /edit/{status}/{id}
+    defaults: { _controller: UserBundle:Netlinking:edit, status: current }
+    requirements:
+        status: current|nostart|waiting|finished
+        id: '\d+'
+
+netlinking_delete:
+    path:     /delete/{status}/{id}
+    defaults: { _controller: UserBundle:Netlinking:delete, status: current }
+    requirements:
+        status: current|nostart|waiting|finished
+        id: '\d+'
+
+netlinking_status:
+    path:     /{status}
+    defaults: { _controller: UserBundle:Netlinking:index, status: current }
+    requirements:
+        status: current|nostart|waiting|finished|getnew
+
+netlinking_report:
+    path: /report/{id}
+    defaults: { _controller: UserBundle:Netlinking:report}
+
+job_reject:
+    path: /job/{jobId}/reject
+    defaults: { _controller: UserBundle:Netlinking:reject}
+    requirements:
+        id: '\d+'
+    options:
+        expose: true
+
+job_ajax_change_rating:
+    path: submission/change/rating/{jobId}
+    defaults: { _controller: UserBundle:Netlinking:rating}
+    requirements:
+        jobId: '\d+'
+    options:
+        expose: true
+
+schedule_task_do:
+    path: scheduleTask/{scheduleTaskId}/do
+    defaults: { _controller: UserBundle:Netlinking:doScheduleTask}
+    requirements:
+        jobId: '\d+'
+    options:
+        expose: true
+
+netlinking_evolution:
+    path: /{id}/evolution/
+    defaults: { _controller: UserBundle:Netlinking:evolution}
+    requirements:
+        id: '\d+'
+    options:
+        expose: true

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <title>{% block title %}Ereferer{% endblock %}</title>
+
+    <link href="/css/admin/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/admin/font-awesome/css/font-awesome.css" rel="stylesheet">
+    <link href="/css/admin/plugins/iCheck/custom.css" rel="stylesheet">
+    <link href="/css/admin/animate.css" rel="stylesheet">
+    <link href="/css/admin/FOSstyle.min.css" rel="stylesheet">
+    <link href="/css/admin/style.css" rel="stylesheet">
+
+    <link rel="icon" type="image/png" href="{{ asset(favicon) }}" />
+
+
+
+</head>
+
+<body class="gray-bg">
+    <div class="{% block class_for_form %}{% endblock %}">
+        {% block fos_user_content %}
+        {% endblock fos_user_content %}
+    </div>
+
+    <!-- Mainly scripts -->
+    <script src="/js/admin/jquery-3.1.1.min.js"></script>
+    <script src="/js/admin/bootstrap.min.js"></script>
+
+    {% block fos_user_style %}
+    {% endblock fos_user_style %}
+
+    {% block fos_user_script %}
+    {% endblock fos_user_script %}
+
+</body>
+
+</html>

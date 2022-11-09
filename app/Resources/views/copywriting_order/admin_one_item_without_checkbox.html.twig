@@ -1,0 +1,162 @@
+{% trans_default_domain 'copywriting' %}
+{% form_theme assign_form.createView() "form/theme.html.twig" %}
+<div class="copywriting-project project-card" data-project-id="{{ order.id }}">
+    <div class="description-block">
+        <h3 class="description-block__title ellipsis">
+            {{ order.title }}
+            {% block checkbox %}{% endblock %}
+        </h3>
+        {% if order.project.language %}
+            <img src="/img/svg-sprite/{{ order.project.language}}.svg" alt="Current Language" class="language-img">
+        {% endif %}
+        {% if order.project.description %}
+            <p class="description-block__item ellipsis"><span>{{ 'description'|trans }}:</span>{{ order.project.description|nl2br }}</p>
+        {% endif %}
+        {% if order.instructions %}
+            <p class="description-block__item ellipsis"><span>{{ 'instructions'|trans }}:</span>{{ order.instructions|nl2br }}</p>
+        {% endif %}
+
+        {% if order.express and order.deadline %}
+            <div class="description-block__item">
+                <span>{{ 'express.article'|trans }}:</span><br>
+                {% if order.deadline > date() %}
+                    <div class="m-l-md text-danger font-italic" data-express-timer="{{ order.deadline.getTimestamp() - date().getTimestamp() }}"></div>
+                    {% if app.user.writer %}
+                        <span class="m-l-md">{{ 'express.bonus'|trans }}:</span>
+                        <span><b class="text-info">+{{ order.writerExpressBonus }}€</b></span>
+                    {% endif %}
+                {% else %}
+                    <b class="text-danger small">{{ 'express.expired'|trans }}</b>
+                {% endif %}
+            </div>
+        {% endif %}
+        {% if order.status is same as(constant('CoreBundle\\Entity\\CopywritingOrder::STATUS_COMPLETED'))
+                and order.exchangeProposition is not null
+                and order.exchangeProposition.pagePublish
+        %}
+            {{ 'publication_url'|trans }}: <a href="{{ order.exchangeProposition.pagePublish }}">{{ order.exchangeProposition.pagePublish }}</a>
+        {% endif %}
+
+        {% if order.exchangeProposition is not null
+            and order.exchangeProposition.publicationResponseCode is not null
+            and order.exchangeProposition.publicationResponseCode != constant('CoreBundle\\Entity\\ExchangeSite::RESPONSE_CODE_PUBLISH_SUCCESS')
+        %}
+            <div class="m-t-md message {{ order.exchangeProposition.publicationResponseCode != constant('CoreBundle\\Entity\\ExchangeSite::RESPONSE_CODE_PUBLISH_PENDING') ? 'error' : 'info' }}">
+                {{ 'response_error_main_message' | trans({}, 'exchange_site_proposals') }}
+                {{ ('response_code.' ~ order.exchangeProposition.publicationResponseCode) | trans({}, 'exchange_site_proposals') }}
+            </div>
+        {% endif %}
+    </div>
+    <div class="statistick-data">
+        <h4 class="project-status status-{{ order.status }}">{{ order.status|trans }}</h4>
+
+        <ul class="statistick-data_list">
+            <li>
+                <div class="statistick-data_title">{{ 'proposed_on'|trans }}</div>
+                <div class="statistick-data_value small">{{ order.createdAt|date('Y/m/d') }}</div>
+            </li>
+            {% if order.status == constant('STATUS_WAITING', order) %}
+                <li>
+                    <div class="statistick-data_title">{{ 'launch_date'|trans }}</div>
+                    <div class="statistick-data_value small">{{ order.launchedAt|date('Y/m/d') }}</div>
+                </li>
+            {% elseif order.status == constant('STATUS_COMPLETED', order) %}
+                <li>
+                    <div class="statistick-data_title">{{ 'completed_at'|trans }}</div>
+                    <div class="statistick-data_value small">{{ order.completedAt|date('Y/m/d') }}</div>
+                </li>
+            {% elseif order.status == constant('STATUS_PROGRESS', order) %}
+                <li>
+                    <div class="statistick-data_title">{{ 'taken_at'|trans }}</div>
+                    <div class="statistick-data_value small">{{ order.takenAt|date('Y/m/d') }}</div>
+                </li>
+                {% if order.daysAtWork > 0 %}
+                    <li>
+                        <div class="statistick-data_title">{{ 'days_at_work'|trans }}</div>
+                        <div class="statistick-data_value">{{ order.daysAtWork }}</div>
+                    </li>
+                {% endif %}
+            {% endif %}
+            <li>
+                <div class="statistick-data_title">{{ 'project_name'|trans }}</div>
+                <div class="statistick-data_value small ellipsis">{{ order.project.title }}</div>
+            </li>
+            {% if order.exchangeProposition is not null %}
+                <li>
+                    <div class="statistick-data_title">{{ 'site_url'|trans }}</div>
+                    <div class="statistick-data_value small ellipsis">
+                        <a href="{{ order.exchangeProposition.exchangeSite.url }}">
+                            {{ order.exchangeProposition.exchangeSite.url }}
+                        </a>
+                    </div>
+                </li>
+            {% endif %}
+            <li>
+                <div class="statistick-data_title">{{ 'words_number'|trans }}</div>
+                <div class="statistick-data_value">{{ order.wordsNumber }}</div>
+            </li>
+            {% if order.imagesPerArticleTo %}
+                <li>
+                    <div class="statistick-data_title">{{ 'photos_max'|trans }}</div>
+                    <div class="statistick-data_value">{{ order.imagesPerArticleTo }}</div>
+                </li>
+            {% endif %}
+            <li>
+                <div class="statistick-data_title">{{ 'cost'|trans }}</div>
+                <div class="statistick-data_value"><span class="text-info">{{ order.amount }} {{ 'euro'|trans }}</span></div>
+            </li>
+            {% if order.customer and accessManager().canManageWebmasterUser() %}
+                <li>
+                    <div class="statistick-data_title">{{ 'customer'|trans }}</div>
+                    <div class="statistick-data_value small">
+                        <a href="{{ path('user_edit', {'id':order.customer.id }) }}" target="_blank">{{ order.customer.fullName }}</a>
+                    </div>
+                </li>
+            {% endif %}
+            {% block dayLate %}
+                {% include "copywriting_order/day_late.html.twig" %}
+            {% endblock %}
+
+            {% if accessManager().canManageWriterUser() %}
+                <li class="j-writer">
+                    <div class="statistick-data_title">{{ 'copywriter'|trans }}</div>
+                    <div class="statistick-data_value small">
+                        {% if order.copywriter %}
+                            <a href="{{ path('user_edit', {'id':order.copywriter.id }) }}" target="_blank">{{ order.copywriter.fullName }}</a>
+                        {% else %}
+                            <a href="#" target="_blank" class="not-selected">{{ 'not_selected'|trans }}</a>
+                        {% endif %}
+
+                        {% if order.project.writerCategory and order.project.writerCategory != constant('CoreBundle\\Entity\\CopywritingProject::NO_SELECTION') %}
+                            <br><span class="text-info">{{ (order.project.writerCategory ~ '.title')|trans }}</span>
+                        {% endif %}
+                    </div>
+                </li>
+            {% endif %}
+        </ul>
+
+        {% if accessManager().canManageWriterUser() %}
+            <div class="reassign-item">
+                <div class="statistick-data_title m-t-sm">{{ 'reassign_to'|trans }}:</div>
+                <div class="statistick-data_value small">
+                    {{ form_widget(assign_form.createView(), {'attr': {'data-language': order.project.language }}) }}
+                </div>
+            </div>
+        {% endif %}
+    </div>
+    <div class="action-block clearfix">
+        <div class="buttons-wrapper">
+            {% if order.exchangeProposition is null or order.exchangeProposition.type is same as(constant('OWN_TYPE', order.exchangeProposition))%}
+                <a href="{{ path('copywriting_order_remove', {'id': order.id}) }}" class="btn btn-danger delete"><i class="fa fa-trash"></i>{{ 'remove'|trans }}</a>
+            {% endif %}
+            {% if order.status == constant('STATUS_WAITING', order) %}
+                <a href="{{ path('copywriting_order_edit', {'id': order.id}) }}" class="btn btn-primary" ><i class="fa fa-edit"></i>{{ 'edit'|trans }}</a>
+            {% elseif order.status in [constant('STATUS_SUBMITTED_TO_ADMIN', order), constant('STATUS_PROGRESS', order), constant('STATUS_DECLINED', order)] %}
+                <a href="{{ path('copywriting_article_edit', {'id': order.article.id}) }}" class="btn btn-primary" ><i class="fa fa-edit"></i>{{ 'edit'|trans }}</a>
+            {% elseif order.status in [constant('STATUS_SUBMITTED_TO_WEBMASTER', order), constant('STATUS_COMPLETED', order)] %}
+                <a href="{{ path('copywriting_order_show', {'id': order.id}) }}" class="btn btn-warning"><i class="fa fa-eye"></i>{{ 'show'|trans }}</a>
+                <a href="{{ path('copywriting_article_edit', {'id': order.article.id}) }}" class="btn btn-primary" ><i class="fa fa-edit"></i>{{ 'edit'|trans }}</a>
+            {% endif %}
+        </div>
+    </div>
+</div>

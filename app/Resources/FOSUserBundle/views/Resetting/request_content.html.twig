@@ -1,0 +1,25 @@
+{% trans_default_domain 'FOSUserBundle' %}
+
+<div class="ibox-content custom-vertical-align">
+    <h2 class="font-bold">{{ 'resetrequest.forgot_password'|trans({},'user')  }}</h2>
+    <p>
+        {{ 'resetrequest.enter_email'|trans({},'user')  }}
+    </p>
+    <div class="row">
+        <div class="col-lg-12">
+            {% if app.request.get('username') %}
+                <div class="text-danger">{{ 'resetmessage.user_not_found'|trans({}, 'user') }}</div>
+            {% endif %}
+            <form action="{{ path('fos_user_resetting_send_email') }}" method="POST" class="fos_user_resetting_request">
+                <div class="form-group">
+                    <label for="username">{{ 'resetting.request.username'|trans }}</label>
+                    <input type="text" id="username" name="username" required="required" class="form-control" value="{{ app.request.get('username') }}"/>
+                </div>
+                <div>
+                    <input type="submit" value="{{ 'resetting.request.submit'|trans }}" class="btn btn-primary block full-width m-b" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+

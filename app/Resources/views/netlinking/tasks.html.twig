@@ -1,0 +1,15 @@
+{% trans_default_domain 'netlinking' %}
+ <div class="tasks-group">
+     <div class="tasks-group__item">
+         <span class="task-name">{{ 'table.day_tasks'|trans }}:</span><span>{{ tasksStatistic[entity.id]['day_tasks'] | default(0) }}</span>
+     </div>
+     <div class="tasks-group__item">
+         <span class="task-name">{{ 'table.task_remaining'|trans }}:</span><span>{{ tasksStatistic[entity.id]['remaining'] | default(0)}}</span>
+     </div>
+     <div class="tasks-group__item">
+         <span class="task-name">{{ 'table.accomplished_task'|trans }}:</span><span>{{ tasksStatistic[entity.id]['accomplished'] | default(0) }}</span>
+     </div>
+     <div class="tasks-group__item m-t-md">
+         <span class="task-name text-warning">{{ 'table.total_task'|trans }}:</span>{{ tasksStatistic[entity.id]['total'] | default(0) }}<span></span>
+     </div>
+ </div>

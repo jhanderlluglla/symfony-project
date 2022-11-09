@@ -1,0 +1,22 @@
+title: Personal images
+
+add_title: New image
+
+edit_title: Edit image
+search_placeholder: Searching via a description
+
+upload_image: Upload image
+error_upload_image: Error with upload your image. Please try again
+
+author: Author
+description: Description
+
+table:
+    image: Image
+    actions: Actions
+    edit: Edit
+    delete: Delete
+
+form:
+    upload_image: Upload an image
+    submit: Submit

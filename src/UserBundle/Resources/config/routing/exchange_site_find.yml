@@ -1,0 +1,25 @@
+user_exchange_site_find:
+    path:     /exchange-site-find
+    defaults: { _controller: UserBundle:ExchangeSiteFind:index }
+    options:
+        expose: true
+
+user_exchange_site_find_modal:
+    path:     /exchange-site-find-modal
+    defaults: { _controller: UserBundle:ExchangeSiteFind:modal }
+    options:
+        expose: true
+
+user_exchange_proposal_delete:
+  path:     /exchange-site-proposals-delete/{id}
+  defaults: { _controller: UserBundle:ExchangeSiteProposals:delete }
+  requirements:
+      id: '\d+'
+  options:
+      expose: true
+
+user_exchange_site_script:
+  path:     /exchange-propsals-update-db-script
+  defaults: { _controller: UserBundle:ExchangeSiteFind:script }
+  options:
+      expose: true

@@ -1,0 +1,69 @@
+user_dashboard:
+    path:     /dashboard
+    defaults: { _controller: UserBundle:Dashboard:index }
+
+user_hide_credit_info:
+    path:     /dashboard/hide_credit_info
+    defaults: { _controller: UserBundle:Dashboard:hideCreditInfo }
+    options:
+      expose: true
+
+user_profile:
+    path:     /profile
+    defaults: { _controller: UserBundle:User:profile }
+
+user_email_notification:
+    path:     /email-notification
+    defaults: { _controller: UserBundle:User:settings }
+
+user_comission:
+    path:     /comission
+    defaults: { _controller: UserBundle:User:comission }
+
+user_comission_detail:
+    path:     /comission-detail/{month}/{year}
+    defaults: { _controller: UserBundle:User:comissionDetail }
+
+user_balance:
+    path:     /user/my-balance
+    defaults: { _controller: UserBundle:User:balance }
+
+user_list:
+    path:     /user/list/{role}
+    defaults: { _controller: UserBundle:User:index }
+    requirements:
+        role: seo|webmaster|administrator|writer_admin|writer_netlinking|writer_copywriting
+
+user_add:
+    path:     /user/add
+    defaults: { _controller: UserBundle:User:add }
+
+user_edit:
+    path:     /user/edit/{id}
+    defaults: { _controller: UserBundle:User:edit }
+    requirements:
+        id: '\d+'
+
+user_delete:
+    path:     /user/delete/{id}
+    defaults: { _controller: UserBundle:User:delete }
+    requirements:
+        id: '\d+'
+
+user_endis:
+    path:     /endis/{id}
+    defaults: { _controller: UserBundle:User:endis }
+
+user_modal:
+    path:     /user/modal
+    defaults: { _controller: UserBundle:User:modal }
+    options:
+        expose: true
+
+user_earning:
+    path:     /earning
+    defaults: { _controller: UserBundle:User:earning }
+
+user_pay:
+    path:     /user/users_pay_list
+    defaults: { _controller: UserBundle:User:payment }

@@ -1,0 +1,33 @@
+invoice: Facture
+view_invoice: Voir les factures
+object: Objet
+title_item_list: Liste
+phone: Téléphone
+price: Prix unitaire
+tax: TVA
+total_price: Prix total
+sub_total: Sous-Total
+tax_total: TVA
+total: Total
+payment_object: Rechargement ereferer
+tax_description: "TVA applicable au taux de :"
+autoliquidation: Autoliquidation de la TVA
+tax_in_europe: Vente d'un service intracommunautaire à un État membre de l'UE. Autoliquidation par le locataire (article 283-2 du code général des impôts)
+tax_not_in_europe: Vente d'un service extra-communautaire (pays non membre de l'UE). Exonération de TVA (article 283-2 du CGI)
+tax_not_in_europe_part2: TVA non applicable – art. 259-1 du CGI
+comment: Avec nos remerciements !
+from: De
+to: à
+invoice_vat_number: Numéro de TVA
+fees: Frais
+
+download: télécharger
+view: Voir
+
+table:
+    full_name: Nom complet
+    amount: Montant
+    vat: TVA
+    filename: Nom du fichier
+    created_at: Créé le
+    actions: Actions

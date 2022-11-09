@@ -1,0 +1,19 @@
+admin_pages:
+    path:     /
+    defaults: { _controller: UserBundle\Controller\Pages\IndexController::pageListAction }
+
+pages_homepage:
+    path:     /homepage
+    defaults: { _controller: UserBundle\Controller\Pages\HomepageController::indexAction }
+
+pages_homepage_add:
+    path:     /homepage/add
+    defaults: { _controller: UserBundle\Controller\Pages\HomepageController::addAction }
+
+pages_homepage_edit:
+    path:     /homepage/edit/{id}
+    defaults: { _controller: UserBundle\Controller\Pages\HomepageController::editAction }
+
+pages_homepage_delete:
+    path:     /homepage/delete/{id}
+    defaults: { _controller: UserBundle\Controller\Pages\HomepageController::deleteAction }

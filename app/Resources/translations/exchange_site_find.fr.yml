@@ -1,0 +1,151 @@
+title: Search sites
+
+tabs:
+    most_used: Les plus utilisés
+    advanced: Options avancées
+    majestic: Majestic
+    semrush: Semrush
+    publication_rules: Règles de publications
+    proposals: Propositions
+    find_sites: Trouver des sites
+
+form:
+    search_tag: Recherche par mot-clé / URL
+    search_category: Recherche par catégorie
+    choose_category: Sélectionner une catégorie
+    choose_language: Toutes les langues
+    categories: Catégories
+    credit: Crédit
+    price: Prix
+    free_website: Afficher les sites gratuits
+    language: Langue
+    google_news: Google News
+    trust_flow: Trust flow
+    citation_flow: Citation flow
+    trust_citation_ration: Trust flow/Citation flow ratio
+    page_authority: Page Authority
+    domain_authority: Domain Authority
+    plugin: Partenaire (plugin)
+    authorized_anchor: Ancre autorisée
+    authorized_anchor_unoptimized: Désoptimisée
+    authorized_anchor_semioptimized: Semi-optimisée
+    authorized_anchor_optimized: Optimisée
+    google_analytics: Site partageant ses stats Google Analytics
+    topical_trust_flow: Topical trust flow
+    google: Google
+    alexa: Alexa
+    moz: Moz
+    age_type: Âge
+    age_whois: Whois
+    age_archive_org: Archive.org
+    google_indexed_pages: Pages indexées
+    backlinks: Liens
+    edu_backlinks: Liens .edu
+    gov_backlinks: Liens .gov
+    semrush_traffic: Trafic Semrush
+    semrush_keyword: Mots-clés
+    semrush_traffic_cost: Coût du Trafic
+    age: Âge (années)
+    referring_domains: Domaines référents
+    reac_webmaster: Temps de réaction
+    hidden_url: Ne pas afficher les URLs cachées
+    filter: Appliquer les filtres
+    add_category: Ajouter une catégorie
+    remove_category: Retirer
+    ttf_category_placeholder: Sélectionner une catégorie
+    age_type_placeholder: Sélectionner un service
+    rate: Taux
+    accept_inner_pages: Accepte les pages internes ou sous-domaines
+    accept_legal_info: Je n'ai pas de mentions légales sur mon site
+    words_count: Nombre de mots souhaités
+    age_years: Années
+    age_month: Mois
+    other_function: Autres fonctions
+    show_filters: Voir les filtres
+    hide_filters: Cacher les filtres
+    items_found: Sites trouvés
+table:
+    user: Propriétaire
+    site: Site
+    opinion: Avis
+    reaction_time: Temps de réaction du webmaster
+    overview: Vue d'ensemble
+
+modal:
+    error: Erreur
+    site_error: Le site n'a pas été trouvé
+    credit_error: Vous n'avez pas assez d'argent sur Ereferer pour commander sur ce site.
+    proposal_credit_error: Vous n'avez pas assez d'argent sur Ereferer pour commander sur ce site (Vous avez %balance% €.)
+    invalid_extension: "L'extension de votre document est incorrecte. Nous acceptons : %valid_extensions% Votre extension : %your_extension%"
+    close: Fermer
+    accept: J'accepte
+    links: "%maxLinksNumber% lien(s) maximum"
+    images: "De %minImagesNumber% images minimum à %maxImagesNumber% images maximum"
+    headerOne: Besoin d'un Titre H1
+    headerTwoMin: "De %minHeaderTwo% titre(s) H2 minimum"
+    headerTwoMax: "à %maxHeaderTwo% titre(s) H1 maximum"
+    headerThreeMin: "De %minHeaderThree% titre(s) H3 minimum"
+    headerThreeMax: "à %maxHeaderThree% titre(s) H3 maximum"
+    boldText: Besoin de mots ou expressions en gras
+    italicText: Besoin de mots ou expressions en italic
+    quotedText: Besoin d'un texte cité
+    ulText: Besoin d'une liste
+    writing_ereferer:
+        title: Proposition d'article par Ereferer
+        content: Vous n'avez rien à faire. Ereferer se charge de rédiger l'article suivant les critères d'acceptation du blog et le soumettre ensuite automatiquement au partenaire. Vous devez simplement mentionner votre ancre et, si besoin, donner des consignes particulières :
+        footer: Vous serez débité de %totalPrice%€ comprenant %redactionPrice%€ pour la rédaction et %credits%€ pour le prix de l'article sur ce site. Si jamais le partenaire refuse ou ne répond pas, vous serez remboursé de %credits%€ pour le prix du site. En revanche, l'article ne sera pas remboursé mais vous disposerez d'un lien pour le télécharger et l'utiliser comme bon vous semble.   #for writing the article of %minWordsNumber% words, %imagesPrice% € of %images% images and %credits% € for webmaster. Note that the money will be re-awarded if the article has not been accepted.
+        your_links: Vos liens
+        accepted: Votre demande a été acceptée
+        form:
+            url: Url
+            anchor: Titre
+            instructions: Consignes de rédaction (optionnel)
+        drafting_projects:
+            title: Proposition d'article
+            description:
+                rules: "Règles du site : %rule%"
+                instructions: "Consignes du client : %instructions%"
+    writing_webmaster:
+        title: Rédaction de l'article par le webmaster
+        content: "Vous n'avez rien à faire. Le webmaster se chargera de la rédaction de votre article. Vous devez simplement nous spécifier votre/vos ancre(s) ainsi que d'éventuelles consignes:"
+        footer: Attention, en cliquant sur "Envoyer", vous serez débité de %credits% money. Ses derniers vous seront toutefois restitués si le webmaster ne peut répondre favorablement à votre requête.
+        attention: ATTENTION
+        attention_message: Vous serez débité de 10 € supplémentaire afin de rémunérer la rédaction par le propriétaire du blog.
+        accepted: Votre demande a été acceptée
+        instructions:
+            links_made: Liens à faire
+            link: "Lien vers : %url% sur l'ancre suivante : %anchor%"
+    submit_your_article:
+        title: Votre article
+        paragraph_one: Votre article doit être sous l'un des formats suivants "* .doc, * .docx" ou OpenOffice "* .odt".
+        paragraph_two: Vous devez rédiger un texte de %minWordsNumber% mots dont voici les consignes :
+        paragraph_three: Vous serez débité de %credits%. Si le partenaire refuse votre article, vous serez recrédité.
+        header_four: Règles de publication
+        accepted: "Votre document a bien été accepté :"
+        errors:
+            words: Votre article possède %has_words% mots. Il doit contenir au moins %minimum_words% mots.
+            links: Votre article possède %has_links% lien(s). Il doit contenir moins de %maximum_links% liens.
+            images: Votre article possède %has_images% image(s). Il doit au moins avoir %minimum_images% et pas plus que %maximum_images% image(s)
+            file_convert: Erreur lors de la convertion du fichier
+            zip_extract: La lecture du fichier a rencontré un problème.
+            html_file: Le fichier HTML n'a pas été trouvé.
+            header_one: Votre document ne contient pas de titre H1. Il doit en posséder au moins 1.
+            header_two: Votre document contient %has_headers% titre(s) H2. Il doit avoir au moins %minimum_headers% titre(s) H2 et au maximum %maximum_headers% titre(s) H2.
+            header_three: Votre document contient %has_headers% titre(s) H3. Il doit avoir au moins %minimum_headers% titre(s) H3 et au maximum %maximum_headers% titre(s) H3.
+            bold_required: Votre article contient %has_bold% mots ou expressions en gras. Il doit en contenir.
+            bold_is_not_required: Votre article contient %has_bold% mots ou expressions en gras. Il ne doit pas en contenir.
+            italic_required: Votre article contient %has_italic% expressions en Italic. Il doit en contenir.
+            italic_is_not_required: Votre article contient %has_italic% mots ou expressions en italic. Il ne doit pas en contenir.
+            ul_is_not_required: Votre article a %has_ul% list(s). Vous n'avez pas besoin d'une balise list.
+            ul_is_required: Votre article a %has_ul% ul list(s). Vous avez besoin d'une balise list.
+            quote_is_not_required: Votre article contient %has_quote% quote text. Vous n'avez pas besoin d'un texte de devis.
+            quote_is_required: Votre article contient %has_quote% quote text. Vous avez besoin d'un texte de citation.
+        valid:
+            words: Votre article contient %has_words% mots.
+            links: Votre article possède %has_links% lien(s).
+            images: Votre article possède %has_images% image(s).
+        form:
+            browse: Consulter
+
+yes: Oui
+no: Non

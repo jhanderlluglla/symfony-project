@@ -1,0 +1,105 @@
+copywriting_article_edit:
+    path:     /article/{id}/edit
+    defaults: { _controller: UserBundle:CopywritingArticle:edit }
+
+copywriting_article_show:
+    path:     /article/{id}/show
+    defaults: { _controller: UserBundle:CopywritingArticle:show }
+
+copywriting_article_download:
+    path:     /article/{id}/download
+    defaults: { _controller: UserBundle:CopywritingArticle:download }
+
+copywriting_article_remove:
+    path:     /article/{id}/remove
+    defaults: { _controller: UserBundle:CopywritingArticle:delete }
+
+copywriting_order_list:
+    path:     /order/list
+    defaults: { _controller: UserBundle:CopywritingOrder:index }
+
+copywriting_order_edit:
+    path:     /order/{id}/edit
+    defaults: { _controller: UserBundle:CopywritingOrder:edit }
+
+copywriting_order_show:
+    path:     /order/{id}/show
+    defaults: { _controller: UserBundle:CopywritingOrder:show }
+
+copywriting_order_remove:
+    path:     /order/{id}/remove
+    defaults: { _controller: UserBundle:CopywritingOrder:delete }
+
+copywriting_order_take_to_work:
+    path:     /order/{id}/take-to-work
+    defaults: { _controller: UserBundle:CopywritingOrder:takeToWork }
+
+copywriting_order_decline:
+    path:     /order/{id}/decline
+    defaults: { _controller: UserBundle:CopywritingOrder:decline }
+
+copywriting_project_list:
+    path:     /project/list
+    defaults: { _controller: UserBundle:CopywritingOrder:index }
+
+copywriting_project_create:
+    path:     /project/create
+    defaults: { _controller: UserBundle:CopywritingProject:add }
+
+copywriting_template_fetch:
+    path:     /template/{id}
+    defaults: { _controller: UserBundle:CopywritingProject:template }
+    options:
+            expose: true
+
+copywriting_project_edit:
+    path:     /project/edit/{id}
+    defaults: { _controller: UserBundle:CopywritingProject:edit }
+
+copywriting_order_ajax_change_rating:
+    path:     /ajax/change-rating/{id}
+    defaults: { _controller: UserBundle:CopywritingOrder:ajaxChangeRating }
+    options:
+            expose: true
+
+copywriting_order_ajax_assign:
+    path:     /ajax/assign
+    defaults: { _controller: UserBundle:CopywritingOrder:ajaxAssign }
+    options:
+            expose: true
+
+copywriting_order_statistics:
+    path:     /order/statistics
+    defaults: { _controller: UserBundle:CopywritingOrder:statistics }
+
+copywriting_get_writers:
+    path:     /project/writers
+    defaults: { _controller: UserBundle:ChooseWriter:writers }
+    options:
+        expose: true
+
+copywriting_waiting_orders:
+    path:     /orders/waiting
+    defaults: { _controller: UserBundle:ChooseWriter:waitingOrders }
+
+copywriting_waiting_order_take_to_work:
+    path:     /waiting-order/{id}/take-to-work
+    defaults: { _controller: UserBundle:ChooseWriter:takeToWork }
+
+copywriting_waiting_order_reject_work:
+    path:     /waiting-order/{id}/reject
+    defaults: { _controller: UserBundle:ChooseWriter:rejectWork }
+
+copywriting_upload_image:
+    path:     /article/upload_image
+    defaults: { _controller: UserBundle:CopywritingArticle:uploadImage }
+    options:
+        expose: true
+
+copywriting_article_toggle_review:
+    path:     /free-article/{id}
+    defaults: { _controller: UserBundle:CopywritingArticle:toggleReview }
+    requirements:
+        id: '\d+'
+    options:
+        expose: true

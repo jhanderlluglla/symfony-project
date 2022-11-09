@@ -1,0 +1,206 @@
+{% extends 'base_front.html.twig' %}
+
+{% trans_default_domain 'home_page' %}
+
+{% block title %}
+    {{ 'title'|trans }}
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+{% endblock %}
+
+{% block content %}
+    <div class="header">
+        <div class="container">
+            {% if homepage.topList is defined and homepage.topList is not empty %}
+                <div class="contain">
+                    <ul class="wow fadeInUp">
+                        {% for element in homepage.topList %}
+                            <li>{{ element }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% if homepage.topButton.title is defined %}
+                        <div>
+                            <a href="{{ homepage.topButton.link }}" class="btn btn-warning wow fadeInLeft"
+                               data-wow-delay="0.30s"><h1 class="button-text">{{ homepage.topButton.title }}</h1></a>
+                        </div>
+                    {% endif %}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
+    {% if homepage.blockContainer.buttonBlocks is defined and homepage.blockContainer.buttonBlocks is not empty %}
+        <div class="wow fadeInUp features" data-wow-delay="0.5s">
+
+            {% for block in homepage.blockContainer.buttonBlocks %}
+
+                <div class="card">
+                    <div class="content__wrap">
+                        <h2 class="card__title {{ block.icon }}">{{ block.title }}</h2>
+                        <div class="card__text">{{ block.text|raw }}</div>
+                    </div>
+                    <div class="btn__wrap">
+                        <a href="{{ block.button.link }}" class="btn btn-warning">{{ block.button.title }}</a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    {% if homepage.textBlock.text is defined %}
+        <div class="section__about">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-6 col-lg-offset-3">
+                        {% if homepage.textBlock.title is defined %}
+                            <h2 class="section__title wow bounceInLeft">{{ homepage.textBlock.title }}</h2>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6">
+                        {{ homepage.textBlock.text|raw }}
+                    </div>
+                    <div class="col-lg-6">
+                        <img src="img/home/MacBookSilver.png" class="wow fadeInRight img-responsive"
+                             alt="MacBook Silver">
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+    {% if homepage.listBlock.items is defined and homepage.listBlock.items is not empty %}
+        <div class="section__services">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 col-lg-offset-2">
+                        {% if homepage.textBlock.title is not empty %}
+                            <h2 class="section__title wow bounceInLeft text-center">{{ homepage.listBlock.title }}</h2>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <ul class="section__services_list">
+                            {% for item in homepage.listBlock.items %}
+                                <li class="wow fadeIn" data-wow-delay="{{ loop.index * 0.3 }}s">{{ item }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+    <div class="section__info" id="counter">
+        <div class="container">
+            <div class="statistic">
+                {% if exchange_sites_total is not empty %}
+                    <div class="card">
+                        <img class="wow fadeInDown icon" data-wow-delay="0.6s" src="img/home/Forma3.png"/>
+                        <span class="wow fadeIn counter-value bold" data-count="{{ exchange_sites_total }}"
+                              data-wow-delay="0.6s"></span>
+                        <span class="wow fadeInUp light" data-wow-delay="0.6s">{{ 'blogs'|trans }}</span>
+                    </div>
+                {% endif %}
+                {% if directories_total is not empty %}
+                    <div class="card">
+                        <img class="wow fadeInDown icon" data-wow-delay="0.6s" src="img/home/Shape2.png"/>
+                        <span class="wow fadeIn counter-value bold" data-count="{{ directories_total }}"
+                              data-wow-delay="0.6s"></span>
+                        <span class="wow fadeInUp light" data-wow-delay="0.6s">{{ 'directories'|trans }}</span>
+                    </div>
+                {% endif %}
+                {% if price_on_homepage is not empty %}
+                    <div class="card">
+                        <img class="wow fadeInDown icon" data-wow-delay="0.6s" src="img/home/Forma4.png"/>
+                        <span class="wow fadeIn bold" data-wow-delay="0.6s">{{ price_on_homepage }}€</span>
+                    </div>
+                {% endif %}
+                {% if true %}
+                    <div class="card">
+                        <img class="wow fadeInDown icon" data-wow-delay="0.6s" src="img/home/Forma5.png"/>
+                        <span class="wow fadeIn counter-value bold" data-count="1324" data-wow-delay="0.6s"></span>
+                        <span class="wow fadeInUp light" data-wow-delay="0.6s">Suspendisse</span>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-4 col-md-3">
+                    <div class="wow fadeInUp" data-wow-delay="0.3s">
+                        <div class="logo">
+                            <img src="/img/home/logo-footer.png" alt="logo">
+                        </div>
+                    </div>
+                </div>
+
+                {% if article_blogs is not empty %}
+                    <div class="col-sm-8 col-md-9">
+                        <div class="articles-wrap wow fadeInUp" data-wow-delay="0.3s">
+                            <h3>{{ 'articles'|trans }}</h3>
+                            <div class="{% if article_blogs|length > 5 %}columns{% endif %}">
+                                {% for articleBlog in article_blogs %}
+                                    <a href="{{ path('article_blog_view', {'urlPath':articleBlog.urlPath}) }}">{{ articleBlog.title }}</a>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascript_main %}
+    {{ parent() }}
+    <script src="{{ asset('js/home/wow.min.js') }}"></script>
+{% endblock %}
+
+{% block javascript %}
+{{ parent() }}
+<script>
+    new WOW().init();
+</script>
+<script>
+    var a = 0;
+    $(window).scroll(function() {
+
+        var oTop = $('#counter').offset().top - window.innerHeight;
+        if (a == 0 && $(window).scrollTop() > oTop) {
+            $('.counter-value').each(function() {
+                var $this = $(this),
+                    countTo = $this.attr('data-count');
+                $({
+                    countNum: $this.text()
+                }).animate({
+                        countNum: countTo
+                    },
+
+                    {
+
+                        duration: 2000,
+                        easing: 'swing',
+                        step: function() {
+                            $this.text(Math.floor(this.countNum));
+                        },
+                        complete: function() {
+                            $this.text(this.countNum);
+                            //alert('finished');
+                        }
+
+                    });
+            });
+            a = 1;
+        }
+
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,160 @@
+{% trans_default_domain 'exchange_site_find' %}
+<div class="tabs-container filters">
+    <ul class="nav nav-tabs">
+        <li class="active"><a data-toggle="tab" href="#tab-most-used"
+                              aria-expanded="true">{{ 'tabs.most_used'|trans }}</a></li>
+        <li class=""><a data-toggle="tab" href="#tab-advanced" aria-expanded="false">{{ 'tabs.advanced'|trans }}</a>
+        </li>
+        <li class=""><a data-toggle="tab" href="#tab-majestic" aria-expanded="false">{{ 'tabs.majestic'|trans }}</a>
+        </li>
+        <li class=""><a data-toggle="tab" href="#tab-semrush" aria-expanded="false">{{ 'tabs.semrush'|trans }}</a></li>
+        <li class=""><a data-toggle="tab" href="#tab-publication-rules" aria-expanded="false">{{ 'tabs.publication_rules'|trans }}</a></li>
+    </ul>
+    <div class="tab-content">
+        <div id="tab-most-used" class="tab-pane active">
+            <div class="row">
+                <div class="col-lg-4 col-sm-6">
+                    <div class="filter-group clearfix">
+                        {{ form_row(form.category) }}
+                        {{ form_row(form.tag) }}
+                        <div class="m-b-small double-touchspin">
+                            {{ form_row(form.price) }}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-sm-6">
+                    <div class="filter-group">
+                        {{ form_row(form.language) }}
+                        <div id="majesticTrustFlow-mostused" class="double-touchspin">
+                            {{ form_row(form.majesticTrustFlow) }}
+                        </div>
+                        <div id="googleNews-mostused" class="double-touchspin">
+                            {{ form_row(form.googleNews) }}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-sm-6">
+                    <div class="filter-group double-touchspin">
+                        <div id="mozDomainAuthority-mostused">
+                            {{ form_row(form.mozDomainAuthority) }}
+                        </div>
+                        <div id="semrushTraffic-mostused">
+                            {{ form_row(form.semrushTraffic) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="tab-advanced" class="tab-pane">
+            <div class="row">
+                <div class="col-lg-4 col-sm-6">
+                    <div class="filter-group">
+                        <div class="age-wrap">
+                            <div class="filter-year">
+                                {{ form_row(form.ageCondition) }}
+                            </div>
+                            <div class="filter-age">
+                                {{ form_row(form.ageYears) }}
+                                {{ form_row(form.ageMonth) }}
+                            </div>
+                        </div>
+                        <div class="form-inline">
+                            {{ form_widget(form.site) }}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-sm-6 pull-right">
+                    <div class="filter-group">
+                        <div class="bordered-group">
+                            <h3 style="opacity: .4">{{ 'form.moz'|trans }}</h3>
+                            <div class="double-touchspin">
+                                {{ form_row(form.mozPageAuthority) }}
+                            </div>
+                            <div class="double-touchspin">
+                                <div id="mozDomainAuthority-advanced"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-sm-6">
+                    <div class="filter-group double-touchspin">
+                        <h3 class="group-title">{{ 'form.other_function'|trans }}</h3>
+                        <div id="googleNews-advanced"></div>
+                        <div class="m-b-small">
+                            {{ form_row(form.googleAnalytics) }}
+                            {{ form_row(form.hideUrl) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="tab-majestic" class="tab-pane">
+            <div class="row">
+                <div class="col-lg-4 col-sm-6">
+                    <div class="filter-group double-touchspin">
+                        <div id="majesticTrustFlow-majestic"></div>
+                        {{ form_row(form.majesticCitation) }}
+                        {{ form_row(form.majesticTrustCitationRatio) }}
+                    </div>
+                </div>
+                <div class="col-lg-4 col-sm-6">
+                    <div class="filter-group double-touchspin">
+                        {{ form_row(form.majesticBacklinks) }}
+                        {{ form_row(form.majesticEduBacklinks) }}
+                        {{ form_row(form.majesticGovBacklinks) }}
+                    </div>
+                </div>
+                <div class="col-lg-4 col-sm-12">
+                    <div class="row double-touchspin">
+                        <div class="col-sm-6 col-lg-12">
+                            <div class="filter-group">
+                                {{ form_row(form.majesticRefDomains) }}
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-lg-12">
+                            <div class="filter-group ">
+                                {{ form_row(form.majesticTtfCategories) }}
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+        <div id="tab-semrush" class="tab-pane">
+            <div class="row">
+                <div class="col-lg-4 col-sm-6">
+                    <div class="filter-group double-touchspin">
+                        <div id="semrushTraffic-semrush"></div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-sm-6">
+                    <div class="filter-group double-touchspin">
+                        {{ form_row(form.semrushKeyword) }}
+                    </div>
+                </div>
+                <div class="col-lg-4 col-sm-6">
+                    <div class="filter-group double-touchspin">
+                        {{ form_row(form.semrushTrafficCost) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="tab-publication-rules" class="tab-pane">
+            <div class="row">
+                <div class="col-lg-4 col-sm-6">
+                    <div class="filter-group">
+                        {{ form_row(form.authorizedAnchor) }}
+                        {{ form_row(form.plugin) }}
+                    </div>
+                </div>
+                <div class="col-lg-4 col-sm-6">
+                    <div class="filter-group double-touchspin">
+                        {{ form_row(form.wordsCount) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,26 @@
+{% trans_default_domain 'exchange_site_result_proposals' %}
+
+<input type="hidden" id="proposition_id" name="proposition_id" value="{{ id }}" />
+
+<h4>{{ 'modal.vote.title'|trans }}</h4>
+<p>{{ 'modal.vote.text'|trans|raw }}</p>
+
+<div class="form-group">
+    <label>{{ 'modal.vote.your_note'|trans }} *</label>
+    <input id="rating_input" type="text" value="{{ entity.rateStars }}"/>
+</div>
+<div class="form-group">
+    <label>{{ 'modal.vote.your_comment'|trans }} *</label>
+    <textarea id="comment_vote" name="comment_vote" class="form-control">{{ entity.rateComment }}</textarea>
+</div>
+<button id="vote_send" type="button" class="btn btn-w-m btn-primary pull-right m-t">{{ 'modal.vote.button'|trans }}</button>
+<script type="text/javascript">
+    $('#rating_input').rating({
+        min: 0,
+        max: 5,
+        step: 1,
+        size: 'sm',
+        showClear: false,
+        showCaption: false
+    });
+</script>

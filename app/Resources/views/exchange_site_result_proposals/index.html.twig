@@ -1,0 +1,60 @@
+{% trans_default_domain 'exchange_site_result_proposals' %}
+
+<div class="ibox-content">
+    {% block pagerfanta %}
+        {% if proposals.haveToPaginate %}
+            <div class="pagerfanta">
+                {{ pagerfanta(proposals, 'custom_twitter_bootstrap3', {'pageParameter': '[page-proposition]'}) }}
+            </div>
+        {% endif %}
+    {% endblock %}
+    <table class="footable table table-striped">
+    <thead>
+    <tr>
+        <th>{{ 'table.sites'|trans }}</th>
+        <th data-breakpoints="m">{{ 'table.date'|trans }}</th>
+        <th data-breakpoints="m">{{ 'table.price'|trans }}</th>
+        <th data-breakpoints="s">{{ 'table.status'|trans }}</th>
+        <th data-breakpoints="l">{{ 'table.comments'|trans }}</th>
+        <th data-sortable="false" class="text-right" >{{ 'table.action'|trans }}</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for exchangeProposition in proposals %}
+        <tr>
+            <td>
+                {% if accessManager().canManageNetlinkingProject() %}
+                    <p>IDs: {{ exchangeProposition.id }}</p>
+                {% endif %}
+                <p><span class="font-bold">{{ 'table.url'|trans }}:</span><br> <a class="underlined-link" href="{{ exchangeProposition.exchangeSite.url }}" target="_blank">{{ exchangeProposition.exchangeSite.url }}</a></p>
+                {% if accessManager().canManageWebmasterUser() %}
+                    <p>{{ 'table.owner'|trans }}: <a href="#">{{ exchangeProposition.exchangeSite.user.fullName }}</a></p>
+                    <p>{{ 'table.client'|trans }}: <a href="#">{{ exchangeProposition.user.fullName }}</a></p>
+                {% endif %}
+            </td>
+            <td>{{ exchangeProposition.createdAt|date("j F Y H:i:s") }}</td>
+            <td>{{ exchangeProposition.price }}€</td>
+            <td>
+                <i class="status-marker {{ exchange_proposition_status_class(exchangeProposition) }}"></i>
+                <span>{{ exchange_proposition_status_text(exchangeProposition) }}</span>
+            </td>
+            <td>
+                {{ exchange_proposition_comment(exchangeProposition) }}
+            </td>
+            <td class="text-right action" id="action{{ exchangeProposition.id }}">
+                {% if exchangeProposition.canBuyerRead(app.user) %}
+                    {% include 'exchange_site_result_proposals/actions.html.twig' %}
+                {% endif %}
+                {% if app.user.hasRole(constant('CoreBundle\\Entity\\User::ROLE_SUPER_ADMIN')) %}
+                    <a class="btn btn-danger confirmation" href="{{ path('user_exchange_proposal_delete', {'id': exchangeProposition.id}) }}">
+                        <i class="fa fa-times-circle"></i>
+                        {{ 'actions.delete'|trans }}
+                    </a>
+                {% endif %}
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+    {{ block('pagerfanta') }}
+</div>

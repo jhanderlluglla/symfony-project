@@ -1,0 +1,10 @@
+{% extends 'breadcrumb/base.html.twig' %}
+{% block main_breadcrumb %}
+    {% if link is defined %}
+        <a href="{{ path(link) }}">
+            {{ 'article_blog'|trans({}, 'menu') }}
+        </a>
+    {% else %}
+        {{ 'article_blog'|trans({}, 'menu') }}
+    {% endif %}
+{% endblock %}

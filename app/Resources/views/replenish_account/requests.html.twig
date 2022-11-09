@@ -1,0 +1,15 @@
+{% extends 'layout.html.twig' %}
+
+{% trans_default_domain 'replenish_account' %}
+
+{% block title %}
+    {{ 'my_account.replenish_requests'|trans({}, 'menu') }}
+{% endblock %}
+
+{% block breadcrumb %}
+    {{ include('breadcrumb/my_account.html.twig', {'childrens': [block('title')]}) }}
+{% endblock %}
+
+{% block content %}
+    {% include 'replenish_account/table.html.twig' %}
+{% endblock %}

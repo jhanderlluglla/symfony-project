@@ -1,0 +1,100 @@
+{% trans_default_domain 'exchange_site' %}
+
+{% form_theme form "form/theme.html.twig" %}
+
+{{ form_start(form, {'attr': {'class': 'high-inputs copywriting-site_form' }} ) }}
+    {% set editId = 0 %}
+    {% if id is defined %}
+        {% set editId = id %}
+    {% endif %}
+<div class="row">
+    <div class="col-lg-6 step-rows">
+        {% set urlplaceholder = 'url'|trans({}, 'general') %}
+        {{ form_row(form.url, {'id': 'exchange_site_url', 'label_attr': {class: 'bold-label'} ,'attr': { placeholder: urlplaceholder ,'data-id':  editId, 'data-type': constant('CoreBundle\\Entity\\ExchangeSite::COPYWRITING_TYPE') } }) }}
+
+        {{ form_row(form.language, {'label_attr': {'class': 'control-label smaller accent-dark required'}}) }}
+
+        <div class="form-group">
+            {{ form_label(form.apiKey, '', {'label_attr': {'class': 'control-label smaller accent-dark required'}} ) }}
+            <div class="step-rows_flex-group clearfix">
+                <div class="input-wrapper">
+                    <input class="form-control copy-action_right" readonly type="text" name="" id="api_key" value="{{ form.apiKey.vars.value }}">
+                    <button type="button" class="copy-action generated-key hidden" data-clipboard-target="#api_key" id="copy_api_key"><i class="fa fa-clipboard" aria-hidden="true"></i></button>
+                </div>
+                <button type="button" class="btn btn-primary btn-outline" id="button_api_key">{{ 'button_key'|trans }}</button>
+            </div>
+        </div>
+        {{ form_row(form.apiKey, {id: 'api_key_hidden'}) }}
+        {% if app.user.isAdmin %}
+            {{ form_row(form.user, {'label_attr': {'class': 'control-label smaller accent-dark'}}) }}
+        {% endif %}
+    </div>
+
+
+    <div class="col-lg-6">
+        <div class="info-box exchange_site_url_error hidden">
+            <h3 class="info-box_title attention">{{ 'attention'|trans }}</h3>
+
+            <p class="alert-message" id="exchange_site_url_error"></p>
+        </div>
+
+        <div class="info-box">
+            <div class="group">
+                <h3 class="info-box_title">
+                    <span class="icon-svg">
+                        <svg><use xlink:href="#info-icon"></use></svg>
+                    </span>
+                    {{ 'info-box_title'|trans({}, 'general') }}
+                </h3>
+                <p class="info-box_content">
+                    {{ 'download_plugin_ad'|trans }}
+                    <a class="underlined-link-r" href="{{ additionalData['plugin'][constant('CoreBundle\\Entity\\Settings::PLUGIN_MORE_INFORMATION')] }}">
+                        {{ 'more_information'|trans() }}
+                    </a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row step-rows m-t-md">
+    <div class="col-lg-6">
+        <div class="form-group">
+            <label class="control-label smaller accent-dark" for="fileName"> {{ 'form.custom_file_name'|trans({}, 'exchange_site') }}</label>
+            <div class="step-rows_flex-group clearfix">
+                <input class="form-control step-rows_flex-group_input" type="text" name="fileName" id="fileName" placeholder="{{ 'name'|trans({}, 'general') }}">
+                <button type="button" class="btn btn-primary btn-outline"
+                        id="downloadRenamedPlugin">{{ 'form.download_plugin'|trans({}, 'exchange_site') }}</button>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="plugin-status m-b-xlg">
+                <strong class="control-label bold-label accent-dark">{{ 'table.plugin_status'|trans }}:</strong>
+                {% if form.vars.value.apiKey is not null and form.vars.value.pluginUrl is not null %}
+                    <span class="fa fa-check-circle" aria-hidden="true"></span>
+                {% else %}
+                    <span class="fa fa-times-circle" aria-hidden="true"></span>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+
+    <div class="col-lg-6">
+        <div class="info-box">
+            <div class="group">
+                <h3 class="info-box_title">
+                    <span class="icon-svg">
+                        <svg><use xlink:href="#info-icon"></use></svg>
+                    </span>
+                    {{ 'info-box_title'|trans({}, 'general') }}</h3>
+                <p class="info-box_content">{{ 'download_plugin_helper'|trans({}, 'exchange_site') }}</p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="text-right m-t-md">
+    {{ form_widget(form.save, {class: 'TEST'}) }}
+</div>
+{{ form_end(form) }}
+
+

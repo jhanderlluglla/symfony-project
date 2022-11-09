@@ -1,0 +1,16 @@
+title: Backlinks
+
+table:
+    info: Backlink info
+    description: Description
+    directory_description: Directory description
+    see_instruction: See instruction(s)
+    directory: Directory
+    project: Project
+    date: Date
+    validate: Validate
+    reject: Reject
+    reoffered: Re-offered
+    update_success: Success
+    action_performed_successfully: Action performed successfully
+    reoffered_tooltip: 'Click <b><u>resubmit</u></b> each time you resubmit the same site on the same directory.'

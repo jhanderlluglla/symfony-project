@@ -1,0 +1,254 @@
+{% extends 'layout.html.twig' %}
+
+{% trans_default_domain 'netlinking' %}
+
+{% block title %}
+    {{ 'title_detail'|trans }}
+{% endblock %}
+
+{% block breadcrumb %}
+    {{ include('breadcrumb/netlinking.html.twig', {'childrens': [block('title')]}) }}
+{% endblock %}
+
+{% block content %}
+    <div class="netlinking-detail_wrap">
+        <div class="netlinking-detail">
+            <h2 class="netlinking-detail_title">{{ 'table.project'|trans }}: <a href="{{ netlinkingProject.url }}">{{ netlinkingProject.url }}</a></h2>
+
+            {% set stoppedState = netlinking_webmaster_is_stopped(netlinkingProject, app.user.isAdmin) %}
+            {% if (app.user.isWebmaster or app.user.isAdmin) and stoppedState %}
+                <div class="netlinking-detail_title netlinking-detail_paused_title text-danger">
+                    <p>{{ stoppedState }}</p>
+                </div>
+            {% endif %}
+
+            <div class="netlinking-detail_block">
+                <p>
+                    <b>{{ 'table.directories'|trans }}:</b>
+                    <a class="underlined-link"
+                       href="{{ path('admin_directories_list_relation', {'id': netlinkingProject.directoryList.id}) }}">{{ netlinkingProject.directoryList.name }}
+                    </a>
+                </p>
+                <p>
+                    <b>{{ 'table.frequency'|trans }}:</b>
+                    {{ 'table.frequency_text'|trans({'%directory%': netlinkingProject.frequencyDirectory, '%day%': netlinkingProject.frequencyDay }) }}
+                </p>
+                <p>
+                    <b>{{ 'table.number_words_wanted'|trans }}:</b>
+                    {{ netlinkingProject.directoryList.wordsCount }}
+                </p>
+                <p>
+                    <button class="info-button-icon"
+                            type="button"
+                            data-html="1"
+                            data-toggle="tooltip-float"
+                            data-title="{{ 'table.current_cost_project'|trans }}"
+                            data-placement="top"
+                            title="{{ 'table.current_cost_project_tooltip'|trans|raw }}">
+                        <svg><use xlink:href="#info-icon"></use></svg>
+                    </button>
+                    <b>{{ 'table.current_cost_project'|trans }}:</b> {{ currentCost }} €
+                </p>
+                <p>
+                    <button class="info-button-icon"
+                            type="button"
+                            data-html="1"
+                            data-toggle="tooltip-float"
+                            data-title="{{ 'table.remaining_cost'|trans }}"
+                            data-placement="top"
+                            title="{{ 'table.remaining_cost_tooltip'|trans|raw }}">
+                        <svg><use xlink:href="#info-icon"></use></svg>
+                    </button>
+                    <b>{{ 'table.remaining_cost'|trans }}:</b> {{ remainingCost }} €
+                </p>
+            </div>
+            <div class="netlinking-detail_block">
+                <ul class="information-list">
+                    <li class="has-marker">
+                        <span class="marker primary">{{ 'table.links_found'|trans }}:</span>
+                        <span class="bg-colored">
+                            {{ statistics[netlinkingProject.getId][constant('CoreBundle\\Entity\\DirectoryBacklinks::STATUS_FOUND')] | default(0) }}
+                            ({{ statistics[netlinkingProject.getId][constant('CoreBundle\\Entity\\DirectoryBacklinks::STATUS_FOUND') ~ '_percent'] | default(0) }}%)
+                        </span>
+                    </li>
+                    <li class="has-marker">
+                        <span class="marker info">{{ 'table.waiting_links'|trans }}:</span>
+                        <span class="bg-colored">
+                            {{ statistics[netlinkingProject.getId][constant('CoreBundle\\Entity\\DirectoryBacklinks::STATUS_NOT_FOUND_YET')] | default(0) }}
+                            ({{ statistics[netlinkingProject.getId][constant('CoreBundle\\Entity\\DirectoryBacklinks::STATUS_NOT_FOUND_YET') ~ '_percent'] | default(0) }}
+                            %)
+                        </span>
+                    </li>
+                    <li class="has-marker warning">
+                        <span class="marker warning">{{ 'table.links_not_found'|trans }}:</span>
+                        <span class="bg-colored">
+                            {{ statistics[netlinkingProject.getId][constant('CoreBundle\\Entity\\DirectoryBacklinks::STATUS_NOT_FOUND')] | default(0) }}
+                            ({{ statistics[netlinkingProject.getId][constant('CoreBundle\\Entity\\DirectoryBacklinks::STATUS_NOT_FOUND') ~ '_percent'] | default(0) }}
+                            %)
+                        </span>
+                    </li>
+                    <li class="has-marker">
+                        <span class="marker grey">{{ 'table.impossible_submissions'|trans }}:</span>
+                        <span class="text-right m-l-md">
+                            <span class="bg-colored"> {{ statistics[netlinkingProject.getId]['impossible'] | default(0) }}
+                                ({{ statistics[netlinkingProject.getId]['impossible_percent'] | default(0) }}
+                                %)</span>
+                            <div class="no-wrap">
+                                <i class="fa fa-exclamation-triangle"></i><b class="small-text">{{ 'table.not_billed'|trans }}</b>
+                            </div>
+                        </span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="info-box" data-info="detail-info">
+            <h3 class="info-box_title">title</h3>
+            <p class="info-box_content">Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                Accusantium animi doloribus eaque eum, facilis libero minus nihil quaerat sed voluptatum?</p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12">
+            {% for message in app.session.flashBag.get('error') %}
+                <div class="alert alert-warning">
+                    {{ message }}
+                </div>
+            {% endfor %}
+            <div class="tabs-container">
+                <ul class="nav nav-tabs filters j-tabs-with-footable-filter">
+                    <li class=""><a data-toggle="tab" href="#tab-summary" data-filter="summary" aria-expanded="false">{{ 'tab.summary'|trans }}</a></li>
+                    <li class=""><a data-toggle="tab" href="#tab-found" data-filter="found" aria-expanded="false">{{ 'tab.found'|trans }}</a></li>
+                    <li class=""><a data-toggle="tab" href="#tab-awaiting" data-filter="awaiting" aria-expanded="false">{{ 'tab.awaiting'|trans }}</a></li>
+                    <li class=""><a data-toggle="tab" href="#tab-not-found" data-filter="notFound" aria-expanded="false">{{ 'tab.not_found'|trans }}</a></li>
+                    <li class=""><a data-toggle="tab" href="#tab-impossible" data-filter="impossible" aria-expanded="false">{{ 'tab.impossible'|trans }}</a></li>
+                    <li class=""><a data-toggle="tab" href="#tab-blogs" data-filter="blogs" aria-expanded="false">{{ 'tab.blogs'|trans }}</a></li>
+                    <li class=""><a data-toggle="tab" href="#tab-directories" data-filter="directories" aria-expanded="false">{{ 'tab.directories'|trans }}</a></li>
+                    <li class="active"><a data-toggle="tab" href="#tab-all" aria-expanded="true">{{ 'tab.all'|trans }}</a></li>
+                </ul>
+                <div class="tab-content netlinking-detail_tabs">
+                    <div id="tab-summary" class="tab-pane"></div>
+                    <div id="tab-found" class="tab-pane"></div>
+                    <div id="tab-awaiting" class="tab-pane"></div>
+                    <div id="tab-not-found" class="tab-pane"></div>
+                    <div id="tab-impossible" class="tab-pane"></div>
+                    <div id="tab-blogs" class="tab-pane"></div>
+                    <div id="tab-directories" class="tab-pane"></div>
+
+                    <div id="tab-all" class="tab-pane active">
+                        {{ include('netlinking/summary_task_table.html.twig', {'tasks':tasks}) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="detailWriter" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title"></h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body"></div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="exchangeSiteResultProposals" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title"></h4>
+                </div>
+                <div class="modal-body"></div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">{{ 'modal.close'|trans }}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% if app.user.isWebmaster %}
+        <div class="modal inmodal"
+             id="dislikeModal"
+             tabindex="-1"
+             role="dialog"
+             aria-hidden="true"
+             data-backdrop="static"
+             data-keyboard="false"
+             style="display: none;">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <p>
+                            {{ 'modal.dislike_reason'|trans }}
+                        </p>
+                        <textarea name="comment" maxlength="350" rows="6" cols="55"></textarea>
+                    </div>
+                    <div class="modal-footer">
+                        <button name="cancel" type="button" class="btn btn-white rating-cancel" data-dismiss="modal">{{ 'modal.cancel'|trans }}</button>
+                        <button name="confirm" type="button" type="button" class="btn btn-primary">{{ 'modal.confirm'|trans }}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+    {% include 'exchange_site_find/proposition_modal.html.twig' %}
+
+    <div class="modal fade" id="submission_modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title"></h4>
+                </div>
+                <div class="modal-body"></div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block javascript %}
+    {{ parent() }}
+    <script>
+        var errorMessage = "{{ 'modal.feedback_error'|trans }}";
+        var netlinkingId = {{ netlinkingProject.id }};
+        var hide_comment = "{{ 'table.hide_comment'| trans }}";
+        var show_comment = "{{ 'table.show_comment'| trans }}";
+
+        $('body').on('click', '.j-netlinking-comment_show', function(e) {
+          var btn = $(e.target),
+              row = btn.closest('tr'),
+              removeOnlyBtn = '<button class="underlined-link btn-link j-netlinking-comment_hide">' + hide_comment + '</button>',
+              commentText = btn.siblings('.j-comment-content').html(),
+              comment = '<p class="netlinking-comment">' +  commentText;
+              comment += commentText.length >= 500 ? removeOnlyBtn + '</p>' : '</p>';
+
+              template = '<tr class="j-temporary-row"><td style="display: table-cell;" colspan="100%">' + comment + '</td></tr>';
+
+          btn.text(hide_comment).removeClass('j-netlinking-comment_show').addClass('j-netlinking-comment_hide');
+          row.after(template );
+        });
+
+        $('body').on('click', '.j-netlinking-comment_hide', function(e) {
+          var btnCurrent = $(e.target);
+
+          if(btnCurrent.parents('.j-temporary-row').length) {
+            var parentRow = btnCurrent.parents('.j-temporary-row'),
+                 parentSiblingBtn = parentRow.prev('tr').find('.j-netlinking-comment_hide');
+            parentSiblingBtn.text(show_comment).removeClass('j-netlinking-comment_hide').addClass('j-netlinking-comment_show');
+            parentRow.remove();
+          }else {
+            btnCurrent.text(show_comment).removeClass('j-netlinking-comment_hide').addClass('j-netlinking-comment_show');
+            btnCurrent.closest('tr').next('.j-temporary-row').remove();
+          }
+        });
+
+    </script>
+    <script src="{{ asset('js/front/netlinking/detail_writer.js') }}"></script>
+    {% if app.user.isWebmaster %}
+        <script src="{{ asset('js/front/netlinking/detail.js') }}"></script>
+        <script src="{{ asset('js/front/exchange_site/exchange_site_find.js') }}"></script>
+    {% endif %}
+    <script src="{{ asset('js/front/netlinking/submission/reject.js') }}"></script>
+    <script src="{{ asset('js/front/netlinking/tabs.js') }}"></script>
+    <script src="{{ asset('js/front/exchange_site/exchange_site_result_proposals.js') }}"></script>
+{% endblock %}

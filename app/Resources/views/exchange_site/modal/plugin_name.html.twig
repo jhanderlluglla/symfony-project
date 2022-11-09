@@ -1,0 +1,27 @@
+{% trans_default_domain 'exchange_site' %}
+
+<div class="modal fade" id="downloadPlugin" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">{{ 'form.download_plugin'|trans }}</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <div class="col-sm-3">
+                        <label for="fileName">{{ 'form.custom_file_name'|trans }}</label>
+                    </div>
+                    <div class="col-sm-9">
+                        <input class="form-control" type="text" name="fileName" id="fileName">
+                        <button type="button" class="btn btn-primary btn-sm m-t-md"
+                                id="downloadRenamedPlugin">{{ 'form.download_plugin'|trans }}</button>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary"
+                        data-dismiss="modal">{{ 'modal.close'|trans }}</button>
+            </div>
+        </div>
+    </div>
+</div>

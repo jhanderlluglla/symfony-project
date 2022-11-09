@@ -1,0 +1,57 @@
+{% trans_default_domain 'exchange_site_find' %}
+
+{{ form_start(form, {'attr': {'id': 'add-new-record' }}) }}
+    <input type="hidden" id="eSid" name="id" value="{{ id }}">
+    <input type="hidden" id="eStype" name="type" value="{{ type }}">
+    <input type="hidden" id="eSpropositionId" name="proposition_id" value="{{ propositionId }}">
+    {{ form_row(form.article) }}
+    <p>{{ 'modal.submit_your_article.paragraph_one'|trans }}</p>
+
+    <h4 class="m-t-md">{{ 'modal.submit_your_article.header_four'|trans }}</h4>
+    <p>{{ 'modal.submit_your_article.paragraph_two'|trans({'%minWordsNumber%': minWordsNumber, '%maxLinksNumber%': maxLinksNumber}) }}</p>
+    <ul class="m-l-md">
+        <li>{{ 'modal.links'|trans({'%maxLinksNumber%': maxLinksNumber}) }}</li>
+        <li>{{ 'modal.images'|trans({'%minImagesNumber%': minImagesNumber, '%maxImagesNumber%': maxImagesNumber}) }}</li>
+        {% if headerOne %}
+            <li>{{ 'modal.headerOne'|trans({'%headerOne%': headerOne}) }}</li>
+        {% endif %}
+        {% if minHeaderTwo is not null and maxHeaderTwo is not null %}
+            <li>
+                {{ 'modal.headerTwoMin'|trans({'%minHeaderTwo%': minHeaderTwo}) }} {{ 'modal.headerTwoMax'|trans({'%maxHeaderTwo%': maxHeaderTwo}) }}
+            </li>
+        {% else %}
+            {% if minHeaderTwo is not null %}
+                <li>{{ 'modal.headerTwoMin'|trans({'%minHeaderTwo%': minHeaderTwo}) }}</li>
+            {% endif %}
+            {% if maxHeaderTwo is not null %}
+                <li>{{ 'modal.headerTwoMax'|trans({'%maxHeaderTwo%': maxHeaderTwo}) }}</li>
+            {% endif %}
+        {% endif %}
+        {% if minHeaderThree is not null and maxHeaderThree is not null %}
+            <li>
+                {{ 'modal.headerThreeMin'|trans({'%minHeaderThree%': minHeaderThree}) }} {{ 'modal.headerThreeMax'|trans({'%maxHeaderThree%': maxHeaderThree}) }}
+            </li>
+        {% else %}
+            {% if minHeaderThree is not null %}
+                <li>{{ 'modal.headerThreeMin'|trans({'%minHeaderThree%': minHeaderThree}) }}</li>
+            {% endif %}
+            {% if maxHeaderThree is not null %}
+                <li>{{ 'modal.headerThreeMax'|trans({'%maxHeaderThree%': maxHeaderThree}) }}</li>
+            {% endif %}
+        {% endif %}
+        {% if boldText %}
+            <li>{{ 'modal.boldText'|trans }}</li>
+        {% endif %}
+        {% if italicText %}
+            <li>{{ 'modal.italicText'|trans }}</li>
+        {% endif %}
+        {% if quotedText %}
+            <li>{{ 'modal.quotedText'|trans }}</li>
+        {% endif %}
+        {% if ulText %}
+            <li>{{ 'modal.ulText'|trans }}</li>
+        {% endif %}
+        {% include 'copywriting_article/links.html.twig' %}
+    </ul>
+    <p>{{ 'modal.submit_your_article.paragraph_three'|trans({'%credits%': credits}) }}</p>
+{{ form_end(form) }}

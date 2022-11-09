@@ -1,0 +1,13 @@
+copyright: Copyright
+
+navigation:
+    home: Accueil
+    registration: S'inscrire
+    login: Se connecter
+    forgot: Mot de passe oublié ?
+    logout: Se déconnecter
+    dashboard: Tableau de bord
+
+login_form:
+    email: Email
+    password: Mot de passe

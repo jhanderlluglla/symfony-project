@@ -1,0 +1,15 @@
+plugin:
+    path:     /
+    defaults: { _controller: UserBundle:ExchangeSite:manageWebsites }
+
+plugin_set_type:
+    path:     /set-type/{id}
+    defaults: { _controller: UserBundle:ExchangeSite:setType }
+    options:
+        expose: true
+
+plugin_set_auto_publish:
+    path:     /set-auto-publish/{id}
+    defaults: { _controller: UserBundle:ExchangeSite:setAutoPublish }
+    options:
+        expose: true

@@ -1,0 +1,24 @@
+{% form_theme form "form/theme.html.twig" %}
+
+{{ form_start(form) }}
+    {{ form_row(form.wordsCount, {'id': 'directory_list_words_count'}) }}
+    <div class="fixed-price">
+        <span>{{ 'price'|trans }}:</span>
+        <span id="project_estimation"></span>€
+    </div>
+        <select class="form-control" multiple="multiple" id="directories_and_blogs" name="directories_and_blogs[]">
+            {% for choice in form.directories.vars.choices %}
+                <option value="directory_{{ choice.value }}"
+                        {{ choice.value in form.directories.vars.value ? 'selected="selected"' : '' }}
+                >{{ choice.label }}</option>
+            {% endfor %}
+            {% for choice in form.exchangeSite.vars.choices %}
+                <option value="exchangeSite_{{ choice.value }}"
+                        {{ choice.value in form.exchangeSite.vars.value ? 'selected="selected"' : '' }}
+                >{{ choice.label }}</option>
+            {% endfor %}
+        </select>
+    {% do form.directories.setRendered %}
+    {% do form.exchangeSite.setRendered %}
+    {{ form_widget(form.save) }}
+{{ form_end(form) }}

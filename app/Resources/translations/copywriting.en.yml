@@ -1,0 +1,428 @@
+title: Copywriting Project
+article: Article
+orders_title: Copywriting Orders
+add_title: New Copywriting Project
+show_title: Show Article
+show_order: Show Order
+edit_title: Edit Copywriting Project
+edit_article: Edit Article
+articles_title: Copywriting Articles List
+edit_article_title: Edit Copywriting Article
+see_task: See my task
+waiting_orders_title: Waiting orders
+time_left: You still have %d% days, %h% hours and %m% minute to deliver the article
+photos_max: Photos max
+potential_earning: Potential earning
+choose_images: Personal images & Pixabay
+admin_images: Admin personal images
+pixabay_images: Pixabay
+
+not_selected: Not selected yet
+change_wysiwyg: Change wysiwyg
+
+add_new: Add new
+edit: Edit
+delete: Delete
+show: Show
+remove: Remove
+status: Status
+action: Action
+submit: Submit
+save: Save
+cancel: Cancel
+validate: Validate
+validate_save: Validate and Submit
+decline: Decline
+confirm: Confirm
+return: Return
+show_caption: Show Caption
+
+upload_image: Upload image
+error_upload_image: Error with upload your image. Please try again
+
+yes: Yes
+no: No
+optional: Optional
+
+reassign_to: Re-assign to
+task_impossible: Task impossible
+warning_message: Use this button only if the text can not be written! Please write the reason
+
+comment_article_edited: The article has been edited
+comment_article_pending: The article has been updated on the site, but has a status "Pending"
+empty_comment: Comment is empty
+
+form:
+    step: Step
+    template_label: Load a project
+    template_placeholder: Select here project title
+    template: Save template
+    title: Project title
+    title_placeholder: Enter here project title
+    description: Project description
+    description_placeholder: Enter here project description
+    number_articles: Number of articles
+    number_words: Number of words
+    number_placeholder: Enter number
+    next: Next step
+    title_text: Title of the text
+    instructions: Instructions
+    meta_title: Meta title
+    meta_description: Meta description
+    header_one_set: H1
+    header_two_start_end: H2
+    header_three_start_end: H3
+    exchange_site: Publish articles on
+    exchange_site_popup_mesage: Info about publish articles on ...
+    exchange_site_placeholder: Select exchange site
+    project_type_label: Project
+    language: Language
+    language_popup_message: If you select a site to publish, the language is automatically selected based on the selected site.
+    fix: Fix project
+    recurrent: Recurrent project
+    recurrent_popup_mesage: Info about  Recurrent project
+    period: Every
+    recurrent_total: Total number of articles
+    bold_text: Bold text
+    quoted_text: Quoted text
+    italic_text: Italic text
+    ul_tag: UL tag
+    keywords: Keywords
+    keywords_per_article: Keywords per article
+    min: Min
+    max: Max
+    start: Start line
+    end: End line
+    insert_keyword: Insert Keyword in
+    keyword_meta_title: Meta Title
+    keyword_header_one: H1
+    keyword_header_two: H2
+    keyword_header_three: H3
+    word: Word
+    alt: Alt
+    add_word: Add new word
+    remove_word: Remove current word
+    add_image: Add new image
+    remove_image: Remove current image
+    images: Images
+    images_range: Images in article
+    meta_description_hint: Additional cost of %cost%€ to article!
+    images_hint: Additional cost of 0.35€ per image! High quality images from 123RF.com <div class='data-tooltip' data-toggle="tooltip" data-placement="top" data-original-title="We negociated a partnership with 123RF and can provide profesionnal looking images to illustrate your article. If we
+                don't use the 'max images' you set up, we will recredit your account for the number of images we didn't use. You will be
+                able to see it in transaction page."><u>More information</u></div>
+
+    images_per_article_from: Images per article from
+    images_per_article_to: Images per article to
+    copy_rules: Copy rules on another articles
+    days: Days
+    express: <b>Express article:</b> additional cost of 0.50€ per 100 words. Your article will be delivered within 24 hours. If we miss the deadline, the additional cost will be refund to your account !
+    writer_category: Select category of writers
+    confirm: Confirm
+    show_all: Show all items
+    hide_all: Hide all items
+    items: items
+    info-box_title: Information box
+    info-box_text: You can write here some information for explaining users how they should work with creation of new project.
+
+no_selection:
+    title: No selection
+    text: The first writer avaible (normal, top or best) will pickup your project!
+you_like_writers:
+    title: You like writers
+    text: It's the writer you liked the most!
+top_writers:
+    title: Top writers
+    text: The first writer on Ereferer that have more than 90% of like!
+best_writers:
+    title: Best writers
+    text: It's the writer that have more than 95% of like!
+been_chosen: You have been chosen to write this article.
+
+modal:
+    close: Close
+    accept: Accept
+    already_reviewing: "'%name%' is already reviewing the article. Take the hand?"
+    send: Send
+
+no_additional_price: No additional price
+additional_price: Additional price
+words: words
+personal_stats: Your stats with him
+create_new: Create new
+
+reccurent_message:
+    part1: With a frequency of
+    part2: articles every
+    part3: days, it will take
+    part4: days to write your
+    part5: articles
+
+express_order_refund:
+
+express:
+    article: Express article
+    bonus: Bonus
+    expired: Expired
+
+popup:
+    title: Are you sure?
+    text: Many fields are empty
+    cancel_button_text: Cancel
+    confirm_button_text: Yes, continue!
+    select_writer_text: Go to select
+    selected_message: Writer is not selected!
+    select_category_text: Change category
+    empty_category_message: There are no writers in the selected category.
+
+delete_confirm: Are you sure you want to delete selected orders?
+
+dates: Dates
+information: Information
+deadline: Deadline
+reply_to: Reply to
+instructions: Instruction
+orders: Orders
+proposed_on: Proposed on
+launch_date: Estimated start date
+completed_at: Completed at
+declined_at: Declined at
+taken_at: Taken at work
+project_name: Project
+site_url: Site url
+words_number: Words number
+cost: Article cost
+article_title: Article title
+description: Description
+days_at_work: Days at work
+customer: Customer
+copywriter: Copywriter
+total: Total
+joined: Joined
+full_name: Name
+finished_at: Finished at
+caption_text: This is default caption text, edit Title or Alt of image
+not_consulted: Not consulted yet!
+publication_url: URL of the publication
+
+project_description: Project description
+article_description: Article description
+article_requirements: Article requirements
+article_published: The article will be published on
+
+waiting: Waiting
+progress: In progress
+declined: Declined
+submitted_to_webmaster: Ready for review by webmaster
+submitted_to_admin: Ready for review by admin
+completed: Completed
+under_review: Under review
+
+euro: €
+
+take_to_work: Take to work
+reject_work: Reject the work
+assign: Assign to Copywriter
+
+mark_unviewed: Mark as unviewed
+not_viewed: Not viewed
+
+filter: Filter
+filter.rating: Filter by like/dislike
+filter.copywriter: Filter by copywriter
+filter.rating.label: Like/Dislike
+filter.keyword.label: Search keyword
+filter.keyword_title.label: Title
+filter.keyword_description.label: Description
+filter.keyword_content.label: Content
+
+errors: Errors
+errors_hint: Fix following errors or provide reasons why it's not possible
+customer_msg: Customer's Messages
+admin_msg: Admin's Messages
+
+meta_title: Meta Title
+meta_desc: Meta Description
+attributes:
+    meta_title:
+        description: Display a meta title tag in the article header
+        popup_message: This is the title of the page that will be displayed at the top of your browser and, usually, by the search engines on their results pages.
+    meta_description:
+        description: Add a meta description in the header of the article
+        popup_message: Search engines essentially use this very short description and retranscribe it on their results pages. (Description of 20 words)
+    header_h1:
+        description: Using an H1 tag
+        popup_message: This is the main title of your article. This title is crucial for a good structure of your article and for optimization in terms of SEO. This tag is essential to any article.
+    header_h2:
+        popup_message: This is a subtitle to your article and, by definition, to your title H1. It is essential for a good fitness if your article is particularly long.
+    header_h3:
+        popup_message: This is a sub-subtitle to your article or a subtitle to your title H3. It is advisable for a good formatting if your article is particularly long.
+    bold_text:
+        description: Put some important expressions in bold
+    ul_tag:
+        description: Using bullets in your text (your text then contains an enumeration list)
+    headers:
+        part1: The use of
+        part2: at
+        part3: "%header% tags in your text"
+
+popup_title: What is it?
+rubrics: Rubrics
+
+nonconform: Impossible to follow the rule
+reason: Reason
+
+valid_success: Validation success
+text_empty: Field cannot be empty
+
+
+decline_article: Provide comment that explains reasons of declining
+
+like: Like
+dislike: Dislike
+dislike_reason: Specify reason (optional) and click "Confirm".
+
+customer_comment: Customer comment
+download: Download
+like_dislike: Like/Dislike
+writers:
+    error: Oops, error with finding writers for you
+    success: Successfully finded writers for you
+    start_today: Can start you project today
+    start_days: "Can start you project in %days% day(s)"
+express_orders: Express orders
+pending_orders: Pending orders
+empty_orders: You don't have any orders at this moment
+
+featured_image: Featured image
+json_error_parse: Error with parse json template
+default_article_title: Article title
+
+images:
+  choice_images: Choice images
+  query: Query
+
+articles:
+    new_article: New Article
+    all_articles: All Articles
+    all_articles_placeholder: You have to select an item to choose a value
+
+validation:
+    amount: "You don't have enough money on your balance!"
+    number_of_words: Please enter more than 100
+    wrong_range: Wrong range!
+    wrong_image_width: Width of image should be between 650px and 2000px
+
+ajax:
+    delete:
+        success: Order successfully deleted
+        bad_request: Something went wrong
+    assign:
+        success: Order(s) successfully assigned
+        bad_request: Something went wrong
+    rating:
+        success: Rating changed!
+        bad_request: Something went wrong
+    saved:
+        success: Article was saved successfully
+
+choose_option: Choose an option
+rate_info: Rate this text is important! then, you will be able to select your best rated writer!
+requirements:
+    words_number:
+        value: '%n% words.'
+        success: 'The text contains %n% words'
+        fail: '{0} Text contains no words. %m% required|{1} Text contains 1 word. %m% required|]1,Inf[ Text contains %n% words. %m% required'
+        nonconform: '{0} Text contains no words.|{1} Text contains 1 word.|]1,Inf[ Text contains %n% words.'
+    meta_title:
+        value: 'A meta title tag.'
+        success: 'The text contains one.'
+        fail: "The meta title is empty."
+        nonconform: 'The meta title is empty.'
+    meta_desc:
+        value: 'A meta description.'
+        success: 'The text contains one.'
+        fail: 'The meta description is empty.'
+        nonconform: 'The meta description is empty.'
+    H1_set:
+        value: 'A H1 tag.'
+        success: 'The text contains a H1 tag.'
+        fail: "A H1 tag is missing."
+        nonconform: 'A H1 tag is missing.'
+        not_contain: "The text should not contain H1 tag"
+        max_count:  'The text contains more than %max_count% H1 tag. Found: %n% tags'
+    H2_range:
+        value: 'Between %n% and %m% H2 tags.'
+        success: 'The text contains %n% tag(s) H2.'
+        fail: "{0} H2 tag have not been used in the text. From %n% to %m% times required.|{1} H2 tag have been used 1 time in the text. From %n% to %m% times required.|]1,Inf[ H2 tag have been used %l% times in the text. From %n% to %m% times required."
+        nonconform: "{0} H2 tag have not been used in the text.|{1} H2 tag have been used 1 time in the text.|]1,Inf[ H2 tag have been used %n% times in the text."
+        not_contain: "The text should not contain H2 tags"
+    H3_range:
+        value: 'Between %n% and %m% H3 tags.'
+        success: 'The text contains %n% tag(s) H3.'
+        fail: "{0} H3 tag have not been used in the text. From %n% to %m% times required.|{1} H3 tag have been used 1 time in the text. From %n% to %m% times required.|]1,Inf[ H3 tag have been used %l% times in the text. From %n% to %m% times required."
+        nonconform: '{0} H3 tag have not been used in the text.|{1} H3 tag have been used 1 time in the text.|]1,Inf[ H3 tag have been used %n% times in the text.'
+        not_contain: "The text should not contain H3 tags"
+    bold_text:
+        value: "{0} No words in bold.|{1} Words in bold."
+        success: "{0} There are no words in bold.|{1} The text contains words in bold."
+        fail: "{0} The text contains words in bold.|{1} There are no words in bold."
+        nonconform: "{0} There are no words in bold.|{1} The text contains words in bold."
+        not_contain: "The text should not contain bold text"
+    UL_set:
+        value: '{0} No ul tag in text.|{1} Ul tag.'
+        success: '{0} There are no ul tag.|{1} The text contains an enumeration with a smart list.'
+        fail: "{0} The text contains an enumeration with a smart list.|{1} There are no ul tag."
+        nonconform: "{0} There are no ul tag.|{1} The text contains an enumeration with a smart list."
+        not_contain: "The text should not contain ul tag"
+    quoted_text:
+        value: "{0} No quoted words.|{1} Quoted words."
+        success: "{0} There are no quoted words.|{1} The text contains quoted words."
+        fail: "{0} The text contains quoted words.|{1} There are no quoted words."
+        nonconform: "{0} There are no quoted words.|{1} The text contains quoted words."
+        not_contain: "The text should not contain quoted text"
+    italic_text:
+        value: "{0} No words in italic.|{1} Words in italic."
+        success: "{0} There are no words in italic.|{1} The text contains words in italic."
+        fail: "{0} The text contains words in italic.|{1} There are no words in italic."
+        nonconform: "{0} There are no words in italic.|{1} The text contains words in italic."
+        not_contain: "The text should not contain italic text"
+    keywords:
+        value: "Between %n% and %m% times the occurrence of these keywords:"
+        success: 'These words have been used %n% time(s) in the text.'
+        fail: "{0} Keywords have not been used in the text. From %n% to %m% times required.|{1} You used only one keyword. From %n% to %m% required.|]1,Inf[ Keywords have been used %l% times in the text. From %n% to %m% times required."
+        nonconform: '{0} Keywords have not been used in the text.|{1} One keyword have been used in the text.|]1,Inf[ Keywords have been used %n% times in the text.'
+    keywords_used:
+        value: "{0}"
+        success: 'The text contains all the words'
+        fail: 'The following keywords are missed: <em>%keywords%</em>'
+        nonconform: 'The following keywords are missed: %keywords%'
+    keyword_meta_title:
+        value: "Use one of the keywords in the meta title."
+        success: "The meta title contains the keywords: %keywords%"
+        fail: "The meta title must contain at least one SEO expression."
+        nonconform: 'The meta title not contains any keywords.'
+    keyword_H1_set:
+        value: "Use one of the keywords in the title H1."
+        success: "The H1 contains the keywords: %keywords%"
+        fail: "At least one key phrase must be used in the H1 title."
+        nonconform: 'The H1 not contains any keywords.'
+    keyword_H2_set:
+        value: "Use one of the keywords in the title H2."
+        success: "The H2 contains the keywords: %keywords%"
+        fail: "At least one key phrase must be used in the H2 title."
+        nonconform: 'The H2 not contains any keywords.'
+    keyword_H3_set:
+        value: "Use one of the keywords in the title H3."
+        success: "The H3 contains the keywords: %keywords%"
+        fail: "At least one key phrase must be used in the H3 title."
+        nonconform: 'The H3 not contains any keywords.'
+    images_range:
+        value: "%n%-%m% images (including featured image)."
+        success: 'The text contains %n% image(s).'
+        fail: "Between %n% and %m% images must be used in the text (including featured image)."
+        nonconform: 'The text contains %n% image(s).'
+        not_contain: "The text should not contain images"
+    links:
+        value: "Links"
+        fail: "The link with Url: \"url\" and Anchor: \"anchor\" must be used in the text"
+        not_same: "New links are not the same as the old links"

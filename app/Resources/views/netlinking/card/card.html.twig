@@ -1,0 +1,27 @@
+{% trans_default_domain 'netlinking' %}
+
+{% form_theme changeWriterForm.createView() "form/theme.html.twig" %}
+
+<div class="netlink-project project-card" data-project-id="{{ entity.id }}">
+    <div class="flex-justify">
+        <ul class="block-information">
+            {% include('netlinking/card/card_header.html.twig') %}
+        </ul>
+        <div class="actions">
+            <div class="buttons-wrapper">
+                <a href="{{ path('netlinking_start', {'id': entity.id}) }}" class="btn btn-warning"><i class="fa fa-play"></i> {{ 'start'|trans }}</a>
+                <a href="{{ path('netlinking_edit', {'status': status, 'id': entity.id}) }}" class="btn btn-primary"><i class="fa fa-edit"></i> {{ 'edit'|trans }}</a>
+                <a href="{{ path('netlinking_delete', {'status': status, 'id': entity.id}) }}" class="btn btn-danger delete"><i class="fa fa-trash"></i> {{ 'delete'|trans }}</a>
+            </div>
+        </div>
+    </div>
+    <div class="border-top">
+        <ul class="information-list">
+            {% include 'netlinking/card/card_stat.html.twig' %}
+        </ul>
+    </div>
+    <div class="border-top">
+        <p class="text-block">{{ 'table.patience'|trans }}</p>
+    </div>
+    {% include 'netlinking/card/card_comment.html.twig' %}
+</div>

@@ -1,0 +1,45 @@
+{% extends 'layout.html.twig' %}
+
+{% trans_default_domain 'copywriting' %}
+
+{% block title %}
+    {{ 'orders_title'|trans }}
+{% endblock %}
+
+{% set status = app.request.get('status') %}
+{% set br_title = [] %}
+{% if status == 'waiting' %}
+    {% set br_title = ['copywriting.pending'|trans({}, 'menu')] %}
+{% elseif status == 'submitted_to_admin' and app.user.isWriterAdmin or app.user.isSuperAdmin %}
+    {% set br_title = ['copywriting.submitted_to_admin'|trans({}, 'menu')] %}
+{% elseif status == 'submitted_to_admin' %}
+    {% set br_title = ['copywriting.under_review'|trans({}, 'menu')] %}
+{% elseif status == 'completed' %}
+    {% set br_title = ['copywriting.completed'|trans({}, 'menu')] %}
+{% endif %}
+{% block breadcrumb %}
+    {{ include('breadcrumb/copywriting.html.twig', {'childrens': br_title}) }}
+{% endblock %}
+
+{% block content %}
+    {% if collection.haveToPaginate %}
+        <div class="pagerfanta">
+            {{ pagerfanta(collection) }}
+        </div>
+    {% endif %}
+
+    {{ include('copywriting_order/order_table.html.twig') }}
+
+    {% if collection.haveToPaginate %}
+        <div class="pagerfanta">
+            {{ pagerfanta(collection) }}
+        </div>
+    {% endif %}
+{% endblock %}
+
+{% block javascript %}
+    {{ parent() }}
+    <script src="{{ asset('js/admin/plugins/jquery-ui/jquery-ui.min.js') }}"></script>
+    <script src="{{ asset('js/front/copywriting/express-timer.js') }}"></script>
+    <script src="{{ asset('js/admin/plugins/peity/jquery.peity.min.js') }}"></script>
+{% endblock %}

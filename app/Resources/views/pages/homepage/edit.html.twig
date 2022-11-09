@@ -1,0 +1,44 @@
+{% extends 'layout.html.twig' %}
+
+{% trans_default_domain 'pages' %}
+
+{% block title %}
+    {{ 'edit_title'|trans }}
+{% endblock %}
+
+{% block breadcrumb %}
+    {{ include('breadcrumb/settings.html.twig', {'childrens': [
+        {'name': 'title'|trans, 'path': 'admin_pages'},
+        {'name': 'home_page'|trans, 'path': 'pages_homepage'},
+        block('title')
+    ]}) }}
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="{{ asset('css/admin/plugins/summernote/summernote.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/admin/plugins/summernote/summernote-bs3.css') }}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+    {% include "pages/homepage/form.html.twig" %}
+{% endblock %}
+
+{% block javascript %}
+    {{ parent() }}
+    <script type="text/javascript">
+        var height = 300;
+    </script>
+    <script src="{{ asset('js/admin/plugins/summernote/summernote_0.8.8.js') }}"></script>
+    <script src="{{ asset('js/front/init_summernote.js') }}"></script>
+    <script src="{{ asset('js/front/pages/manage_items.js') }}"></script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            var inputTopList = $('#homepage_topList .form-control'),
+                inputList = $('#homepage_listBlock_items .form-control');
+
+            items = $.merge(inputList, inputTopList).wrap("<div class='input-group'></div>");
+            $.merge($('.edit-homepage .input-group'), $('.homepage_blockContainer__label')).append(removeButton);
+        })
+    </script>
+{% endblock %}

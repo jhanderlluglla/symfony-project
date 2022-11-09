@@ -1,0 +1,220 @@
+{% extends 'layout.html.twig' %}
+
+{% form_theme form "form/theme.html.twig" %}
+
+{% trans_default_domain 'replenish_account' %}
+
+{% block title %}
+    {{ 'my_account.replenish_account'|trans({}, 'menu') }}
+{% endblock %}
+
+{% block breadcrumb %}
+    {{ include('breadcrumb/my_account.html.twig', {'childrens': [block('title')]}) }}
+{% endblock %}
+
+{% block content %}
+    <div class="high-inputs">
+        {{ form_start(form) }}
+            <div class="steps-item">
+                <div class="step-number">
+                    {{ 'step'|trans({}, 'general') }} 1
+                </div>
+                <div class="step-content">
+                    <p class="step-heading">{{ 'title_step_1'|trans }}</p>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="replenish_requestType__wrap">
+                                {{ form_widget(form.requestType) }}
+                            </div>
+                            <div id="iban" class="transfer-detail">
+                                <h3 class="transfer-detail_title">{{ 'wire_transfer_text'|trans }}</h3>
+                                {% block transfer_information %}
+                                    <div>
+                                        {{ settings['invoice_eurl'] }}<br>
+                                        {{ settings['invoice_headquarters_address'] }}<br>
+                                        {{ settings['invoice_postal_code'] }}
+                                        {{ settings['invoice_area_address'] }}, {{ settings['invoice_country'] }}
+                                    </div>
+                                {% endblock %}
+                                <br>
+                                <label>{{ 'iban'|trans }}</label>
+                                <span class="transfer-detail_input">{{ settings[constant('CoreBundle\\Entity\\Settings::INVOICE_IBAN')] }}</span>
+                                <label>{{ 'bic_swift'|trans }}</label>
+                                <span class="transfer-detail_input">{{ settings[constant('CoreBundle\\Entity\\Settings::INVOICE_BIC_SWIFT')] }}</span>
+                                <div class="helper-text">
+                                    <button type="button" class="info-button-icon disabled" data-toggle="popover-floating" data-placement="auto right" title="" data-float-title="" data-content=""><svg><use xlink:href="#info-icon"></use></svg></button>
+                                    {{ 'notification_start'|trans }} "<span class="text-primary">{{ app.user.FullName }}</span>" {{ 'notification_end'|trans }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="info-box">
+                                <div class="group">
+                                    <h3 class="info-box_title">{{ 'info-box_title'|trans({}, 'general') }}</h3>
+                                    <p class="info-box_content">{{ 'waiting_time'|trans }}</p>
+                                </div>
+                                <div class="group">
+                                    <h3 class="info-box_title attention">{{ 'attention_title'|trans }}</h3>
+                                    <p class="info-box_content">{{ 'attention'|trans }} <a class="underlined-link" href="{{ path('fos_user_profile_edit') }}">{{ 'your_profile'|trans }}</a></p>
+                                </div>
+                            </div>
+                        </div>
+                        {% if form.vars.valid %}
+                            <div class="col-lg-12 text-right">
+                                <button type="button" class="m-t-md btn btn-primary" data-action="nextStep">{{ 'next_step'|trans({}, 'general') }}</button>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <div class="steps-item">
+                <div class="step-number">
+                    {{ 'step'|trans({}, 'general') }} 2
+                </div>
+                <div class="step-content">
+                    <p class="step-heading">{{ 'title_step_2'|trans }}</p>
+                    <div class="step-rows">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="payment-commision_wrap">
+                                    <div class="{% if not form.amount.vars.valid %}has-error {% endif %}step-rows_flex-group">
+                                        {{ form_widget(form.amount) }}
+                                        <button type="button" class="btn btn-primary btn-outline j-replenish_amount-btn">{{ 'count'|trans({}, 'general') }}</button>
+                                    </div>
+                                    <div class="m-t-md">{{ form_errors(form.amount) }}</div>
+                                    <div class="error-message hidden">
+                                        <p class="info-box_title attention j-paypal-content">{{ 'min_paypal'|trans }}</p>
+                                        <p class="info-box_title attention j-wireTransfer-content">{{ 'min_wire_transfer'|trans }}</p>
+                                    </div>
+                                </div>
+                                <table class="payment-calculate j-replenish_amount-table {% if form.vars.valid %}hidden{% endif %}">
+                                    <tr class="j-paypal-content-table">
+                                        <td>{{ 'commissions'|trans({'%percent%': constant('CoreBundle\\Services\\CalculatorVat::PAYPAL_FEES')}) }}:</td>
+                                        <td><span id="commissionAmount" class="small value">0€</span></td>
+                                    </tr>
+                                    {% if vat_percent %}
+                                        <tr>
+                                            <td>{{ 'vat_amount'|trans({'%percent%': vat_percent }) }}:</td>
+                                            <td><span id="vatAmount" class="small value">0€</span></td>
+                                        </tr>
+                                    {% endif %}
+                                    <tr>
+                                        <td>{{ 'amount_billable'|trans({}, 'general') }}:</td>
+                                        <td><span id="billableAmount" class="text-info value">0€</span></td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="info-box">
+                                    <div class="group">
+                                        <h3 class="info-box_title attention">
+                                            {{ 'attention_title'|trans }}
+                                        </h3>
+                                        <p class="info-box_content j-paypal-content">{{ 'min_paypal'|trans }}</p>
+                                        <p class="info-box_content j-wireTransfer-content">{{ 'min_wire_transfer'|trans }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% if form.vars.valid %}
+                            <div class="text-right">
+                                <button type="button" class="m-t-md btn btn-primary j-amount" disabled data-action="nextStep">{{ 'next_step'|trans({}, 'general') }}</button>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <div class="steps-item">
+                <div class="step-number">
+                    {{ 'step'|trans({}, 'general') }} 3
+                </div>
+                <div class="step-content">
+                    <p class="step-heading">{{ 'title_step_3'|trans }}</p>
+                    <div class="step-rows">
+                        <div class="row">
+                            <div class="col-lg-6 j-payment-verify hidden">
+                                <div>
+                                    <h3 class="payment-verify_title j-paypal-content">{{ 'paypal'|trans }}</h3>
+                                    <div class="j-wireTransfer-content">
+                                        <h3 class="payment-verify_title">{{ 'wire_transfer'|trans }}</h3>
+                                        {{ block('transfer_information') }}
+                                        <br>
+                                        <ul class="payment-verify">
+                                            <li><b>{{ 'requisites'|trans }}:</b></li>
+                                            <li>{{ 'iban'|trans }}: <span class="lighten">{{ settings[constant('CoreBundle\\Entity\\Settings::INVOICE_IBAN')] }}</span></li>
+                                            <li>{{ 'bic_swift'|trans }}: <span class="lighten">{{ settings[constant('CoreBundle\\Entity\\Settings::INVOICE_BIC_SWIFT')] }}</span></li>
+                                        </ul>
+                                    </div>
+                                    <table class="payment-verify">
+                                        <tr>
+                                            <td>{{ 'amount'|trans }}:</td>
+                                            <td><span data-result="amount-billable">0€</span></td>
+                                        </tr>
+                                        <tr class="j-paypal-content-table">
+                                            <td>{{ 'fees'|trans }}:</td>
+                                            <td><span data-result="commission-paypal">0€</span></td>
+                                        </tr>
+                                        {% if vat_percent %}
+                                            <tr>
+                                                <td>{{ 'vat_amount'|trans({'%percent%': vat_percent }) }}:</td>
+                                                <td><span data-result="vat-amount">0€</span></td>
+                                            </tr>
+                                        {% endif %}
+                                        <tr class="total">
+                                            <td>{{ 'finish_amount'|trans }}:</td>
+                                            <td><span data-result="finish-paypal" class="text-info ">0€</span></td>
+                                        </tr>
+                                    </table>
+                                    <div class="checkbox j-wireTransfer-content">
+                                        <label class="radio-inline" for="wireTransfer-confirm">
+                                            <span class="checkbox_radio_widget_wrapper">
+                                                <input type="checkbox" value="1" id="wireTransfer-confirm" name="wireTransfer-confirm" required>
+                                                    <label for="wireTransfer-confirm"></label>
+                                            </span>
+                                            {{ 'confirm'|trans }}
+                                        </label>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="info-box j-wireTransfer-content">
+                                    <h3 class="info-box_title">{{ 'info-box_title'|trans({}, 'general') }}</h3>
+                                    <p class="info-box_content">{{ 'notification_start'|trans }} "<span class="text-primary">{{ app.user.FullName }}</span>" {{ 'notification_end'|trans }}</p>
+                                </div>
+                            </div>
+                            <div class="col-lg-12 text-center m-t-md">
+                                {{ form_widget(form.replenish_account) }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {{ form_end(form) }}
+    </div>
+
+{% endblock %}
+
+{% block javascript %}
+    {{ parent() }}
+    <script type="text/javascript">
+        var formValid = {{ form.vars.valid ? 1 : 0 }};
+
+        if(formValid === 1) {
+          var steps = $('.steps-item').slice(1);
+            steps.each(function (index, element) {
+                $(element).addClass('disabled');
+            });
+        }
+        translations.replenish = {
+            min_paypal: '{{ 'min_paypal'|trans }}',
+            min_wire_transfer: '{{ 'min_wire_transfer'|trans }}'
+        };
+        var paypalMinVal = {{ constant('CoreBundle\\Entity\\ReplenishRequest::PAYPAL_MINIMUM') }},
+            wireTransferMinVal = {{ constant('CoreBundle\\Entity\\ReplenishRequest::WIRE_TRANSFER_MINIMUM') }},
+            paypalPercent = {{ constant('CoreBundle\\Services\\CalculatorVat::PAYPAL_FEES') }},
+            vatPercent = {{ vat_percent }};
+    </script>
+    <script src="{{ asset('js/front/replenish/calculate_amount.js') }}"></script>
+    <script src="{{ asset('js/front/next_step.js') }}"></script>
+{% endblock %}

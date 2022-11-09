@@ -1,0 +1,31 @@
+admin_images:
+    path: /
+    defaults: { _controller: UserBundle:AdminImage:index }
+
+admin_images_add:
+    path: /add
+    defaults: { _controller: UserBundle:AdminImage:add }
+
+admin_images_edit:
+    path:     /edit/{id}
+    defaults: { _controller: UserBundle:AdminImage:edit }
+    requirements:
+        id: '\d+'
+
+admin_images_search:
+    path: /search/
+    defaults: { _controller: UserBundle:AdminImage:search }
+    options:
+        expose: true
+
+admin_images_upload:
+    path: /upload/
+    defaults: { _controller: UserBundle:AdminImage:upload }
+    options:
+        expose: true
+
+admin_images_delete:
+    path:     /delete/{id}
+    defaults: { _controller: UserBundle:AdminImage:delete }
+    requirements:
+        id: '\d+'

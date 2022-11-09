@@ -1,0 +1,58 @@
+imports:
+    - { resource: config.yml }
+    - { resource: "@CoreBundle/Resources/config/services_test.yml" }
+
+framework:
+    router:
+        resource: "%kernel.root_dir%/config/routing_dev.yml"
+        strict_requirements: true
+    profiler: { only_exceptions: false }
+
+# Twig Configuration
+twig:
+    globals:
+        favicon: "favicon_dev.png"
+
+web_profiler:
+    toolbar: true
+    intercept_redirects: false
+
+monolog:
+    channels: [wp_requests]
+    handlers:
+        main:
+            type: stream
+            path: "%kernel.logs_dir%/%kernel.environment%.log"
+            level: debug
+            channels: ["!event"]
+        console:
+            type:   console
+            channels: ["!event", "!doctrine"]
+        doctrine:
+            action_level: debug
+            type:  stream
+            path:  %kernel.logs_dir%/%kernel.environment%_doctrine.log
+            channels: doctrine
+        online_convert:
+            type:  stream
+            path:  "%kernel.logs_dir%/%kernel.environment%/online_convert.log"
+            channels: online_convert
+        cron_stream:
+            type:  stream
+            path:  "%kernel.logs_dir%/%kernel.environment%/cron.log"
+            channels: cron
+        wp_requests:
+            type:  stream
+            path:  "%kernel.logs_dir%/%kernel.environment%/wp_requests.log"
+            channels: wp_requests
+        # uncomment to get logging in your browser
+        # you may have to allow bigger header sizes in your Web server configuration
+        #firephp:
+        #    type:   firephp
+        #    level:  info
+        #chromephp:
+        #    type:   chromephp
+        #    level:  info
+
+#swiftmailer:
+#    delivery_addresses: ['me@example.com']

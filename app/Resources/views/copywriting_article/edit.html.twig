@@ -1,0 +1,425 @@
+{% extends 'layout.html.twig' %}
+
+{% trans_default_domain 'copywriting' %}
+
+{% block title %}
+    {{ 'edit_article'|trans }}
+{% endblock %}
+
+{% if status == 'progress' or status == 'declined' %}
+    {% set status = ['progress', 'declined'] %}
+{% endif %}
+{% set br_title = '' %}
+{% if status == 'waiting' %}
+    {% set br_title = 'copywriting.pending'|trans({}, 'menu') %}
+{% elseif status is iterable %}
+    {% set br_title = 'copywriting.in_progress'|trans({}, 'menu') %}
+{% elseif status == 'submitted_to_admin' %}
+    {% set br_title = 'copywriting.submitted_to_admin'|trans({}, 'menu') %}
+{% elseif status == 'completed' %}
+    {% set br_title = 'copywriting.completed'|trans({}, 'menu') %}
+{% elseif status == 'submitted_to_webmaster' %}
+    {% set br_title = 'submitted_to_webmaster'|trans({}, 'copywriting') %}
+{% endif %}
+
+
+{% block breadcrumb %}
+    {{ include('breadcrumb/copywriting.html.twig',
+        {'childrens': [
+            {'name': br_title, 'path': 'copywriting_order_list', 'status': status},
+            block('title')
+        ]})
+    }}
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="{{ asset('css/admin/plugins/summernote/summernote.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/admin/plugins/summernote/summernote-bs3.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/admin/wysiwyg.css') }}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+    {% set article = entity %}
+        <div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="ibox">
+                        <div class="ibox-content">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    {% if valid is defined and valid == true %}
+                                        <div class="alert alert-success alert-dismissable">
+                                            {{ 'valid_success'|trans }}
+                                        </div>
+                                    {% endif %}
+                                    <div class="m-b-md">
+                                        <h2 class="ellipsis">{{ article.order.project.title }} - {{ article.order.title }}</h2>
+                                    </div>
+                                    <dl class="dl-horizontal ellipsis-all">
+                                        <dt>{{ 'project_name'|trans }}:</dt><dd>{{ article.order.project.title }}</dd>
+                                        <dt>{{ 'article_title'|trans }}:</dt><dd>{{ article.order.title }}</dd>
+                                        <dt>{{ 'words_number'|trans }}:</dt><dd>{{ article.order.wordsNumber }}</dd>
+                                        <dt>{{ 'article_description'|trans }}:</dt><dd>{{ article.order.instructions|nl2br }}</dd>
+                                        <dt>{{ 'project_description'|trans }}:</dt><dd>{{ article.order.project.description|nl2br }}</dd>
+                                        <div class="hr-line-dashed"></div>
+                                        <dt>{{ 'article_requirements'|trans }}:</dt>
+                                        <dd>
+                                            <ul>
+                                                <li>{{ 'requirements.words_number.value'|trans({'%n%': article.order.wordsNumber}) }}</li>
+                                                {% if article.order.metaTitle %}
+                                                    <li>{{ 'requirements.meta_title.value'|trans }}</li>
+                                                {% endif %}
+                                                {% if article.order.metaDescription %}
+                                                    <li>{{ 'requirements.meta_desc.value'|trans }}</li>
+                                                {% endif %}
+                                                {% if article.order.headerOneSet %}
+                                                    <li>{{ 'requirements.H1_set.value'|trans }}</li>
+                                                {% endif %}
+                                                {% if article.order.headerTwoStart or article.order.headerTwoEnd %}
+                                                    <li>{{ 'requirements.H2_range.value'|trans({'%n%': article.order.headerTwoStart, '%m%': article.order.headerTwoEnd}) }}</li>
+                                                {% endif %}
+                                                {% if article.order.headerThreeStart or article.order.headerThreeEnd %}
+                                                    <li>{{ 'requirements.H3_range.value'|trans({'%n%': article.order.headerThreeStart, '%m%': article.order.headerThreeEnd}) }}</li>
+                                                {% endif %}
+                                                {% if article.order.boldText is not null %}
+                                                    <li>{{ 'requirements.bold_text.value'|transchoice(article.order.boldText) }}</li>
+                                                {% endif %}
+                                                {% if article.order.italicText is not null %}
+                                                    <li>{{ 'requirements.italic_text.value'|transchoice(article.order.italicText) }}</li>
+                                                {% endif %}
+                                                {% if article.order.quotedText is not null %}
+                                                    <li>{{ 'requirements.quoted_text.value'|transchoice(article.order.quotedText) }}</li>
+                                                {% endif %}
+                                                {% if article.order.ulTag is not null %}
+                                                    <li>{{ 'requirements.UL_set.value'|transchoice(article.order.ulTag) }}</li>
+                                                {% endif %}
+                                                {% if article.order.keywordsPerArticleFrom or article.order.keywordsPerArticleTo %}
+                                                    <li>{{ 'requirements.keywords.value'|trans({'%n%': article.order.keywordsPerArticleFrom, '%m%': article.order.keywordsPerArticleTo}) }}
+                                                        <ul class="m-l-md">
+                                                            {% for keyword in article.order.keywords %}
+                                                                <li>{{ keyword.word }}</li>
+                                                            {% endfor %}
+                                                        </ul>
+                                                    </li>
+                                                {% endif %}
+                                                {% if article.order.keywordInMetaTitle %}
+                                                    <li>{{ 'requirements.keyword_meta_title.value'|trans }}</li>
+                                                {% endif %}
+                                                {% if article.order.keywordInHeaderOne %}
+                                                    <li>{{ 'requirements.keyword_H1_set.value'|trans }}</li>
+                                                {% endif %}
+                                                {% if article.order.keywordInHeaderTwo %}
+                                                    <li>{{ 'requirements.keyword_H2_set.value'|trans }}</li>
+                                                {% endif %}
+                                                {% if article.order.keywordInHeaderThree %}
+                                                    <li>{{ 'requirements.keyword_H3_set.value'|trans }}</li>
+                                                {% endif %}
+                                                {% if article.order.getImagesPerArticleFrom > 0 or article.order.getImagesPerArticleTo > 0 %}
+                                                    <li>
+                                                        {{ 'requirements.images_range.value'|trans({'%n%': article.order.getImagesPerArticleFrom, '%m%': article.order.getImagesPerArticleTo }) }}
+                                                        <ul class="m-l-md">
+                                                            {% for image in article.order.images %}
+                                                                <li><a href="{{ image.url }}" target="_blank">{{ image.url }}</a> {{ 'form.alt'|trans }}: {{ image.alt }}</li>
+                                                            {% endfor %}
+                                                        </ul>
+                                                    </li>
+                                                {% endif %}
+                                                {% include 'copywriting_article/links.html.twig' with {'links': article.order.links} %}
+                                            </ul>
+                                        </dd>
+                                        {% if article.order.exchangeProposition %}
+                                            <dt>{{ 'article_published'|trans }}:</dt><dd><a href="{{ article.order.exchangeProposition.exchangeSite.url }}" target="_blank">{{ article.order.exchangeProposition.exchangeSite.url }}</a></dd>
+                                        {% endif %}
+                                    </dl>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {{ form_start(form) }}
+                    {% if not article.nonconforms.empty or not form.vars.valid %}
+                        <div class="ibox float-e-margins">
+                            <div class="ibox-content">
+                                <h2>{{ 'errors'|trans }}</h2>
+                                <p>{{ 'errors_hint'|trans }}</p>
+                                <div class="nonconforms" id="copywriting_article_nonconforms" data-prototype="{{ form_widget(form.nonconforms.vars.prototype)|e('html_attr') }}">
+                                    {% if not article.nonconforms.empty %}
+                                        {% for nonconform in form.nonconforms %}
+                                            <div class="alert alert-warning" data-index="{{ nonconform.vars.data.rule }}" data-rule="{{ nonconform.vars.data.rule }}">
+                                                <div class="row">
+                                                    <div class="col-sm-offset-3 col-sm-9">
+                                                        <button type="button" class="btn btn-sm btn-warning pull-right m-l-md issue-reason-btn">{{ 'cancel'|trans }}</button>
+                                                        <p class="error-text">{{ nonconform.vars.data.error|raw }}</p>
+                                                    </div>
+                                                </div>
+                                                <div class="nonconform">{{ form_widget(nonconform) }}</div>
+                                            </div>
+                                        {% endfor %}
+                                    {% endif %}
+                                    {% if not form.vars.valid %}
+                                        {% for error in form.vars.errors %}
+                                            <div class="alert alert-danger" {% if error.messageParameters.name  is defined %} data-index="{{ error.messageParameters.name }}" data-rule="{{ error.messageParameters.name }} {% endif %}">
+                                                <p class="error-text">{{ error.message|raw }}</p>
+                                                {% if error.messageParameters.name is defined and error.messageParameters.name != 'words_number' %}
+                                                    <button type="button" class="btn btn-sm btn-warning m-t-md issue-reason-btn">{{ 'nonconform'|trans }}</button>
+                                                {% endif %}
+                                            </div>
+                                        {% endfor %}
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+                    {% if (article.order.isDeclined or article.order.isSubmittedToAdmin) and article.webmasterComments %}
+                        <div class="ibox float-e-margins">
+                            <div class="ibox-content">
+                                <h2>{{ 'customer_msg'|trans }}</h2>
+                                <div class="alert alert-warning">
+                                    {% for comment in article.webmasterComments %}
+                                        <blockquote>
+                                            <p>{{ comment }}</p>
+                                        </blockquote>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+                    {% if article.order.isDeclined and article.adminComments %}
+                        <div class="ibox float-e-margins">
+                            <div class="ibox-content">
+                                <h2>{{ 'admin_msg'|trans }}</h2>
+                                <div class="alert alert-warning">
+                                    {% for comment in article.adminComments %}
+                                        <blockquote>
+                                            <p>{{ comment }}</p>
+                                        </blockquote>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-content">
+                            <div class="j-has-count">
+                                {% if form.metaTitle is defined %}
+                                    {{ form_row(form.metaTitle, { 'label': 'meta_title'|trans }) }}
+                                {% endif %}
+                                {% if form.metaDesc is defined %}
+                                    {{ form_row(form.metaDesc, { 'label': 'meta_desc'|trans }) }}
+                                {% endif %}
+                            </div>
+                            {% if form.frontImage is defined %}
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label" for="{{ form.frontImage.vars.id }}">{{ 'featured_image'|trans }}</label>
+                                    <div class="col-sm-9">
+                                        {{ form_errors(form.frontImage) }}
+                                        {{ form_widget(form.frontImage, {'attr': {'class': 'j-font-image-input'}}) }}
+                                        <input type="file" id="uploadFrontImage">
+                                        <label title="Upload image file" for="uploadFrontImage" class="btn btn-primary m-t-md">
+                                            <i class="fa fa-folder-open"></i>
+                                            {{ 'upload_image'|trans }}
+                                        </label>
+                                        <button type="button" class="btn btn-primary m-t-md m-l-sm" data-action="add-image" data-target="#choiceImages">{{ 'choose_images'| trans }}</button>
+                                        <div class="image-preview__wrap">
+                                            <img id="image-preview" src="{{ asset('img/no_image_placeholder_2.png') }}" alt="downloaded image">
+                                        </div>
+
+                                    </div>
+                                </div>
+                            {% endif %}
+                            {% if form.rubrics is defined %}
+                                {{ form_row(form.rubrics, { 'attr': {'class': 'copywriting_article_rubrics'}, 'label': 'rubrics'|trans }) }}
+                            {% endif %}
+                            <div class="controls clearfix">
+                                <div class="pull-right">
+                                    {% if app.request.get('wysiwyg') is same as("1") or app.request.get('wysiwyg') is null %}
+                                        <a class="btn btn-primary" href="?wysiwyg=2">{{ 'change_wysiwyg'|trans }}</a>
+                                    {% else %}
+                                        <a class="btn btn-primary" href="?wysiwyg=1">{{ 'change_wysiwyg'|trans }}</a>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="ibox-content">
+                            <div class="alert alert-danger text-empty" style="display:none">
+                                <span class="error-text">{{ 'text_empty'|trans }}</span>
+                            </div>
+                            {{ form_widget(form.text) }}
+                        </div>
+                    </div>
+                    <div class="ibox m-t-n-sm">
+                        <div class="ibox-content">
+                            <a href="{{ path('copywriting_order_list', {'status': ['progress','declined']}) }}" class="btn btn-white m-b-sm" type="submit">{{ 'cancel'|trans }}</a>
+                            {{ form_widget(form.save, {'attr': {'class': 'btn-info m-b-sm', 'data-action': 'save'}, 'label': 'save'|trans}) }}
+                            {% if (app.user.hasRole('ROLE_WEBMASTER') or app.user.hasRole('ROLE_SUPER_ADMIN')) and article.order.completed %}
+                                {% do form.validate.setRendered %}
+                                {% do form.validateAndSave.setRendered %}
+                            {% else %}
+                                {{ form_widget(form.validate, {'attr': {'class': 'btn btn-info m-b-sm'}, 'label': 'validate'|trans}) }}
+                                {{ form_widget(form.validateAndSave, {'attr': {'class': 'btn btn-primary m-b-sm'}, 'label': 'validate_save'|trans }) }}
+                                {% if entity.order.exchangeProposition is not null and entity.order.exchangeProposition.type != constant('CoreBundle\\Entity\\ExchangeProposition::OWN_TYPE') and app.user.isWriterCopywriting %}
+                                    <button type="button" class="btn btn-danger m-b-sm" data-toggle="modal" data-target="#taskImpossible">{{ 'task_impossible'|trans }}</button>
+                                {% endif %}
+                                {% if not article.order.isDeclined
+                                    and not article.order.isInProgress
+                                    and app.user.admin
+                                %}
+                                    <button type="button" class="btn btn-danger decline-button m-b-sm" data-toggle="modal" data-target="#declineModal">{{ 'decline'|trans }}</button>
+                                {% endif %}
+                                {% do form.save.setRendered %}
+                            {% endif %}
+                        </div>
+                    </div>
+                    {% do form.nonconforms.setRendered %}
+                    {{ form_end(form) }}
+                </div>
+            </div>
+            {% include "copywriting_article/decline_modal.html.twig" %}
+
+            {% if isShowReviewedModal %}
+                <div class="modal fade high-inputs" id="alreadyReview" tabindex="-1" role="dialog">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title"></h4>
+                                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only"></span></button>
+                            </div>
+                            <div class="modal-body">
+                                {{ 'modal.already_reviewing'|trans({'%name%': entity.adminReview.fullName }) }}
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="startReviewTracker()">{{ 'modal.accept'|trans }}</button>
+                                <a type="button" href="{{ path('copywriting_order_list', {'status':'submitted_to_admin'}) }}" class="btn btn-default">{{ 'modal.close'|trans }}</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+
+            {% if entity.order.exchangeProposition is not null %}
+                <div class="modal fade high-inputs" id="taskImpossible" tabindex="-1" role="dialog">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title">{{ 'task_impossible'|trans }}</h4>
+                                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only"></span></button>
+                            </div>
+                            <div class="modal-body">
+                                <form method="post" action="{{ path('user_exchange_site_proposals_task_impossible', {'id': entity.order.exchangeProposition.id}) }}">
+                                    <div class="form-group">
+                                        <label for="comment"><span class="text-danger">{{ 'warning_message'|trans }}:</span></label>
+                                        <textarea class="form-control" id="comment" name="comment" rows="5"></textarea>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">{{ 'modal.close'|trans }}</button>
+                                <a href="#" class="btn btn-primary">{{ 'modal.send'|trans }}</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+
+            <div class="modal fade images high-inputs" id="choiceImages" tabindex="-1" role="dialog">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title">{{ 'images.choice_images'|trans }}</h4>
+                            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only"></span></button>
+                        </div>
+
+
+                        <div class="modal-body">
+                            <form id="search_images" class="clearfix">
+                                <label class="control-label" for="query">{{ 'images.query'|trans }}</label>
+                                <input class="form-control" type="text" id="query" name="query" required>
+                                <button type="submit" class="btn btn-primary btn-outline pull-right m-t-lg">{{ 'modal.submit'|trans({}, 'general') }}</button>
+                            </form>
+
+                            <div id="images-container" class="m-t-md">
+                              <div id="admin-images-container" class="m-t-md">
+                                  <div class="inner-title" >{{ 'admin_images'|trans }}</div>
+                                  <div class="inner-container"></div>
+                              </div>
+                              <div id="pixabay-images-container" class="m-t-md">
+                                  <div class="inner-title" >{{ 'pixabay_images'|trans }}</div>
+                                  <div class="inner-container"></div>
+                              </div>
+                            </div>
+
+                            <div id="pagination"></div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+{% endblock %}
+
+{% block javascript %}
+    {{ parent() }}
+    <script>
+        translations.showCaption = "{{ "show_caption"|trans }}";
+        translations.captionText = "{{ "caption_text"|trans }}";
+        translations.nonconform = "{{ "nonconform"|trans }}";
+        translations.cancel = "{{ "cancel"|trans }}";
+        translations.wrongImageWidth = "{{ 'validation.wrong_image_width'|trans }}";
+        translations.modal.impossible = {
+            'error' : "{{ "modal."|trans({}, 'exchange_site_proposals') }}",
+        };
+        var articleId = {{ entity.id }};
+        var height = 500;
+        var pixabayKey = "{{ pixabayKey }}";
+        var userLocale = "{{ app.user.locale }}";
+        var isShowReviewedModal = {{ isShowReviewedModal ? 1 : 0 }};
+        var isStartReviewTracker = {{ isStartReviewTracker ? 1 : 0 }};
+    </script>
+    <script src="{{ asset('js/front/copywriting/upload-image.js') }}"></script>
+    <script src="{{ asset('js/admin/jquery.twbsPagination.min.js') }}"></script>
+    <script src="{{ asset('js/front/admin_images/search.js') }}"></script>
+    <script src="{{ asset('js/front/copywriting/pixabay.js') }}"></script>
+    {% if app.request.get('wysiwyg') is same as("2") %}
+        <script src="{{ asset('js/admin/plugins/summernote/summernote_0.8.8.js') }}"></script>
+        <script src="{{ asset('js/admin/plugins/summernote/plugins/summernote-image-attributes.js') }}"></script>
+        <script src="{{ asset('js/admin/plugins/summernote/plugins/summernote-image-captionit.js') }}"></script>
+        <script src="{{ asset('js/front/init_summernote.js') }}"></script>
+    {% else %}
+        <script src="https://cloud.tinymce.com/stable/tinymce.min.js?apiKey={{ tinymce_key }}"></script>
+        <script src="{{ asset('js/front/copywriting/tinymce_init.js') }}"></script>
+    {% endif %}
+    <script src="{{ asset('js/front/copywriting/article_edit.js') }}"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            if (isShowReviewedModal) {
+                $('#alreadyReview').modal('show');
+            }
+
+            if (isStartReviewTracker) {
+                startReviewTracker();
+            }
+        });
+    </script>
+    {% if not app.user.isWebmaster and not entity.order.isCompleted %}
+        <script src="{{ asset('js/front/copywriting/save_article.js') }}"></script>
+    {% endif %}
+    <script src="{{ asset('js/front/copywriting/article/decline.js') }}"></script>
+    <script type="text/javascript">
+        var modal = $('#taskImpossible');
+        modal.find('.btn-primary').click(function (e) {
+            var form = modal.find('form').first();
+            sendPostRequest(form.attr('action'), form.serialize(),  function (response) {
+                if (response.status === true) {
+                    toastr.success(response.message);
+                    setTimeout(function () {
+                        window.location = response.redirectUrl;
+                    }, 1000);
+                } else {
+                    toastr.error(response.message);
+                }
+                modal.modal('hide');
+            });
+        });
+    </script>
+{% endblock %}

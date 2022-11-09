@@ -1,0 +1,51 @@
+{% extends "@FOSUser/layout.html.twig" %}
+{% block title %}Ereferer | Register{% endblock %}
+
+{% block class_for_form %}centered{% endblock %}
+
+{% block fos_user_content %}
+    {% include "@FOSUser/Registration/register_content.html.twig" %}
+{% endblock fos_user_content %}
+
+{% block fos_user_style %}
+    {{ parent() }}
+    <link href="/css/admin/plugins/chosen/bootstrap-chosen.css" rel="stylesheet">
+{% endblock fos_user_style %}
+
+
+
+{% block fos_user_script %}
+    <!-- Chosen -->
+    <script src="{{ asset('/js/admin/plugins/chosen/chosen.jquery.js') }}"></script>
+    <script src="{{ asset('/js/front/custom-vat-number.js') }}"></script>
+    <script>
+        var countrySelect = $('#fos_user_registration_form_country');
+
+        $(document).ready(function(){
+            $(countrySelect).chosen({width: "100%"});
+        });
+
+        $("[data-action=validateStep]").on('click', function(){
+          var requiredInputs = $(this).parents('.registraton-step_card').find('input[required]');
+          var nextStep = $(this).parents('[class^="col-"]').next().find('.registraton-step');
+          var hasErrors = false;
+
+          requiredInputs.each(function () {
+            if ($(this).val() === ''){
+              $(this).parents('.form-group').addClass('has-error');
+              hasErrors = true;
+            }else if ($(this).attr('id') === 'fos_user_registration_form_plainPassword_second' && $(this).val() !== $('#fos_user_registration_form_plainPassword_first').val()){
+              $(this).parents('.password-fieldset').find('.form-group').addClass('has-error');
+              hasErrors = true;
+            } else {
+              $(this).parents('.form-group').removeClass('has-error');
+              hasErrors = false;
+            }
+          });
+          if(hasErrors !== true) {
+            nextStep.addClass('active');
+            $(this).slideUp(200);
+          }
+        })
+    </script>
+{% endblock fos_user_script %}

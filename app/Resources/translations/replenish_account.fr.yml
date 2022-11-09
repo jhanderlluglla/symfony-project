@@ -1,0 +1,54 @@
+title_step_1: Quelle est votre moyen de paiement ?
+title_step_2: Combien souhaitez-vous créditer ?
+title_step_3: Valider votre paiement
+
+min_paypal: Paiement minimum par paypal de 20€ (+2.5% de frais)
+min_wire_transfer: Paiement minimum par virement bancaire de 100€ (Gratuit, sauf virement internationaux)
+
+commissions: "Commission de %percent%%"
+vat_amount: "TVA de %percent%%"
+amount: Montant
+finish_amount: Montant total
+fees: Frais
+amount_placeholder: Renseignez votre montant ici
+requisites: Conditions requises
+bic_swift: BIC/SWIFT
+iban: IBAN
+confirm: Je confirme avoir effectué le virement bancaire
+wire_transfer_text: Merci d'effectuer le virement bancaire à :
+title: Recharger son compte
+title_success: Paiement effectué avec succès
+title_fail: Erreur lors de votre paiement
+title_cancel: Paiement annulé
+finish: Terminer
+
+replenish: Recharger son compte
+replenish_amount: Montant à recharger
+notification_start: Merci d'indiquer votre prénom et nom
+notification_end: Commentaire à indiquer lors du virement bancaire.
+
+createed_request_successfully: La demande de virement bancaire a été bien été enregistrée
+
+table:
+    request_amount: Montant souhaité
+    amount_with_tax: Textes
+    statuses:
+        waiting: En attente
+        accepted: Accepté
+        rejected: Rejeté
+    accept: Accepté
+    reject: Rejeté
+
+error:
+    amount: Le montant à recharger ne peut être de 0€
+    less_than_min: "Le montant à recharger doit être supérieur à %minimum%"
+
+waiting_time: Le temps d'attente pour le lancement des nouveaux projets est estimé à 1 jour.
+reload_request: Effectuer une demande de rechargement
+attention_title: Attention !
+attention: La TVA de 20% est applicable pour toutes personnes et entreprises domiciliées en France. Si vous êtes hors France, vous devez le mentionner dans votre profil.
+your_profile: Votre profil
+successfully_replenish: Vous avez bien été crédité de :
+paypal: Paypal
+wire_transfer: Virement bancaire
+recharge: Rechargement

@@ -1,0 +1,30 @@
+{% extends 'layout.html.twig' %}
+
+{% trans_default_domain 'admin_images' %}
+
+{% block title %}
+    {{ 'edit_title'|trans }}
+{% endblock %}
+
+{% block breadcrumb %}
+    {{ include('breadcrumb/admin_images.html.twig', {'childrens': ['edit_title'|trans({}, 'admin_images')], 'link': 'admin_images'})}}
+{% endblock %}
+
+{% block content %}
+    {% include "admin_images/form.html.twig" %}
+{% endblock %}
+
+{% block javascript %}
+    {{ parent() }}
+    <script src="{{ asset('js/front/admin_images/upload.js') }}"></script>
+    <script src="{{ asset('js/front/admin_images/edit.js') }}"></script>
+    <script>
+    $(document).ready(function () {
+        $('#admin_image_submit').on('click',function(){
+            if ( $('#admin_image_filename').val().length && $('#admin_image_url').val().length ){
+                $('#upload_image').prop('required',false);
+            }
+        });
+    });
+    </script>
+{% endblock %}

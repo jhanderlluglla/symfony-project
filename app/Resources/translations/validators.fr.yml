@@ -1,0 +1,25 @@
+exchange:
+    duplicate_site: Ce site a déjà été ajouté
+    credits:
+        less_then_max_credits: Vous ne pouvez pas demander plus que le montant maximal autorisé.
+    form_of_writing: Au moins 1 choix doit être effectué.
+
+copywriting_project:
+    recurrent_total:
+        higher_then_articles_number: Le nombre total d'articles doit être supérieur au nombre d'articles demandé par période.
+
+settings:
+    identificator_exists: Cet identifiant est déjà utilisé
+
+withdraw_request:
+    choice_required: Merci de renseigner tous les champs
+    file_extension:  L'extension du fichier est incorrecte. Seule l'extension "pdf" est autorisée.
+    not_blank: Cette valeure ne peut être vide.
+
+replenish:
+    insufficient:
+        paypal: Fonds insuffisants pour un paiement par Paypal.
+        wire_transfer: Fonds insuffisants pour un paiement par virement bancaire.
+
+article_blog:
+    url_path_error: Le chemin de l'URL doit contenir uniquement le domaine

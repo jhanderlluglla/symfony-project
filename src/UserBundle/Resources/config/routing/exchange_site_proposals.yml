@@ -1,0 +1,71 @@
+user_exchange_site_proposals:
+    path:     /exchange-site-proposals
+    defaults: { _controller: UserBundle:ExchangeSiteProposals:index }
+
+user_exchange_site_proposals_details:
+    path:     /exchange-site-proposals-details/{id}
+    defaults: { _controller: UserBundle:ExchangeSiteProposals:details }
+    options:
+        expose: true
+    requirements:
+        id: '\d+'
+
+user_exchange_site_history:
+    path:     /exchange-site-proposals-history
+    defaults: {_controller: UserBundle:ExchangeSiteProposals:history}
+
+user_exchange_site_proposals_preview:
+    path:     /exchange-site-proposals-preview/{id}
+    defaults: { _controller: UserBundle:ExchangeSiteProposals:preview }
+    requirements:
+        id: '\d+'
+
+user_exchange_site_proposals_modal:
+    path:     /exchange-site-proposals-modal
+    defaults: { _controller: UserBundle:ExchangeSiteProposals:modal }
+    options:
+        expose: true
+
+user_exchange_site_proposals_accept:
+    path:     /exchange-site-proposals-accept
+    defaults: { _controller: UserBundle:ExchangeSiteProposals:accept }
+    options:
+        expose: true
+
+user_exchange_site_proposals_validate:
+    path:     /exchange-site-proposals-validate
+    defaults: { _controller: UserBundle:ExchangeSiteProposals:validate }
+    options:
+        expose: true
+
+user_exchange_site_proposals_modification:
+    path:     /exchange-site-proposals-modification
+    defaults: { _controller: UserBundle:ExchangeSiteProposals:modification }
+    options:
+        expose: true
+
+user_exchange_site_proposals_refuse:
+    path:     /exchange-site-proposals-refuse
+    defaults: { _controller: UserBundle:ExchangeSiteProposals:refuse }
+    options:
+        expose: true
+
+user_exchange_site_proposals_modification_accept:
+    path:     /exchange-site-proposals-modification-accept
+    defaults: { _controller: UserBundle:ExchangeSiteProposals:modificationAccept }
+    options:
+        expose: true
+
+user_exchange_site_proposals_modification_refuse:
+    path:     /exchange-site-proposals-modification-refuse
+    defaults: { _controller: UserBundle:ExchangeSiteProposals:modificationRefuse }
+    options:
+        expose: true
+
+user_exchange_site_proposals_task_impossible:
+    path:     /exchange-site-proposals-task-impossible/{id}
+    defaults: { _controller: UserBundle:ExchangeSiteProposals:impossible }
+    requirements:
+        id: '\d+'
+    options:
+        expose: true

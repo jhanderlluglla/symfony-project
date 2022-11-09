@@ -1,0 +1,95 @@
+title: Transactions
+
+table:
+    user: Utilisateur
+    details: Détails
+    more_details: Plus de details
+    debit: Débit
+    credit: Crédit
+    balance: Balance
+    date: Date
+
+with_sub_details: sous-détails
+
+description:
+    affiliation:
+        affiliation: Affiliation
+    copywriting_order:
+        express_order_refund: "Remboursement suite à la commande urgente \"%order_title%\"."
+        checking_article: "Vérification de l'article \"%order_title%\"."
+        images_cashback: "Remboursement pour les images non utilisées sur la commande %order_title% (Date %order_date%)"
+        writing_article: "Rédaction d'un article pour la commande %order_title%."
+        reject_order_cashback: "Remboursement du coût supplémentaire suite à l'indisponibilité du rédacteur choisi : %order_title%, projet: %project_title%."
+        edit: "Modifier la commande : %order_title%."
+        delete: "Supprimer la commande : %order_title%."
+        project_payment: "Titre du projet: %project_title%."
+        multi_project_payment: "<strong>Nombre d'articles: %articles_count%;</strong> Titre du projet: %project_title%."
+        article_impossible: "Rejet de l'article #%order_id% \"%order_title%\": tâche impossible"
+        article_declined: "Rejet de l'article #%order_id% \"%order_title%\"."
+    job:
+        writerReward: "Tâche effectuée sur %url% pour le projet #%projectId% (%projectUrl%)"
+        payment: "Paiement en cours pour le projet #%projectId% (%projectUrl%)"
+        hold: "Retenue d’argent pour la soumission #%jobId% du projet afin de créer des liens entre #%netlinkingId%"
+        expiredHold: "Retourne l'argent retenu pour la soumission #%jobId% du projet à la création de liens Internet #%netlinkingId%"
+        reject: "Tâche rejetée pour le projet #%projectId% (%projectUrl%)"
+    account:
+        replenish_wire_transfer: Rechargement par Virement bancaire
+        replenish_paypal: Rechargement PayPal
+        replenish_description: Rechargement de %name%
+        modify_balance_remove: Fonds retirés manuellement par l'administrateur
+        modify_balance_add: Fonds ajoutés manuellement par l'administrateur
+        withdraw_transaction_cancelled: Transaction annulée
+        withdraw_transaction_comment: Votre retrait
+        payment_writer: Paiement
+    proposal:
+        money_from_proposal: "Gains pour la publication sur %url%"
+        pay_for_proposition: Demande de publication sur %url%
+        writing_ereferer: Article pour %url%
+        writing_ereferer_del: Supprimer l'écriture par ereferer pour %url%
+        refund_cost: "Remboursement suite à la proposition d'article sur %url%"
+        impossible: "Remboursement suite à la proposition sur %url%, le rédacteur ne peut pas rédiger l'article pour la raison suivante \"%comment%\""
+    credit:
+        convert: "Conversion de crédits en euros"
+
+more_details:
+    empty: Pas de détails
+    comment: Commentaire
+    words: Mots
+    wordsPrice: Prix de la rédaction
+    images: Images
+    imagesPrice: Prix des images
+    writerCategory: Rédacteur demandé
+    priceWriterCategory: Prix supplémentaire pour ce rédacteur
+    expressArticles: Article Urgent
+    expressArticlesPrice: Prix supplémentaire pour l'urgence
+    redactionPrice: Prix de la rédaction
+    numberOfWords: Nombre de mots
+    earningForWords: Gains pour la rédaction
+    numberOfImages: Nombre d'images
+    earningForImages: Gains pour les images
+    earningForExpress: Gains supplémentaires pour l'urgence
+    earningForWriterCategory: Gains Bonus pour vos bonnes stats
+    imagesPaid: Images payées
+    imagesUsed: Images utilisées
+    reFound: Remboursement
+    withdraw: Retrait
+    ereferer_commission: Commission Ereferer
+    net_to_pay: A payer
+    rejection_reason: Motif du rejet
+    ep_webmasterAdditionalPay: Ecrire un article
+    ep_commission: Commission
+    ep_exchangeSitePrice: Prix du blog
+    paymentForMetaDescription: "Payment for meta description"
+    paymentForMetaDescriptionValue: "%articles% x %price%€ = %total%€"
+    priceForMetaDescription: "Price for meta description"
+    rewardForMetaDescription: Gagner pour la méta description
+    deleteProposition: Supprimé par admin
+    earningMalus: Malus
+    writerBonusRate: Bonus
+    writerMalusRate: Pénalité
+
+filter: Filtrer
+filter.user_name: Filtrer par nom d'utilisateur
+filter.all_users: Tous les utilisateurs
+global_price: "Prix total pour %articles% articles"
+unit_price: Prix unitaire

@@ -1,0 +1,5 @@
+{{ form_start(form, {'attr': {'id': 'add-new-record' }}) }}
+<input type="hidden" id="eSid" name="id" value="{{ id }}">
+<input type="hidden" id="eStype" name="type" value="{{ type }}">
+{{ form_widget(form) }}
+{{ form_end(form) }}

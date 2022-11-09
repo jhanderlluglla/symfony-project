@@ -1,0 +1,196 @@
+{% extends 'layout.html.twig' %}
+
+{% trans_default_domain 'exchange_site_find' %}
+
+{% form_theme form "form/theme.html.twig" %}
+{% form_theme form.majesticTtfCategories 'jquery.collection.html.twig' %}
+
+{% block title %}
+    {{ 'exchange_site.find_sites'|trans({}, 'menu') }}
+{% endblock %}
+
+{% block breadcrumb %}
+    {{ include('breadcrumb/netlinking.html.twig', {'childrens': [block('title')]}) }}
+{% endblock %}
+
+{% block content %}
+    <div class="tabs-container filters">
+      {% set tab = "" %}
+      {% if app.request.query.all.tab is defined %}
+        {% set tab = app.request.query.all.tab %}
+      {% else %}
+        {% set tab = "findSites" %}
+      {% endif %}
+        <ul class="nav nav-tabs j-tabs-with-footable">
+          <li class="{% if tab is same as("findSites") %}active{% endif %}">
+            <a href="#tab-find_sites">{{ 'tabs.find_sites'|trans }}</a>
+          </li>
+          <li class="{% if tab is same as("proposals") %}active{% endif %}">
+            <a href="#tab-proposals">{{ 'tabs.proposals'|trans }}</a>
+          </li>
+        </ul>
+        <div class="tab-content">
+            <div id="tab-find_sites" class="tab-pane {% if tab is same as ("findSites") %}active{% endif %}">
+                <div class="high-inputs">
+                    {{ form_start(form) }}
+                    <div class="ibox-content">
+                        <button class="btn btn-primary m-t-md" data-action="toggle-filters" type="button">
+                            <i class="fa fa-sliders" aria-hidden="true" style="font-size: 20px; margin-right: 5px"></i>
+                            <span class="hidden">{{ 'form.show_filters'|trans }}</span>
+                            <span>{{ 'form.hide_filters'|trans }}</span>
+                        </button>
+                    </div>
+                    <div class="filters-container">
+                        {{ include('exchange_site_find/filters.html.twig') }}
+                        <footer class="filters-submit">
+                            {{ form_widget(form.filter, {'attr': {'class': 'btn-primary m-r-md'}}) }}
+                            <div>
+                                <span>{{ 'form.items_found'|trans }}:</span>
+                                <span id="count_results">{{ countResults }}</span>
+                            </div>
+                        </footer>
+                    </div>
+                    {{ form_end(form) }}
+                </div>
+                <div>
+                    {% include 'exchange_site_find/table.html.twig' %}
+                </div>
+            </div>
+            <div id="tab-proposals" class="tab-pane {% if tab is same as("proposals") %}active{% endif %}">
+                {% if app.user.isAdmin %}
+                    <div class="ibox-content">
+                        {{ form(proposalFilter) }}
+                    </div>
+                {% endif %}
+                {% include "exchange_site_result_proposals/index.html.twig" %}
+            </div>
+        </div>
+    </div>
+
+    <!-- Writing Rreferer -->
+    {% include 'exchange_site_find/proposition_modal.html.twig' %}
+
+    <div class="modal fade" id="exchangeSiteResultProposals" tabindex="-1" role="dialog">
+        <div class="modal-dialog high-inputs" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title"></h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body"></div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="/css/admin/plugins/kartik-rating/star-rating.css" media="all" rel="stylesheet" type="text/css"/>
+    <link href="/css/admin/plugins/OverlayScrollbars/OverlayScrollbars.min.css" rel="stylesheet">
+{% endblock %}
+
+{% block javascript %}
+    {{ parent() }}
+    {{ include('directories_list/translations.html.twig') }}
+    <script src="{{ asset('js/admin/plugins/touchspin/jquery.bootstrap-touchspin.min.js') }}"></script>
+    <script src="{{ asset('js/admin/jquery.collection.js') }}"></script>
+    <script src="{{ asset('js/front/init_filters.js') }}"></script>
+    <script src="{{ asset('js/front/exchange_site/exchange_site_find.js') }}"></script>
+    <script src="{{ asset('js/admin/plugins/kartik-rating/star-rating.js') }}"></script>
+    <script src="{{ asset('js/front/exchange_site/exchange_site_result_proposals.js') }}"></script>
+    <script src="{{ asset('js/admin/plugins/OverlayScrollbars/jquery.overlayScrollbars.min.js') }}"></script>
+    <script src="{{ asset('js/front/directory/jquery-throttle-debounce.js') }}"></script>
+    <script src="{{ asset('js/front/directory/jquery.stickyheader.js') }}"></script>
+    <script src="{{ asset('js/front/directory/custom-popup.js') }}"></script>
+    <script type="text/javascript">
+
+        $('.ttf-categories-collection').collection({
+            add: '<a href="#" class="btn btn-outline btn-info add-ttf-category">{{ 'form.add_category'|trans }}</a>',
+            remove: '<a href="#" class="btn btn-sm btn-outline btn-danger">{{ 'form.remove_category'|trans }}</a>',
+            allow_up: false,
+            allow_down: false,
+            add_at_the_end: true,
+            after_add: function(collection) {
+                initTouchSpin();
+                $('.chosen-select')
+                    .chosen({width: "100%"})
+                    .on('chosen:showing_dropdown', function (evt, params) {
+                        checkChosenPosition(evt);
+                    });
+            }
+        });
+    </script>
+    <script type="text/javascript">
+
+        $('[data-action="toggle-filters"]').on('click', function(){
+          $('.filters-container').slideToggle(300, function() {
+            $('[data-action="toggle-filters"]').find('span').toggleClass('hidden');
+          });
+        });
+
+        var ageInputs = $('#filters_ageCondition').find('input[type="radio"]');
+
+        function checkAgeInputs(){
+            ageInputs.each(function() {
+                if($(this).prop('checked')) {
+                    ageInputs.parents('.radio').removeClass('active');
+                    $(this).parents('.radio').addClass('active');
+                }
+            })
+        }
+        checkAgeInputs();
+        ageInputs.on('change', function() {
+          checkAgeInputs();
+        })
+
+    </script>
+    <script type="text/javascript">
+        function applyFilter(page) {
+            var urlParams = page ? {page: page[1]} : {};
+            $.ajax({
+                method: "GET",
+                data:$('form[name="filters"]').serialize(),
+                url: Routing.generate('user_exchange_site_find', urlParams),
+                success: function (response) {
+                    $('#tab-find_sites .directories-table-wrap').parent().replaceWith(response);
+                    $('#count_results').text(countResults);
+                    initFreeze();
+                },
+            });
+        }
+
+        $('#filters_filter').click(function(event) {
+            if(validateMinMax()) {
+                return false;
+            }
+            applyFilter();
+
+            return false;
+        });
+
+        applyFilter(location.href.match(new RegExp("page=(\\d+)")));
+
+        var href = location.href;
+
+        $('a[href="#tab-proposals"]').on('click', function(e) {
+          e.preventDefault();
+          if ($(this).parents('.active').length) return;
+          if (href.search('\\?') == -1) href = location.href + '?tab=proposals';
+          else if (href.search('findSites') !== -1) href = href.replace('findSites', 'proposals');
+          else href = location.href + '&tab=proposals';
+
+          location.href = href;
+        });
+
+        $('a[href="#tab-find_sites"]').on('click', function(e) {
+          e.preventDefault();
+          if ($(this).parents('.active').length) return;
+          if(href.search('proposals') !== -1) {
+            href = href.replace('proposals', 'findSites')
+          }
+
+          location.href = href;
+        });
+    </script>
+{% endblock %}

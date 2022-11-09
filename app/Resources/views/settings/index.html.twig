@@ -1,0 +1,96 @@
+{% extends 'layout.html.twig' %}
+
+{% trans_default_domain 'settings' %}
+
+{% block title %}
+    {{ 'title'|trans }}
+{% endblock %}
+
+{% block breadcrumb %}
+    {{ include('breadcrumb/settings.html.twig', {'childrens': [block('title')]}) }}
+{% endblock %}
+
+{% block action %}
+    <div class="col-sm-6">
+        <div class="title-action">
+            <a href="{{ path('admin_settings_add') }}" class="btn btn-primary"><i class="fa fa-gear"></i> {{ 'add_new'|trans }}</a>
+        </div>
+    </div>
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox-content">
+                {{ form(additionalData['filter_form']) }}
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox">
+                <div class="ibox-title">
+                    <h5>{{ 'title'|trans }}</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content wrap-table-center">
+
+                    {% if collection.haveToPaginate %}
+                        <div class="pagerfanta">
+                            {{ pagerfanta(collection) }}
+                        </div>
+                    {% endif %}
+
+                    <table class="footable table table-striped">
+                        <thead>
+                            <tr>
+                                <th data-breakpoints="xs" class="table-id">#</th>
+                                <th>{{ 'table.name'|trans }}</th>
+                                <th data-breakpoints="s">{{ 'table.identificator'|trans }}</th>
+                                <th data-breakpoints="m" class="wysiwyg-content">{{ 'table.value'|trans }}</th>
+                                <th data-breakpoints="xxs" class="text-right action">{{ 'table.action'|trans }}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for entity in collection %}
+                                <tr>
+                                    <td class="table-id">{{ loop.index + collection.getMaxPerPage * (collection.getCurrentPage - 1)}}</td>
+                                    <td>{{ entity.name }}</td>
+                                    <td>{{ entity.identificator }}</td>
+                                    <td>
+                                        {% if entity.value|length > 10 %}
+                                            {{ entity.value|slice(50) }}
+                                        {% else %}
+                                            {{ entity.value }}
+                                        {% endif %}
+                                    </td>
+                                    <td class="text-right action">
+                                        <div class="buttons-wrapper">
+                                            <a href="{{ path('admin_settings_edit', {'id': entity.id}) }}" class="btn btn-warning" title="{{ 'edit'|trans }}">
+                                                <i class="fa fa-edit"></i> {{ 'edit'|trans }}
+                                            </a>
+                                            <a href="{{ path('admin_settings_delete', {'id': entity.id}) }}" class="btn btn-danger delete" title="{{ 'delete'|trans }}">
+                                                <i class="fa fa-trash"></i> {{ 'delete'|trans }}
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+
+                    {% if collection.haveToPaginate %}
+                        <div class="pagerfanta">
+                            {{ pagerfanta(collection) }}
+                        </div>
+                    {% endif %}
+
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

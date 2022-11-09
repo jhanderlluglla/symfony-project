@@ -1,0 +1,21 @@
+{% extends 'layout.html.twig' %}
+
+{% trans_default_domain 'admin_images' %}
+
+{% block title %}
+    {{ 'add_title'|trans }}
+{% endblock %}
+
+{% block breadcrumb %}
+    {{ include('breadcrumb/admin_images.html.twig', {'childrens': ['add_title'|trans({}, 'admin_images')], 'link': 'admin_images'})}}
+{% endblock %}
+
+{% block content %}
+    {% include "admin_images/form.html.twig" %}
+{% endblock %}
+
+{% block javascript %}
+    {{ parent() }}
+    <script src="{{ asset('js/front/admin_images/upload.js') }}"></script>
+    <script src="{{ asset('js/front/admin_images/edit.js') }}"></script>
+{% endblock %}

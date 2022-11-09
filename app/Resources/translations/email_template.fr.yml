@@ -1,0 +1,29 @@
+title: Modèles d'Email
+add_title: Ajouter un nouveau modèle d'Email
+edit_title: Modifier un modèle d'Email
+
+add_new: Ajouter
+edit: Modifier
+delete: Supprimer
+
+table:
+    name: Nom
+    identificator: Identifiant
+    subject: Sujet
+    email_content: Contenu de l'Email
+    language: Langue
+    action: Action
+
+name: Nom
+identificator: Identifiant
+subject: Sujet
+email_content: Contenu de l'Email
+language: Langue
+save: Enregistrer
+
+en: Anglais
+fr: Français
+de: Allemand
+es: Espagnol
+it: Italien
+pt: Portugais

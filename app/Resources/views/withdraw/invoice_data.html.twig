@@ -1,0 +1,8 @@
+<ul class="invoice-reqirements square-marker">
+    <li>{{ settings['invoice_eurl'] }}</li>
+    <li>{{ settings['invoice_headquarters_address'] }}</li>
+    <li>{{ settings['invoice_postal_code'] }} {{ settings['invoice_area_address'] }}, {{ settings['invoice_country'] }}</li>
+    {% if isEuropeanCountryExceptFrance(app.user.country) %}
+        <li>{{ 'invoice_vat_number'|trans({}, 'invoice') }} : {{ settings['invoice_vat_number'] }}</li>
+    {% endif %}
+</ul>

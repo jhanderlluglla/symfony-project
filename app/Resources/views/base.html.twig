@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="{{ app.request.locale ? app.request.locale : app.request.defaultLocale }}">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <title>{% block title %}Welcome{% endblock %}</title>
+
+    {% block stylesheets %}{% endblock %}
+
+    <link rel="icon" type="image/png" href="{{ asset(favicon) }}" />
+</head>
+
+<body id="{% block body_id %}{% endblock %}" class="{% block body_class %}{% endblock %} visible-sidebar">
+
+    {% block body %}
+        {{ include('svg-sprites/_svg-sprite.html') }}
+        <!-- Wrapper-->
+        <div id="wrapper" class="clearfix gray-bg">
+            <!-- Navigation -->
+            {% block main_navigation %}
+                {{ include('main-navigation.html.twig') }}
+            {% endblock %}
+
+            <!-- Page wraper -->
+            <div id="page-wrapper">
+                <div id="swipe-area"></div>
+                <!-- Top Navigation -->
+                {% block top_navigation %}
+                    {{ include('top-navigation.html.twig') }}
+                {% endblock %}
+
+                <div class="row wrapper border-bottom white-bg page-heading">
+                    <div class="">
+                        <!-- Page Heading -->
+                        {% block page_heading %}
+                            <div class="col-sm-6">
+                                {% block breadcrumb %}
+                                    <ol class="breadcrumb">
+                                        <li>
+                                            {{ block('title') }}
+                                        </li>
+                                    </ol>
+                                {% endblock %}
+                                <h2 class="head-title">{{ block('title') }}</h2>
+                            </div>
+                        {% endblock %}
+                        {% block action %}
+
+                        {% endblock %}
+                    </div>
+                </div>
+
+                <!-- Main content  -->
+                <div class="wrapper wrapper-content">
+                    {% block content %}{% endblock %}
+                </div>
+
+            </div>
+            <!-- End page wrapper-->
+
+            <!-- Footer -->
+            {% block footer %}
+                {{ include('footer.html.twig') }}
+            {% endblock %}
+        </div>
+        <!-- End wrapper-->
+    {% endblock %}
+
+    {% block javascript_main %}
+    {% endblock %}
+
+    {% block javascript %}
+    {% endblock %}
+
+    <div class="modal fade" id="erefererAlerts" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title"></h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body"></div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

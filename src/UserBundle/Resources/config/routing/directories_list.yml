@@ -1,0 +1,39 @@
+admin_directories_list:
+    path:     /
+    defaults: { _controller: UserBundle:DirectoriesList:index }
+
+admin_directories_list_add:
+    path:     /add
+    defaults: { _controller: UserBundle:DirectoriesList:add }
+
+admin_directories_list_edit:
+    path:     /edit/{id}
+    defaults: { _controller: UserBundle:DirectoriesList:edit }
+    requirements:
+        id: '\d+'
+
+admin_directories_list_delete:
+    path:     /delete/{id}
+    defaults: { _controller: UserBundle:DirectoriesList:delete }
+    requirements:
+        id: '\d+'
+
+admin_directories_list_duplicate:
+    path:     /duplicate/{id}
+    defaults: { _controller: UserBundle:DirectoriesList:duplicate }
+    requirements:
+        id: '\d+'
+
+admin_directories_list_relation:
+    path:     /relation/{id}
+    defaults: { _controller: UserBundle:DirectoriesList:relation, tab: directory }
+    options:
+        expose: true
+    requirements:
+        id: '\d+'
+
+admin_directories_list_price:
+    path:     /price
+    defaults: { _controller: UserBundle:DirectoriesList:getPriceById }
+    options:
+            expose: true

@@ -1,0 +1,17 @@
+{% trans_default_domain 'copywriting' %}
+
+{% if collection|length == 0 %}
+    <div class="no_results">
+        {{ 'no_results'| trans({}, 'general') }}
+    </div>
+{% else %}
+    {% if app.user.isWebmaster %}
+        {% set template = 'copywriting_order/webmaster_one_item.html.twig' %}
+    {% else %}
+        {% set template = 'copywriting_order/writer_one_item.html.twig' %}
+    {% endif %}
+    {% for order in collection %}
+        {% include template %}
+    {% endfor %}
+{% endif %}
+

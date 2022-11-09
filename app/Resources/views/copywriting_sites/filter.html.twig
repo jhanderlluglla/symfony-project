@@ -1,0 +1,46 @@
+{% trans_default_domain 'exchange_site' %}
+{% if collection|length > 0 %}
+    <table class="footable table table-striped">
+        <thead>
+        <tr>
+            <th>{{ 'table.site'|trans }}</th>
+            <th data-breakpoints="xs">{{ 'table.plugin_status'|trans }}</th>
+            <th class="text-right" >{{ 'table.action'|trans }}</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for entity in collection %}
+            <tr>
+                <td>
+                    <p><strong>{{ entity.url }}</strong></p>
+                </td>
+                <td>
+                    {% if entity.pluginStatus %}
+                        <span class="glyphicon glyphicon-ok text-info" aria-hidden="true"></span>
+                    {% else %}
+                        <span class="glyphicon glyphicon-remove text-danger" aria-hidden="true"></span>
+                    {% endif %}
+                </td>
+                <td class="text-right action">
+                    <div class="buttons-wrapper">
+                        <a href="{{ path('admin_copywriting_site_edit', {'id': entity.id}) }}" class="btn btn-primary" title="{{ 'edit'|trans }}">
+                            <i class="fa fa-edit"></i> <span>{{ 'edit'|trans }}</span>
+                        </a>
+
+                        <a href="{{ path('admin_copywriting_site_delete', {'id': entity.id}) }}" class="btn btn-danger delete" title="{{ 'delete'|trans }}">
+                            <i class="fa fa-trash"></i> <span>{{ 'delete'|trans }}</span>
+                        </a>
+                    </div>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    <div class='no_results'>{{ 'no_results' | trans({}, 'general') }}</div>
+{% endif %}
+<script>
+    var maxPerPage = {{ maxPerPage }};
+    var countResults = {{ countResults }};
+</script>
+

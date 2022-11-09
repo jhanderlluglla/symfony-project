@@ -1,0 +1,37 @@
+Header add Access-Control-Allow-Origin *
+Header always set Access-Control-Allow-Methods *
+Header always set Access-Control-Allow-Headers "content-type, authorization"
+Header add Access-Control-Allow-Credentials true
+DirectoryIndex app_dev.php
+
+<IfModule mod_negotiation.c>
+    Options -MultiViews
+</IfModule>
+
+php_value max_execution_time 0
+php_value max_input_time -1
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    RewriteCond %{HTTP_HOST} ^(?!(it|de|fr|es|pt|en)\.)(.*)\.((.*)\.(.*))$ [NC]
+    RewriteRule ^(.*)$ http://%3/$1 [R=301,L,QSA]
+
+#    RewriteCond %{HTTPS} !=on
+#    RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301] #only for production
+
+    RewriteCond %{REQUEST_URI}::$1 ^(/.+)/(.*)::\2$
+    RewriteRule ^(.*) - [E=BASE:%1]
+
+    RewriteCond %{HTTP:Authorization} .
+    RewriteRule ^ - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+
+    RewriteCond %{ENV:REDIRECT_STATUS} ^$
+    RewriteRule ^app_dev\.php(?:/(.*)|$) %{ENV:BASE}/$1 [R=301,L]
+
+    RewriteCond %{REQUEST_FILENAME} -f
+    RewriteRule ^ - [L]
+
+    RewriteCond %{REQUEST_METHOD} !OPTIONS
+    RewriteRule ^ %{ENV:BASE}/app_dev.php [L]
+</IfModule>

@@ -1,0 +1,226 @@
+@import '_partials/_variables';
+
+.loginscreen .ibox-content{
+  width: 100%;
+  max-width: 430px;
+}
+.centered {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+  min-height: 90vh;
+}
+.fos_user_registration_register {
+  width: 100%;
+}
+.registration-title {
+  font-weight: 600;
+  color: #000;
+}
+.btn.btn-transparent {
+  background-color: transparent;
+  color: #1AB394;
+  padding: 12px 30px;
+}
+.registraton-step.active .registraton-step_title{
+  color: #293846;
+}
+.registraton-step.active .registraton-step_card{
+  opacity: 1;
+  visibility: visible;
+  display: block;
+  transform: scale(1) translateY(0);
+}
+.registraton-step_title {
+  margin-bottom: 15px;
+  margin-top: 30px;
+  padding: 0 32px;
+  color: #BDBDBD;
+}
+.registraton-step_title h2{
+  font-size: 20px;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+.registraton-step_title p{
+  font-size: 16px;
+}
+.registraton-step_card {
+  display: none;
+  visibility: hidden;
+  opacity: 0;
+  padding: 25px 20px;
+  background-color: #fff;
+  transition: all .4s ease;
+}
+.registraton-step_card  .input-lg {
+  height: 48px;
+  padding: 10px 16px;
+  font-size: 14px;
+  line-height: 1.3333333;
+  border-radius: 3px;
+}
+
+.centered .text-center >span {
+  margin-right: 2em;
+}
+.chosen-container-single .chosen-single div b {
+  background-position: 0 14px;
+}
+.chosen-container-active.chosen-with-drop .chosen-single div b {
+  background-position: -18px 14px;
+}
+.fos_user_registration_register label,
+.loginscreen label {
+  margin-bottom: 12px;
+  font-size: 16px;
+  font-weight: 500;
+  color: #293846;
+}
+
+.centered .chosen-container-single .chosen-single {
+  font-size: 14px;
+  padding: 12px 16px;
+}
+.btn {
+  padding: 12px 20px;
+  font-size: 16px;
+  font-weight: 600;
+}
+.m-t {
+  margin-top: 20px;
+}
+.form-group {
+  margin-bottom: 20px;
+}
+.form-group:last-child {
+  margin-bottom: 0;
+}
+.form-group.has-error .control-label:after {
+  content: '\f06a ';
+  font-family: FontAwesome;
+  font-size: 20px;
+  line-height: 1;
+  margin-left: 5px;
+}
+.fos_user_registration_register .chosen-container-single .chosen-search input[type="text"] {
+  background-image: url("/img/svg/icon-search.svg");
+  background-size: 32px;
+  background-position: 98% 5px;
+  padding: 12px 32px 12px 16px;
+}
+.centered .chosen-container-single .chosen-single div b,
+.centered .chosen-container-active.chosen-with-drop .chosen-single div b{
+  background: none;
+  position: relative;
+}
+.chosen-container-single .chosen-single div b:after {
+  content: '^ ';
+  position: absolute;
+  right: 9px;
+  top: 10px;
+  font-family: FontAwesome;
+  font-size: 20px;
+  color: #1ab394;
+  transform: rotateZ(180deg) scaleX(1.8);
+}
+.chosen-container-single.chosen-with-drop .chosen-single div b:after{
+  transform: rotateZ(0) scaleX(1.8);
+  top: 17px;
+}
+
+@media (min-width: 992px) {
+  .loginscreen .ibox-content {
+      padding: 40px;
+  }
+  .registraton-step_card {
+      /*opacity: 0;*/
+      /*visibility: hidden;*/
+      display: block;
+      /*transform: scale(.5) translateY(-100px);*/
+  }
+  .registraton-step_card {
+      padding: 40px 32px;
+  }
+  .registraton-step_title {
+      margin-bottom: 36px;
+      margin-top: 0;
+  }
+  .btn.m-t {
+      margin-top: 35px;
+  }
+  .form-group {
+      margin-bottom: 35px;
+  }
+  .row.flex {
+      display: flex;
+      align-items: stretch;
+  }
+  .row.flex .registraton-step{
+      display: flex;
+      flex-direction: column;
+      min-height: 100%;
+  }
+  .row.flex .registraton-step_card{
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+  }
+}
+
+.sent-email-message {
+  padding: 20px;
+  max-width: 550px;
+
+  p:first-child {
+    font-size: 2.4rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+
+    span {
+      color: $primary;
+    }
+  }
+
+  span {
+    font-weight: 700;
+  }
+}
+
+.reset-form-wrapper {
+  max-width: 550px;
+
+  #fos_user_resetting_form {
+    margin-bottom: 35px;
+
+    .form-group {
+      margin-right: 0;
+      margin-left: 0;
+    }
+
+    label,
+    div {
+      width: 100%;
+      padding: 0;
+    }
+
+    label {
+      text-align: left;
+      margin-bottom: 10px;
+    }
+  }
+
+  .btn {
+    padding: 12px 20px;
+  }
+}
+
+.custom-vertical-align {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+}

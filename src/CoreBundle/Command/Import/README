@@ -1,0 +1,38 @@
+1) Load fixtures
+2) Load users maybe need to execute (ALTER TABLE fos_user DROP FOREIGN KEY FK_957A647938248176;)
+3) Import Category through Import command
+4) Import copywriting_projects
+5) Import exchange_sites
+5.1) Import exchage_site_categories
+6) Import exchange_propositions
+7) Import copywriting_orders
+7.1) Import copywriting keywords
+7.2) Import long copywriting keywords via command (saveLongCopywritingKeywords)
+7.3) Update exchange_proposals
+8) Import copywriting_articles
+8.1) Update copywriting_articles via command (updateCopywritingArticles)
+8.2) Run command with name "create_copywriting_articles_for_progress_orders"
+9) Run FindBadProposaCommand and fix serialization
+10) Import copywriting_article_rating
+
+9) Run before_import_directory
+9) Import directory via command
+10) Import directory list
+10.1) Update Directory list via command(updateDirectoryList)
+11) Import netlinking_projects
+12) Import_jobs
+13) Import_rejected_jobs
+14) Import_shedule_tasks
+14.1) Run updateStartAtOfScheduleTasks command
+15) Jobs_schedule_taks_relation
+16) Import directory_backlinks
+16) Import comissions
+17) Import netlinking project comments
+18) Import anchors
+19) Import messages
+19) Import invoice
+20) Import withdraw_request
+21) Import affiliation
+
+
+run create_credit_transactions.sql

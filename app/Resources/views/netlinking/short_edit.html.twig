@@ -1,0 +1,65 @@
+{% trans_default_domain 'netlinking' %}
+
+{% macro netlinking_project_url(form, index) %}
+    {% if index %}
+        {% set placeholder = index %}
+    {% else %}
+        {% set placeholder = '__parentId__' %}
+    {% endif %}
+    <div class="netlinking_url">
+        <div class="form-group">
+            <div class="col-sm-3"></div>
+            <div class="col-sm-9">
+                <div id="netlinking_add_first_step_urls_{{ placeholder }}">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label required" for="netlinking_add_first_step_urls_{{ placeholder }}_url">URL</label>
+                        <div class="col-sm-9">
+                            <input type="text" value="{{ form.url.vars.value }}" id="netlinking_add_first_step_urls_{{ placeholder }}_url" name="netlinking_add_first_step[urls][{{ placeholder }}][url]" required="required" class="form-control" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endmacro %}
+{% import _self as macro %}
+
+{% set prototype = macro.netlinking_project_url(form.urls.vars.prototype) %}
+
+<div class="alert alert-danger hidden"></div>
+{% if mode == 'edit' %}
+    <div class="form-group">
+        <div class="col-sm-3"></div>
+        <div class="col-sm-9">
+            <div id="netlinking_add_first_step_urls" data-prototype='{{ prototype }}'>
+                {% for index, url in form.urls %}
+                    {{ macro.netlinking_project_url(url, index + 1) }}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    {% do form.urls.setRendered %}
+{% else %}
+    {{ form_row(form.urls) }}
+{% endif %}
+
+{{ form_row(form.directoryList, {'id': 'netlinking_directory_list'}) }}
+<div class="form-group hidden netlinking_words_count">
+    <div class="col-sm-3">
+    </div>
+    <div class="col-sm-9">
+        <h5>{{ 'form.minimum_words'|trans }}:</h5>
+        <span class="font-bold"></span> <span>({{ 'form.modify_list'|trans({'%%path%%': '#'})|raw }})</span>
+    </div>
+</div>
+<div class="form-group">
+    <div class="row">
+        <div class="col-sm-3">
+        </div>
+        <div class="col-sm-9">
+            <h4>{{ 'form.frequency_title'|trans }}</h4>
+        </div>
+    </div>
+</div>
+{{ form_row(form.frequencyDirectory) }}
+{{ form_row(form.frequencyDay) }}

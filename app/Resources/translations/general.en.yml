@@ -1,0 +1,59 @@
+form:
+    step: Step
+    login: Login
+    next_step: Next step
+    general_information: General Information
+    address: Address
+    additional_information: Additional Information
+    register: Register
+    dont_have_acc: Do not have an account?
+    forgot_pass: Forgot password?
+    create_acc: Create an account
+
+next_step: Next step
+step: Step
+info-box_title: Information
+count: Count
+amount_billable: Amount billable
+name: Name
+url: Url
+copied_successfully: Copied to clipboard successfully!
+no_results: No results
+language: Language
+
+actions:
+    delete: Delete
+    modification: Modification
+    accept: Accept
+    refuse: Refuse
+    validate: Validate
+
+table:
+    action: Action
+    status: Status
+    user: User
+    created_at: Created At
+    price: Price
+
+modal:
+    delete:
+        title: 'Are you sure?'
+        text: 'You will not be able to recover this record!'
+        confirm_button_text: 'Yes, delete it!'
+    confirmation:
+        title: 'Confirmation!'
+        text: 'Are you sure you want to do this?'
+        confirm_button_text: 'Yes, do it!'
+
+    cancel: Cancel
+    close: Close
+    submit: Submit
+    error: Error!
+    error_500: 500 Internal Server Error
+
+filter_form:
+    filter: Filter
+    search: Search
+
+day_late: Day late
+days: days

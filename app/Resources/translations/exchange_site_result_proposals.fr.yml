@@ -1,0 +1,75 @@
+title: Results of your proposals
+
+table:
+    sites: Sites
+    url: URL
+    owner: Propriétaire
+    client: Client
+    date: Date
+    price: Prix
+    age: Âge (années)
+    trust_flow: Trust flow
+    referring_domains: Domaines référents
+    status: Statut
+    comments: Commentaires
+    action: Actions
+
+statuses:
+    awaiting_webmaster: En attente de réponse
+    awaiting_writer: En attente de rédaction
+    in_progress: En cours de rédaction
+    expired: Expiré
+    changed: A modifier
+    refused: Refusé
+    accepted: Accepté
+    published: Accepté et publié
+    impossible: Impossible
+
+comments:
+    awaiting_webmaster: Le partenaire a encore %days% jour(s) pour statuer votre demande.
+    expired: Le partenaire n'a pas répondu malgré nos multiples relances.
+    accepted: Le partenaire a accepté votre article mais ne l'a pas encore publié. Il dispose d'encore %days% jour(s) pour le faire.
+    changed: demande de modification
+    refused: Raison du refus
+    retrieve_article: '<a href="%href%">Récupérer mon article</a>'
+    modification_status_1: Une demande de modification a été soumise. ...
+    modification_status_2: Votre demande de modification a été effectuée
+    modification_status_3: 'Votre demande de modification a été refusée pour la raison suivante : %comment%'
+    publish_article_by_ereferer: Votre article a été correctement publié
+    impossible: Le rédacteur ne peut malheureusement pas répondre à votre demande
+    in_progress: Le rédacteur s'occupe actuellement de votre article
+    awaiting_writer: La demande de rédaction est en attente
+
+actions:
+    satisfied_exchange: Êtes-vous satisfait de votre échange ?
+    share_opinion: Donner son avis
+    re_propose: Re-proposer votre article
+    request_modification: Demander une modification
+    do_modification: Effectuer une modification
+    request_closed: Les demandes de modifications sont fermés.
+    or: ou
+
+modal:
+    close: Fermer
+    error: Erreur
+    re_propose:
+        title: Re-proposer l'article
+        text:
+    vote:
+        title: Donner votre avis
+        text: Qu'avez-vous pensé de la publication ? Répond-elle à vos attentes ? <br/> Notez cette échange <span class="font-bold font-italic">anonymement</span>
+        your_note: Votre note
+        your_comment: 'Commentaire : (optionnel)'
+        button: Envoyé
+        success:
+            done: Action effectuée avec succès
+            message: Votre avis a bien été pris en compte !
+    modification:
+        title: Demande de modification
+        text: Quelle modification souhaitez-vous que le partenaire apporte à l'article ?
+        button: envoyer
+        success:
+            done: Action effectuée avec succès !
+            change_request_taken: La demande de modification a bien été prise en compte
+            message: Une demande de modification a été envoyée...
+

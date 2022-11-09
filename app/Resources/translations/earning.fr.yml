@@ -1,0 +1,44 @@
+month_earning: "Vos gains %month% mois:"
+directory_tasks_liked: Soumissions aimées
+directory_tasks_not_liked: Soumissions non aimées
+text_liked: Textes aimés
+text_not_liked: Textes non aimés
+for_copywriting: pour la rédaction
+for_directory: Pour les annuaires
+percent_of_like: "% de Like"
+percent_of_backlink: "% de liens trouvés"
+earningBonus: Gains bonus
+copywritingRatingBonus: Rédaction - bonus textes aimés
+copywritingRatingMalus: Rédaction - malus textes aimés
+netlinkingLikesBonus: Annuaires - bonus soumissions aimées
+netlinkingLikesMalus: Annuaires - malus soumissions aimées
+netlinkingBacklinksBonus: Bonus pour liens trouvés
+netlinkingBacklinksMalus: Malus pour liens trouvés
+your_earning: Vos gains
+directory: Annuaire
+copywriting: Rédaction
+per_task: par tâche
+per_100_words: 100 mots
+
+charge_rules: Règles des gains
+titles:
+  submission_likes: soumissions aimées
+  copywriting_likes: textes aimés
+  backlinks_found: liens trouvés
+  previous_months_earnings: gains du mois dernier
+bonuses:
+    likes:
+        copywriting:
+            bonus: "Bonus de %earn%€ pour plus de %value%% de textes aimés"
+            malus: "Malus de %earn%€ pour moins de %value%% de textes aimés"
+        netlinking:
+            bonus: "Bonus de %earn%€ pour plus de %value%% de soumissions aimées"
+            malus: "Malus de %earn%€ pour moins de %value%% de soumissions aimées"
+    backlinks:
+        bonus: "Bonus de %earn%€ pour plus de %value%% de liens trouvés"
+        malus: "Malus de %earn%€ pour moins de %value%% de liens trouvés"
+    earn:
+        bonus: "Bonus de %earn%€ à partir de %value%€ de gains le mois dernier"
+    netlinking_min_max: "Rémunération référencement Min: %min%€ et Max : %max%€"
+    no_bonus: "A partir de %days% jours de retard => Aucun bonus."
+    no_rating_bonus: "A partir de %days% aucun bonus pour les textes aimés"

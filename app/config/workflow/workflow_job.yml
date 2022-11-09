@@ -1,0 +1,33 @@
+framework:
+    workflows:
+        job:
+            type: 'state_machine'
+            marking_store:
+                type: 'single_state'
+                arguments:
+                    - 'status'
+            supports:
+                - CoreBundle\Entity\Job
+            places:
+                - new
+                - in_progress #warranty: hold money
+                - expired_hold #without guarantees
+                - impossible
+                - completed
+                - rejected
+            transitions:
+                take_to_work:
+                    from: new
+                    to: in_progress
+                expired_hold:
+                    from: in_progress
+                    to: expired_hold
+                complete:
+                    from: [expired_hold, in_progress, rejected]
+                    to: completed
+                impossible:
+                    from: [new, expired_hold, in_progress]
+                    to: impossible
+                reject:
+                    from: [completed, impossible]
+                    to: rejected

@@ -1,0 +1,234 @@
+{% trans_default_domain 'exchange_site' %}
+<td>
+    <ul class="categories-wrapper">
+        <li>
+            <h5 class="categories-name">{{ 'table.subcategories.majestic_metrics'|trans }}</h5>
+            <table class="categories-table">
+                <tr>
+                    <td>{{ 'table.majestic_citation'|trans }}</td>
+                    <td>{{ entity.majesticCitation }}</td>
+                </tr>
+                <tr>
+                    <td>{{ 'table.majestic_backlinks'|trans }}</td>
+                    <td>{{ entity.majesticBacklinks }}</td>
+                </tr>
+                <tr>
+                    <td>{{ 'table.majestic_edu_backlinks'|trans }}</td>
+                    <td>{{ entity.majesticEduBacklinks }}</td>
+                </tr>
+                <tr>
+                    <td>{{ 'table.majestic_gov_backlinks'|trans }}</td>
+                    <td>{{ entity.majesticGovBacklinks }}</td>
+                </tr>
+                <tr>
+                    <td>{{ 'table.trust_flow'|trans }}</td>
+                    <td>{{ entity.majesticTrustFlow }}</td>
+                </tr>
+                <tr>
+                    <td>{{ 'table.referring_domains'|trans }}</td>
+                    <td>{{ entity.majesticRefDomains }}</td>
+                </tr>
+            </table>
+            <h5 class="categories-name sub-categories_title">{{ 'table.majestic_ttf_categories'|trans }}</h5>
+            <ul class="sub-categories-list">
+                {% for ttfCategory in entity.majesticTtfCategories %}
+                    <li>
+                        <b>{{ ttfCategory.category }}</b>
+                        <span>{{ ttfCategory.getRate }}</span>
+                    </li>
+                {% endfor %}
+            </ul>
+        </li>
+        <li>
+            <h5 class="categories-name">{{ 'table.subcategories.semrush_metrics'| trans }}</h5>
+            <table class="categories-table">
+                <tr>
+                    <td>{{ 'table.semrush_traffic'|trans }}</td>
+                    <td>{{ entity.semrushTraffic }}</td>
+                </tr>
+                <tr>
+                    <td>{{ 'table.semrush_keyword'|trans }}</td>
+                    <td>{{ entity.semrushKeyword }}</td>
+                </tr>
+                <tr>
+                    <td>{{ 'table.semrush_traffic_cost'|trans }}</td>
+                    <td>{{ entity.semrushTrafficCost }}</td>
+                </tr>
+            </table>
+            <h5 class="categories-name">{{ 'table.subcategories.moz_metrics'| trans }}</h5>
+            <table class="categories-table">
+                <tr>
+                    <td>{{ 'table.moz_page_authority'|trans }}</td>
+                    <td>{{ entity.mozPageAuthority }}</td>
+                </tr>
+                <tr>
+                    <td>{{ 'table.moz_domain_authority'|trans }}</td>
+                    <td>{{ entity.mozDomainAuthority }}</td>
+                </tr>
+            </table>
+            <h5 class="categories-name">{{ 'table.subcategories.google_metrics'| trans }}</h5>
+            <table class="categories-table">
+                <tr>
+                    <td>{{ 'table.google_news'|trans }}</td>
+                    <td>{{ entity.googleNews }}</td>
+                </tr>
+                <tr>
+                    <td>{{ 'table.google_analytics'|trans }}</td>
+                    <td>{{ entity.googleAnalytics ? 'yes'|trans : 'no'|trans }}</td>
+                </tr>
+            </table>
+        </li>
+        <li>
+            <h5 class="categories-name">{{ 'table.subcategories.other_metrics'| trans }}</h5>
+            <table class="categories-table">
+                <tr>
+                    <td>{{ 'table.alexa'|trans }}</td>
+                    <td>{{ entity.alexaRank }}</td>
+                </tr>
+            </table>
+            <h5 class="categories-name">{{ 'table.subcategories.age'| trans }}</h5>
+            <table class="categories-table">
+                <tr>
+                    <td>{{ 'table.bwa_age'|trans }}</td>
+                    <td>{{ entity.bwaAge|age }}</td>
+                </tr>
+                <tr>
+                    <td>{{ 'table.archive_age'|trans }}</td>
+                    <td class="age-wrap column">{{ entity.archiveAge|age }}</td>
+                </tr>
+            </table>
+        </li>
+    </ul>
+</td>
+<td>
+    <ul class="categories-wrapper without-categories-name">
+        <li>
+            <table class="categories-table">
+                <tr>
+                    <td>{{ 'table.words'|trans }}</td>
+                    <td>{{ entity.minWordsNumber }}</td>
+                </tr>
+                <tr>
+                    <td>{{ 'table.links'|trans }}</td>
+                    <td>{{ entity.maxLinksNumber }}</td>
+                </tr>
+                <tr>
+                    <td>{{ 'table.images'|trans }}</td>
+                    <td><span>{{ entity.minImagesNumber }}</span><span> {{ 'table.to'|trans }} </span><span>{{ entity.maxImagesNumber }}</span></td>
+                </tr>
+                <tr>
+                    <td>{{ 'form.meta_title'|trans }}</td>
+                    <td>{{ entity.metaTitle ? 'yes'|trans : 'no'|trans }}</td>
+                </tr>
+                <tr>
+                    <td>{{ 'form.meta_description'|trans }}</td>
+                    <td>{{ entity.metaDescription ? 'yes'|trans : 'no'|trans }}</td>
+                </tr>
+            </table>
+        </li>
+        <li>
+            <table class="categories-table">
+                <tr>
+                    <td>{{ 'form.header_one_set'|trans }}</td>
+                    <td>{{ entity.headerOneSet ? 'yes'|trans : 'no'|trans }}</td>
+                </tr>
+                <tr>
+                    <td>{{ 'form.header_two_start_end'|trans }}</td>
+                    <td>
+                        {% if entity.headerTwoStart %}{{ entity.headerTwoStart }} {% else %}0 {% endif %}
+                        {{ 'table.to'|trans }}
+                        {% if entity.headerTwoEnd %}{{ entity.headerTwoEnd }} {% else %}0 {% endif %}
+                    </td>
+                </tr>
+                <tr>
+                    <td>{{ 'form.header_three_start_end'|trans }}</td>
+                    <td>
+                        {% if entity.headerThreeStart %}{{ entity.headerThreeStart }} {% else %}0 {% endif %}
+                        {{ 'table.to'|trans }}
+                        {% if entity.headerThreeEnd %}{{ entity.headerThreeEnd }} {% else %}0 {% endif %}
+                    </td>
+                </tr>
+                <tr>
+                    <td>{{ 'form.bold_text'|trans }}</td>
+                    <td>
+                        {% if entity.boldText is null %}
+                            {{ 'optional'|trans }}
+                        {% else %}
+                            {{ entity.boldText ? 'yes'|trans : 'no'|trans }}
+                        {% endif %}
+                    </td>
+                </tr>
+                <tr>
+                    <td>{{ 'form.quoted_text'|trans }}</td>
+                    <td>
+                        {% if entity.quotedText is null %}
+                            {{ 'optional'|trans }}
+                        {% else %}
+                            {{ entity.quotedText ? 'yes'|trans : 'no'|trans }}
+                        {% endif %}
+                    </td>
+                </tr>
+            </table>
+        </li>
+        <li>
+            <table class="categories-table">
+                <tr>
+                    <td>{{ 'form.italic_text'|trans }}</td>
+                    <td>
+                        {% if entity.italicText is null %}
+                            {{ 'optional'|trans }}
+                        {% else %}
+                            {{ entity.italicText ? 'yes'|trans : 'no'|trans }}
+                        {% endif %}
+                    </td>
+                </tr>
+                <tr>
+                    <td>{{ 'form.ul_tag'|trans }}</td>
+                    <td>
+                        {% if entity.ulTag is null %}
+                            {{ 'optional'|trans }}
+                        {% else %}
+                            {{ entity.ulTag ? 'yes'|trans : 'no'|trans }}
+                        {% endif %}
+                    </td>
+                </tr>
+                <tr>
+                    <td>{{ 'table.nofollow_link'|trans }}</td>
+                    <td>
+                        {% if entity.nofollowLink %}
+                            <b class="preferences-item__value glyphicon glyphicon-ok text-info" aria-hidden="true"></b>
+                        {% else %}
+                            <b class="preferences-item__value glyphicon glyphicon-remove text-danger" aria-hidden="true"></b>
+                        {% endif %}
+                    </td>
+                </tr>
+                <tr>
+                    <td>{{ 'table.sponsorised_article'|trans }}</td>
+                    <td>
+                        {% if entity.sponsorisedArticle %}
+                            <b class="preferences-item__value glyphicon glyphicon-ok text-info" aria-hidden="true"></b>
+                        {% else %}
+                            <b class="preferences-item__value glyphicon glyphicon-remove text-danger" aria-hidden="true"></b>
+                        {% endif %}
+                    </td>
+                </tr>
+            </table>
+        </li>
+    </ul>
+</td>
+<td>{{ entity.publicationRules }}</td>
+<td>
+    {% for category in entity.categoriesFormatted|split('/') %}
+        <div class="table-badge">
+            <span>{{ category }}</span>
+        </div>
+    {% endfor %}
+</td>
+<td>
+    {% for tag in entity.tags|split(',') %}
+        <div class="table-badge">
+            <span>{{ tag }}</span>
+        </div>
+    {% endfor %}
+</td>
+<td>{{ entity.rubricsFormatted }}</td>

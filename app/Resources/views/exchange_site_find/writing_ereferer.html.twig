@@ -1,0 +1,12 @@
+{% trans_default_domain 'exchange_site_find' %}
+{% form_theme form "form/theme.html.twig" %}
+
+{{ form_start(form, {'attr': {'id': 'add-new-record' }}) }}
+    <p class="m-b-lg">{{ 'modal.writing_ereferer.content'|trans }}</p>
+
+    {{ include('exchange_site_find/form.html.twig') }}
+
+    <p>{{ 'modal.writing_ereferer.footer'|trans({'%totalPrice%': totalPrice, '%redactionPrice%': redactionPrice, '%credits%': credits}) }}</p>
+{{ form_end(form) }}
+
+{% do form.urls.setRendered %}

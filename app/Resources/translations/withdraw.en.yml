@@ -1,0 +1,59 @@
+invoice: Invoice
+upload_invoice: Upload your invoice (PDF)
+
+requirements:
+    minimum_to_withdraw: "You can withdraw your money if you have more than %minimum_amount%€ in you account"
+    count_per_month: "%count_per_month% withdraw per month"
+    commision: "Ereferer apply a commission of %withdraw_percent%% for each withdraw"
+    invoice: Your invoice must contains the following informations
+
+step:
+    title: Make a withdraw
+    invoice: Invoice
+    payment: Payment Choise
+withdraw:
+    amount: How much do you want to withdraw?
+    commissions: "Commissions of %withdraw_percent%%"
+    choice_required: Choice is requeired
+    some_information: Some information
+    amount_placeholder: Enter amount here
+    placeholder: Enter here the information
+
+
+confirm_label: "I confirm that my bill shows a net to pay of %billable_amount%€ HT"
+
+accepted_request:
+    title: Accepted request
+    message: Your request is successfully accepted
+
+table:
+    amount: Amount
+    status: Status
+    created_at: Created at
+    action: Action
+    view_invoice: View invoice
+    user: User
+    transfer: Bank transfer
+    paypal: Paypal
+    swift: Swift
+    iban: Iban
+    review_comment: Review comment
+    accept: Accept
+    reject: Reject
+    company_name: Personal name / Company name
+    statuses:
+        waiting: Waiting
+        accepted: Accepted
+        rejected: Rejected
+
+request:
+    accepted: You succesfully accepted request
+    rejected: You succesfully rejected request
+
+comment: Please leave your comment
+errors:
+    change_status: Error with change status, please repeat
+
+modal:
+    close: Close
+    save: Save

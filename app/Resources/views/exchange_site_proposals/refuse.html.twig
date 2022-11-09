@@ -1,0 +1,9 @@
+{% trans_default_domain 'exchange_site_proposals' %}
+
+<input type="hidden" id="proposition_id" name="proposition_id" value="{{ id }}" />
+
+<div class="form-group">
+    <label>{{ 'modal.refuse.reason'|trans }} *</label>
+    <textarea id="comment_refuse" name="comment_refuse" class="form-control"></textarea>
+</div>
+<button id="refuse_send" type="button" class="btn btn-w-m btn-danger pull-right m-t">{{ 'modal.refuse.button'|trans }}</button>

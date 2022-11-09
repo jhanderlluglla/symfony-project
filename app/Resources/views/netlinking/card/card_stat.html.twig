@@ -1,0 +1,33 @@
+{% trans_default_domain 'netlinking' %}
+
+<li class="has-marker">
+    <span class="marker primary">{{ 'table.links_found'|trans }}:</span>
+    <span class="bg-colored">{{ statistics[entity.getId][constant('CoreBundle\\Entity\\DirectoryBacklinks::STATUS_FOUND')] | default(0) }}
+        ({{ statistics[entity.getId][constant('CoreBundle\\Entity\\DirectoryBacklinks::STATUS_FOUND') ~ '_percent'] | default(0) }}%)
+    </span>
+</li>
+<li class="has-marker">
+    <span class="marker info">{{ 'table.waiting_links'|trans }}:</span>
+    <span class="bg-colored">{{ statistics[entity.getId][constant('CoreBundle\\Entity\\DirectoryBacklinks::STATUS_NOT_FOUND_YET')] | default(0) }}
+        ({{ statistics[entity.getId][constant('CoreBundle\\Entity\\DirectoryBacklinks::STATUS_NOT_FOUND_YET') ~ '_percent'] | default(0) }}%)
+    </span>
+</li>
+<li class="has-marker">
+    <span class="marker warning">{{ 'table.links_not_found'|trans }}:</span>
+    <span class="bg-colored">{{ statistics[entity.getId][constant('CoreBundle\\Entity\\DirectoryBacklinks::STATUS_NOT_FOUND')] | default(0) }}
+        ({{ statistics[entity.getId][constant('CoreBundle\\Entity\\DirectoryBacklinks::STATUS_NOT_FOUND') ~ '_percent'] | default(0) }}%)
+    </span>
+</li>
+<li class="has-marker">
+    <span class="marker grey">{{ 'table.impossible_submissions'|trans }}:</span>
+    <span class="text-right m-l-md">
+        <span class="bg-colored">
+            {{ statistics[entity.getId]['impossible'] | default(0) }}
+            ({{ statistics[entity.getId]['impossible_percent'] | default(0) }}%)
+        </span>
+        <div class="no-wrap">
+            <i class="fa fa-exclamation-triangle"></i>
+            <b class="small-text">{{ 'table.not_billed'|trans }}</b>
+        </div>
+    </span>
+</li>

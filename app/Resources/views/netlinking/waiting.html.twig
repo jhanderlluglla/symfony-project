@@ -1,0 +1,45 @@
+{% trans_default_domain 'netlinking' %}
+{% form_theme changeWriterForm.createView() "form/theme.html.twig" %}
+
+{% if collection|length == 0 %}
+    <div class="no_results">
+        {{ 'no_results'| trans({}, 'general') }}
+    </div>
+{% else %}
+
+    {% set wait = netlinking_waiting_time() %}
+    {% if app.user.hasRole(constant('CoreBundle\\Entity\\User::ROLE_WEBMASTER')) and wait is not null %}
+        <p>{{ 'waiting_time'|transchoice(wait) }}</p>
+    {% endif %}
+    <div class="project-wrapper">
+        {% for entity in collection %}
+            <div class="netlink-project project-card" data-project-id="{{ entity.id }}">
+                {% if accessManager().canManageWriterUser() and entity.containsType != constant('CoreBundle\\Entity\\DirectoriesList::CONTAINS_ONLY_BLOG') %}
+                    <input type="checkbox" class="i-checks" value="{{ entity.id }}">
+                {% endif %}
+                <div class="flex-justify">
+                    <ul class="block-information">
+                        {% include('netlinking/card/card_header.html.twig') %}
+                    </ul>
+                    <div class="actions">
+                        <div class="buttons-wrapper">
+                            <a href="{{ path('netlinking_edit', {'status': status, 'id': entity.id}) }}" class="btn btn-primary"><i class="fa fa-edit"></i> {{ 'edit'|trans }}</a>
+                            <a href="{{ path('netlinking_delete', {'status': status, 'id': entity.id}) }}" class="btn btn-danger delete"><i class="fa fa-trash"></i> {{ 'delete'|trans }}</a>
+                        </div>
+                    </div>
+                </div>
+                {% if accessManager().canManageWriterUser() %}
+                    <ul class="block-information reassign">
+                        <li>
+                            <div class="block-information__title">{{ 'assign_to'|trans }}:</div>
+                            <div class="block-information__value grow copy_writer_select">
+                                {{ form_widget(changeWriterForm.createView(), {'attr':{'data-language': entity.language}}) }}
+                            </div>
+                        </li>
+                    </ul>
+                {% endif %}
+                {% include 'netlinking/card/card_comment.html.twig' %}
+            </div>
+        {% endfor %}
+    </div>
+{% endif %}

@@ -1,0 +1,221 @@
+title: Netlink projects
+title_current: Netlink - Current projects
+title_nostart: Netlink - Projects not Started
+title_waiting: Netlink - Projects pending
+title_finished: Netlink - Completed projects
+title_getnew: Netlink - Get new project
+title_detail: Netlink - Detail of project
+title_evolution: Netlink - Evolution of project
+
+add_title: Add new Netlink project
+edit_title: Edit Netlink project
+
+add_new: Add new
+edit: Edit
+delete: Delete
+start: Start
+progression: Progression
+stop_project: Stop project
+evolution: Evolution
+take_project: Take this project
+reports: Reports
+reassign_to: Re-assign to
+not_found_tasks: Not found any task
+job_rejected: Job rejected
+step: Step
+next_step: Next step
+add_information: Add information
+confirmation: Confirmation
+waiting_time: Expect to wait one day before we can start your project!|Expect to wait %count% days before we can start your project!
+directory_list_not_found: Before creating a project, you must have at least one <a href="%%link_create%%">directory listing</a>.
+
+tab:
+    directories: Directories
+    blogs: Blogs
+    all: All
+    impossible: Impossible
+    not_found: Not found
+    awaiting: Awaiting
+    found: Found
+    summary: Summary
+
+table:
+    information: Information
+    statistics: Statistics
+    action: Action
+    project: Project
+    directories: Directories
+    url: URL
+    task: Task
+    proposed_on: Proposed on
+    performed: Among the tasks performed
+    links_found: Links found
+    waiting_links: Waiting Links
+    links_not_found: Links not found
+    impossible_submissions: Impossible Submissions
+    not_billed: Not billed
+    patience: 'All "pending links" will be located in "links found" or "links not-found". Thank you for your patience.'
+    no_comment: No comment
+    dates: Dates
+    instructions: Instructions
+    estimated_date: Estimated launch date
+    proposed_started: Proposed Started
+    validation_progress: Validation in progress
+    frequency: Frequency
+    frequency_text: "%directory% task(s) every %day% day(s)"
+    number_words_wanted: Number of words wanted
+    current_cost_project: Current cost of the project
+    remaining_cost: Remaining cost
+    current_cost_project_tooltip: 'This is the current cost incurred on the project. This amount has already been debited from your account. Only successful submissions were debited (those on a green background). "Impossible" submissions (yellow background) are not debited.'
+    remaining_cost_tooltip: 'The remaining cost is for submissions that have not yet been made. This amount has not yet been debited from your account. In the table below, they are displayed on a white background.'
+    state: State
+    comment: Comment
+    my_tasks: See my tasks
+    ongoing_project: Ongoing project
+    task_remaining: Task(s) remaining
+    accomplished_task: Accomplished task(s)
+    total_task: Total task(s)
+    day_tasks: Task(s) of the day
+    started_on: Started on
+    assigned_on: Assigned on
+    finished_on: Finished on
+    webmaster: Webmaster
+    copywriter: Copywriter
+    re_assign: Re-assign
+    to_do: To do it
+    submitted_on: Submitted on
+    see_task: See the Task
+    go_to_article: Go to article
+    status: Status
+    submission: Submission
+    submission_complete: Submission Complete
+    submission_impossible: Submission Impossible
+    reject_task: Reject task
+    rejected: Rejected
+    show_comment: Show comment
+    show_more: Show more
+    hide_comment: Hide comment
+    statuses:
+        task_day: Task of the day
+        days_late: "%days% day(s) late"
+        start_tomorrow: This project will start tomorrow
+        insufficient_webmaster_funds: Project paused. Insufficient webmaster funds
+        insufficient_funds: Project is paused. Insufficient funds
+        no_submissions: No submissions made on this project
+        reallocate_tomorrow: The project will re-allocate tomorrow if nothing is done
+        will_start: This project will start in %%days%% day(s)
+        late_submissions: Late submissions of +/- %%late%% day(s)
+        last_submission: Last submission
+        none_submission: Don't have any submission
+        finished_project: Finished project
+    buttons:
+        stop_project: Stop project(s)
+        start_project: Start project(s)
+    not_available: Not available
+    blog: Blog
+    site: Site
+    writer: Writer
+    date: Date
+    see_link: See the link
+    like: Like
+    dislike: Dislike
+
+form:
+    frequency_title: Frequency of submission
+    frequency_example: "Example: 1 task(s) every 2 day(s)"
+    frequency_task: Task(s) all
+    frequency_day: Day(s)
+    directory_list: List of directories to use
+    comment: Some tips or instructions to give us?
+    comment_optional: Optional
+    url: Url
+    anchor: Anchor
+    next: Next
+    save: Save
+    confirm: Confirm
+    placeholder: Enter here
+    url_list: Anchors of the project
+    not_defined: Anchor can not be defined for this directory!
+    minimum_words: Number of minimum words desired
+    modify_list: '<a href="%%path%%">Click</a> here to modify this threshold associated with your list'
+    url_exists: URL %%url%% already exists
+    task_already_executed: This task has already been executed!
+    copywriter: Copywriter
+    choose_option: Choose an option
+    error_urls: Please enter at least one url
+    directoryList_help: This list does not display empty directories list.
+    accept_rules: I agree and understand the publication rules of each partners.
+
+modal:
+    take_to_work: Do the task
+    take_to_work_success: Task successfully taken to work
+    submission_completed: Complete submission
+    submission_impossible: Submission impossible
+    error: Error
+    project_error: Project not found
+    task_error: Task not found
+    close: Close
+    directory_error: Directory not found
+    directory_backlink_error: Backlink not found
+    customer_not_enough_funds: The customer no longer has enough funds to finance this submission. Inform an administrator
+    task_already_completed: This task has already been completed
+    submission_detail: Submission detail
+    reference_on: to reference on
+    remuneration: Remuneration
+    webmaster_cost: Webmaster cost
+    referer_cost: Referer cost
+    minimum_words: NUMBER OF MINIMUM WORDS
+    directory_instructions: Directory instructions
+    project_guidelines: Project Guidelines
+    anchors_use: Anchors to use
+    select: Select
+    dislike_reason: Specify reason (optional) and click "Confirm".
+    confirm: Confirm
+    cancel: Cancel
+    feedback_accepted: Your feedback is successfuly accepted
+    feedback_error: We can't save your feedback
+    comment:
+        comment: Comment
+        submission_impossible: Task successfully marked as impossible
+        submission_possible: Submission accept
+        reasons_failure: Please enter the reasons for the failure of the submission
+        reasons: Reasons for failure of submission
+        description: Please enter the description
+        why_impossible: Why is submission impossible?
+        button: Send comment
+        empty: Comment is empty
+        error: "Comment should be about %need% words. Were given %given% words"
+        range_error: "Comment should be no less than %minimum_words% and no more than %maximum_words% word(s). Were given %given% words"
+
+    message:
+        subject: Comment received for project %%project_name%% on %%directory_name%%
+        message: "Hello, You have received a comment for your text: %%message%%"
+        change_writer: Successfully changed writer
+    waiting_admin:
+        title: Error
+        text: You have choose at least one project
+
+errors:
+    insufficient_balance: Insufficient balance to start this project. Remember to recharge your account
+
+assign: Assign to Copywriter
+assign_to: Assign to
+
+report:
+    title: Report
+    heading: Report for project
+
+statuses:
+    waiting: Waiting submission
+    not_found_yet: Not found yet
+    found: Found
+    not_found: Not found
+    impossible: Impossible
+    completed: Successful
+    new: New
+    rejected: Rejected
+    in_progress: In progress
+    expired_hold: In progress
+
+
+job_is_not_init: Task during initialization

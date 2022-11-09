@@ -1,0 +1,96 @@
+{% extends 'layout.html.twig' %}
+
+{% trans_default_domain 'affiliation' %}
+
+{% block title %}
+  {{ 'title'|trans }}
+{% endblock %}
+
+{% block breadcrumb %}
+    <ol class="breadcrumb">
+        <li>
+            {{ 'affiliation.main'|trans({}, 'menu') }}
+        </li>
+        <li>
+            {{ block('title') }}
+        </li>
+    </ol>
+{% endblock %}
+
+{% block action %}
+  <div class="col-sm-6">
+    <div class="title-action">
+      <div class="row">
+        <div class="col-lg-4"><h3>{{ 'affiliation_url'|trans }}</h3></div>
+        <div class="col-lg-8">
+          <div class="input-group">
+            <input id="copytext" type="text" class="form-control font-bold" readonly value="{{ url('app_affiliation', {'hash': app.user.id|md5}) }}">
+            <span class="input-group-btn">
+              <button type="button" class="btn btn-primary" data-clipboard-target="#copytext"><i class="fa fa-copy"></i> {{ 'copy'|trans }}</button>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+{% block content %}
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="ibox">
+        <div class="ibox-title">
+          <h5>{{ 'summary'|trans }}</h5>
+          <div class="ibox-tools">
+            <a class="collapse-link">
+              <i class="fa fa-chevron-up"></i>
+            </a>
+          </div>
+        </div>
+        <div class="ibox-content">
+          <table class="table footable table-striped m-b-none affiliation-table">
+            <thead>
+              <tr class="bg-info footable-header">
+                <th></th>
+                <th data-breakpoints="xs">{{ 'number_clicks'|trans }}</th>
+                <th data-breakpoints="xs">{{ 'number_registered'|trans }}</th>
+                <th>{{ 'earnings'|trans }}</th>
+              </tr>
+            </thead>
+            <tbody>
+            {% for data in affiliation %}
+              <tr>
+                <td>{{ data.date }}</td>
+                <td>{{ data.clicks }}</td>
+                <td>{{ data.registered }}</td>
+                <td>{{ data.earnings }} €</td>
+              </tr>
+            {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="ibox">
+        <div class="ibox-title">
+          <h5>{{ 'banners'|trans }}</h5>
+          <div class="ibox-tools">
+            <a class="collapse-link">
+              <i class="fa fa-chevron-up"></i>
+            </a>
+          </div>
+        </div>
+        <div class="ibox-content">
+            <h4>{{ 'banners'|trans }} content</h4>
+        </div>
+    </div>
+  </div>
+{% endblock %}
+{% block javascript %}
+  <!-- Clipboard -->
+  <script src="{{ asset('js/admin/plugins/clipboard/clipboard.min.js') }}"></script>
+  <script>
+    $(document).ready(function (){
+      new Clipboard('.btn');
+    });
+  </script>
+{% endblock %}

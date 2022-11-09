@@ -1,0 +1,3 @@
+login:
+    defaults: { _controller: UserBundle:Security:login }
+    path: /login

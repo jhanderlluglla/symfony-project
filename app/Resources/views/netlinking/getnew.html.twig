@@ -1,0 +1,30 @@
+{% trans_default_domain 'netlinking' %}
+
+<table class="footable table table-striped toggle-arrow-tiny">
+    <thead>
+    <tr>
+        <th>{{ 'table.information'|trans }}</th>
+        <th>{{ 'table.statistics'|trans }}</th>
+        <th class="text-right action">{{ 'table.action'|trans }}</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for entity in collection %}
+        <tr>
+            <td>
+                <p><span class="font-bold">URL:</span> {{ entity.url }}</p>
+                <p><span class="font-bold">{{ 'table.frequency'|trans }}:</span> {{ 'table.frequency_text'|trans({'%directory%': entity.frequencyDirectory, '%day%': entity.frequencyDay }) }}</p>
+                <p><span class="font-bold">{{ 'table.proposed_on'|trans }}:</span> {{ entity.createdAt|date("m/d/Y H:i:s") }}</p>
+            </td>
+            <td>
+                <p><span class="font-bold">{{ 'table.performed'|trans }}</span></p>
+                {% include 'netlinking/statistics.html.twig' %}
+                <p><span class="font-muted">{{ 'table.patience'|trans }}</span></p>
+            </td>
+            <td class="text-right action">
+                <p><a href="{{ path('netlinking_inprogress', {'id': entity.id}) }}" class="confirmation"><i class="fa fa-handshake-o"></i> {{ 'take_project'|trans }}</a></p>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>

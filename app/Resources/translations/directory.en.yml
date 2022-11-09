@@ -1,0 +1,75 @@
+title: Directories
+add_title: Add new Directory
+edit_title: Edit Directory
+
+add_new: Add new
+edit: Edit
+delete: Delete
+
+tabs:
+    directory: Directories
+    blogs: Blogs
+    all: All
+
+table:
+    directory: Directory
+    type: Type
+    partnership: Partnership
+    tariff: Tariff
+    alexa_rank: Alexa Rank
+    age: Age (years)
+    trust_flow: Trust Flow
+    validation_time: Validation time
+    validation_rate: Validation rate
+    referring_domain: Referring domain
+    categories: Categories
+    action: Action
+    type_string:
+        directory: Directory
+        cp: CP
+        blog: Blog
+    validation_time_string:
+        na: N/A
+        jsr: Jr(s)
+    validation_rate_string:
+        na: N/A
+    partnership_string:
+        yes: Yes
+        no: No
+        tooltip: Ereferer can freely submit on this directory only paying
+        advantage: See advantage
+
+form:
+    name: Directory URL
+    ndd_target: NDDCible
+    link_submission: Submission page
+    webmaster_order: Anchor setpoint (optional)
+    webmaster_partner: Select the person in charge of the directory
+    webmaster_account: Ability to create an account at the webmaster
+    tariff_webmaster_partner: Commission by validation
+    webmaster_anchor: Can the webmaster choose his anchor?
+    directory_type: Directory type
+    tariff_extra_webmaster: Extra rate Webmaster
+    tariff_extra_seo: Extra rate SEO
+    age: Creation date
+    trust_flow: Trust flow
+    page_rank: Page rank
+    total_referring_domain: Total referring domain
+    total_back_link: Total Backlink
+    instructions: Directory instructions
+    accept_inner_pages: Accepts subdomains
+    accept_legal_info: Accepts sites without legal notice
+    accept_company_websites: Only accepts companies
+    page_count: Pages count for checking
+    min_words_count: Minimum number of words
+    max_words_count: Maximum number of words
+    active: Status of the directory
+    vip_state: VIP benefits
+    vip_text: Advantage text
+    categories: 'Category(ies) : (maximum 6)'
+    directory_type_string:
+        directory: Directory
+        cp: CP
+
+name: Name
+save: Save

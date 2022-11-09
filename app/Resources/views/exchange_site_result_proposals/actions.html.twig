@@ -1,0 +1,39 @@
+{% trans_default_domain 'exchange_site_result_proposals' %}
+
+{% if exchangeProposition.status == constant('CoreBundle\\Entity\\ExchangeProposition::STATUS_CHANGED') %}
+    <div class="clearfix">
+        <div class="buttons-wrapper">
+            <a href="#" class="btn btn-warning" data-toggle="modal"
+               data-target="#exchangeSiteProposition" data-id="{{ exchangeProposition.exchangeSite.id }}"
+               data-proposition="{{ exchangeProposition.id }}"  data-type="submit_your_article">
+                <i class="fa fa-reply"></i> {{ 'actions.re_propose'|trans }}
+            </a>
+        </div>
+    </div>
+{% endif %}
+
+{% if exchangeProposition.status == constant('CoreBundle\\Entity\\ExchangeProposition::STATUS_PUBLISHED') %}
+    <div class="m-b-sm">{{ 'actions.satisfied_exchange'|trans }}</div>
+    <div class="buttons-wrapper">
+        <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#exchangeSiteResultProposals"
+           data-id="{{ exchangeProposition.id }}" data-mode="vote">
+            <i class="fa fa-star"></i> {{ 'actions.share_opinion'|trans }}
+        </a>
+
+        {% if not exchangeProposition.modificationClose %}
+            {% if exchangeProposition.exchangeSite.hasPlugin and exchangeProposition.copywritingOrders is not null %}
+                <a href="{{ path('copywriting_article_edit', {'id': exchangeProposition.copywritingOrders.article.id }) }}"
+                   class="btn btn-danger">
+                    <i class="fa fa-edit"></i> {{ 'actions.do_modification'|trans }}
+                </a>
+            {% else %}
+                <a href="#" class="btn btn-danger" data-toggle="modal" data-target="#exchangeSiteResultProposals"
+                   data-id="{{ exchangeProposition.id }}" data-mode="modification">
+                    <i class="fa fa-edit"></i> {{ 'actions.request_modification'|trans }}
+                </a>
+            {% endif %}
+        {% else %}
+            {{ 'actions.request_closed'|trans }}
+        {% endif %}
+    </div>
+{% endif %}

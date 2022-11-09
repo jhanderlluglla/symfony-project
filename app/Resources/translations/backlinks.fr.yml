@@ -1,0 +1,16 @@
+title: Backlinks
+
+table:
+    info: Backlink info
+    description: Description
+    directory_description: Description de l'annuaire
+    see_instruction: Voir les instructions
+    directory: Annuaire
+    project: Projets
+    date: Date
+    validate: Validation
+    reject: Rejeter
+    reoffered: Re-soumettre
+    update_success: Merci
+    action_performed_successfully: Action effectuée avec succès !
+    reoffered_tooltip: 'Cliquez sur <b><u>re-soumettre</u></b> à chaque fois que vous reproposez un site.'

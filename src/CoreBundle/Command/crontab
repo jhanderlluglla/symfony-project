@@ -1,0 +1,11 @@
+0	10	*	*	*	/usr/bin/php /home/www/ereferer.com/htdocs/bin/console app:netlinking --env=prod
+0	11	1,16	*	*	/usr/bin/php /home/www/ereferer.com/htdocs/bin/console app:update-exchange-sites --env=prod
+0	12	1,16	*	*	/usr/bin/php /home/www/ereferer.com/htdocs/bin/console app:update-directories --env=prod
+0	11	*	*	*	/usr/bin/php /home/www/ereferer.com/htdocs/bin/console app:apply-waiting-order --env=prod
+0	*	*	*	*	/usr/bin/php /home/www/ereferer.com/htdocs/bin/console app:create-exchange-propositions --env=prod
+0	*	*	*	*	/usr/bin/php /home/www/ereferer.com/htdocs/bin/console app:update-plugin-status --env=prod
+0	11	*	*	*	/usr/bin/php /home/www/ereferer.com/htdocs/bin/console app:apply-expired-propositions --env=prod
+0	11	*	*	*	/usr/bin/php /home/www/ereferer.com/htdocs/bin/console app:send_reminder_propositions --env=prod
+#0	10	*	*	*	sh	/home/www/ereferer.com/htdocs/bin/bash/removed_unused_files.sh
+*	*	*	*	*	/usr/bin/php /home/www/ereferer.com/htdocs/bin/console app:job-holding-refund --env=prod
+0	*/6	*	*	*	/usr/bin/php /home/www/ereferer.com/htdocs/bin/console app:update-google-news --env=prod

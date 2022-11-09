@@ -1,0 +1,27 @@
+title: Page statique
+add_title: Ajouter une nouvelle page
+edit_title: Modifier une page
+
+add_new: Ajouter
+edit: Modifier
+delete: Supprimer
+
+table:
+    name: Nom
+    identificator: Identifiant
+    page_content: Contenu
+    language: Langue
+    action: Action
+
+name: Nom
+identificator: Identifiant
+page_content: Contenu
+language: Language
+save: Enregistrer
+
+en: Anglais
+fr: Français
+de: Allemand
+es: Espagnol
+it: Italien
+pt: Portugais

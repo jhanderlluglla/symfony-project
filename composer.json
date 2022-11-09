@@ -1,0 +1,95 @@
+{
+    "name": "dimka/my_project",
+    "license": "proprietary",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "": "src/"
+        },
+        "classmap": [
+            "app/AppKernel.php",
+            "app/AppCache.php"
+        ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    },
+    "require": {
+        "php": "^7.1.0",
+        "symfony/symfony": "3.4.*",
+        "doctrine/orm": "2.5.6",
+        "doctrine/annotations": "^1.4.0",
+        "doctrine/doctrine-bundle": "^1.6",
+        "doctrine/doctrine-cache-bundle": "^1.2",
+        "symfony/swiftmailer-bundle": "^2.3.10",
+        "symfony/monolog-bundle": "^3.0.2",
+        "symfony/polyfill-apcu": "^1.0",
+        "sensio/distribution-bundle": "^5.0",
+        "sensio/framework-extra-bundle": "^3.0.2",
+        "incenteev/composer-parameter-handler": "^2.0",
+        "twig/twig": "^2.0",
+        "friendsofsymfony/user-bundle": "~2.0",
+        "knplabs/knp-menu-bundle": "^2.2",
+        "white-october/pagerfanta-bundle": "^1.1",
+        "knplabs/knp-snappy-bundle": "^1.5",
+        "friendsofsymfony/jsrouting-bundle": "^2.0",
+        "beberlei/DoctrineExtensions": "^1.0",
+        "doctrine/doctrine-fixtures-bundle": "2.4.1",
+        "stfalcon/tinymce-bundle": "^2.1",
+        "stof/doctrine-extensions-bundle": "^1.2",
+        "paypal/rest-api-sdk-php": "^1.13",
+        "guzzlehttp/guzzle": "^6.3",
+        "qaamgo/onlineconvert-api-sdk": "^2.7",
+        "craue/formflow-bundle": "^3.0",
+        "twig/extensions": "^1.5",
+        "ninsuo/symfony-collection": "^2.1",
+        "jms/job-queue-bundle": "^1.4",
+        "ext-dom": "*",
+        "ext-json": "*",
+        "ext-curl": "*",
+        "ext-tidy": "^7.1",
+        "composer/composer": "^1.8",
+        "ext-libxml": "*",
+        "ext-pdo": "*",
+        "ext-zip": "*"
+    },
+    "require-dev": {
+        "sensio/generator-bundle": "^3.0",
+        "symfony/phpunit-bridge": "^3.0",
+        "squizlabs/php_codesniffer": "3.4.2"
+    },
+    "scripts": {
+        "symfony-scripts": [
+            "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::prepareDeploymentTarget"
+        ],
+        "create-dir" : [
+            "CoreBundle\\Composer\\ScriptHandler::postPackageInstall"
+        ],
+        "post-install-cmd": [
+            "@symfony-scripts",
+            "@create-dir"
+        ],
+        "post-update-cmd": [
+            "@symfony-scripts"
+        ]
+    },
+    "extra": {
+        "symfony-app-dir": "app",
+        "symfony-bin-dir": "bin",
+        "symfony-var-dir": "var",
+        "symfony-web-dir": "web",
+        "symfony-tests-dir": "tests",
+        "symfony-assets-install": "relative",
+        "incenteev-parameters": {
+            "file": "app/config/parameters.yml"
+        },
+        "branch-alias": null
+    }
+}

@@ -1,0 +1,23 @@
+title: Ereferer Dashboard
+sites:
+    title: New deals that might interest you!
+    table:
+        site: Site
+        category: Category
+        price: Price
+        semrush_traffic: Semrush Traffic
+        tc: TC
+        show_detail: Show Detail
+
+netlinking:
+    title: Netlinking
+
+copywriting:
+    title: Copywriting
+
+express:
+    expired: Expired
+
+credit_information: The new Ereferer doesn't use anymore Credit for exchange article. Your %count_credit% credits will be return for the sum of %count_euro% euros.
+credit_button: I understand
+credit_title: Credit Info

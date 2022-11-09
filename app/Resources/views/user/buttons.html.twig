@@ -1,0 +1,38 @@
+{% trans_default_domain 'user' %}
+
+<div class="btn-group">
+    <div class="buttons-wrapper">
+        <button data-toggle="dropdown" class="btn btn-warning dropdown-toggle">{{ 'action.title'|trans }} <span class="caret"></span></button>
+        <ul class="dropdown-menu pull-right">
+            <li><a href="#" data-toggle="modal" data-target="#userProfile" data-id="{{ entity.id }}" data-type="send_message"><i class="fa fa-fw fa-envelope"></i> {{ 'action.send_message'|trans }}</a></li>
+            {% if not entity.hasRole(constant('CoreBundle\\Entity\\User::ROLE_SUPER_ADMIN')) and accessManager().canManageNetlinkingProject() %}
+                <li><a href="{{ path('netlinking_all', {'user-id': entity.id }) }}"><i class="fa fa-fw fa-list"></i> {{ 'action.list_projects'|trans }}</a></li>
+                <li><a href="{{ path('submissions_all', {'user-id': entity.id }) }}"><i class="fa fa-fw fa-list"></i> {{ 'action.list_submissions'|trans }}</a></li>
+            {% endif %}
+            <li><a href="{{ path('user_edit', {'id': entity.id}) }}" title="{{ 'action.edit_user'|trans }}"><i class="fa fa-paste"></i> {{ 'action.edit_user'|trans }}</a></li>
+            {% if entity.hasRole(constant('CoreBundle\\Entity\\User::ROLE_WRITER_ADMIN')) %}
+                <li><a data-toggle="modal" data-target="#userProfile" data-id="{{ entity.id }}" data-type="change_permission" title="{{ 'action.change_permission'|trans }}"><i class="fa fa-universal-access"></i> {{ 'action.change_permission'|trans }}</a></li>
+            {% endif %}
+            {% if app.user.isSuperAdmin() %}
+                <li><a href="#" data-toggle="modal" data-target="#userProfile" data-id="{{ entity.id }}" data-type="edit_password"><i class="fa fa-fw fa-edit"></i> {{ 'action.edit_password'|trans }}</a></li>
+            {% endif %}
+            {% if not entity.hasRole(constant('CoreBundle\\Entity\\User::ROLE_SUPER_ADMIN')) and accessManager().canManageEarning() %}
+                <li><a href="#" data-toggle="modal" data-target="#userProfile" data-id="{{ entity.id }}" data-type="modify_balance"><i class="fa fa-fw fa-money"></i> {{ 'action.modify_balance'|trans }}</a></li>
+            {% endif %}
+            {% if app.user.isSuperAdmin() %}
+                <li><a href="{{ path('user_delete', {'id': entity.id}) }}" title="{{ 'action.delete'|trans }}" class="delete"><i class="fa fa-fw fa-trash"></i> {{ 'action.delete'|trans }}</a></li>
+            {% endif %}
+            <li>
+                {% set state = (entity.active == constant('CoreBundle\\Entity\\StateInterface::ACTIVE_YES')) ? 'deactivate':'activate' %}
+
+                <a href="{{ path('user_endis', {'id': entity.id}) }}" title="{{ state|trans({}, 'list') }}" class="state">
+                    {% if entity.active == constant('CoreBundle\\Entity\\StateInterface::ACTIVE_YES') %}
+                        <i class="fa fa-fw fa-eye-slash"></i> <span>{{ 'deactivate'|trans({}, 'list') }}</span>
+                    {% else %}
+                        <i class="fa fa-fw fa-eye"></i> <span>{{ 'activate'|trans({}, 'list') }}</span>
+                    {% endif %}
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>

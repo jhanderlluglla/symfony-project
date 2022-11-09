@@ -1,0 +1,43 @@
+{% trans_default_domain 'FOSUserBundle' %}
+
+{{ form_start(form, { 'action': path('fos_user_profile_edit'), 'attr': { 'class': 'fos_user_profile_edit' } }) }}
+    {{ form_widget(form) }}
+
+    <div class="form-group">
+        <label class="col-sm-3 control-label">{{ 'registration.avatar'|trans({}, 'user') }}</label>
+        <div class="col-sm-9">
+            <div class="form-group">
+                <div class="col-md-7 new-avatar-wrap hide">
+                    <div class="image-crop">
+                        <img class="img-thumbnail" src="{{ asset('/img/avatar.png') }}">
+                    </div>
+                </div>
+
+                <div class="col-md-7 existing-avatar-wrap">
+                    {% if form.vars.data.avatar is not null %}
+                        <img class="img-thumbnail" src="{{ asset('/uploads/avatars/' ~ form.vars.data.avatar) }}">
+                    {% else %}
+                        <img class="img-thumbnail" src="{{ asset('/img/avatar.png') }}">
+                    {% endif %}
+                </div>
+                <div class="col-md-5">
+                    <div class="avatar-preview hide">
+                        <h4>{{ 'preview_image'|trans({}, 'profile') }}</h4>
+                        <div class="img-preview img-preview-sm"></div>
+                    </div>
+                    <label title="Upload image file" for="inputImage" class="btn btn-primary">
+                        <input type="file" accept="image/*" name="file" id="inputImage" class="hide">
+                        {{ 'upload_image'|trans({}, 'profile') }}
+                    </label>
+                    <input type="text" name="base64" class="invisible js_base64-input" readonly />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-sm-9 col-md-push-3">
+            <input type="submit" class="btn btn-primary btn-sm" value="{{ 'profile.edit.submit'|trans }}" />
+        </div>
+    </div>
+{{ form_end(form) }}

@@ -1,0 +1,9 @@
+{% trans_default_domain 'invoice' %}
+
+<address>
+    {{ 'eurl'|trans|upper }} {{ settings['invoice_eurl'] }} - {{ 'siret'|trans|upper }} : {{ settings['invoice_siret'] }}<br>
+    {{ 'invoice_vat_number'|trans }} : {{ settings['invoice_vat_number'] }}<br>
+    {{ settings['invoice_first_name'] }} {{ settings['invoice_last_name'] }}<br>
+    {{ settings['invoice_headquarters_address'] }}<br>
+    {{ settings['invoice_postal_code'] }} {{ settings['invoice_area_address'] }}, {{ settings['invoice_country'] }}<br>
+</address>

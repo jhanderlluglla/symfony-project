@@ -1,0 +1,30 @@
+{% trans_default_domain 'netlinking' %}
+
+{% if collection|length == 0 %}
+    <div class="no_results">
+        {{ 'no_results'| trans({}, 'general') }}
+    </div>
+{% else %}
+    <div class="project-wrapper">
+        {% for entity in collection %}
+            <div class="netlink-project project-card" data-project-id="{{ entity.id }}">
+                <div class="flex-justify">
+                    <ul class="block-information">
+                        {% include 'netlinking/card/card_header.html.twig' %}
+                    </ul>
+                    <div class="actions">
+                        <div class="buttons-wrapper">
+                            <a href="{{ path('netlinking_start', {'id': entity.id}) }}" class="btn btn-warning"><i class="fa fa-play"></i> {{ 'start'|trans }}</a>
+                            <a href="{{ path('netlinking_edit', {'status': status, 'id': entity.id}) }}" class="btn btn-primary"><i class="fa fa-edit"></i> {{ 'edit'|trans }}</a>
+                            <a href="{{ path('netlinking_delete', {'status': status, 'id': entity.id}) }}" class="btn btn-danger delete"><i class="fa fa-trash"></i> {{ 'delete'|trans }}</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="border-top">
+                    <p class="text-block">{{ 'table.patience'|trans }}</p>
+                </div>
+                {% include 'netlinking/card/card_comment.html.twig' %}
+            </div>
+        {% endfor %}
+    </div>
+{% endif %}

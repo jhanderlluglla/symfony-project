@@ -1,0 +1,59 @@
+invoice: Facture
+upload_invoice: Envoyer votre facture (PDF)
+
+requirements:
+    minimum_to_withdraw: "Vous pouvez retirer votre argent si vous disposez de plus de %minimum_amount%€ dans votre compte"
+    count_per_month: "%count_per_month% retrait maximum par mois"
+    commision: "Ereferer applique une commission de %withdraw_percent%% pour chaque retrait"
+    invoice: Votre facture doit obligatoirement contenir les informations suivantes
+
+step:
+    title: Effectuer un retrait
+    invoice: Facture
+    payment: Options de paiement
+withdraw:
+    amount: Combien souhaitez-vous retirer ?
+    commissions: "Commission de %withdraw_percent%%"
+    choice_required: Un choix est nécéssaire
+    some_information: Informations
+    amount_placeholder: Entrez le montant ici
+    placeholder: Merci d'indiquer les informations ici
+    
+
+confirm_label: "Je confirme que ma facture indique à net à payer de %billable_amount%€ HT"
+
+accepted_request:
+    title: Requête acceptée
+    message: Votre demande a été acceptée
+
+table:
+    amount: Montant
+    status: Statut
+    created_at: Créé le
+    action: Action
+    view_invoice: Voir la facture
+    user: Utilisateur
+    transfer: Virement bancaire
+    paypal: Paypal
+    swift: Swift
+    iban: Iban
+    review_comment: Voir le commentaire
+    accept: Accepter
+    reject: Rejeter
+    company_name: Nom (personnel ou entreprise)
+    statuses:
+        waiting: En attente
+        accepted: Accepté
+        rejected: Rejeté
+
+request:
+    accepted: Votre paiement a été accepté !
+    rejected: Votre paiement a été refusé !
+
+comment: Merci d'indiquer votre commentaire
+errors:
+    change_status: Une erreur s'est produite, merci de réessayer !
+
+modal:
+    close: Fermer
+    save: Enregistrer

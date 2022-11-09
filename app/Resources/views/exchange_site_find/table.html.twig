@@ -1,0 +1,98 @@
+{% trans_default_domain 'exchange_site' %}
+<div class="ibox-content">
+    {% if collection is not null and collection.haveToPaginate %}
+        <div class="pagerfanta">
+            {{ pagerfanta(collection) }}
+        </div>
+    {% endif %}
+    <div class="directories-table-wrap">
+        <table class="table-freeze table table-striped" id="quickPurchaseTable">
+            <thead>
+                <tr>
+                    {% include 'exchange_site/details_th.html.twig' %}
+                    <th data-sortable="false" class="text-right">{{ 'table.action'|trans }}</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if collection is not null %}
+                    {% for entity in collection %}
+                        {% if filterWords is defined and filterWords is not empty and entity.minWordsNumber < filterWords %}
+                            {% set words = filterWords %}
+                        {% else %}
+                            {% set words = entity.minWordsNumber %}
+                        {% endif %}
+                        <tr>
+                            {% embed 'exchange_site/details_td.html.twig'%}
+                            {% endembed %}
+
+                            <td class="text-right action">
+                                <div class="buttons-wrapper">
+                                    {% if entity.acceptEref == constant('CoreBundle\\Entity\\ExchangeSite::ACCEPT_EREF_YES') %}
+                                        {% set price = copywritingCalculator.getBasePrice(words, 'total') + copywritingCalculator.getImagesPrice(entity.maxImagesNumber, 'total') + copywritingCalculator.getMetaDescriptionPrice(entity.getMetaDescription, 'total') + entity.credits %}
+                                        {% if price <= filterPriceMax %}
+                                            <button data-toggle="modal" data-target="#exchangeSiteProposition" data-id="{{ entity.id }}" data-countwords="{{ words }}" data-type="writing_ereferer" class="btn btn-warning" title="{{ 'table.actions.writing_ereferer'|trans }}">
+
+                                                <i class="fa fa-pencil visible-xxs" aria-hidden="true"></i>
+                                                <span>{{ 'table.actions.writing_ereferer'|trans }}
+                                                    ({{ price }}€)</span>
+                                            </button>
+                                        {% endif %}
+                                    {% endif %}
+                                    {% if entity.acceptWeb == constant('CoreBundle\\Entity\\ExchangeSite::ACCEPT_WEB_YES')%}
+                                        {% if entity.credits <= filterPriceMax %}
+                                            <button data-toggle="modal" data-target="#exchangeSiteProposition" data-id="{{ entity.id }}" data-type="submit_your_article" class="btn btn-warning" title="{{ 'table.actions.submit_your_article'|trans }}">
+
+                                                <i class="fa fa-file-text visible-xxs" aria-hidden="true"></i>
+                                                <span>{{ 'table.actions.submit_your_article'|trans }}
+                                                    ({{ entity.credits }}€)</span>
+                                            </button>
+                                        {% endif %}
+                                    {% endif %}
+                                    {% if entity.acceptSelf == constant('CoreBundle\\Entity\\ExchangeSite::ACCEPT_SELF_YES') %}
+                                        {% if entity.credits + webmasterAdditionalPay <= filterPriceMax %}
+                                            <button data-toggle="modal" data-target="#exchangeSiteProposition" data-id="{{ entity.id }}" data-type="writing_webmaster" class="btn btn-warning" title="{{ 'table.actions.writing_webmaster'|trans }}">
+
+                                                <i class="fa fa-user-circle-o visible-xxs" aria-hidden="true"></i>
+                                                <span>
+                                                    {{ 'table.actions.writing_webmaster'|trans }}
+                                                    ({{ entity.credits + webmasterAdditionalPay }}€)
+                                                </span>
+                                            </button>
+                                        {% endif %}
+                                    {% endif %}
+                                </div>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                {% endif %}
+            </tbody>
+        </table>
+    </div>
+    {% if collection is not null and collection.haveToPaginate %}
+        <div class="pagerfanta">
+            {{ pagerfanta(collection) }}
+        </div>
+    {% endif %}
+</div>
+
+<div class="modal fade moreDetail" id="details" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title"></h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">{{ 'modal.close'|trans({}, 'general') }}</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    var countResults = {{ countResults }};
+    var responseGlobalItems = {{ jsonBlogs|raw }};
+</script>

@@ -1,0 +1,58 @@
+{% extends 'layout.html.twig' %}
+
+{% trans_default_domain 'invoice' %}
+
+
+{% block title %}
+    {{ 'my_account.invoice'|trans({}, 'menu') }}
+{% endblock %}
+
+{% block breadcrumb %}
+    {{ include('breadcrumb/my_account.html.twig', {'childrens': [block('title')]}) }}
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-content">
+
+                    <table class="table table-striped footable">
+                        <thead>
+                            <tr>
+                                <th>{{ 'table.full_name'|trans }}</th>
+                                <th data-breakpoints="s">{{ 'table.amount'|trans }}</th>
+                                <th data-breakpoints="m">{{ 'table.vat'|trans }}</th>
+                                <th data-breakpoints="s">{{ 'table.filename'|trans }}</th>
+                                <th data-breakpoints="m">{{ 'table.created_at'|trans }}</th>
+                                <th data-breakpoints="xxs" class="text-right action">{{ 'table.actions'|trans}}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for entity in collection %}
+                                    <tr data-invoice-id="{{ entity.id }}">
+                                        <td>{{ entity.user.fullName }}</td>
+                                        <td>{{ entity.amount }}€</td>
+                                        <td>{{ entity.vat }}€</td>
+                                        <td>{{ entity.file }}</td>
+                                        <td>{{ entity.createdAt|date("m/d/Y") }}</td>
+                                        <td class="text-right action">
+                                            <div class="buttons-wrapper">
+                                                <a href="{{ path('invoice_view', {'id': entity.id}) }}" class="btn btn-warning"><i class="fa fa-eye"></i>{{ 'view'|trans }}</a>
+                                                <a href="{{ path('invoice_download', {'id': entity.id}) }}" class="btn btn-warning"><i class="fa fa-download"></i>{{ 'download'|trans }}</a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    {% if collection.haveToPaginate %}
+                        <div class="pagerfanta">
+                            {{ pagerfanta(collection) }}
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,45 @@
+{% extends 'layout.html.twig' %}
+
+{% trans_default_domain 'netlinking' %}
+
+{% block title %}
+    {% set title = 'report.title'%}
+    {{ title|trans }}
+{% endblock %}
+
+{% block breadcrumb %}
+    {{ include('breadcrumb/netlinking.html.twig', {'childrens': [
+        {'name': 'title_current'|trans({}, 'netlinking'), 'path': 'netlinking_all'},
+        block('title')
+    ]}) }}
+{% endblock %}
+
+{% block content %}
+    <h3>{{ 'report.heading'|trans }}: {{ project.url }}</h3>
+    <table class="footable table table-striped">
+        <thead>
+            <tr>
+                <th data-breakpoints="xs">{{ 'table.writer'|trans }}</th>
+                <th data-breakpoints="s">{{ 'table.status'|trans }}</th>
+                <th data-breakpoints="xxl">{{ 'table.date'|trans }}</th>
+                <th data-breakpoints="xs">{{ 'table.task'|trans }}</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for job in collection %}
+                <tr>
+                    <td>{{ job.affectedToUser.username }}</td>
+                    <td>
+                        {% if job.status == constant('CoreBundle\\Entity\\Job::STATUS_COMPLETED') %}
+                            <span class="text-success">{{ 'statuses.successful'|trans }}</span>
+                        {% else %}
+                            <span class="text-error">{{ 'statuses.impossible'|trans }}</span>
+                        {% endif %}
+                    </td>
+                    <td>{{ job.approvedAt|date("d/m/Y") }}</td>
+                    <td>{{ job.scheduleTask.taskUrl }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

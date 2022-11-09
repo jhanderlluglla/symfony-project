@@ -1,0 +1,23 @@
+{% trans_default_domain 'invoice' %}
+
+<address>
+    {{ payer.fullName  }}<br>
+    {% if payer.company %}
+        {{ payer.company }}<br>
+    {% endif %}
+    {% if payer.address %}
+        {{ payer.address }}<br>
+    {% endif %}
+    {% if payer.zip %}
+        {{ payer.zip }} {% if payer.city %} , {% endif %}
+    {% endif %}
+    {% if payer.city %}
+        {{ payer.city }} {% if payer.country %} , {% endif %}
+    {% endif %}
+    {% if payer.country %}
+        {{ payer.countryName }}
+    {% endif %}<br>
+    {% if payer.phone %}
+        <abbr title="Phone">{{ 'phone'|trans }}: </abbr>{{ payer.phone }}
+    {% endif %}
+</address>

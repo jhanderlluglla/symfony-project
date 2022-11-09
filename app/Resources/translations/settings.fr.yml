@@ -1,0 +1,22 @@
+title: Configuration
+add_title: Nouvelle configuration
+edit_title: Modifier la configuration
+
+add_new: Ajouter
+edit: Modifier
+delete: Supprimer
+
+table:
+    name: Nom
+    identificator: Identifiant
+    value: Valeur
+    action: Action
+
+name: Nom
+identificator: Identifiant
+value: Valeur
+save: Enregistrer
+
+year: année(s)
+month: mois
+day: jour(s)

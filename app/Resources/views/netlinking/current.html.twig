@@ -1,0 +1,8 @@
+{% if accessManager().canManageNetlinkingProject() %}
+    {% include 'netlinking/current_admin.html.twig' %}
+{% elseif app.user.hasRole(constant('CoreBundle\\Entity\\User::ROLE_WEBMASTER')) %}
+    {% include 'netlinking/current_webmaster.html.twig' %}
+{% elseif app.user.hasRole(constant('CoreBundle\\Entity\\User::ROLE_WRITER'))
+       or app.user.hasRole(constant('CoreBundle\\Entity\\User::ROLE_WRITER_NETLINKING')) %}
+    {% include 'netlinking/current_writer.html.twig' %}
+{% endif %}

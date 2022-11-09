@@ -1,0 +1,28 @@
+services:
+    monolog.logger.online_convert:
+        class: Symfony\Bridge\Monolog\Logger
+        tags:
+            - { name: monolog.logger, channel: online_convert }
+        arguments:
+          ['online_convert']
+
+    monolog.logger.directory_back_links:
+        class: Symfony\Bridge\Monolog\Logger
+        tags:
+            - { name: monolog.logger, channel: directory_back_links }
+        arguments:
+          ['directory_back_links']
+
+    monolog.logger.publish_article:
+        class: Symfony\Bridge\Monolog\Logger
+        tags:
+            - { name: monolog.logger, channel: publish_article }
+        arguments:
+          ['publish_article']
+
+    monolog.logger.cron:
+        class: Symfony\Bridge\Monolog\Logger
+        tags:
+            - { name: monolog.logger, channel: cron }
+        arguments:
+          ['cron']

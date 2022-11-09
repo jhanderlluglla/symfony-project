@@ -1,0 +1,161 @@
+{% extends 'layout.html.twig' %}
+
+{% form_theme formFilter "form/theme.html.twig" %}
+{% form_theme formFilter.majesticTtfCategories 'jquery.collection.html.twig' %}
+
+{% trans_default_domain 'directories_list' %}
+
+{% block title %}
+    {{ 'title'|trans }}
+{% endblock %}
+
+{% block breadcrumb %}
+    {{ include('breadcrumb/netlinking.html.twig',
+        {'childrens': [
+            {'name': 'title'|trans, 'path': 'admin_directories_list'},
+            'edit_title'|trans
+        ]}) }}
+{% endblock %}
+
+{% block stylesheets %}
+  {{ parent() }}
+  <link href="/css/admin/plugins/OverlayScrollbars/OverlayScrollbars.min.css" rel="stylesheet">
+{% endblock %}
+
+
+{% block content %}
+
+    <div class="row high-inputs directories-list_edit">
+        <div class="col-lg-12 form-netlinking-list">
+            {{ form_start(formFilter, {'attr': {'data-bind' : 'event: {change: addColumn}'}}) }}
+            <button class="btn btn-primary" data-action="toggle-filters" type="button">
+                <i class="fa fa-sliders" aria-hidden="true" style="font-size: 20px; margin-right: 5px"></i>
+                <span class="hidden">{{ 'form.show_filters'|trans }}</span>
+                <span>{{ 'form.hide_filters'|trans }}</span>
+            </button>
+            <div class="filters-container">
+                {{ include('exchange_site_find/filters.html.twig', {'form': formFilter}) }}
+                <footer class="filters-submit">
+                    {{ form_widget(formFilter.filter, {'attr': {'class': 'btn-primary m-r-md'}}) }}
+                    <div>
+                        <span class="m-l-md">{{ 'form.items_found'|trans }}:</span>
+                        <span id="count_results"></span>
+                    </div>
+                </footer>
+            </div>
+            {{ form_end(formFilter) }}
+        </div>
+    </div>
+    <div class="ibox-content directories-list high-inputs">
+        {{ include('directories_list/form.html.twig') }}
+    </div>
+
+    <div class="tabs-container">
+        <ul class="nav nav-tabs j-directories-list_nav">
+            <li>
+                <a data-toggle="tab" href="" data-type="">{{ 'tabs.all'|trans({}, 'directory') }}</a>
+            </li>
+            <li>
+                <a data-toggle="tab" href="" data-type="directory">{{ 'tabs.directory'|trans({}, 'directory') }}</a>
+            </li>
+            <li>
+                <a data-toggle="tab" href="" data-type="exchange_site">{{ 'tabs.blogs'|trans({}, 'directory') }}</a>
+            </li>
+        </ul>
+    </div>
+    <div class="ibox-content">
+        <div class="directories-table-wrap">
+            <table class="table-freeze table table-striped" id="tableAll"></table>
+        </div>
+        <div id="pagination">
+
+        </div>
+    </div>
+
+    <div class="modal fade moreDetail" id="moreDetail" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title"></h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body"></div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">{{ 'modal.close'|trans({}, 'general') }}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascript %}
+{{ parent() }}
+    <script type="text/javascript">
+        var directoryListId = {{ id }};
+        var maxPerPage = {{ maxPerPage }};
+    </script>
+    {{ include('directories_list/translations.html.twig') }}
+    <script src="{{ asset('js/admin/plugins/touchspin/jquery.bootstrap-touchspin.min.js') }}"></script>
+    <script src="{{ asset('js/admin/plugins/OverlayScrollbars/jquery.overlayScrollbars.min.js') }}"></script>
+    <script src="{{ asset('js/admin/jquery.twbsPagination.min.js') }}"></script>
+    <script src="{{ asset('js/admin/jquery.collection.js') }}"></script>
+    <script src="{{ asset('js/front/init_filters.js') }}"></script>
+    <script src="{{ asset('js/front/directory/jquery-throttle-debounce.js') }}"></script>
+    <script src="{{ asset('js/front/directory/jquery.stickyheader.js') }}"></script>
+    <script src="{{ asset('js/front/directory/entities.js') }}"></script>
+    <script src="{{ asset('js/front/directory/custom-popup.js') }}"></script>
+    <script src="{{ asset('js/front/directory/custom-onleave-popup.js') }}"></script>
+    <script>
+        translations.errorMessage = "{{ "errors.unsaved"|trans }}"
+    </script>
+<script type="text/javascript">
+
+$('.ttf-categories-collection').collection({
+    add: '<a href="#" class="btn btn-outline btn-info add-ttf-category">{{ 'form.add_category'|trans }}</a>',
+    remove: '<a href="#" class="btn btn-sm btn-outline btn-danger">{{ 'form.remove_category'|trans }}</a>',
+    allow_up: false,
+    allow_down: false,
+    add_at_the_end: true,
+    after_add: function(collection) {
+        initTouchSpin();
+        $('.chosen-select')
+            .chosen({width: "100%"})
+            .on('chosen:showing_dropdown', function (evt, params) {
+                checkChosenPosition(evt);
+            });
+    }
+});
+
+$('[data-action="toggle-filters"]').on('click', function(){
+    $('.filters-container').slideToggle(300, function() {
+        $('[data-action="toggle-filters"]').find('span').toggleClass('hidden');
+    });
+});
+
+$("#filters_ageMonth").on('input change',function(e){
+    const monthPerYear = 12;
+    var monthCnt = parseInt($(this).val());
+    if (monthCnt > monthPerYear){
+      $(this).val(monthPerYear);
+    }
+    if (monthCnt <= 0){ $(this).val(''); }
+});
+
+var ageInputs = $('#filters_ageCondition').find('input[type="radio"]');
+
+function checkAgeInputs(){
+    ageInputs.each(function() {
+        if($(this).prop('checked')) {
+            ageInputs.parents('.radio').removeClass('active');
+            $(this).parents('.radio').addClass('active');
+        }
+    })
+}
+checkAgeInputs();
+ageInputs.on('change', function() {
+  checkAgeInputs();
+})
+
+ title="Hide details"
+</script>
+{% endblock %}

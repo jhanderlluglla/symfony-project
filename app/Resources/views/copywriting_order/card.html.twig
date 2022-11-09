@@ -1,0 +1,161 @@
+{% trans_default_domain 'copywriting' %}
+
+{% import "copywriting_article/requirement_macro.html.twig" as requirement %}
+
+{% block content %}
+    {% set article = order.article %}
+    <div class="col-lg-12">
+        <dl class="dl-horizontal ellipsis-all">
+            <dt>{{ 'project_name'|trans }}:</dt><dd>{{ order.project.title }}</dd>
+            <dt>{{ 'article_title'|trans }}:</dt><dd>{{ order.title }}</dd>
+            <dt>{{ 'words_number'|trans }}:</dt><dd>{{ order.wordsNumber }}</dd>
+            <dt>{{ 'article_description'|trans }}:</dt><dd>{{ order.instructions }}</dd>
+            <dt>{{ 'project_description'|trans }}:</dt><dd>{{ order.project.description }}</dd>
+            <div class="hr-line-dashed"></div>
+            <dt>{{ 'article_requirements'|trans }}:</dt>
+            <dd>
+                <ul class="article-requirement">
+                    <li>
+                        {{ requirement.print(
+                            order,
+                            'words_number',
+                            {'%n%': order.wordsNumber},
+                            {'%n%':  article is not null ? article.wordsNumber : null})
+                        }}
+                    </li>
+                    {% if order.metaTitle %}
+                        <li>
+                            {{ requirement.print(order, 'meta_title', {}, {}) }}
+                        </li>
+                    {% endif %}
+                    {% if order.metaDescription %}
+                        <li>
+                            {{ requirement.print(order, 'meta_desc', {}, {}) }}
+                        </li>
+                    {% endif %}
+                    {% if order.headerOneSet %}
+                        <li>
+                            {{ requirement.print(order, 'H1_set', {}, {}) }}
+                        </li>
+                    {% endif %}
+                    {% if order.headerTwoStart or order.headerTwoEnd %}
+                        <li>
+                            {{ requirement.print(
+                                order,
+                                'H2_range',
+                                {'%n%': order.headerTwoStart, '%m%': order.headerTwoEnd},
+                                {'%n%': article is not null ? article.headerTwoNumber : null})
+                            }}
+                        </li>
+                    {% endif %}
+                    {% if order.headerThreeStart or order.headerThreeEnd %}
+                        <li>
+                            {{ requirement.print(
+                                order,
+                                'H3_range',
+                                {'%n%': order.headerThreeStart, '%m%': order.headerThreeEnd},
+                                {'%n%':  article is not null ? article.headerThreeNumber : null})
+                            }}
+                        </li>
+                    {% endif %}
+                    {% if order.boldText is not null %}
+                        <li>
+                            {{ requirement.print(order, 'bold_text', {'%n%': order.boldText}, {'%n%': not order.boldText}) }}
+                        </li>
+                    {% endif %}
+                    {% if order.italicText is not null %}
+                        <li>
+                            {{ requirement.print(order, 'italic_text', {'%n%': order.italicText}, {'%n%': not order.italicText}) }}
+                        </li>
+                    {% endif %}
+                    {% if order.quotedText is not null %}
+                        <li>
+                            {{ requirement.print(order, 'quoted_text', {'%n%': order.quotedText}, {'%n%': not order.quotedText}) }}
+                        </li>
+                    {% endif %}
+                    {% if order.ulTag is not null %}
+                        <li>
+                            {{ requirement.print(order, 'UL_set', {'%n%': order.ulTag}, {'%n%': not order.ulTag}) }}
+                        </li>
+                    {% endif %}
+                    {% if order.keywordsPerArticleFrom or order.keywordsPerArticleTo %}
+                        <li>
+                            {{ requirement.print(
+                                order,
+                                'keywords',
+                                {'%n%': order.keywordsPerArticleFrom, '%m%': order.keywordsPerArticleTo},
+                                {'%n%':  article is not null ? article.keywordsNumber : null})
+                            }}
+                            <ul>
+                                {% for keyword in order.keywords %}
+                                    <li>{{ keyword.word }}</li>
+                                {% endfor %}
+                            </ul>
+                            {{ requirement.print(
+                                order,
+                                'keywords_used',
+                                {},
+                                {'%keywords%':  article is not null ? article.missedKeywordsFormatted : null })
+                            }}
+                        </li>
+                    {% endif %}
+                    {% if order.keywordInMetaTitle %}
+                        <li>
+                            {{ requirement.print(
+                                order,
+                                'keyword_meta_title',
+                                {},
+                                {'%keywords%':  article is not null ? article.metaTitleKeywordsFormatted : null })
+                            }}
+                        </li>
+                    {% endif %}
+                    {% if order.keywordInHeaderOne %}
+                        <li>
+                            {{ requirement.print(
+                                order,
+                                'keyword_H1_set',
+                                {},
+                                {'%keywords%':  article is not null ? article.headerOneKeywordsFormatted : null })
+                            }}
+                        </li>
+                    {% endif %}
+                    {% if order.keywordInHeaderTwo %}
+                        <li>
+                            {{ requirement.print(
+                                order,
+                                'keyword_H2_set',
+                                {},
+                                {'%keywords%':  article is not null ? article.headerTwoKeywordsFormatted : null })
+                            }}
+                        </li>
+                    {% endif %}
+                    {% if order.keywordInHeaderThree %}
+                        <li>
+                            {{ requirement.print(
+                                order,
+                                'keyword_H3_set',
+                                {},
+                                {'%keywords%':  article is not null ? article.headerThreeKeywordsFormatted : null })
+                            }}
+                        </li>
+                    {% endif %}
+                    {% if order.imagesPerArticleFrom or order.imagesPerArticleTo %}
+                        <li>
+                            {{ requirement.print(
+                                order,
+                                'images_range',
+                                {'%n%': order.imagesPerArticleFrom, '%m%': order.imagesPerArticleTo},
+                                {'%n%': article is not null ? article.imagesNumber : null})
+                            }}
+                            <ul>
+                                {% for image in order.images %}
+                                    <li><a href="{{ image.url }}" target="_blank">{{ image.url }}</a></li>
+                                {% endfor %}
+                            </ul>
+                        </li>
+                    {% endif %}
+                </ul>
+            </dd>
+        </dl>
+    </div>
+{% endblock %}

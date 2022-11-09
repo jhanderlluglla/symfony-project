@@ -1,0 +1,19 @@
+{% extends 'layout.html.twig' %}
+
+{% trans_default_domain 'static_page' %}
+
+{% block title %}
+    {{ 'add_title'|trans }}
+{% endblock %}
+
+{% block breadcrumb %}
+    {{ include('breadcrumb/settings.html.twig', {'childrens': [
+        {'name': 'title'|trans, 'path': 'admin_static_page'},
+        block('title')
+    ]}) }}
+{% endblock %}
+
+
+{% block content %}
+    {{ include('static_pages/form.html.twig') }}
+{% endblock %}

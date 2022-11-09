@@ -1,0 +1,245 @@
+services:
+    core.menu.builder:
+        class: CoreBundle\Menu\MenuBuilder
+        arguments:
+            - "@knp_menu.factory"
+            - "@translator"
+            - "@router"
+            - "@security.token_storage"
+            - "@doctrine.orm.entity_manager"
+            - "@core.service.access_manager"
+
+    core.service.replenish_account:
+        class: CoreBundle\Services\ReplenishAccountService
+        arguments: ["%paypal_client_id%", "%paypal_secret_id%", "@translator", '%kernel.environment%']
+
+    core.service.transaction:
+        class: CoreBundle\Services\TransactionService
+        arguments: ["@doctrine.orm.entity_manager", "@core.service.calculator_price_service", "@translator", "@user.netlinking_schedule"]
+
+    core.service.majestic_info:
+        class: CoreBundle\Services\MajesticInfo
+        arguments: ["%majestic_api_key%"]
+
+    core.service.semrush_info:
+        class: CoreBundle\Services\Metrics\Semrush
+        arguments: ["%semrush_api_key%"]
+
+    core.service.metrics_manager:
+        class: CoreBundle\Services\Metrics\MetricsManager
+        public: true
+        arguments:
+            - "@doctrine.orm.entity_manager"
+            - "@monolog.logger.cron"
+            - "@core.service.bwa_info"
+            - "@core.service.majestic_info"
+            - "@core.service.semrush_info"
+            - "@core.service.awis_info"
+            - "@core.service.memento_info"
+            - "@core.service.google_analytics_info"
+            - "@core.service.moz_info"
+            - "@core.service.exchange_site"
+
+    core.service.awis_info:
+        class: CoreBundle\Services\AwisInfo
+        arguments: ["%awis_access_key%", "%awis_secret_key%"]
+
+    core.service.bwa_info:
+        class: CoreBundle\Services\BwaInfo
+        arguments: ["%bwa_api_key%", "%bwa_api_secret%"]
+
+    core.service.memento_info:
+        class: CoreBundle\Services\MementoInfo
+
+    core.service.google_news_info:
+        public: true
+        class: CoreBundle\Services\GoogleNewsInfo
+        arguments: ["%google_news_api_key%"]
+
+    core.service.google_analytics_info:
+        class: CoreBundle\Services\GoogleAnalyticsInfo
+
+    core.service.moz_info:
+        class: CoreBundle\Services\MozInfo
+        arguments: ["%moz_access_id%", "%moz_secret_key%"]
+
+    core.user.menu.main:
+        class: Knp\Menu\MenuItem
+        factory: ["@core.menu.builder", createMainMenu]
+        arguments: ["@request_stack"]
+        tags:
+          - { name: knp_menu.menu, alias: user_main }
+
+    core.twig.extension:
+        class: CoreBundle\Twig\Extension\CoreExtension
+        arguments:
+            - "@doctrine.orm.entity_manager"
+            - "@translator"
+            - "@serializer"
+            - "@core.service.language"
+            - "@core.service.access_manager"
+            - "@request_stack"
+        tags:
+            - { name: 'twig.extension' }
+
+    core.service.mailer:
+        public: true
+        class: CoreBundle\Services\Mailer
+        arguments:
+            - "@doctrine.orm.entity_manager"
+            - "@mailer"
+            - "%noreply_email%"
+            - "@router"
+            - "%site_url%"
+            - "@translator"
+            - "@core.service.language"
+            - "%kernel.root_dir%/Resources/views/mail/base.html"
+
+    core.validator.text_correctness:
+        class: CoreBundle\Validator\TextCorrectnessValidator
+        arguments:
+            - '@doctrine.orm.entity_manager'
+            - '@translator'
+            - '@user.copywriting.article_processor'
+        tags:
+            - { name: validator.constraint_validator }
+
+    core.service.generate_invoice_service:
+        class: CoreBundle\Services\GenerateInvoiceService
+        arguments:
+            - '@doctrine.orm.entity_manager'
+            - '@templating'
+            - '@knp_snappy.pdf'
+            - '%invoice_dir%'
+            - '@core.service.calculate_vat_service'
+
+    core.service.calculate_vat_service:
+        class: CoreBundle\Services\CalculatorVat
+
+    twig.extension.intl:
+          class: Twig_Extensions_Extension_Intl
+          tags:
+          - { name: twig.extension }
+
+    core.directory.model:
+        class: CoreBundle\Model\DirectoryModel
+        arguments:
+            - "@doctrine.orm.entity_manager"
+            - "@translator"
+            - "@core.service.calculator_price_service"
+            - "@security.token_storage"
+
+    core.blogs.model:
+        class: CoreBundle\Model\BlogsModel
+        arguments:
+            - "@doctrine.orm.entity_manager"
+            - "@translator"
+            - "@core.service.calculator_price_service"
+            - "@security.token_storage"
+
+    core.service.choose_writer:
+        class: CoreBundle\Services\ChooseWriterService
+        arguments: [ "@doctrine.orm.entity_manager", "%avatar_local_path%", "@translator"]
+
+    core.service.calculator_price_service:
+        class: CoreBundle\Services\CalculatorPriceService
+        arguments: [ "@doctrine.orm.entity_manager"]
+
+    core.service.calculator_netlinking_price:
+        class: CoreBundle\Services\CalculatorNetlinkingPrice
+        arguments:
+            - "@doctrine.orm.entity_manager"
+            - "@user.writer"
+            - "@core.service.calculator_price_service"
+            - "@user.netlinking.writer_bonus_calculator"
+
+    core.helper.form:
+        class: CoreBundle\Helpers\FormHelper
+        arguments:
+            - "@doctrine.orm.entity_manager"
+
+    core.service.filter:
+        class: CoreBundle\Services\FilterService
+        arguments:
+            - "@doctrine.orm.entity_manager"
+
+    core.service.exchange_proposition:
+        class: CoreBundle\Services\ExchangePropositionService
+        arguments:
+            - "@doctrine.orm.entity_manager"
+            - "@core.service.transaction"
+            - "@state_machine.exchange_proposition"
+            - "@core.service.mailer"
+            - "@core.service.user_setting"
+            - "@core.service.calculator_price_service"
+
+    core.command.apply_expired_propositions:
+        class: CoreBundle\Command\ApplyExpiredPropositionsCommand
+        tags: [{ name: 'console.command'}]
+
+    core.service.user:
+        class: CoreBundle\Services\UserService
+        arguments:
+            - "@doctrine.orm.entity_manager"
+            - "@core.service.transaction"
+
+    core.service.user_setting:
+        class: CoreBundle\Services\UserSettingService
+        arguments:
+            - "@doctrine.orm.entity_manager"
+            - "@security.token_storage"
+
+    core.service.copywriting_order:
+        class: CoreBundle\Services\CopywritingOrderService
+        arguments:
+            - "@doctrine.orm.entity_manager"
+            - "@core.service.transaction"
+            - "@user.copywriting.article_processor"
+            - "@core.service.mailer"
+            - "@state_machine.copywriting_order"
+
+    core.service.directory_exchange_site_union:
+        class: CoreBundle\Services\DirectoryExchangeSiteUnionService
+        arguments:
+            - "@doctrine.orm.entity_manager"
+
+    core.service.access_manager:
+        class: CoreBundle\Services\AccessManager
+        arguments:
+            - "@security.token_storage"
+            - "@core.service.user_setting"
+
+    core.service.language:
+        class: CoreBundle\Services\LanguageService
+        arguments:
+            - "@security.token_storage"
+            - "@request_stack"
+            - "%host%"
+
+    core.service.job:
+        class: CoreBundle\Services\JobService
+        arguments:
+            - "@doctrine.orm.entity_manager"
+            - "@core.service.transaction"
+            - "@state_machine.job"
+            - "@user.netlinking"
+            - "@core.service.copywriting_order"
+            - "@security.helper"
+
+    core.service.exchange_site:
+        public: true
+        class: CoreBundle\Services\ExchangeSiteService
+        arguments:
+            - "@doctrine.orm.entity_manager"
+
+    core.command.update_metrics:
+        public: true
+        class: CoreBundle\Command\UpdateMetricsCommand
+        tags:
+            - { name: 'console.command' }
+
+    core.command.update_google_news:
+        public: true
+        class: CoreBundle\Command\UpdateGoogleNewsCommand
+        tags:
+            - { name: 'console.command' }

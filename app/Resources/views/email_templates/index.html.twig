@@ -1,0 +1,71 @@
+{% extends 'layout.html.twig' %}
+
+{% trans_default_domain 'email_template' %}
+
+{% block title %}
+    {{ 'title'|trans }}
+{% endblock %}
+
+{% block breadcrumb %}
+    {{ include('breadcrumb/settings.html.twig', {'childrens': [block('title')]}) }}
+{% endblock %}
+
+{% block action %}
+    <div class="col-sm-6">
+        <div class="title-action">
+            <a href="{{ path('admin_email_template_add') }}" class="btn btn-primary"><strong>{{ 'add_new'|trans }}</strong></a>
+        </div>
+    </div>
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox">
+                <div class="ibox-content  wrap-table-center">
+                    {% if collection.haveToPaginate %}
+                        <div class="pagerfanta">
+                            {{ pagerfanta(collection) }}
+                        </div>
+                    {% endif %}
+                    <table class="table table-striped footable">
+                        <thead>
+                            <tr>
+                                <th data-breakpoints="xs" class="table-id">#</th>
+                                <th>{{ 'table.name'|trans }}</th>
+                                <th data-breakpoints="s">{{ 'table.identificator'|trans }}</th>
+                                <th data-breakpoints="m">{{ 'table.language'|trans }}</th>
+                                <th data-breakpoints="xxs" class="text-right action">{{ 'table.action'|trans }}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for entity in collection %}
+                                <tr>
+                                    <td class="table-id">{{ loop.index + collection.getMaxPerPage * (collection.getCurrentPage - 1)}}</td>
+                                    <td>{{ entity.name }}</td>
+                                    <td>{{ entity.identificator }}</td>
+                                    <td>{{ entity.language|trans }}</td>
+                                    <td class="text-right action">
+                                        <div class="buttons-wrapper">
+                                            <a href="{{ path('admin_email_template_edit', {'id': entity.id}) }}" class="btn btn-primary" title="{{ 'edit'|trans }}">
+                                                <i class="fa fa-edit"></i> {{ 'edit'|trans }}
+                                            </a>
+                                            <a href="{{ path('admin_email_template_delete', {'id': entity.id}) }}" class="btn btn-danger delete" title="{{ 'delete'|trans }}">
+                                                <i class="fa fa-trash"></i> {{ 'delete'|trans }}
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    {% if collection.haveToPaginate %}
+                        <div class="pagerfanta">
+                            {{ pagerfanta(collection) }}
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

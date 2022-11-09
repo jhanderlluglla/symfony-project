@@ -1,0 +1,62 @@
+{% trans_default_domain 'exchange_site_proposals' %}
+
+<div class="ibox-content">
+    {% block pagerfanta %}
+        {% if modification.haveToPaginate %}
+            <div class="pagerfanta">
+                {{ pagerfanta(modification, {'pageParameter': '[modification-page]'}) }}
+            </div>
+        {% endif %}
+    {% endblock %}
+    <table class="table footable table-striped" id="table-proposals-recieved">
+        <thead>
+        <tr>
+            <th>{{ 'table.url'|trans }}</th>
+            <th data-breakpoints="xxl">{{ 'table.modification.url'|trans }}</th>
+            <th data-breakpoints="l">{{ 'table.modification.comments'|trans }}</th>
+            <th data-breakpoints="xs">{{ 'table.modification.changes'|trans }}</th>
+            <th>{{ 'table.modification.action'|trans }}</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for entity in modification %}
+            <tr id="modification_proposition_{{ entity.id }}">
+                <td>
+                    <div>
+                        <a class="underlined-link break-all" href="{{ entity.exchangeSite.url }}" target="_blank">{{ entity.exchangeSite.url }}</a>
+                    </div>
+                </td>
+                <td><a class="underlined-link break-all" href="{{ entity.pagePublish }}" target="_blank">{{ entity.pagePublish }}</a></td>
+                <td class="break-all">{{ entity.comments|raw }}</td>
+                <td>
+                    <p class="break-all">{{ entity.modificationComment }}</p>
+                    {% if entity.documentImage is defined %}
+                        <p><a class="underlined-link" href="{{ docPath ~ entity.documentImage }}" target="_blank">{{ 'view_article'|trans }}</a>
+                        </p>
+                    {% endif %}
+                </td>
+                <td>
+                    <div class="buttons-wrapper">
+                        <a class="btn btn-primary modification_made_correct"
+                           href="#"
+                           data-id="{{ entity.id }}">
+                            <i class="fa fa-check"></i>
+                            {{ 'table.modification.made_correct'|trans }}
+                        </a>
+                        <a class="btn btn-warning"
+                           href="#"
+                           data-toggle="modal"
+                           data-target="#exchangeSiteProposition"
+                           data-id="{{ entity.id }}"
+                           data-mode="modification_refuse">
+                            <i class="fa fa-times"></i>
+                            {{ 'table.modification.refuse'|trans }}
+                        </a>
+                    </div>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {{ block('pagerfanta') }}
+</div>

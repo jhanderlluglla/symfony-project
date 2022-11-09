@@ -1,0 +1,6 @@
+<select class="topnav-lang-select">
+    {% set languages = getLanguageOptions() %}
+    {% for lang in languages | keys %}
+        <option value="{{ lang }}" {{ lang == getSiteLanguage() ? 'selected="selected"' }}>{{ languages[lang]['name'] }}</option>
+    {% endfor %}
+</select>

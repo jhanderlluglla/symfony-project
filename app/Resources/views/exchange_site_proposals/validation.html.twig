@@ -1,0 +1,15 @@
+{% trans_default_domain 'exchange_site_proposals' %}
+
+<div class="alert alert-danger hidden"></div>
+<input type="hidden" id="proposition_id" name="proposition_id" value="{{ id }}" />
+<p>{{ 'modal.validation.main_message'|trans }}</p>
+
+{% if entity.documentLink %}
+    <p><a href="{{ docs_local_path }}/{{ entity.documentLink }}" class="btn btn-w-m btn-info">{{ 'modal.validation.download'|trans }}</a></p>
+{% endif %}
+
+<div class="form-group">
+    <label>{{ 'modal.validation.url_page'|trans }} *</label>
+    <input id="url_validate" name="url_validate" type="text" class="form-control" required="required" />
+</div>
+<button id="validate_send" type="button" class="btn btn-w-m btn-primary m-t-md">{{ 'modal.validation.button'|trans }}</button>

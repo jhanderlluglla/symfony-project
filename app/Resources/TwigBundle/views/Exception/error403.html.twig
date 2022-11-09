@@ -1,0 +1,20 @@
+{% trans_default_domain 'errors' %}
+{% extends  app.user ? 'layout.html.twig' : 'base_front.html.twig'%}
+
+{% block title %}
+    {{ 'error_403.title'|trans }}
+{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-lg-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-content text-center">
+                <h2>{{ 'error_403.description'|trans }}</h2>
+                <img src="/img/svg/warning.svg" width="300" height="300" class="m-t-lg">
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+

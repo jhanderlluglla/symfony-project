@@ -1,0 +1,13 @@
+invoice_list:
+    path:     /list
+    defaults: { _controller: UserBundle:Invoice:index }
+
+invoice_view:
+    path:     /{id}/show
+    defaults: { _controller: UserBundle:Invoice:view, id: all }
+    options:
+            expose: true
+
+invoice_download:
+    path:     /{id}/download
+    defaults: { _controller: UserBundle:Invoice:download, id: all }

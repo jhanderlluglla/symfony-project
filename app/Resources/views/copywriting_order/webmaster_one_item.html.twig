@@ -1,0 +1,31 @@
+{% extends 'copywriting_order/writer_one_item.html.twig' %}
+
+{% trans_default_domain 'copywriting' %}
+
+{% block description %}
+    {{ parent() }}
+
+    {% if order.exchangeProposition is not null %}
+
+        {% if order.exchangeProposition.pagePublish
+            and (
+                (order.exchangeProposition.status == constant('CoreBundle\\Entity\\ExchangeProposition::STATUS_PUBLISHED') and order.exchangeProposition.type == constant('CoreBundle\\Entity\\ExchangeProposition::EXTERNAL_TYPE'))
+                or order.exchangeProposition.type == constant('CoreBundle\\Entity\\ExchangeProposition::OWN_TYPE')
+            )
+        %}
+            {{ 'publication_url'|trans }}: <a href="{{ order.exchangeProposition.pagePublish }}">{{ order.exchangeProposition.pagePublish }}</a>
+        {% endif %}
+
+        {% if
+            order.exchangeProposition.publicationResponseCode is not null
+            and order.exchangeProposition.publicationResponseCode != constant('CoreBundle\\Entity\\ExchangeSite::RESPONSE_CODE_PUBLISH_SUCCESS')
+            and order.exchangeProposition.type == constant('CoreBundle\\Entity\\ExchangeProposition::OWN_TYPE')
+        %}
+            <div class="m-t-md message {{ order.exchangeProposition.publicationResponseCode != constant('CoreBundle\\Entity\\ExchangeSite::RESPONSE_CODE_PUBLISH_PENDING') ? 'error' : 'info' }}">
+                {{ 'response_error_main_message' | trans({}, 'exchange_site_proposals') }}
+                {{ ('response_code.' ~ order.exchangeProposition.publicationResponseCode) | trans({}, 'exchange_site_proposals') }}
+            </div>
+        {% endif %}
+    {% endif %}
+
+{% endblock %}

@@ -1,0 +1,81 @@
+{% extends 'layout.html.twig' %}
+
+{% trans_default_domain 'netlinking' %}
+
+{% form_theme form "form/theme.html.twig" %}
+
+{% block title %}
+    {{ 'edit_title'|trans }}
+{% endblock %}
+
+{% if status == 'current' %}
+    {% set prev_page = {'name': 'title_current'|trans({}, 'netlinking'), 'path': 'netlinking_all'} %}
+{% elseif status == 'waiting' %}
+    {% set prev_page = {'name': 'title_waiting'|trans({}, 'netlinking'), 'path': 'netlinking_status'} %}
+{% elseif status == 'nostart' %}
+    {% set prev_page = {'name': 'title_nostart'|trans({}, 'netlinking'), 'path': 'netlinking_status'} %}
+{% elseif status == 'finished' %}
+    {% set prev_page = {'name': 'title_finished'|trans({}, 'netlinking'), 'path': 'netlinking_status'} %}
+{% endif %}
+
+{% block breadcrumb %}
+    {{ include('breadcrumb/netlinking.html.twig',
+        {'childrens': [
+            {'name': prev_page.name, 'path': prev_page.path, 'status': status},
+            block('title')
+        ]})
+    }}
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-lg-offset-2 col-lg-6 netlink-project_create high-inputs m-t-lg">
+            {{ form_start(form) }}
+                <div class="alert alert-danger hidden"></div>
+
+                {% do form.urls.setRendered %}
+
+                {{ form_row(form.comment) }}
+
+                {% for anchor in form.urlAnchors[0].anchors %}
+                    <div class="url-anchor">
+                        <h3 class="url-anchor_title">
+                            <span>{{ 'tab.directories'|trans }}: </span>
+                            <a href="{{ anchor.vars.value.url }}" class="underlined-link-r" target="_blank">{{ anchor.vars.value.url }}</a>
+                        </h3>
+                        {% if anchor.vars.value.webmasterAnchor %}
+                            {{ form_row(anchor.anchor) }}
+                            {% set exchangeSites = entity.directoryList.exchangeSite %}
+                            {% if anchor.vars.value.exchangeSite is not null %}
+                                {% for exchangeSite in exchangeSites %}
+                                    {% if anchor.vars.value.exchangeSite is same as(exchangeSite.id) %}
+                                        <div class="error-message">
+                                            <i class="fa fa-exclamation-triangle"></i>
+                                            <b>{{ ('accept_authorized_anchor_' ~ exchangeSite.authorizedAnchor)|trans({}, 'exchange_site') }}</b>
+                                        </div>
+                                    {% endif %}
+                                {% endfor %}
+                            {% endif %}
+                        {% else %}
+                            <span class="help-block m-b-none">{{ 'form.not_defined'|trans }}</span>
+                            {% do anchor.anchor.setRendered %}
+                        {% endif %}
+                    </div>
+                {% endfor %}
+
+                <div class="text-right m-t-lg">
+                    {{ form_widget(form.save) }}
+                </div>
+            {{ form_end(form) }}
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascript %}
+    {{ parent() }}
+    <script type="text/javascript">
+        var mode = '{{ mode }}';
+        var errors = errors|length;
+    </script>
+    <script src="{{ asset('js/front/netlinking/netlinking.js') }}"></script>
+{% endblock %}

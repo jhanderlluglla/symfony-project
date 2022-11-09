@@ -1,0 +1,104 @@
+{% extends 'layout.html.twig' %}
+
+{% trans_default_domain 'netlinking' %}
+
+{% block title %}
+    {{ 'title_detail'|trans }}
+{% endblock %}
+
+{% block breadcrumb %}
+    {{ include('breadcrumb/netlinking.html.twig', {'childrens': [block('title')]}) }}
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox">
+                <div class="ibox-content  wrap-table-center">
+                    {% for message in app.session.flashBag.get('error') %}
+                        <div class="alert alert-warning">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                    <table class="footable table table-striped toggle-arrow-tiny">
+                        <thead>
+                            <tr>
+                                <th>{{ 'table.task'|trans }}</th>
+                                <th data-breakpoints="xs">{{ 'table.to_do'|trans }}</th>
+                                <th data-breakpoints="s">{{ 'table.submitted_on'|trans }}</th>
+                                <th class="text-right action">{{ 'table.action'|trans }}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for task in tasks %}
+                                {% if netlinkingProject.user.balance >= calculatorNetlinkingPrice.getWebmasterCost(task)|round(2,'floor') %}
+                                    <tr data-task-id="{{ task.id }}">
+                                        <td>
+                                        {% if task.exchangeSite is not null %}
+                                            <a href="{{ task.exchangeSite.url }}" target="_blank">{{ task.exchangeSite.url }}</a>
+                                        {% endif %}
+                                        {% if task.directory is not null  %}
+                                            <a href="{{ task.directory.name }}" target="_blank">{{ task.directory.name }}</a>
+                                        {% endif %}
+                                        </td>
+                                        <td>{{ task.startAt|date("d/m/Y") }}</td>
+                                        <td>
+                                            {% if task.getDaysDifference|number_format is same as('0') %}
+                                                <span class="text-info">
+                                                    {{ 'table.statuses.task_day'|trans }}
+                                                </span>
+                                            {% else %}
+                                                <span class="text-danger">
+                                                    {{ 'table.statuses.days_late'|trans({'%days%':task.getDaysDifference }) }}
+                                                </span>
+                                            {% endif %}
+                                        </td>
+                                        <td class="text-right action">
+                                            {% if task.job is not null and task.job.status == constant('\\CoreBundle\\Entity\\Job::STATUS_REJECTED') %}
+                                                <span class="inline-block label label-danger m-r-md">Rejected</span>
+                                            {% endif %}
+                                            <div class="buttons-wrapper inline-block">
+                                                {% if task.directory is not null %}
+                                                    <button class="btn btn-warning js_show_task">
+                                                        <i class="fa fa-eye"></i> {{ 'table.see_task'|trans }}
+                                                    </button>
+                                                {% endif %}
+                                                {% if task.exchangeSite is not null %}
+                                                    {% if task.job is not null %}
+                                                        <a class="btn btn-warning"
+                                                           href="{{ path('copywriting_article_edit', {'id': task.job.exchangeProposition.copywritingOrders.article.getId()}) }}"
+                                                            >
+                                                            <i class="fa fa-eye"></i> {{ 'table.go_to_article'|trans }}
+                                                        </a>
+                                                    {% else %}
+                                                        {{ 'job_is_not_init'|trans }}
+                                                    {% endif %}
+                                                {% endif %}
+                                            </div>
+                                        </td>
+                                    </tr>
+                                {% endif %}
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal modal-centered fade" id="detailWriter" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title"></h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body"></div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascript %}
+    <script src="{{ asset('js/front/netlinking/detail_writer.js') }}"></script>
+{% endblock %}

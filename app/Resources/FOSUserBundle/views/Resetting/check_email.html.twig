@@ -1,0 +1,22 @@
+{% extends "@FOSUser/layout.html.twig" %}
+
+{% trans_default_domain 'user' %}
+
+{% block class_for_form %}centered animated fadeInDown {% endblock %}
+
+{% block fos_user_content %}
+
+<div class="ibox-content">
+    <div class="sent-email-message">
+        <p><span>{{ 'resetmessage.emailsent'|trans }}</span> {{ 'resetmessage.aboutemail'|trans }}</p>
+        <p>
+            <span>{{ 'resetmessage.note'|trans }}:</span>
+            {{ 'resetmessage.noteabouttime'|trans }}
+            <span>{{ tokenLifetime }}</span>
+            {{ 'resetmessage.hours'|trans }}
+        </p>
+        <p>{{ 'resetmessage.checkspam'|trans }}</p>
+    </div>
+</div>
+
+{% endblock %}

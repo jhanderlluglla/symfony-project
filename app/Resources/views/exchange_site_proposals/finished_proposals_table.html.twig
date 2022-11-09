@@ -1,0 +1,40 @@
+{% trans_default_domain 'exchange_site_proposals' %}
+
+<div class="ibox-content">
+    {% block pagerfanta %}
+        {% if collection.haveToPaginate %}
+            <div class="pagerfanta">
+                {{ pagerfanta(collection, {'pageParameter': '[finished-page]'}) }}
+            </div>
+        {% endif %}
+    {% endblock %}
+    <table class="table footable table-striped">
+        <thead>
+        <tr>
+            <th>{{ 'table.url'|trans }}</th>
+            <th data-breakpoints="xs">{{ 'table.date_of_published'|trans }}</th>
+            <th>{{ 'table.price'|trans({}, 'general') }}</th>
+            <th>{{ 'table.action'|trans({}, 'general') }}</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for entity in collection %}
+            <tr>
+                <td class="break-all">{{ entity.pagePublish }}</td>
+                <td>{{ entity.publishedAt|date }}</td>
+                <td>{{ entity.credits }}€</td>
+                <td>
+                    {% if accessManager().canManageNetlinkingProject() %}
+                        <a class="btn btn-danger delete_proposal"
+                           href="{{ path('user_exchange_proposal_delete', {'id': entity.id}) }}">
+                            <i class="fa fa-remove"></i>
+                            {{ 'actions.delete'|trans({}, 'general') }}
+                        </a>
+                    {% endif %}
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {{ block('pagerfanta') }}
+</div>

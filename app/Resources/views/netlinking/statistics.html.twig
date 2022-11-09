@@ -1,0 +1,27 @@
+{% trans_default_domain 'netlinking' %}
+<div class="statistic-group">
+    <p class="bg-primary">
+        <span class="font-bold">{{ 'table.links_found'|trans }}:</span>
+        {{ statistics[entity.getId][constant('CoreBundle\\Entity\\DirectoryBacklinks::STATUS_FOUND')] | default(0) }}
+        ({{ statistics[entity.getId][constant('CoreBundle\\Entity\\DirectoryBacklinks::STATUS_FOUND') ~ '_percent'] | default(0) }}
+        %)
+    </p><br/>
+    <p class="bg-success">
+        <span class="font-bold">{{ 'table.waiting_links'|trans }}:</span>
+        {{ statistics[entity.getId][constant('CoreBundle\\Entity\\DirectoryBacklinks::STATUS_NOT_FOUND_YET')] | default(0) }}
+        ({{ statistics[entity.getId][constant('CoreBundle\\Entity\\DirectoryBacklinks::STATUS_NOT_FOUND_YET') ~ '_percent'] | default(0) }}
+        %)
+    </p><br/>
+    <p class="bg-warning">
+        <span class="font-bold">{{ 'table.links_not_found'|trans }}:</span>
+        {{ statistics[entity.getId][constant('CoreBundle\\Entity\\DirectoryBacklinks::STATUS_NOT_FOUND')] | default(0) }}
+        ({{ statistics[entity.getId][constant('CoreBundle\\Entity\\DirectoryBacklinks::STATUS_NOT_FOUND') ~ '_percent'] | default(0) }}
+        %)
+    </p><br/>
+    <p class="bg-dark">
+        <span class="font-bold">{{ 'table.impossible_submissions'|trans }}:</span>
+        {{ statistics[entity.getId]['impossible'] | default(0) }}
+        ({{ statistics[entity.getId]['impossible_percent'] | default(0) }}
+        %)
+    </p>
+</div>

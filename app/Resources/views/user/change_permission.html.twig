@@ -1,0 +1,14 @@
+{% trans_default_domain 'user' %}
+
+{{ form_start(form, {'attr': {'id': 'add-new-record' }}) }}
+<input type="hidden" id="eSid" name="id" value="{{ id }}">
+<input type="hidden" id="eStype" name="type" value="{{ type }}">
+{{ form_widget(form) }}
+<div class="form-group">
+    <div class="col-sm-3"></div>
+    <div class="col-sm-9 text-right">
+        <input type="submit" class="btn btn-primary m-r-sm" value="{{ 'save'|trans }}" />
+        <button type="button" class="btn btn-default" data-dismiss="modal">{{ 'modal.close'|trans }}</button>
+    </div>
+</div>
+{{ form_end(form) }}

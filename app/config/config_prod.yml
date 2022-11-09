@@ -1,0 +1,43 @@
+imports:
+    - { resource: config.yml }
+
+#doctrine:
+#    orm:
+#        metadata_cache_driver: apc
+#        result_cache_driver: apc
+#        query_cache_driver: apc
+
+# Twig Configuration
+twig:
+    globals:
+        favicon: "favicon.png"
+
+monolog:
+    channels: [wp_requests]
+    handlers:
+        main:
+            type:         fingers_crossed
+            action_level: error
+            handler:      nested
+        nested:
+            type:  stream
+            path:  "%kernel.logs_dir%/%kernel.environment%.log"
+            level: debug
+        console:
+            type:  console
+        online_convert:
+            type:  stream
+            path:  "%kernel.logs_dir%/%kernel.environment%/online_convert.log"
+            channels: online_convert
+        publish_article:
+            type:  stream
+            path:  "%kernel.logs_dir%/%kernel.environment%/publish_article.log"
+            channels: publish_article
+        cron_stream:
+            type:  stream
+            path:  "%kernel.logs_dir%/%kernel.environment%/cron.log"
+            channels: cron
+        wp_requests:
+            type:  stream
+            path:  "%kernel.logs_dir%/%kernel.environment%/wp_requests.log"
+            channels: wp_requests

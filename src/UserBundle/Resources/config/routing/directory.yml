@@ -1,0 +1,31 @@
+admin_directory:
+    path:     /
+    defaults: { _controller: UserBundle:Directory:index }
+
+admin_directory_add:
+    path:     /add
+    defaults: { _controller: UserBundle:Directory:add }
+
+admin_directory_edit:
+    path:     /edit/{id}
+    defaults: { _controller: UserBundle:Directory:edit }
+    requirements:
+        id: '\d+'
+
+admin_directory_delete:
+    path:     /delete/{id}
+    defaults: { _controller: UserBundle:Directory:delete }
+    requirements:
+        id: '\d+'
+
+admin_directory_activate:
+    path:     /activate/{id}
+    defaults: { _controller: UserBundle:Directory:endis }
+    requirements:
+        id: '\d+'
+
+admin_directory_deactivate:
+    path:     /deactivate/{id}
+    defaults: { _controller: UserBundle:Directory:endis }
+    requirements:
+        id: '\d+'

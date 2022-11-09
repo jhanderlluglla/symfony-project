@@ -1,0 +1,61 @@
+{% trans_default_domain 'netlinking' %}
+
+<li>
+    <div class="block-information__title">{{ 'table.url'|trans }}:</div>
+    <div class="block-information__value">
+        <a class="underlined-link-r" href="{{ entity.url }}" target="_blank">{{ entity.url }}</a>
+    </div>
+</li>
+<li>
+    <div class="block-information__title">{{ 'table.directories'|trans }}:</div>
+    <div class="block-information__value">
+        <a href="{{ path('admin_directories_list_relation', {'id': entity.directoryList.id}) }}">{{ entity.directoryList.name }}
+            <i class="text-info fa fa-fw fa-long-arrow-right"></i></a>
+    </div>
+</li>
+{% if app.user.isAdmin or app.user.isWebmaster %}
+    <li>
+        <div class="block-information__title">{{ 'table.frequency'|trans }}:</div>
+        <div class="block-information__value">{{ 'table.frequency_text'|trans({'%directory%': entity.frequencyDirectory, '%day%': entity.frequencyDay }) }}</div>
+    </li>
+{% endif %}
+<li>
+    <div class="block-information__title">{{ 'table.proposed_on'|trans }}:</div>
+    <div class="block-information__value">{{ entity.startedAt|date("m/d/Y") }}</div>
+</li>
+{% if entity.startedAt is not null %}
+<li>
+    <div class="block-information__title">{{ 'table.started_on'|trans }}:</div>
+    <div class="block-information__value">{{ entity.startedAt|date("m/d/Y") }}</div>
+</li>
+{% endif %}
+{% if entity.finishedAt is not null and checkCurrentRouteParams(['netlinking_status'],['finished'] ) %}
+    <li>
+        <div class="block-information__title">{{ 'table.finished_on'|trans }}:</div>
+        <div class="block-information__value">{{ entity.finishedAt|date("m/d/Y H:i:s") }}</div>
+    </li>
+{% endif %}
+{% if accessManager().canManageWebmasterUser() %}
+    <li>
+        <div class="block-information__title">{{ 'table.webmaster'|trans }}:</div>
+        <div class="block-information__value">
+            <a href="{{ path('user_edit', {'id':entity.user.id }) }}" target="_blank">{{ entity.user.fullName }}</a>
+        </div>
+    </li>
+{% endif %}
+{% if entity.status is same as ('in_progress') and scheduleTasksMinDated[entity.id] is defined and checkCurrentRouteParams(['user_dashboard','netlinking_all','search',],['current']) %}
+    <li>
+        <div class="block-information__title">{{ 'day_late'|trans({}, 'general') }}:</div>
+        <div class="block-information__value">
+            {{ netlinking_project_status(scheduleTasksMinDated[entity.id]) }}
+        </div>
+    </li>
+{% endif %}
+{% set stoppedState = netlinking_webmaster_is_stopped(entity, app.user.isAdmin)  %}
+{% if (app.user.isWebmaster or app.user.isAdmin) and stoppedState %}
+    <li>
+        <div class="block-information__title">{{ 'table.state'|trans }}:</div>
+        <div class="block-information__value"><span class="text-danger">{{ stoppedState }}</span></div>
+    </li>
+{% endif %}
+

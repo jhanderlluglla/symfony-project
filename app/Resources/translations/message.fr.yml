@@ -1,0 +1,61 @@
+add_title: Écrire un nouveau message
+reply_title: Répondre
+title:
+    all: Tous les messages
+    incoming: Messages reçus
+    outgoing: Messages envoyés
+view_title: Voir le message
+
+add_new: Écrire un message
+edit: Modifier
+delete: Supprimer
+
+table:
+    name: Message
+    language: Language
+    action: Action
+
+name: Name
+language: Language
+save: Save
+
+header:
+    all: Messages
+    incoming: Reçus
+    outgoing: Envoyés
+discard:
+    text: Supprimer
+    title: Supprimer l'email
+refresh:
+    text: Actualiser
+    title: Actualiser la messagerie
+read:
+    title: Marquer comme lu
+
+to: à
+from: De
+subject: Sujet
+answered: Répondu
+date: Date
+content: Contenu
+send: Envoyer
+reply: Répondre
+remove: Supprimer
+real_message: Envoyer par Email le vrai message
+
+recipient_list:
+    all: Tous les utilisateurs
+    administrator: Tous les administrateurs
+    seo: Tous les rédacteurs
+    webmaster: Tous les clients
+
+ajax:
+    send:
+        success: Votre message a bien été envoyé
+        bad_request: Désolé, une erreur s'est produite !
+    read:
+        success: Action réalisée avec succès !
+        bad_request: Désolé, une erreur s'est produite !
+    delete:
+        success: Action réalisée avec succès !
+        bad_request: Désolé, une erreur s'est produite !

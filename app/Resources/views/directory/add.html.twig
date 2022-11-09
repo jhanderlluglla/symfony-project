@@ -1,0 +1,29 @@
+{% extends 'layout.html.twig' %}
+
+{% trans_default_domain 'directory' %}
+
+{% block title %}
+    {{ 'add_title'|trans }}
+{% endblock %}
+
+{% block breadcrumb %}
+    {{ include('breadcrumb/settings.html.twig', {'childrens': [
+        {'name': 'title'|trans, 'path': 'admin_directory'},
+        block('title')
+    ]}) }}
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-lg-8 col-lg-offset-2">
+            {{ form_start(form) }}
+            {{ form_widget(form) }}
+            {{ form_end(form) }}
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascript %}
+    {{ parent() }}
+    <script src="{{ asset('js/front/directory.js') }}"></script>
+{% endblock %}

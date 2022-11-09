@@ -1,0 +1,152 @@
+title: Search sites
+
+tabs:
+    most_used: The most used
+    advanced: Advanced options
+    majestic: Majestic
+    semrush: Semrush
+    publication_rules: Publication rules
+    proposals: Proposals
+    find_sites: Find sites
+
+form:
+    search_tag: Search by tag / URL
+    search_category: Search by category
+    choose_category: Choose a category
+    choose_language: All languages
+    categories: Categories
+    credit: Credit
+    price: Price
+    free_website: Show free website
+    language: Language
+    google_news: Google News
+    trust_flow: Trust flow
+    citation_flow: Citation flow
+    trust_citation_ration: Trust flow/Citation flow ratio
+    page_authority: Page authority
+    domain_authority: Domain authority
+    plugin: Partner plugin
+    authorized_anchor: Authorized anchor
+    authorized_anchor_unoptimized: Unoptimized
+    authorized_anchor_semioptimized: Semioptimized
+    authorized_anchor_optimized: Optimized
+    google_analytics: Website sharing Google Analytics stats
+    topical_trust_flow: Topical trust flow
+    google: Google
+    alexa: Alexa
+    moz: Moz
+    age_type: Age
+    age_whois: Whois
+    age_archive_org: Archive.org
+    google_indexed_pages: Indexed Pages
+    backlinks: Backlinks
+    edu_backlinks: .edu backlinks
+    gov_backlinks: .gov backlinks
+    semrush_traffic: Semrush traffic
+    semrush_keyword: Keyword
+    semrush_traffic_cost: Traffic cost
+    age: Age (years)
+    referring_domains: Referring domains
+    reac_webmaster: Reac. from the webmaster
+    hidden_url: Do not show hidden URLs
+    filter: Apply filter
+    add_category: Add Category
+    remove_category: Remove
+    ttf_category_placeholder: Select category
+    age_type_placeholder: Select service
+    rate: Rate
+    accept_inner_pages: I want to reference a subdomain or a deep page
+    accept_legal_info: I do not have a legal mention on my site
+    words_count: Number of words desired
+    age_years: Years
+    age_month: Month
+    other_function: Other functon
+    show_filters: Show filters
+    hide_filters: Hide filters
+    items_found: Items found
+table:
+    user: Owner
+    site: Site
+    opinion: Opinion
+    reaction_time: Reaction time of the webmaster
+    overview: Overview
+
+modal:
+    error: Error
+    site_error: Site not found
+    words_count_error: The number of words must be at least %min_words%
+    credit_error: You do not have enough money on your balance to submit a writing request by Ereferer.
+    proposal_credit_error: You do not have enough money on your balance to submit a proposal on this site. (You still have %balance% €.)
+    invalid_extension: "Invalid extensions of your file. Need: %valid_extensions% Your extension: %your_extension%"
+    close: Close
+    accept: I accept
+    links: "%maxLinksNumber% link(s) maximum"
+    images: "from %minImagesNumber% minimum to %maxImagesNumber% maximum image(s)"
+    headerOne: need header one
+    headerTwoMin: "from %minHeaderTwo% minimum H2 header(s)"
+    headerTwoMax: "to %maxHeaderTwo% maximum H2 header(s)"
+    headerThreeMin: "from %minHeaderThree% minimum H3 header(s)"
+    headerThreeMax: "to %maxHeaderThree% maximum H3 header(s)"
+    boldText: need a bold text
+    italicText: need a italic text
+    quotedText: need a quoted text
+    ulText: need a list
+    writing_ereferer:
+        title: Article's proposal by ereferer
+        content: You have nothing to do. Ereferer is responsible for writing the article according to the acceptance criteria of the blog / site and will come back to propose it automatically. You simply need to specify your anchor (s) and any instructions:
+        footer: You will be charged %totalPrice%€ including %redactionPrice%€ for the redaction of the text and %credits%€ for the price of the blog. If the partner doen't answer or refuse your article, you will be refund %credits%€ corresponding to the price of the blog. The text will not be refund but we will give you a link to download it and to use it however you want.   #for writing the article of %minWordsNumber% words, %imagesPrice% € of %images% images and %credits% € for webmaster. Note that the money will be re-awarded if the article has not been accepted.
+        your_links: Your Links
+        accepted: Your request has been accepted
+        form:
+            url: Url
+            anchor: Title
+            instructions: Editorial Guidelines (optional)
+        drafting_projects:
+            title: Article exchange proposal
+            description:
+                rules: "Rule of the site: %rule%"
+                instructions: "Customer's instructions: %instructions%"
+    writing_webmaster:
+        title: Rédaction de l'article par le webmaster
+        content: "Vous n'avez rien à faire. Le webmaster se chargera donc de la rédaction de votre article. Vous devez simplement nous spécifier votre/vos ancre(s) ainsi que d'éventuelles consignes:"
+        footer: Attention, en cliquant sur "Envoyer", vous serez débité de %credits% money. Ses derniers vous seront toutefois restitués si le webmaster ne peut répondre favorablement à votre requête.
+        attention: ATTENTION
+        attention_message: Vous serez débité d'1 crédit supplémentaire afin de rémunérer la rédaction par le propriétaire du blog.
+        accepted: Your request has been accepted
+        instructions:
+            links_made: Links to be made
+            link: "A link to: %url% with the following ink: %anchor%"
+    submit_your_article:
+        title: Your article
+        paragraph_one: Your article must be under a Word file "* .doc, * .docx" or OpenOffice "* .odt". For security, the partner will see your article as an image and will only have access to the ".docx" file if it accepts your article.
+        paragraph_two: You must make a text of at least %minWordsNumber% words with the following rules:
+        paragraph_three: By clicking on the article you will be charged %credits% money. If the site refuses your article, your money will be re-awarded.
+        header_four: Publication rules
+        accepted: "Your document has been accepted, here are its features:"
+        errors:
+            words: Your document has %has_words% word(s). You need a minimum of %minimum_words% word(s)
+            links: Your document has %has_links% link(s). It takes a maximum of %maximum_links% link(s).
+            images: Your document has %has_images% picture(s). You need no less than %minimum_images% and no more than %maximum_images% picture(s)
+            file_convert: File conversion error
+            zip_extract: The decompression of the document has encountered a problem
+            html_file: HTML file not found
+            header_one: Your document has no one H1 header. You need a minimum one H1 header
+            header_two: Your document has %has_headers% H2 header(s). You need no less than %minimum_headers% and no more than %maximum_headers%
+            header_three: Your document has %has_headers% H3 header(s). You need no less than %minimum_headers% and no more than %maximum_headers%
+            bold_required: Your document has %has_bold% bold text(s). You need a bold text
+            bold_is_not_required: Your document has %has_bold% bold text(s). You don't need a bold text
+            italic_required: Your document has %has_italic% italic text(s). You need a italic text
+            italic_is_not_required: Your document has %has_italic% italic text(s). You don't need a italic text
+            ul_is_not_required: Your document has %has_ul% list(s). You don't need a list
+            ul_is_required: Your document has %has_ul% list(s). You need a list
+            quote_is_not_required: Your document has %has_quote% quote text. You don't need a quote text.
+            quote_is_required: Your document has %has_quote% quote text. You need a quote text.
+        valid:
+            words: Your document has %has_words% word(s).
+            links: Your document has %has_links% connection(s).
+            images: Your document has %has_images% picture(s).
+        form:
+            browse: Browse
+
+yes: Yes
+no: No

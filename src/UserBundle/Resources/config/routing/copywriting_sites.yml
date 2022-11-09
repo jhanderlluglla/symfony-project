@@ -1,0 +1,21 @@
+admin_copywriting_sites:
+    path:     /
+    defaults: { _controller: UserBundle:ExchangeSiteCopywriting:index }
+    options:
+        expose: true
+
+admin_copywriting_site_add:
+    path: /add
+    defaults: { _controller: UserBundle:ExchangeSiteCopywriting:add }
+
+admin_copywriting_site_edit:
+    path:     /edit/{id}
+    defaults: { _controller: UserBundle:ExchangeSiteCopywriting:edit }
+    requirements:
+        id: '\d+'
+
+admin_copywriting_site_delete:
+    path:     /delete/{id}
+    defaults: { _controller: UserBundle:ExchangeSiteCopywriting:delete }
+    requirements:
+        id: '\d+'

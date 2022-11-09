@@ -1,0 +1,37 @@
+
+$ibox-bg-color: #fff;
+$body-color: #676a6c;
+$table-borders: #ddd;
+$bg-striped: #f9f9f9;
+$bg-striped_light: #fbfbfb;
+
+$nav-active: #394A5A;
+$nav-second-level-bg: #2F4050;
+
+$color-text-light: #A7B1C2;
+$color-text-light-1: #8095A8;
+$color-text: #293846;
+$text-muted: #777;
+$accent-text: #23c6c8;
+$accent-text_detail: #5DC9B3;
+$light-green: #E9F7F4;
+$border-grey: #DFDFE0;
+$border-grey-light: #E9E9EA;
+
+$blogs-color: #9575CD;
+$directories-color: #66BB6A;
+
+$black: #000;
+$warning: #f8ac59;
+$primary: #1ab394;
+$primary_dark: #276E6B;
+$danger: #ed5565;
+$info: #4683bc;
+
+$warning-focus: darken($warning, 10%);
+$primary-focus: darken($primary, 10%);
+$danger-focus: darken($danger, 10%);
+
+$disabled: $color-text-light;
+
+$pulse-in: cubic-bezier(.47,1.4,.8,1);

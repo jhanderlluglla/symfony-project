@@ -1,0 +1,13 @@
+project_comment_modify:
+    path:     /modify
+    defaults: { _controller: UserBundle:NetlinkingProjectComment:modifyComment }
+    options:
+        expose: true
+
+project_comment_delete:
+    path:     /delete/{commentId}
+    defaults: { _controller: UserBundle:NetlinkingProjectComment:deleteComment }
+    options:
+        expose: true
+    requirements:
+        commentId: '\d+'

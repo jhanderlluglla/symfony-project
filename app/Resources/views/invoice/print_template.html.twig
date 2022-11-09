@@ -1,0 +1,30 @@
+{% trans_default_domain 'invoice' %}
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Invoice Print</title>
+    <base href="{{ url('app_index') }}">
+    <link href="{{ asset('css/home/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/admin/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/home/animate.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/front/style.css') }}" rel="stylesheet">
+    <style>
+        .invoice-total {
+            width: auto;
+            text-align: right;
+            display: inline;
+        }
+    </style>
+</head>
+
+<body class="white-bg">
+    <div class="wrapper wrapper-content p-xl">
+        {{ include('invoice/invoice_content.html.twig') }}
+    </div>
+</body>
+</html>

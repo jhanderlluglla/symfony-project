@@ -1,0 +1,43 @@
+message:
+    path:     /
+    defaults: { _controller: UserBundle:Message:index }
+
+message_all:
+    path:     /all/{mode}
+    defaults: { _controller: UserBundle:Message:index, mode: all }
+    requirements:
+        mode: all|incoming|outgoing
+
+message_add:
+    path:     /add
+    defaults: { _controller: UserBundle:Message:add }
+
+message_delete:
+    path:     /delete/{id}
+    defaults: { _controller: UserBundle:Message:delete }
+    requirements:
+        id: '\d+'
+
+message_view:
+    path:     /view/{id}
+    defaults: { _controller: UserBundle:Message:view }
+    requirements:
+        id: '\d+'
+
+message_reply:
+    path:     /reply/{id}
+    defaults: { _controller: UserBundle:Message:reply }
+    requirements:
+        id: '\d+'
+
+message_ajax_delete:
+    path:     /ajax/delete
+    defaults: { _controller: UserBundle:Message:ajaxDelete }
+    options:
+            expose: true
+
+message_ajax_read:
+    path:     /ajax/read
+    defaults: { _controller: UserBundle:Message:ajaxRead }
+    options:
+            expose: true

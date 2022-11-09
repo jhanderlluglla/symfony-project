@@ -1,0 +1,345 @@
+imports:
+    - { resource: "@UserBundle/Resources/config/voters.yml" }
+
+services:
+    user.form.registration:
+        class: UserBundle\Form\User\RegistrationFormType
+        tags:
+            - { name: form.type, alias: user_registration }
+
+    user.form.profile:
+        class: UserBundle\Form\User\ProfileFormType
+        tags:
+            - { name: form.type, alias: user_profile }
+
+    user.profile_edit:
+        class: UserBundle\EventListener\ProfileEditListener
+        arguments:
+            - "@router"
+            - "@app.service.affiliation"
+            - "@security.authorization_checker"
+            - "@doctrine.orm.entity_manager"
+        tags:
+            - { name: kernel.event_subscriber }
+
+    user.exchange_proposition.writing_ereferer:
+        class: UserBundle\Services\ExchangeSite\WritingEreferer
+        arguments:
+            - "@doctrine.orm.entity_manager"
+            - "@translator"
+            - "@security.token_storage"
+            - "@core.service.transaction"
+            - "@core.service.mailer"
+            - "@core.service.exchange_proposition"
+            - "@user.exchange.calculator_price"
+            - "@core.service.calculator_price_service"
+
+    user.exchange_proposition.writing_webmaster:
+        class: UserBundle\Services\ExchangeSite\WritingWebmaster
+        arguments:
+            - "@doctrine.orm.entity_manager"
+            - "@translator"
+            - "@security.token_storage"
+            - "@core.service.transaction"
+            - "@core.service.mailer"
+            - "@core.service.exchange_proposition"
+            - "@user.article_statistic_service"
+            - "@user.exchange.calculator_price"
+
+    user.exchange_proposition.submit_your_article:
+        class: UserBundle\Services\ExchangeSite\SubmitYourArticle
+        arguments:
+            - "@doctrine.orm.entity_manager"
+            - "@translator"
+            - "@security.token_storage"
+            - "@core.service.transaction"
+            - "@core.service.mailer"
+            - "@core.service.exchange_proposition"
+            - "@user.article_statistic_service"
+            - "@user.exchange.calculator_price"
+            - "@user.exchange.proposition_processor"
+
+    user.online_convert_service:
+        class: UserBundle\Services\OnlineConvertService
+        arguments: ["@request_stack", "%onlineconvert_api_key%", "%docs_local_path%", "@monolog.logger.online_convert"]
+
+    user.article_statistic_service:
+        class: UserBundle\Services\ArticleStatisticService
+        arguments: ["@translator", "@user.online_convert_service", "%upload_docs_dir%"]
+
+    user.exchange_site.twig.extension:
+        class: UserBundle\Twig\Extension\ExchangePropositionExtension
+        arguments:
+            - "@doctrine.orm.entity_manager"
+            - "@translator"
+            - "%docs_local_path%"
+            - "@core.service.exchange_proposition"
+        tags:
+            - { name: 'twig.extension' }
+
+    user.netlinking_project.twig.extension:
+        class: UserBundle\Twig\Extension\NetlinkingProjectExtension
+        arguments: ["@doctrine.orm.entity_manager", "@translator", "@request_stack", "@user.netlinking"]
+        tags:
+            - { name: 'twig.extension' }
+
+    user.transaction.twig.extension:
+        class: UserBundle\Twig\Extension\TransactionExtensions
+        arguments:
+            - "@translator"
+            - "@core.service.transaction"
+            - "@router"
+        tags:
+            - { name: 'twig.extension' }
+
+    user.copywriting_order.twig.extension:
+        class: UserBundle\Twig\Extension\CopywritingOrderExtension
+        arguments:
+            - "@core.service.calculator_price_service"
+        tags:
+            - { name: 'twig.extension' }
+
+    user.access.twig.extension:
+        class: UserBundle\Twig\Extension\AccessManagerExtension
+        arguments:
+            - "@core.service.access_manager"
+        tags:
+            - { name: 'twig.extension' }
+
+    user.message.twig.extension:
+        class: UserBundle\Twig\Extension\MessageExtensions
+        arguments:
+            - "@security.token_storage"
+            - "@core.service.access_manager"
+        tags:
+            - { name: 'twig.extension' }
+
+    user.message:
+        class: UserBundle\Services\MessageService
+        arguments:
+            - "@doctrine.orm.entity_manager"
+            - "@translator"
+            - "@security.token_storage"
+            - "@core.service.mailer"
+            - "@router"
+            - "@core.service.access_manager"
+
+    user.form.flow:
+        class: UserBundle\Form\Netlinking\FormFlow
+        parent: craue.form.flow
+
+    user.form.flow.create_netlinking:
+        class: UserBundle\Form\Netlinking\CreateNetlinkingFlow
+        parent: user.form.flow
+
+    user.copywriting.writer_bonus_calculator:
+        class: UserBundle\Services\BonusCalculator\CopywritingWriterBonusCalculator
+        arguments: ["@doctrine.orm.entity_manager"]
+
+    user.copywriting.admin_bonus_calculator:
+        class: UserBundle\Services\BonusCalculator\CopywritingAdminBonusCalculator
+
+    user.netlinking.writer_bonus_calculator:
+        class: UserBundle\Services\BonusCalculator\NetlinkingWriterBonusCalculator
+        arguments: ["@doctrine.orm.entity_manager"]
+
+    user.copywriting.article_processor:
+        class: UserBundle\Services\CopywritingArticleProcessor
+        arguments:
+            - "@doctrine.orm.entity_manager"
+            - "@user.copywriting.writer_bonus_calculator"
+            - "@user.copywriting.admin_bonus_calculator"
+            - "@core.service.calculator_price_service"
+            - "@monolog.logger.publish_article"
+            - "@translator"
+            - '%article_images_local_path%'
+            - '%upload_article_images_dir%'
+            - "@filesystem"
+            - "%site_url%"
+
+    user.exchange.proposition_processor:
+        class: UserBundle\Services\ExchangePropositionProcessor
+        arguments:
+            - "@doctrine.orm.entity_manager"
+            - "@templating"
+            - "%upload_docs_dir%"
+            - "@core.service.exchange_proposition"
+
+    user.event_listener.workflow.copywriting_order_listener:
+        class: UserBundle\EventListener\Workflow\CopywritingOrderListener
+        arguments:
+            - '@state_machine.copywriting_order'
+            - '@security.token_storage'
+            - '@user.exchange.proposition_processor'
+            - '@core.service.exchange_proposition'
+            - '@core.service.copywriting_order'
+            - '@core.service.job'
+        tags:
+            - { name: doctrine.event_listener, event: prePersist, lazy: true }
+            - { name: doctrine.event_listener, event: postPersist, lazy: true }
+            - { name: kernel.event_listener, event: workflow.copywriting_order.entered.progress, method: onTakingToWork }
+            - { name: kernel.event_listener, event: workflow.copywriting_order.transition.submit_to_admin, method: onSubmitting }
+            - { name: kernel.event_listener, event: workflow.copywriting_order.transition.submit_to_admin, method: onSubmittingToAdmin }
+            - { name: kernel.event_listener, event: workflow.copywriting_order.transition.submit_to_webmaster, method: onSubmitting }
+            - { name: kernel.event_listener, event: workflow.copywriting_order.transition.submit_to_webmaster, method: onSubmittingToWebmaster }
+            - { name: kernel.event_listener, event: workflow.copywriting_order.transition.complete, method: onCompleting }
+            - { name: kernel.event_listener, event: workflow.copywriting_order.transition.decline, method: onDeclining }
+            - { name: kernel.event_listener, event: workflow.copywriting_order.transition.impossible, method: onImpossible }
+
+    user.copywriting.statistics_builder:
+        class: UserBundle\Services\CopywritersStatistics\CopywritersStatisticsBuilder
+        arguments:
+            - "@doctrine.orm.entity_manager"
+
+    user.netlinking:
+        class: UserBundle\Services\NetlinkingService
+        arguments:
+            - "@doctrine.orm.entity_manager"
+            - "@security.token_storage"
+            - "@translator"
+            - "@core.service.mailer"
+            - "@core.directory.model"
+            - "@core.service.transaction"
+            - "@core.service.calculator_netlinking_price"
+            - "@router"
+            - "@user.netlinking_schedule"
+            - "@core.service.access_manager"
+
+    user.webmaster:
+        class: UserBundle\Services\WebmasterService
+        arguments: ["@doctrine.orm.entity_manager",  "@translator"]
+
+    user.writer:
+        class: UserBundle\Services\WriterService
+        arguments: ["@doctrine.orm.entity_manager",  "@translator"]
+
+    user.backlinks_cheker:
+        class: UserBundle\Services\BacklinksChekerService
+        arguments:
+            - "@doctrine.orm.entity_manager"
+            - "@core.service.mailer"
+            - "@translator"
+            - "@core.service.transaction"
+            - "@core.service.calculator_price_service"
+            - "@user.exchange.calculator_price"
+            - "@user.netlinking"
+
+    user.netlinking_schedule:
+        class: UserBundle\Services\NetlinkingSchedule
+        arguments:
+            - "@doctrine.orm.entity_manager"
+            - "@core.service.calculator_netlinking_price"
+
+    user.profile.controller:
+        class: UserBundle\Controller\ProfileController
+        arguments:
+            - "@event_dispatcher"
+            - "@fos_user.profile.form.factory"
+            - "@fos_user.user_manager"
+
+    monolog.logger.online_convert:
+        class: UserBundle\Monolog\OnlineConvertHandler
+        tags:
+            - { name: monolog.logger, channel: online_convert }
+
+    monolog.logger.publish_article:
+        class: UserBundle\Monolog\PublishArticleHandler
+        tags:
+            - { name: monolog.logger, channel: publish_article }
+
+    monolog.logger.cron:
+        public: true
+        class: Symfony\Bridge\Monolog\Logger
+        tags:
+            - { name: monolog.logger, channel: cron }
+
+    user.exchange.calculator_price:
+        class: UserBundle\Services\ExchangeSite\CalculatorPrice
+        arguments:
+            - "@core.service.transaction"
+            - "@translator"
+            - "@doctrine.orm.entity_manager"
+
+    user.event_listener.workflow.exchange_proposition:
+        class: UserBundle\EventListener\Workflow\ExchangePropositionListener
+        arguments:
+            - "@doctrine.orm.entity_manager"
+            - '@state_machine.exchange_proposition'
+            - '@core.service.exchange_proposition'
+            - '@translator'
+            - '@user.exchange.calculator_price'
+            - '@user.netlinking'
+        tags:
+            - { name: kernel.event_listener, event: workflow.exchange_proposition.transition.assigned_writer, method: onAssignedWriter }
+            - { name: kernel.event_listener, event: workflow.exchange_proposition.transition.impossible, method: onImpossible }
+            - { name: kernel.event_listener, event: workflow.exchange_proposition.transition.expire, method: onExpire }
+            - { name: kernel.event_listener, event: workflow.exchange_proposition.transition.accept, method: onAccept }
+            - { name: kernel.event_listener, event: workflow.exchange_proposition.transition.publish, method: onPublish }
+            - { name: kernel.event_listener, event: workflow.exchange_proposition.transition.change, method: onChange }
+            - { name: kernel.event_listener, event: workflow.exchange_proposition.transition.accept_changes, method: onAcceptChanges }
+            - { name: kernel.event_listener, event: workflow.exchange_proposition.transition.refuse, method: onRefuse }
+
+    user.security.controller:
+        class: UserBundle\Controller\SecurityController
+        arguments:
+            - "@security.csrf.token_manager"
+
+    user.event_listener.exception:
+        class: UserBundle\EventListener\ExceptionListener
+
+        arguments:
+            - "%kernel.environment%"
+            - "@translator"
+            - "@core.service.mailer"
+            - "%emails_for_exceptions%"
+        tags:
+            - { name: kernel.event_listener, event: kernel.exception, method: onKernelException }
+
+
+    user.event_listener.locale:
+        class: UserBundle\EventListener\LocaleListener
+        arguments:
+            - "@doctrine.orm.entity_manager"
+            - "@security.token_storage"
+            - "@core.service.language"
+            - "%kernel.environment%"
+        tags:
+            - { name: kernel.event_listener, event: kernel.request, method: onKernelRequestBeforeLocaleListener, priority: 20 }
+            - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }
+
+    user.event_listener.login_listener:
+        class:  UserBundle\EventListener\LoginListener
+        arguments:
+            - "@doctrine.orm.entity_manager"
+        tags:
+            - { name: 'kernel.event_listener', event: 'security.interactive_login' }
+
+    user.event_listener.workflow.job:
+        class: UserBundle\EventListener\Workflow\JobListener
+        arguments:
+            - "@doctrine.orm.entity_manager"
+            - "@state_machine.job"
+            - "@core.service.transaction"
+            - "@core.service.job"
+        tags:
+            - { name: kernel.event_listener, event: workflow.job.transition.take_to_work, method: onTakeToWork }
+            - { name: kernel.event_listener, event: workflow.job.transition.expired_hold, method: onExpiredHold }
+            - { name: kernel.event_listener, event: workflow.job.transition.complete, method: onComplete }
+            - { name: kernel.event_listener, event: workflow.job.transition.impossible, method: onImpossible }
+            - { name: kernel.event_listener, event: workflow.job.transition.reject, method: onReject }
+
+    user.user_projects:
+        class: UserBundle\Services\UserProjectService
+        arguments: ["@doctrine.orm.entity_manager", "@translator", "@user.copywriting.writer_bonus_calculator", "@user.netlinking.writer_bonus_calculator"]
+
+    user.event_listener.site_url_subscriber:
+        class: UserBundle\EventListener\SiteUrlSubscriber
+        tags:
+            - { name: doctrine.event_listener, event: prePersist }
+            - { name: doctrine.event_listener, event: preUpdate }
+
+    user.event_listener.site_subscriber:
+        class: UserBundle\EventListener\SiteSubscriber
+        tags:
+            - { name: doctrine.event_listener, event: prePersist }
+            - { name: doctrine.event_listener, event: preUpdate }

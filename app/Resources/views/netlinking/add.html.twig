@@ -1,0 +1,236 @@
+{% extends 'layout.html.twig' %}
+
+{% trans_default_domain 'netlinking' %}
+
+{% if firstStep is defined %}
+    {% form_theme firstStep "form/theme.html.twig" %}
+{% endif %}
+
+{% if form is defined %}
+    {% form_theme form "form/theme.html.twig" %}
+{% endif %}
+
+{% block title %}
+    {{ 'add_title'|trans }}
+{% endblock %}
+
+{% block breadcrumb %}
+    {{ include('breadcrumb/netlinking.html.twig', {'childrens': [block('title')]}) }}
+{% endblock %}
+
+{% block content %}
+
+    {% if formLock is defined and formLock == true %}
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="info-box">
+                    <div class="group">
+                        <h3 class="attention">
+                            <span class="info-box_title">
+                                {{ 'info-box_title'|trans({}, 'general') }}
+                            </span>
+                        </h3>
+                        <p class="info-box_content">{{ 'directory_list_not_found'|trans({'%%link_create%%': path('admin_directories_list_add')})|raw }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% else %}
+
+    <div class="netlink-project_create high-inputs">
+        {{ form_start(form) }}
+            {% if currentStepNumber == 2 %}
+                {% set disabled = {'disabled':true} %}
+            {% else %}
+                {% set disabled = {} %}
+            {% endif %}
+            <div>
+                <div class="steps-item">
+                    <div class="step-number">
+                        {{ 'step'|trans }} 1
+                    </div>
+                    <div class="step-content">
+                        <p class="step-heading">{{ 'add_information'|trans }}</p>
+                        <div class="step-rows">
+                            <div class="row j-floating-row">
+                                <div class="col-lg-6">
+                                    {{ form_widget(firstStep.urls, { 'attr': disabled }) }}
+                                    {{ form_errors(firstStep.urls) }}
+                                    <div class="p-h-md">
+                                        <div class="form-group">
+                                            {{ form_label(firstStep.directoryList) }}
+                                            <button type="button"
+                                                    class="info-button-icon"
+                                                    data-toggle="popover-floating"
+                                                    data-placement="auto right"
+                                                    data-float-title="{{ 'info-box_title' | trans({}, 'general') }}"
+                                                    data-content="{{ 'form.directoryList_help'|trans }}">
+                                                <svg><use xlink:href="#info-icon"></use></svg>
+                                            </button>
+                                            {{ form_widget(firstStep.directoryList, {'id': 'netlinking_directory_list', 'attr': disabled }) }}
+                                        </div>
+                                    </div>
+                                    <div class="form-group hidden netlinking_words_count">
+                                        <div class="row">
+                                            <div class="col-sm-offset-3 col-sm-9">
+                                                <h5>{{ 'form.minimum_words'|trans }}:</h5>
+                                                <span class="font-bold"></span> <span class="modify-list">({{ 'form.modify_list'|trans({'%%path%%': '#'})|raw }})</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="control-label m-t-lg">
+                                            <label for="{{ firstStep.frequencyDirectory.vars.id }}">{{ 'form.frequency_title'|trans }}</label>
+                                        </div>
+                                        <div class="form-inline">
+                                            {{ form_errors(firstStep.frequencyDirectory) }}
+                                            {{ form_errors(firstStep.frequencyDay) }}
+                                            <div class="inline-block m-t-sm">
+                                                <label class="frequency-of-submission_label">
+                                                    {{ form_widget(firstStep.frequencyDirectory, {'attr': disabled}) }}
+                                                    <span class="inline-block  m-l-sm m-r-md control-label">{{ 'form.frequency_task'| trans }}</span>
+                                                </label>
+                                            </div>
+                                            <div class="inline-block m-t-sm">
+                                                <label class="frequency-of-submission_label">
+                                                    {{ form_widget(firstStep.frequencyDay, {'attr': disabled}) }}
+                                                    <span class="inline-block m-l-sm control-label">{{ 'form.frequency_day'| trans }}</span>
+                                                </label>
+                                            </div>
+                                            <p class="text-muted m-t-xs">{{ 'form.frequency_example'| trans }}</p>
+                                        </div>
+                                    </div>
+                                    <div class="form-group p-h-sm">
+                                        <label class="control-label" for="{{ firstStep.comment.vars.id }}">{{ 'form.comment'|trans }} <small class="text-muted">{{ 'form.comment_optional'|trans }}</small></label>
+                                        {{ form_widget(firstStep.comment) }}
+                                    </div>
+                                    {% if firstStep.vars.valid and currentStepNumber is not same as(2) %}
+                                        <div class="m-t-md text-right">
+                                            {{ form_widget(firstStep.save) }}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                                <div class="col-lg-5">
+                                    {% include ':form:info-box.html.twig' %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="steps-item {% if form.vars.valid and currentStepNumber == 1 %}disabled{% endif %}">
+                    <div class="step-number">
+                        {{ 'step'|trans }} 2
+                    </div>
+                    <div class="step-content">
+                        <p class="step-heading">{{ 'confirmation'|trans }}</p>
+                        <div class="step-rows">
+                            <div class="row">
+                                {% if currentStepNumber == 2 %}
+                                    <div class="col-lg-12 tag-navs">
+                                        <ul class="nav nav-tabs">
+                                            {% for urlAnchor in form.urlAnchors %}
+                                                <li class="{% if loop.index == 1 %}active{% endif %}"><a data-toggle="tab" href="#tab-{{ loop.index }}">{{ urlAnchor.vars.value.url }}</a></li>
+                                                {{ form_widget(urlAnchor.url) }}
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="tab-content">
+                                            {% for urlAnchor in form.urlAnchors %}
+                                                <div id="tab-{{ loop.index }}" class="tab-pane {% if loop.index == 1 %}active{% endif %}">
+                                                    {% for anchor in urlAnchor.anchors %}
+                                                        <div class="url-anchor">
+                                                            <h3 class="url-anchor_title">
+                                                                <span>{{ 'tab.directories'|trans }}: </span>
+                                                                <a href="{{ anchor.vars.value.url }}" target="_blank">{{ anchor.vars.value.url }}</a>
+                                                            </h3>
+                                                            {% if anchor.vars.value.webmasterAnchor %}
+                                                                {% set exchangeSites = entity.directoryList.exchangeSite %}
+                                                                {{ form_row(anchor.anchor) }}
+                                                                {% if anchor.vars.value.exchangeSite is not null %}
+                                                                    {% for exchangeSite in exchangeSites %}
+                                                                        {% if exchangeSite.nofollowLink or exchangeSite.sponsorisedArticle or exchangeSite.additionalExternalLink %}
+                                                                            <div>
+                                                                                <b>{{ 'specific_rules'|trans({}, 'exchange_site') }}:</b>
+                                                                                {% if exchangeSite.nofollowLink %}
+                                                                                    <div>
+                                                                                        <b>- {{ 'nofollow_link_rule'|trans({}, 'exchange_site') }}</b>
+                                                                                    </div>
+                                                                                {% endif %}
+                                                                                {% if exchangeSite.sponsorisedArticle %}
+                                                                                    <div>
+                                                                                        <b>- {{ 'sponsorised_article_rule'|trans({}, 'exchange_site') }}</b>
+                                                                                    </div>
+                                                                                {% endif %}
+                                                                                {% if exchangeSite.additionalExternalLink %}
+                                                                                    <div>
+                                                                                        <b>- {{ 'additional_external_link_rule'|trans({'count_link': exchangeSite.countAdditionalExternalLink}, 'exchange_site') }}</b>
+                                                                                    </div>
+                                                                                {% endif %}
+                                                                            </div>
+                                                                        {% endif %}
+                                                                        {% if anchor.vars.value.exchangeSite is same as(exchangeSite.id) %}
+                                                                            <div class="error-message">
+                                                                                <i class="fa fa-exclamation-triangle"></i>
+                                                                                <b>{{ ('accept_authorized_anchor_' ~ exchangeSite.authorizedAnchor)|trans({}, 'exchange_site') }}</b>
+                                                                            </div>
+                                                                        {% endif %}
+                                                                    {% endfor %}
+                                                                {% endif %}
+                                                            {% else %}
+                                                                <span class="help-block m-b-none">{{ 'form.not_defined'|trans }}</span>
+                                                                {% do anchor.anchor.setRendered %}
+                                                            {% endif %}
+                                                        </div>
+                                                    {% endfor %}
+                                                </div>
+                                            {% endfor %}
+                                        </div>
+                                        {% if form.acceptRules is defined %}
+                                            <div>
+                                                {{ form_row(form.acceptRules) }}
+                                            </div>
+                                        {% endif %}
+                                        <div class="text-right">
+                                            {{ form_widget(form.save) }}
+                                        </div>
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {{ form_end(form) }}
+    {% endif %}
+    </div>
+{% endblock %}
+
+{% block javascript %}
+    {{ parent() }}
+    {% if formLock is not defined %}
+    <script type="text/javascript">
+        var mode = '{{ mode }}';
+        var errors = errors|length;
+        var currentStepNumber = {{ currentStepNumber }};
+    </script>
+        {% if currentStepNumber == 1 %}
+            <script src="{{ asset('js/front/netlinking/netlinking.js') }}"></script>
+        {% endif %}
+        {% if currentStepNumber == 2 %}
+            <script type="text/javascript">
+            $(window).scrollTop($($('.steps-item ')[1]).offset().top);
+
+                var form = $('form[name="netlinking_add_second_step"]');
+                form.find('input')
+                    .filter(function () {
+                        return this.id.match(/netlinking_add_first_step_urls_\d_url/);
+                    })
+                    .each(function () {
+                        this.disabled = true;
+                    });
+            </script>
+        {% endif %}
+    <script src="{{ asset('/js/front/copywriting/floating-popover.js') }}"></script>
+    {% endif %}
+{% endblock %}

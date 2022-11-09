@@ -1,0 +1,6 @@
+services:
+    CoreBundle\Command\NetLinkingCommand:
+        tags:
+            - { name: 'console.command', command: 'app:netlinking' }
+        arguments:
+            - "@user.backlinks_cheker"

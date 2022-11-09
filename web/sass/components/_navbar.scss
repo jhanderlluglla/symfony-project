@@ -1,0 +1,354 @@
+@import '../_partials/_variables';
+
+body.mini-navbar .navbar-static-side {
+  width: 50px;
+}
+
+body.mini-navbar #page-wrapper {
+  margin: 0;
+}
+body.mini-navbar .nav-header {
+  background-color: transparent;
+}
+
+.mini-navbar .nav .nav-second-level {
+  left: 45px;
+  padding: 0;
+}
+
+.mini-navbar li.active .nav-second-level {
+  left: 50px;
+}
+
+.navbar-static-top {
+  margin-bottom: 0;
+
+  .chosen-container-single .chosen-single {
+    min-width: 185px;
+  }
+}
+
+.nav-second-level {
+  width: 100%;
+}
+
+.nav-second-level li {
+  &:last-child {
+    margin-bottom: 0;
+  }
+  a {
+    overflow: hidden;
+    width: 100%;
+    padding: 16px 10px 16px 40px;
+  }
+}
+
+li:not(.active) .nav-second-level:not([aria-expanded]) {
+  display: none;
+}
+
+.navbar-top-links li:last-child {
+  margin-right: 25px;
+}
+
+
+.navbar-top-links {
+  & > li {
+    vertical-align: middle;
+    & > a {
+      height: 50px;
+      display: flex;
+      align-items: center;
+      padding: 14px 10px;
+      transition: all .2s ease;
+    }
+  }
+}
+
+.nav.metismenu,
+.nav-second-level {
+  & > li > a {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: all .2s ease;
+    font-weight: 500;
+    color: #8095A8;
+    i {
+      min-width: 1.2em;
+      text-align: center;
+    }
+  }
+}
+
+.navbar-default .nav:not(.nav-second-level) > li > a {
+  min-height: 46px;
+  padding: 16px 15px;
+}
+
+.mini-navbar .metismenu .collapse.in a {
+  display: flex;
+}
+
+.nav-header {
+  background-color: transparent;
+  background-image: none;
+}
+
+.nav.metismenu > li {
+  &.active {
+    border-left: none;
+    background-color: $nav-active;
+  }
+}
+
+.nav-second-level.menu_level_1 {
+  position: relative;
+  background-color: $nav-second-level-bg;
+  > li {
+    &.active {
+      background-color: transparent;
+    }
+    a {
+      font-size: 14px;
+    }
+  }
+}
+
+body:not(.mini-navbar) .nav-second-level.menu_level_1 {
+  &:before {
+    content: '';
+    position: absolute;
+    display: block;
+    left: 20px;
+    top: 0;
+    width: 1px;
+    height: 100%;
+    background-color: $primary_dark;
+    z-index: 10;
+    transform: translateX(-50%);
+  }
+  > li {
+    &:before {
+      content: '';
+      position: absolute;
+      left: 13px;
+      top: 50%;
+      width: 8px;
+      height: 8px;
+      background-color: $primary_dark;
+      transform: rotateZ(45deg) translateY(-50%);
+      z-index: 11;
+    }
+    &:hover:before {
+      background-color: $primary;
+    }
+    &.active {
+      &:before {
+        background-color: $primary;
+      }
+    }
+  }
+}
+
+.navbar-default .nav > li > a:hover,
+.navbar-default .nav > li > a:focus {
+  background-color: $nav-active;
+  color: #8095A8;
+}
+
+
+.metismenu .active > a > .nav-item-col > .fa.arrow:before {
+  content: "\f107";
+}
+
+.nav-item-col {
+  display: flex;
+  align-items: center;
+  & + .nav-item-col {
+    margin-left: 8px;
+  }
+}
+
+.navbar-form-custom input.form-control {
+  min-width: 175px;
+  height: auto;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  background-color: #fff;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #fff;
+  transition: border-color .4s ease;
+}
+
+.navbar-form-custom input.form-control:focus {
+  border-color: #1ab394;
+}
+
+.navbar-form-custom select.form-control {
+  background: #fff;
+  width: 185px;
+  box-shadow: none;
+  -moz-box-sizing: border-box;
+  border-radius: 2px;
+  cursor: text;
+  height: auto;
+  margin: 0;
+  min-height: 30px;
+  overflow: hidden;
+  padding: 4px 12px;
+  border: 1px solid #e5e6e7;
+  z-index: 0;
+}
+
+.navbar-form-custom select.form-control:focus {
+  border-color: #1ab394;
+}
+
+.navbar-form-custom .input-group-addon {
+  text-align: left;
+  max-width: 120px;
+  padding: 0;
+  background-color: transparent;
+  border: none;
+  position: relative;
+}
+
+
+.navbar-header .fa-search {
+  position: relative;
+  width: 28px;
+  height: 36px;
+  text-align: center;
+  font-size: 16px;
+  margin: 0 0 0 10px;
+  cursor: pointer;
+  transition: color .2s ease;
+}
+
+.navbar-header .fa-search:hover {
+  color: #1AB394;
+}
+
+.navbar-header .fa-search:active {
+  opacity: .6;
+}
+
+.navbar-right {
+  float: right;
+  margin-right: 0;
+}
+
+
+
+
+@media (min-width: 769px) {
+
+  .navbar-form-custom {
+    display: block !important;
+  }
+
+  .navbar-header .fa-search {
+    display: none;
+  }
+
+  .nav:not(.nav-tabs):not(.navbar-top-links) > li {
+    & > a {
+      font-size: 16px;
+    }
+  }
+}
+
+@media (min-width: 992px) {
+
+  .navbar-form-custom .input-group-addon {
+    max-width: inherit;
+  }
+}
+
+
+@media (max-width: 768px) {
+
+  .navbar-static-top {
+    min-height: 38px;
+    .chosen-container-single .chosen-single {
+      min-width: auto;
+    }
+  }
+
+  .navbar-default.navbar-static-side .nav > li > a {
+    font-size: 13px;
+  }
+  .navbar-default .nav:not(.nav-second-level) > li > a {
+    min-height: 40px;
+    padding: 12px 10px;
+  }
+  .nav-second-level li a {
+    padding: 8px 10px 8px 40px;
+  }
+  .navbar-form-custom .input-group-addon {
+    max-width: inherit;
+  }
+
+  .navbar-form-custom .input-group {
+    padding: 0 15px;
+  }
+
+  .navbar-form-custom {
+    position: absolute;
+    top: 38px;
+    left: 0;
+    height: auto;
+    width: 100%;
+    padding-left: 20px;
+    padding-right: 20px;
+    background: #f3f3f4;
+    border-bottom: 2px solid #e7eaec;
+  }
+
+  .navbar-top-links li a {
+    padding: 8px;
+    min-height: 38px;
+    height: 38px;
+  }
+}
+
+@media (max-width: 480px) {
+
+  .navbar-form-custom .input-group {
+    display: block;
+  }
+
+  .navbar-form-custom {
+    padding-bottom: 10px;
+  }
+
+}
+
+.nav {
+  .chosen-container-single .chosen-single {
+    min-width: 0;
+    width: 2.9em;
+    padding: 4px 0;
+    background: none;
+
+    span {
+      margin-right: 0;
+      display: flex;
+      justify-content: center;
+    }
+  }
+
+  .chosen-results li:last-child {
+    margin-right: 0;
+  }
+
+  .chosen-container-single .chosen-single div {
+    display: none;
+  }
+}
+
+.nav .chosen-single {
+  border: none;
+}

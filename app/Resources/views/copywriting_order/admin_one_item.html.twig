@@ -1,0 +1,8 @@
+{% extends 'copywriting_order/admin_one_item_without_checkbox.html.twig' %}
+
+{% trans_default_domain 'copywriting' %}
+{% form_theme assign_form.createView() "form/theme.html.twig" %}
+
+{% block checkbox %}
+    <input type="checkbox" class="i-checks" value="{{ order.id }}">
+{% endblock %}

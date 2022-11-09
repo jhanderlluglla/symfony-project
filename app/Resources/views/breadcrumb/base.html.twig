@@ -1,0 +1,23 @@
+<ol class="breadcrumb">
+    <li>
+        {% block main_breadcrumb %}
+        {% endblock %}
+    </li>
+    {% if childrens is defined %}
+        {% for children in childrens %}
+            <li>
+                {% if children.path is defined %}
+                    {% if children.status is defined %}
+                        <a href="{{ path(children.path, {'status': children.status}) }}">
+                            {{ children.name }}
+                        </a>
+                    {% else %}
+                        <a href="{{ path(children.path) }}">{{ children.name }}</a>
+                    {% endif %}
+                {% else %}
+                    {{ children }}
+                {% endif %}
+            </li>
+        {% endfor %}
+    {% endif %}
+</ol>

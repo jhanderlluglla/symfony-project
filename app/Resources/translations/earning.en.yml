@@ -1,0 +1,44 @@
+month_earning: "Your earning %month% month:"
+directory_tasks_liked: directory task(s) liked
+directory_tasks_not_liked: directory task(s) didn't liked
+text_liked: text(s) liked
+text_not_liked: text(s) didn't liked
+for_copywriting: for Copywriting
+for_directory: for Directory
+percent_of_like: "% of like"
+percent_of_backlink: "% of backlink found"
+earningBonus: Bonus for earning
+copywritingRatingBonus: Copywriting - bonus good rating
+copywritingRatingMalus: Copywriting - malus bad rating
+netlinkingLikesBonus: Directory - bonus good rating
+netlinkingLikesMalus: Directory - malus bad rating
+netlinkingBacklinksBonus: Bonus for Backlink found
+netlinkingBacklinksMalus: Malus for Backlink found
+your_earning: Your earning
+directory: Directory
+copywriting: Copywriting
+per_task: per task
+per_100_words: 100 words
+
+charge_rules: Earning charge rules
+titles:
+  submission_likes: submission likes
+  copywriting_likes: copywriting likes
+  backlinks_found: backlinks found
+  previous_months_earnings: previous month's earnings
+bonuses:
+    likes:
+        copywriting:
+            bonus: "Bonus %earn%€ for more than %value%% of copywriting likes"
+            malus: "Malus %earn%€ for less than %value%% of copywriting likes"
+        netlinking:
+            bonus: "Bonus %earn%€ for more than %value%% of submission likes"
+            malus: "Malus %earn%€ for less than %value%% of submission likes"
+    backlinks:
+        bonus: "Bonus of %earn%€ for more than %value%% of backlinks found"
+        malus: "Malus of %earn%€ for less than %value%% of backlinks found"
+    earn:
+        bonus: "Bonus of %earn%€ from %value%€ of previous month's earnings"
+    netlinking_min_max: "Netlinking Min: %min%€ / Max : %max%€"
+    no_bonus: "From %days% days late editor => No bonus."
+    no_rating_bonus: "If late than %days% no bonus for copywriting likes"

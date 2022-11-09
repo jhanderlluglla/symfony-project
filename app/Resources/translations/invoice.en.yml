@@ -1,0 +1,33 @@
+invoice: Invoice
+view_invoice: View invoice
+object: Object
+title_item_list: Item List
+phone: Phone
+price: Unit Price
+tax: Tax
+total_price: Total Price
+sub_total: Sub Total
+tax_total: Tax
+total: Total
+payment_object: Credits to referer
+tax_description: "VAT applicable to the rate of:"
+autoliquidation: Reverse charge of VAT
+tax_in_europe: Sale of an intra-Community service to an EU Member State. Autoliquidation by the lessee (Article 283-2 of the French General Tax Code)
+tax_not_in_europe: Sale of an extra-Community service (non-EU country). Exemption from VAT (Article 283-2 of the CGI)
+tax_not_in_europe_part2: VAT not applicable – art. 259-1 du CGI
+comment: With our thanks!
+from: From
+to: To
+invoice_vat_number: VAT number
+fees: Fees
+
+download: Download
+view: View
+
+table:
+    full_name: Full Name
+    amount: Amount
+    vat: VAT
+    filename: Filename
+    created_at: Created At
+    actions: Actions

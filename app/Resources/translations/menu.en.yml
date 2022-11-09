@@ -1,0 +1,88 @@
+dashboard: Dashboard
+plugin: Plugin
+
+my_account:
+    main: My account
+    transaction: Transactions
+    invoice: Invoice
+    replenish_account: Replenish account
+    replenish_requests: Replenish requests
+    withdraw_earning: Withdraw your earning
+    withdraw_requests: Withdraw requests
+
+affiliation:
+    main: Affiliation
+    contract: Contract
+
+
+user:
+    main: Users
+    seos: SEOs
+    webmasters: Webmasters
+    administrators: Administrators
+    statistic: Statistic
+    add_new: Add new
+
+messages:
+    main: Messages
+    incoming: Incoming
+    outgoing: Outgoing
+    new: New message
+    list: Email view
+
+profile: Profile
+comission: Comission
+earning: Earning
+email_notification: Email notification
+settings:
+    main: Main settings
+    settings: Settings
+    pages: Pages
+    static_page: Static page
+    category: Category
+    email_templates: Email templates
+    directory: Directory
+
+netlinking:
+    main: Purchase
+    annuaire: Annuaire
+    add: Create a project
+    directories_list: Netlinking list
+    current_projects: Current projects
+    projects_pending: More projects
+    projects_pending_webmaster: Projects waiting to take
+    projects_not_started: Projects not Started
+    completed_projects: Completed projects
+    get_new: Get new project
+    submissions: Submissions
+    backlinks: Backlinks
+    search: Search
+
+exchange_site:
+    main: Sales
+    management: My website
+    private: Private sites
+    find_sites: Quick purchase
+    proposals_received: Proposals received
+    history: History
+
+copywriting:
+    site_management: Manage copywriting websites
+    main: Copywriting
+    create: Create a project
+    pending: Projects pending
+    waiting_take_projects: Waiting projects to take
+    in_progress: Projects in progress
+    completed: Projects completed
+    submitted_to_admin: Ready for review
+    submitted_to_webmaster_admin: On review by webmaster
+    submitted_to_admin_webmaster: On review by admin
+    statistics: Statistics
+    under_review: Under review
+
+article_blog: Article blog
+
+admin_images:
+    main: Images
+
+logout: Log Out

@@ -1,0 +1,22 @@
+title: Settings
+add_title: Add new Setting
+edit_title: Edit Setting
+
+add_new: Add new
+edit: Edit
+delete: Delete
+
+table:
+    name: Name
+    identificator: Identificator
+    value: Value
+    action: Action
+
+name: Name
+identificator: Identificator
+value: Value
+save: Save
+
+year: year(s)
+month: month(s)
+day: day(s)

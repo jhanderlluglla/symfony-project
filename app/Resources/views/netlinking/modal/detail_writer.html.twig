@@ -1,0 +1,46 @@
+{% trans_default_domain 'netlinking' %}
+
+<h4><a href="{{ netlinking.url }}" target="_blank">{{ netlinking.url }}</a> {{ 'modal.reference_on'|trans }} <a href="{{ directory.submissionUrl }}" target="_blank">{{ directory.submissionUrl }}</a></h4>
+
+{% if app.user.isWriterNetlinking %}
+    <h3>{{ 'modal.remuneration'|trans }} {{ data.compensation }} €</h3>
+{% endif %}
+
+{% if app.user.hasRole(constant('CoreBundle\\Entity\\User::ROLE_SUPER_ADMIN')) %}
+    <h3>{{ 'modal.webmaster_cost'|trans }} {{ data.webmasterTaskCost }} €</h3>
+    <h3>{{ 'modal.referer_cost'|trans }} {{ data.writerTaskCost }} €</h3>
+{% endif %}
+
+{% if (app.user.isWriterNetlinking or app.user.hasRole(constant('CoreBundle\\Entity\\User::ROLE_SUPER_ADMIN'))) and data.taskWordsCount %}
+    <p><span class="font-bold">{{ 'modal.minimum_words'|trans }}:</span> {{ data.taskWordsCount }}</p>
+{% endif %}
+{% if data.isAnchors %}
+    <p><span class="font-bold">{{ 'modal.anchors_use'|trans }}:</span> {{ data.anchors }}</p>
+{% endif %}
+{% if data.directoryInstructions %}
+    <p><span class="font-bold">{{ 'modal.directory_instructions'|trans }}:</span> {{ data.directoryInstructions|raw }}</p>
+{% endif %}
+{% if data.isProjectInstructions %}
+    <p><span class="font-bold">{{ 'modal.project_guidelines'|trans }}:</span> {{ data.projectInstructions|raw }}</p>
+{% endif %}
+
+{% if job is not null and job.comment is not null %}
+    <p><span class="font-bold">{{ 'modal.comment.comment'|trans }}:</span> {{ job.comment|raw }}</p>
+{% endif %}
+
+{% set jobStarted = job is not null and job.status != constant('CoreBundle\\Entity\\Job::STATUS_NEW') %}
+
+{% if app.user.isWriterNetlinking %}
+<div class="job_comment_wrapper {{ not jobStarted ? 'hidden' }}">
+    <div class="alert alert-danger hidden comment-error">{{ 'modal.comment.empty'|trans }}</div>
+    <label class="enter-description">{{ 'modal.comment.description'|trans }} *</label>
+    <label class="why-impossible hidden">{{ 'modal.comment.why_impossible'|trans }} *</label>
+    <textarea id="comment" name="comment" class="form-control" rows="6" maxlength="10000"></textarea>
+</div>
+
+<div class="text-right m-t-md action_button">
+    <button type="button" class="btn btn-success confirmation {{ jobStarted ? 'hidden' }} job_action_do" data-scheduleTaskId="{{ scheduleTaskId }}" data-confirmation="takeToWorkAction">{{ 'modal.take_to_work'|trans }}</button>
+    <button type="button" class="btn btn-success {{ not jobStarted ? 'hidden' }} job_action_complete" data-jobId="{{ job ? job.id }}">{{ 'modal.submission_completed'|trans }}</button>
+    <button type="button" class="btn btn-danger job_action_impossible" data-scheduleTaskId="{{ scheduleTaskId }}">{{ 'modal.submission_impossible'|trans }}</button>
+</div>
+{% endif %}

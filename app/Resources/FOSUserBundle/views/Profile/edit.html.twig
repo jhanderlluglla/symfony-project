@@ -1,0 +1,68 @@
+{% extends "layout.html.twig" %}
+
+{% block title %}
+    {{ 'title'|trans({}, 'profile') }}
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-lg-offset-2 col-lg-8">
+            {% include "@FOSUser/Profile/edit_content.html.twig" %}
+        </div>
+    </div>
+{% endblock content %}
+
+{% block javascript_main %}
+    {{ parent() }}
+    <script src="{{ asset('/js/admin/plugins/cropper/cropper.min.js') }}"></script>
+    <script src="{{ asset('/js/admin/plugins/cropper/jquery-cropper.min.js') }}"></script>
+    <script src="{{ asset('/js/front/custom-vat-number.js') }}"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var $image = $(".image-crop > img"),
+                $inputImage = $("#inputImage");
+
+            if (window.FileReader) {
+                $inputImage.change(function () {
+
+                    $($image).cropper({
+                        dragMode: 'move',
+                        aspectRatio: 1,
+                        viewMode: 2,
+                        preview: ".img-preview"
+                    });
+
+                    var fileReader = new FileReader(),
+                        files = this.files,
+                        file;
+
+                    if (!files.length) {
+                        return;
+                    }
+
+                    file = files[0];
+
+                    $('.new-avatar-wrap, .avatar-preview').removeClass('hide');
+                    $('.existing-avatar-wrap').addClass('hide');
+
+                    if (/^image\/\w+$/.test(file.type)) {
+                        fileReader.readAsDataURL(file);
+                        fileReader.onload = function () {
+                            $inputImage.val("");
+                            $image.cropper("reset", true).cropper("replace", this.result);
+                        };
+                    } else {
+                        showMessage("{{ 'image_error'|trans({}, 'profile') }}");
+                    }
+                });
+            } else {
+                $inputImage.addClass("hide");
+            }
+
+            $($image).on('ready cropend', function () {
+                $('.js_base64-input').val($($image).cropper('getCroppedCanvas').toDataURL('image/jpeg'));
+            });
+        });
+
+    </script>
+{% endblock %}

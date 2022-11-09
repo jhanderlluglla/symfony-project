@@ -1,0 +1,25 @@
+framework:
+    workflows:
+        netlinking:
+            type: 'state_machine'
+            supports:
+                - CoreBundle\Entity\NetlinkingProject
+            marking_store:
+                type: 'single_state'
+                arguments:
+                    - 'status'
+            places:
+                - no_start
+                - waiting
+                - rejected
+                - finished
+            transitions:
+                waiting:
+                    from: no_start
+                    to: waiting
+                finished:
+                    from: waiting
+                    to: finished
+                rejected:
+                    from: finished
+                    to: rejected

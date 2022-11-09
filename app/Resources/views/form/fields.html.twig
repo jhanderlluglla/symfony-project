@@ -1,0 +1,143 @@
+{% block file_widget %}
+    {% spaceless %}
+        <div class="fileinput fileinput-new fileinput-ereferer input-group" data-provides="fileinput">
+            <span class="btn btn-primary m-r-md btn-file">
+                <span class="fileinput-new">{{ 'file.select_file'|trans({}, 'form') }}</span>
+                <span class="fileinput-exists">{{ 'file.change'|trans({}, 'form') }}</span>
+                <input type="file"{{ block('widget_attributes') }} {% if value is not empty %}value="{{ value }}" {% endif %}/>
+            </span>
+            <a href="#" class="btn btn-primary m-r-md btn-outline fileinput-exists" data-dismiss="fileinput">{{ 'file.remove'|trans({}, 'form') }}</a>
+            <div class="form-control-static" data-trigger="fileinput">
+                <i class="glyphicon glyphicon-file fileinput-exists"></i>
+                <span class="fileinput-filename"></span>
+            </div>
+        </div>
+    {% endspaceless %}
+{% endblock %}
+
+{% block number_range_widget %}
+    {% spaceless %}
+        <div class="form-group input-group minmaxrange">
+            <span class="input-group-btn">
+                {{ form_widget(form.min) }}
+            </span>
+            <span class="input-group-btn">
+                {{ form_widget(form.max) }}
+            </span>
+        </div>
+    {% endspaceless %}
+{% endblock %}
+
+{% block writer_category_widget %}
+    {% spaceless %}
+        {% if expanded %}
+            <ul {{ block('widget_container_attributes') }}>
+                {% for child in form %}
+                    <li>
+                        <label class="card-writer">
+                            {{ form_widget(child) }}
+                            <div class="card-writer__wrap">
+                                <div class="card-writer__main">
+                                    <h4 class="card-writer__title">
+                                        <svg class="icon" width="20" height="20">
+                                            <use xlink:href="#{{ child.vars.attr.icon }}"></use>
+                                        </svg>
+                                        <span>{{ child.vars.label|trans({}, translation_domain) }}</span>
+                                    </h4>
+                                    <div class="card-writer__text">
+                                        <p class="text">{{ child.vars.attr.text|trans({}, translation_domain) }}</p>
+                                    </div>
+                                </div>
+                                <footer class="card-writer__footer bg-primary">
+                                    {% if child.vars.attr.cost == 0 %}
+                                        <p>{{ 'no_additional_price'|trans({}, translation_domain) }} <br></p>
+                                    {% else %}
+                                        <p>{{ 'additional_price'|trans({}, translation_domain) }} <br> +{{ child.vars.attr.cost }}€ / 100 {{ 'words'|trans({}, translation_domain) }}</p>
+                                    {% endif %}
+                                </footer>
+                            </div>
+                        </label>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            {{ block('choice_widget') }}
+        {% endif %}
+    {% endspaceless %}
+{% endblock %}
+
+{% block checkbox_widget -%}
+    {%- set parent_label_class = parent_label_class|default(label_attr.class|default('')) -%}
+    {% if 'checkbox-inline' in parent_label_class %}
+        {{- form_label(form, null, { widget: block('checkbox_widget_wrapper') }) -}}
+    {% else -%}
+        <div class="checkbox">
+            {{- form_label(form, null, { widget: block('checkbox_widget_wrapper') }) -}}
+        </div>
+    {%- endif %}
+{%- endblock checkbox_widget %}
+
+{%- block checkbox_widget_wrapper -%}
+    <span class="checkbox_radio_widget_wrapper">
+        <input type="checkbox" {{ block('widget_attributes') }}{% if value is defined %} value="{{ value }}"{% endif %}{% if checked %} checked="checked"{% endif %} />
+        <label for="{{ form.vars.id }}"></label>
+    </span>
+{%- endblock checkbox_widget_wrapper -%}
+
+{% block radio_widget -%}
+    {%- set parent_label_class = parent_label_class|default(label_attr.class|default('')) -%}
+    {% if 'radio-inline' in parent_label_class %}
+        {{- form_label(form, null, { widget: block('radio_widget_wrapper') }) -}}
+    {% else -%}
+        <div class="radio">
+            {{- form_label(form, null, { widget: block('radio_widget_wrapper') }) -}}
+        </div>
+    {%- endif %}
+{%- endblock radio_widget %}
+
+{%- block radio_widget_wrapper -%}
+    <span class="checkbox_radio_widget_wrapper">
+        <input type="radio" {{ block('widget_attributes') }}{% if value is defined %} value="{{ value }}"{% endif %}{% if checked %} checked="checked"{% endif %} />
+        <label for="{{ form.vars.id }}"></label>
+    </span>
+{%- endblock radio_widget_wrapper -%}
+
+
+{# Errors #}
+
+{% block form_errors -%}
+    {% if errors|length > 0 -%}
+        {% if form is not rootform %}<div class="alert alert-danger text-empty">{% else %}<div class="alert alert-danger">{% endif %}
+        <ul class="list-unstyled">
+        {%- for error in errors -%}
+            <li><span class="glyphicon glyphicon-exclamation-sign"></span> {{ error.message }}</li>
+        {%- endfor -%}
+    </ul>
+        {% if form is not rootform %}</div>{% else %}</div>{% endif %}
+    {%- endif %}
+{%- endblock form_errors %}
+
+{% block button_block_widget %}
+    {% spaceless %}
+        <div class="homepage_blockContainer__group">
+            <div class="homepage_blockContainer__label">
+                {{ form_label(form) }}
+            </div>
+            <div class="homepage_blockContainer__content">
+                {{ form_widget(form) }}
+            </div>
+        </div>
+    {% endspaceless %}
+{% endblock %}
+
+{% block container_widget %}
+    {% spaceless %}
+        {% for child in form %}
+            <div id="{{ child.vars.id }}" data-prototype="{{ form_widget(child.vars.prototype)|e('html_attr') }}">
+                {% for child2 in child %}
+                    {{ form_widget(child2) }}
+                {% endfor %}
+            </div>
+        {% endfor %}
+    {% endspaceless %}
+{% endblock %}

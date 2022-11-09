@@ -1,0 +1,88 @@
+{% trans_default_domain 'withdraw' %}
+
+{% if collection.haveToPaginate %}
+    <div class="pagerfanta">
+        {{ pagerfanta(collection) }}
+    </div>
+{% endif %}
+
+<table class="footable table table-striped">
+    <thead>
+        <tr>
+            <th >{{ 'table.amount'|trans }}</th>
+            {% if accessManager().canManageEarning() %}
+                <th data-breakpoints="m">{{ 'table.user'|trans }}</th>
+                <th data-breakpoints="l">{{ 'table.paypal'|trans }}</th>
+                <th data-breakpoints="l">{{ 'table.swift'|trans }}</th>
+                <th data-breakpoints="l">{{ 'table.iban'|trans }}</th>
+                <th data-breakpoints="l">{{ 'table.company_name'|trans }}</th>
+            {% endif %}
+            <th data-breakpoints="xl">{{ 'table.review_comment'|trans }}</th>
+            <th data-breakpoints="xs">{{ 'table.status'|trans }}</th>
+            <th data-breakpoints="xs">{{ 'table.created_at'|trans }}</th>
+            <th>{{ 'table.action'|trans }}</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for entity in collection %}
+        <tr data-id="{{ entity.id }}">
+            <td>{{ entity.amountWithCommission }}€</td>
+            {% if accessManager().canManageEarning() %}
+                <td>{{ entity.user.fullName }}</td>
+                <td>{{ entity.paypal }}</td>
+                <td>{{ entity.swift }}</td>
+                <td>{{ entity.iban }}</td>
+                <td>{{ entity.companyName }}</td>
+            {% endif %}
+            <td>{{ entity.reviewComment }}</td>
+            <td>
+                <span class="project-status status-{{ entity.status }}">{{ ('table.statuses.' ~ entity.status)|trans }}</span>
+            </td>
+            <td>{{ entity.createdAt|date("d/m/Y H:i:s") }}</td>
+            <td>
+                <div class="buttons-wrapper">
+                    <a class="btn btn-warning" target="_blank" href="{{ path('view_invoice', {'id':entity.id}) }}">
+                        <i class="fa fa-eye"></i>
+                        {{ 'table.view_invoice'|trans }}
+                    </a>
+                    {% if accessManager().canManageEarning() and entity.status == constant('CoreBundle\\Entity\\WithdrawRequest::STATUS_WAITING') %}
+                        <button data-action="acceptRequest" data-status="accept" class="btn btn-primary">
+                            <i class="fa fa-check"></i>
+                            {{ 'table.accept'|trans }}
+                        </button>
+                        <button data-action="rejectRequest" data-status="reject" data-toggle="modal" data-target="#commentModal" class="btn btn-danger !confirmation">
+                            <i class="fa fa-times-circle"></i>
+                            {{ 'table.reject'|trans }}
+                        </button>
+                    {% endif %}
+                </div>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+{% if collection.haveToPaginate %}
+    <div class="pagerfanta">
+        {{ pagerfanta(collection) }}
+    </div>
+{% endif %}
+
+<div class="modal fade" id="commentModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title"></h4>
+            </div>
+            <div class="modal-body">
+                <label>{{ 'comment'|trans }}</label>
+                <textarea id="comment" name="comment" class="form-control" rows="6"></textarea>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">{{ 'modal.close'|trans }}</button>
+                <button type="button" data-status="reject" class="btn btn-primary">{{ 'modal.save'|trans }}</button>
+            </div>
+        </div>
+    </div>
+</div>
+

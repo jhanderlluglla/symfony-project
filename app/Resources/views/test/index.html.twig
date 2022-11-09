@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>INSPINIA - Landing Page</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="/css/admin/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Animation CSS -->
+    <link href="/css/admin/animate.css" rel="stylesheet">
+    <link href="/css/admin/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="/css/admin/style.css" rel="stylesheet">
+</head>
+<body id="page-top" class="landing-page no-skin-config">
+
+
+
+<!-- Mainly scripts -->
+<script src="/js/admin/jquery-3.1.1.min.js"></script>
+<script src="/js/admin/bootstrap.min.js"></script>
+
+<script type="text/javascript">
+    function myPromise()
+    {
+        return new Promise(function(resolve, reject)
+        {
+
+            $.ajax({
+                type: 'GET',
+                url: '/',
+                data: {'id': id},
+                cache: false,
+                dataType: 'json',
+                success: function (response) {
+                    if (response.result == 'success') {
+                        exchangeSiteProposition.find('.modal-title').html(response.title);
+                        exchangeSiteProposition.find('.modal-body').html(response.body);
+                    } else {
+                        $('#exchangeSiteProposition').modal('hide');
+                        erefererAlerts.find('.modal-title').html(response.title);
+                        erefererAlerts.find('.modal-body').html(response.body);
+                        erefererAlerts.modal('show');
+                    }
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown, res) {
+                }
+            });
+
+            //псевдо асинхронный код
+            var ascync = true; //или  false
+            if (!ascync)
+                return reject(new Error("не удалось выполнить..."));
+
+            return resolve(1);
+        });
+    }
+
+    myPromise()
+        .then(function(res)
+        {
+            console.log(res); //выведет 1
+        })
+        .catch(function(err){
+            console.log(err.message); //выведет сообщение "не удалось выполнить..."
+        });
+</script>
+</body>
+</html>

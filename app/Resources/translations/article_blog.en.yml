@@ -1,0 +1,20 @@
+title: Article Blog
+add_title: Add
+edit_title: Edit
+add_article_blog: Add article blog
+
+entity:
+    title: Title
+    url_path: Url path
+    text: Text
+    is_enable: Is enabled
+
+form:
+    submit: Submit
+    meta_keywords: Meta keywords
+    meta_description: Meta description
+
+table:
+    actions: Actions
+    edit: Edit
+    delete: Delete

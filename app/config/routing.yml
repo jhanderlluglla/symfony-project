@@ -1,0 +1,25 @@
+user:
+    resource: "@UserBundle/Resources/config/routing.yml"
+    prefix:   /bo
+
+article_blog_view:
+    path:     /blog/{urlPath}
+    defaults: { _controller: UserBundle:ArticleBlog:view }
+
+user_root:
+    resource: "@UserBundle/Resources/config/routing_root.yml"
+
+app:
+    resource: "@AppBundle/Resources/config/routing.yml"
+
+fos_user:
+    resource: "@FOSUserBundle/Resources/config/routing/all.xml"
+
+fos_js_routing:
+    resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"
+
+pageNotFound:
+    path:  /{path}
+    defaults: { _controller: UserBundle:Exception:pageNotFound, path: '' }
+    requirements:
+        path: .*

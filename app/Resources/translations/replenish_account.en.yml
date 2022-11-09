@@ -1,0 +1,54 @@
+title_step_1: What kind of payment?
+title_step_2: How much you want to charge?
+title_step_3: Validate your payment
+
+min_paypal: Minimum payment for Paypal is 20€ and 2.5% fees
+min_wire_transfer: Minimum for Wire transfert is 100€ and without fees
+
+commissions: "Commissions of %percent%%"
+vat_amount: "VAT of %percent%%"
+amount: Amount
+finish_amount: Finish amount
+fees: Fees
+amount_placeholder: Enter amount here
+requisites: Requisites
+bic_swift: BIC/SWIFT
+iban: IBAN
+confirm: I confirm I did the Wire transfert
+wire_transfer_text: Please, do the wire transfer to:
+title: Replenish account
+title_success: Success payment
+title_fail: Fail payment
+title_cancel: Cancel payment
+finish: Finish
+
+replenish: Replenish account
+replenish_amount: Replenish amount
+notification_start: Please, write your first name and last name
+notification_end: on the comment of this bank transfer.
+
+createed_request_successfully: Created wire transfer request successfully
+
+table:
+    request_amount: Request amount
+    amount_with_tax: Tax
+    statuses:
+        waiting: Waiting
+        accepted: Accepted
+        rejected: Rejected
+    accept: Accept
+    reject: Reject
+
+error:
+    amount: Replenish amount must be greater than zero
+    less_than_min: "Replenish amount must be greater than %minimum%"
+
+waiting_time: The waiting time for processing new projects is estimated at 1 day.
+reload_request: Make a reload request
+attention_title: Pay attantion
+attention: Attention a VAT of 20% applies for the private individuals and the French companies. If you are outside France, you must mention it in
+your_profile: your profile
+successfully_replenish: You have successfully replenished your account on:
+paypal: Paypal
+wire_transfer: Wire transfer
+recharge: Recharge

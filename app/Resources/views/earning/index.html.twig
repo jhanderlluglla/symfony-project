@@ -1,0 +1,256 @@
+{% extends 'layout.html.twig' %}
+
+{% trans_default_domain 'earning' %}
+
+{% block title %}
+    {{ 'earning'|trans({}, 'menu') }}
+{% endblock %}
+
+{% block breadcrumb %}
+    <ol class="breadcrumb">
+        <li>
+            {{ block('title') }}
+        </li>
+    </ol>
+{% endblock %}
+
+{% block content %}
+    <div class="ibox">
+        <div class="ibox-title">
+            <h5>{{ 'charge_rules'|trans }}</h5>
+            <div class="ibox-tools">
+                <a class="collapse-link">
+                    <i class="fa fa-chevron-up"></i>
+                </a>
+            </div>
+        </div>
+        <div class="ibox-content">
+            <div class="earning-data_wrapper">
+                {% if app.user.isWriterNetlinking %}
+                <div class="earning-data_elem">
+                    <h3 class="earning-data_title">{{ 'titles.submission_likes' | trans }}</h3>
+                    <ul class="earning-data_list malus">
+                        {% for likesBonus in constant('UserBundle\\Services\\BonusCalculator\\NetlinkingWriterBonusCalculator::LIKES_BONUSES') %}
+                            {% if likesBonus.earn < 0 %}
+                                <li class="{% if bonuses.netlinkingLikes is same as(likesBonus.earn) %} text-danger {% endif %}">
+                                    {{ 'bonuses.likes.netlinking.malus'|trans({'%earn%':likesBonus.earn, '%value%':likesBonus.value}) }}
+                                </li>
+                            {% endif %}
+                        {% endfor %}
+                    </ul>
+                    <ul  class="earning-data_list bonus">
+                        {% for likesBonus in constant('UserBundle\\Services\\BonusCalculator\\NetlinkingWriterBonusCalculator::LIKES_BONUSES') |reverse %}
+                            {% if likesBonus.earn > 0 %}
+                                <li class="{% if bonuses.netlinkingLikes is same as(likesBonus.earn) %} text-success {% endif %}">
+                                    {{ 'bonuses.likes.netlinking.bonus'|trans({'%earn%':likesBonus.earn, '%value%':likesBonus.value}) }}
+                                </li>
+                            {% endif %}
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="earning-data_elem">
+                    <h3 class="earning-data_title">{{ 'titles.backlinks_found' | trans }}</h3>
+                    <ul  class="earning-data_list malus">
+                        {% for backlinksBonus in constant('UserBundle\\Services\\BonusCalculator\\NetlinkingWriterBonusCalculator::BACKLINKS_BONUSES') %}
+                            {% if backlinksBonus.earn < 0 %}
+                                <li class="{% if bonuses.netlinkingBacklinks is same as(backlinksBonus.earn) %} text-danger {% endif %}">
+                                    {{ 'bonuses.backlinks.malus'|trans({'%earn%':backlinksBonus.earn, '%value%':backlinksBonus.value}) }}
+                                </li>
+                            {% endif %}
+                        {% endfor %}
+                    </ul>
+                    <ul  class="earning-data_list bonus">
+                        {% for backlinksBonus in constant('UserBundle\\Services\\BonusCalculator\\NetlinkingWriterBonusCalculator::BACKLINKS_BONUSES') | reverse %}
+                            {% if backlinksBonus.earn > 0 %}
+                                <li class="{% if bonuses.netlinkingBacklinks is same as(backlinksBonus.earn) %} text-success {% endif %}">
+                                    {{ 'bonuses.backlinks.bonus'|trans({'%earn%':backlinksBonus.earn, '%value%':backlinksBonus.value}) }}
+                                </li>
+                            {% endif %}
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% endif %}
+                <div class="earning-data_elem">
+                    <h3 class="earning-data_title">{{ 'titles.previous_months_earnings' | trans }}</h3>
+                    <ul  class="earning-data_list bonus">
+                        {% for moneysBonus in constant('UserBundle\\Services\\BonusCalculator\\CopywritingWriterBonusCalculator::MONEYS_BONUSES') %}
+                            {% if moneysBonus.earn > 0 %}
+                                <li class="{% if bonuses.earningBonus is same as(moneysBonus.earn) %} text-success {% endif %}">
+                                    {{ 'bonuses.earn.bonus'|trans({'%earn%':moneysBonus.earn, '%value%':moneysBonus.value}) }}
+                                </li>
+                            {% endif %}
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% if app.user.isWriterCopywriting %}
+                <div class="earning-data_elem">
+                    <h3 class="earning-data_title">{{ 'titles.copywriting_likes' | trans }}</h3>
+                    <ul  class="earning-data_list malus">
+                        {% for likesBonus in constant('UserBundle\\Services\\BonusCalculator\\CopywritingWriterBonusCalculator::RATING_BONUSES') %}
+                            {% if likesBonus.earn < 0 %}
+                                <li class="{% if bonuses.copywritingRating is same as(likesBonus.earn) %} text-danger {% endif %}">
+                                    {{ 'bonuses.likes.copywriting.malus'|trans({'%earn%':likesBonus.earn, '%value%':likesBonus.value}) }}
+                                </li>
+                            {% endif %}
+                        {% endfor %}
+                    </ul>
+                    <ul  class="earning-data_list bonus">
+                        {% for likesBonus in constant('UserBundle\\Services\\BonusCalculator\\CopywritingWriterBonusCalculator::RATING_BONUSES') | reverse %}
+                            {% if likesBonus.earn > 0 %}
+                                <li class="{% if bonuses.copywritingRating is same as(likesBonus.earn) %} text-success {% endif %}">
+                                    {{ 'bonuses.likes.copywriting.bonus'|trans({'%earn%':likesBonus.earn, '%value%':likesBonus.value}) }}
+                                </li>
+                            {% endif %}
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% endif %}
+                <div class="earning-data_elem netlinking_min_max">
+                    <ul class="earning-data_list ">
+                        <li>
+                            {{ 'bonuses.netlinking_min_max'|trans({
+                                '%min%': constant('UserBundle\\Services\\BonusCalculator\\NetlinkingWriterBonusCalculator::MIN_BONUS'),
+                                '%max%': constant('UserBundle\\Services\\BonusCalculator\\NetlinkingWriterBonusCalculator::MAX_BONUS')
+                            }) }}
+                            {{ 'bonuses.no_bonus'|trans({
+                                '%days%': constant('CoreBundle\\Entity\\CopywritingOrder::MAX_DAYS'),
+                            }) }}
+
+                            {{ 'bonuses.no_rating_bonus'|trans({
+                                '%days%': constant('UserBundle\\Services\\BonusCalculator\\CopywritingWriterBonusCalculator::LATE_DAYS_WITHOUT_RATING_BONUS'),
+                            }) }}
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="ibox">
+        <div class="ibox-title">
+            <h5>{{ 'your_earning'|trans }}</h5>
+            <div class="ibox-tools">
+                <a class="collapse-link">
+                    <i class="fa fa-chevron-up"></i>
+                </a>
+            </div>
+        </div>
+        <div class="ibox-content">
+            <div class="earning-wrapper">
+                <div class="earning-group">
+                    <div>
+                        <div class="m-b-md">
+                            <h3>{{ 'month_earning'|trans({'%month%':'this'}) }} {{ copywriting.currentMonth + directory.currentMonth }}
+                                €</h3>
+
+                            {% if app.user.isWriterCopywriting %}
+                                <p> - {{ copywriting.currentMonth }}€ {{ 'for_copywriting'|trans }}</p>
+                            {% endif %}
+                            {% if app.user.isWriterNetlinking %}
+                                <p> - {{ directory.currentMonth }}€ {{ 'for_directory'|trans }}</p>
+                            {% endif %}
+                        </div>
+                        <div class="m-b-md">
+                            <h3>{{ 'month_earning'|trans({'%month%':'last'}) }}{{ copywriting.lastMonth + directory.lastMonth }}
+                                €</h3>
+                            {% if app.user.isWriterCopywriting %}
+                                <p> - {{ copywriting.lastMonth }}€ {{ 'for_copywriting'|trans }}</p>
+                            {% endif %}
+                            {% if app.user.isWriterNetlinking %}
+                                <p> - {{ directory.lastMonth }}€ {{ 'for_directory'|trans }}</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div>
+                        <b class="text-info">{{ 'earningBonus' |trans }}: {{ bonuses.earningBonus }}€</b>
+                    </div>
+                </div>
+                <div class="earning-group">
+                    <div>
+                        {% if app.user.isWriterNetlinking %}
+                            <div class="m-b-md">
+                                <p>{{ directory.likes }} {{ 'directory_tasks_liked'|trans }}</p>
+                                <p>{{ directory.dislikes }} {{ 'directory_tasks_not_liked'|trans }}</p>
+                                <p>
+                                    <b>
+                                        {{ 'percent_of_like'|trans }}
+                                        {% if (directory.likes + directory.dislikes) is same as(0) %}
+                                            0%
+                                        {% else %}
+                                            {{ directory.likes / (directory.likes + directory.dislikes) * 100 }}%
+                                        {% endif %}
+                                    </b>
+                                </p>
+                            </div>
+                        {% endif %}
+                        {% if app.user.isWriterCopywriting %}
+                            <div class="m-b-md">
+                                <p>{{ copywriting.likes }} {{ 'text_liked'|trans }}</p>
+                                <p>{{ copywriting.dislikes }} {{ 'text_not_liked'|trans }}</p>
+                                <p>
+                                    <b>
+                                        {{ 'percent_of_like'|trans }}
+                                        {% if (copywriting.likes + copywriting.dislikes) is same as(0) %}
+                                            0%
+                                        {% else %}
+                                            {{ copywriting.likes / (copywriting.likes + copywriting.dislikes) * 100 }}%
+                                        {% endif %}
+                                    </b>
+                                </p>
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div>
+                        {% if app.user.isWriterNetlinking %}
+                            <p>
+                                {% if bonuses.netlinkingLikes > 0 %}
+                                    <b class="text-info">{{ 'netlinkingLikesBonus'|trans }}: {{ bonuses.netlinkingLikes }}€</b><br/>
+                                {% else %}
+                                    <b class="text-danger">{{ 'netlinkingLikesMalus'|trans }}: {{ bonuses.netlinkingLikes }}€</b>
+                                {% endif %}
+                            </p>
+                        {% endif %}
+                        {% if app.user.isWriterCopywriting %}
+                            <p>
+                                {% if bonuses.copywritingRating > 0 %}
+                                    <b class="text-info">{{ 'copywritingRatingBonus'|trans }}: {{ bonuses.copywritingRating }}€</b><br/>
+                                {% else %}
+                                    <b class="text-danger">{{ 'copywritingRatingMalus'|trans }}: {{ bonuses.copywritingRating }}€</b>
+                                {% endif %}
+                            </p>
+                        {% endif %}
+                    </div>
+                </div>
+                {% if app.user.isWriterNetlinking %}
+                    <div class="earning-group">
+                        <div class="m-b-sm">
+                            <p>
+                                <b>
+                                    {{ 'percent_of_backlink'|trans }}
+                                    {% if (backLinksFound + backlinksNotFound) is same as(0) %}
+                                        0%
+                                    {% else %}
+                                        {{ backLinksFound / (backLinksFound + backlinksNotFound) * 100 }}%
+                                    {% endif %}
+                                </b>
+                            </p>
+                        </div>
+                        <div>
+                            {% if app.user.isWriterNetlinking %}
+                                {% if bonuses.netlinkingBacklinks > 0 %}
+                                    <b class="text-info">{{ 'netlinkingBacklinksBonus' |trans }}: {{ bonuses.netlinkingBacklinks }}€</b><br/>
+                                {% else %}
+                                    <b class="text-danger">{{ 'netlinkingBacklinksMalus' |trans }}: {{ bonuses.netlinkingBacklinks }}€</b>
+                                {% endif %}
+                            {% endif %}
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+            <div class="total-earning">
+                <h2>{{ 'your_earning'|trans }}:</h2>
+                <h3>{{ 'directory'|trans }}: {{ yourEarning.directory }}€ {{ 'per_task'|trans }}</h3>
+                <h3>{{ 'copywriting'|trans }}: {{ yourEarning.copywriting }}€ / {{ 'per_100_words'|trans }}</h3>
+            </div>
+        </div>
+    </div>
+{% endblock %}

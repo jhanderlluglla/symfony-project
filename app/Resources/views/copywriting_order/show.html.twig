@@ -1,0 +1,191 @@
+{% extends 'layout.html.twig' %}
+
+{% trans_default_domain 'copywriting' %}
+
+{% block title %}
+    {{ 'show_title'|trans }}
+{% endblock %}
+
+{% if app.user.isWriterNetlinking or app.user.isWriterCopywriting %}
+    {% set prev_page = {'name': 'copywriting.under_review'|trans({}, 'menu'), 'path': 'copywriting_order_list', 'status': ['submitted_to_admin', 'submitted_to_webmaster']} %}
+{% else %}
+    {% set prev_page = {'name': 'copywriting.completed'|trans({}, 'menu'), 'path': 'copywriting_order_list', 'status': 'completed'} %}
+{% endif %}
+
+{% block breadcrumb %}
+    {{ include('breadcrumb/copywriting.html.twig', {'childrens': [
+        prev_page,
+        block('title')
+    ]}) }}
+{% endblock %}
+
+{% block stylesheets %}
+  {{ parent() }}
+  <link href="{{ asset('css/admin/wysiwyg.css') }}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+    <div>
+        <div class="ibox">
+            <div class="ibox-content">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="m-b-md">
+                            <h2 class="ellipsis">{{ order.project.title }} - {{ order.title }}</h2>
+                        </div>
+                    </div>
+                    {% include 'copywriting_order/card.html.twig' %}
+                </div>
+            </div>
+        </div>
+        {% if article is not null %}
+            {% if (order.isDeclined or order.isSubmittedToAdmin) and article.webmasterComments %}
+                <div class="ibox float-e-margins">
+                    <div class="ibox-content">
+                        <h2>{{ 'customer_msg'|trans }}</h2>
+                        <div class="alert alert-warning">
+                            {% for comment in article.webmasterComments %}
+                                <blockquote>
+                                    <p>{{ comment }}</p>
+                                </blockquote>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    {% if article.frontImage %}
+                        <h3 class="ellipsis">{{'featured_image'| trans}}</h3>
+                        <img class="ibox-title-img" src="{{ article.frontImage }}" alt="">
+                    {% endif %}
+                    {% if article.metaTitle %}
+                        <h3 class="ellipsis">{{ article.metaTitle }}</h3>
+                    {% endif %}
+                    {% if article.metaDesc %}
+                        <p class="ellipsis">{{ article.metaDesc }}</p>
+                    {% endif %}
+                </div>
+                <div class="ibox-content project-details">
+                  <div class=" hyphens-wrap clearfix">
+                    {{ article.text|raw }}
+                  </div>
+
+                  <a href="{{ path('copywriting_article_download', {'id': article.id}) }}" type="button" class="btn btn-primary m-t-md" target="_blank"><i class="fa fa-download"></i> {{ 'download'|trans }}</a>
+                </div>
+            </div>
+            {% if (order.rating) %}
+                {% set rating = order.rating.value %}
+            {% endif %}
+            {% set ratingWebmasterShow = app.user.hasRole('ROLE_WEBMASTER') and (order.status == constant('STATUS_SUBMITTED_TO_WEBMASTER', order) or order.status == constant('STATUS_COMPLETED', order)) %}
+            {% set ratingAdminShow = (app.user.hasRole('ROLE_SUPER_ADMIN') or app.user.hasRole('ROLE_WRITER_ADMIN')) and rating is defined %}
+            {% if ratingWebmasterShow or ratingAdminShow %}
+                <div class="ibox m-t-n">
+                    <div class="ibox-title">
+                        <h4>{{ 'like_dislike'|trans }}</h4>
+                    </div>
+                    <div class="ibox-content">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                {% if ratingWebmasterShow %}
+                                    <div class="m-t">
+                                        <i class="fa fa-thumbs-up rating rating-like rating-clickable {{ rating is defined and rating == true ? 'hovered' : '' }}"></i>
+                                        <i class="fa fa-thumbs-down rating rating-dislike rating-clickable {{ rating is defined and rating == false ? 'hovered' : '' }}"></i>
+                                    </div>
+                                {% endif %}
+                                {% if ratingAdminShow %}
+                                    <div class="m-t">
+                                        {% if rating == true %}
+                                            <i class="fa fa-thumbs-up rating rating-like hovered"></i>
+                                        {% elseif rating == false %}
+                                            <i class="fa fa-thumbs-down rating rating-dislike hovered"></i>
+                                        {% endif %}
+                                        {% if order.rating.comment %}
+                                            <p class="m-t-md"><em>{{ 'customer_comment'|trans }}:</em></p>
+                                            <div class="well">
+                                                {{ order.rating.comment }}
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                {% endif %}
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="info-box">
+                                    <div class="group">
+                                        <h3>
+                                            <span class="icon-svg icon-info">
+                                                <svg><use xlink:href="#info-icon"></use></svg>
+                                            </span>
+                                            <span class="info-box_title">{{ 'info-box_title'|trans({}, 'general') }}</span>
+                                        </h3>
+                                        <p class="info-box_content">{{ 'rate_info'|trans()}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        {% endif %}
+
+        <div class="ibox m-t-n hidden" id="declineExplanation">
+            <div class="ibox-content">
+                {{ form_start(decline_form) }}
+                    <div class="m-b-md">
+                        <h3 class="decline-title">{{ 'decline'|trans }}</h3>
+                    </div>
+                    <div class="m-b-md">
+                        <p>{{ 'decline_article'|trans }}</p>
+                        {{ form_widget(decline_form.comment) }}
+                    </div>
+                    <div class="m-b-md">
+                        <button type="button" class="btn btn-white" id="cancelDecline">{{ 'cancel'|trans }}</button>
+                        <button type="submit" class="btn btn-primary decline-button">{{ 'decline'|trans }}</button>
+                    </div>
+                {{ form_end(decline_form) }}
+            </div>
+        </div>
+
+        <div class="ibox m-t-n" id="declineControls">
+            <div class="ibox-content">
+                <a href="{{ path('copywriting_order_list', {'status': ['submitted_to_webmaster','completed']}) }}" class="btn btn-white" type="submit">{{ 'return'|trans }}</a>
+
+                {% if app.user.hasRole('ROLE_WEBMASTER') and order.status == constant('STATUS_COMPLETED', order) %}
+                    <button type="button" id="declineArticle" class="btn btn-danger decline-button">{{ 'decline'|trans }}</button>
+                {% endif %}
+            </div>
+        </div>
+        <div class="modal inmodal" id="dislikeModal" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="false" style="display: none;">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+
+                    </div>
+                    <div class="modal-body">
+                        <p>
+                            {{ 'dislike_reason'|trans }}
+                        </p>
+                        <textarea id="dislike-comment" maxlength="1000" rows="6" cols="55"></textarea>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-white rating-cancel" data-dismiss="modal">{{ 'cancel'|trans }}</button>
+                        <button onclick="changeRating()" type="button" type="button" class="btn btn-primary">{{ 'confirm'|trans }}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascript %}
+    {{ parent() }}
+    <script>
+        var orderId = {{ order.id }};
+        translations.errors = {
+            'empty_comment':"{{ 'empty_comment'|trans }}"
+        };
+    </script>
+    <script src="{{ asset('js/front/copywriting/article_show.js') }}"></script>
+    <script src="{{ asset('js/front/copywriting/article/decline.js') }}"></script>
+{% endblock %}
+

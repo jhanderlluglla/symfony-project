@@ -1,0 +1,45 @@
+{% extends 'layout.html.twig' %}
+
+{% trans_default_domain 'exchange_site' %}
+
+{% block title %}
+    {{ 'copywriting_site_title'|trans }}
+{% endblock %}
+
+{% block breadcrumb %}
+    {{ include('breadcrumb/copywriting.html.twig', {'childrens': ['copywriting.site_management'|trans({}, 'menu')]}) }}
+{% endblock %}
+
+{% block action %}
+    <div class="col-sm-6">
+        <div class="title-action">
+            <a href="{{ path('admin_copywriting_site_add') }}" class="btn btn-primary btn-sm"><strong>{{ 'add_new'|trans }}</strong></a>
+        </div>
+    </div>
+{% endblock %}
+{% block content %}
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox-content">
+                {{ form(additionalData['filter_form']) }}
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox">
+                <div class="ibox-content">
+                    <div class="pagerfanta"></div>
+                    <div id="copywriting_sites_collection">
+                        {{ include('copywriting_sites/filter.html.twig') }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block javascript %}
+{{ parent() }}
+    <script src="{{ asset('js/admin/jquery.twbsPagination.min.js') }}"></script>
+    <script src="{{ asset('js/front/copywriting/filter.js') }}"></script>
+{% endblock %}

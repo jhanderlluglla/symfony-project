@@ -1,0 +1,19 @@
+title: Articles du blog Ereferer
+add_title: Ajouter
+edit_title: Editer
+add_article_blog: Ajouter un article
+
+entity:
+    title: Titre
+    text: Texte
+    is_enable: Activé
+
+form:
+    submit: Soumettre
+    meta_keywords: Meta keywords
+    meta_description: Meta description
+
+table:
+    actions: Actions
+    edit: Editer
+    delete: Supprimer

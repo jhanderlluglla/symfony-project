@@ -1,0 +1,19 @@
+admin_settings:
+    path:     /
+    defaults: { _controller: UserBundle:Settings:index }
+
+admin_settings_add:
+    path:     /add
+    defaults: { _controller: UserBundle:Settings:add }
+
+admin_settings_edit:
+    path:     /edit/{id}
+    defaults: { _controller: UserBundle:Settings:edit }
+    requirements:
+        id: '\d+'
+
+admin_settings_delete:
+    path:     /delete/{id}
+    defaults: { _controller: UserBundle:Settings:delete }
+    requirements:
+        id: '\d+'

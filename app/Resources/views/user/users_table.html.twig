@@ -1,0 +1,73 @@
+{% trans_default_domain 'user' %}
+
+<table class="footable table table-striped">
+    <thead>
+    <tr>
+        <th>{{ 'table.information'|trans }}</th>
+        <th data-breakpoints="xs">{{ 'table.email'|trans }}</th>
+        <th data-breakpoints="xl">{{ 'table.phone'|trans }}</th>
+        <th data-breakpoints="xxxl">{{ 'table.zip'|trans }}</th>
+        <th data-breakpoints="xxl">{{ 'table.city'|trans }}</th>
+        <th data-breakpoints="xl">{{ 'table.company'|trans }}</th>
+        {% block projects_header %}
+        {% endblock %}
+        <th data-breakpoints="xl">{{ 'table.status'|trans }}</th>
+        <th data-breakpoints="all">{{ 'table.last_connection'|trans }}</th>
+        <th data-breakpoints="all">{{ 'table.registration'|trans }}</th>
+        <th data-breakpoints="s">{{ 'table.balance'|trans }}</th>
+        {% block additional_headers %}
+        {% endblock %}
+        <th>{{ 'table.action'|trans }}</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for entity in collection %}
+        <tr>
+            <td>
+                <b class="no-wrap">{{ 'table.fullname'|trans }}:</b><br>
+                <span {% if entity.fullName | length > 25 %}class="break-all"{% endif %}>{{ entity.fullName }}</span>
+                <br>{{ 'form.role'|trans }}:
+                {% if entity.hasRole(constant('CoreBundle\\Entity\\User::ROLE_WRITER')) %} {{ 'form.role_writer'|trans }} {% endif %}
+                {% if entity.hasRole(constant('CoreBundle\\Entity\\User::ROLE_WRITER_NETLINKING')) %} {{ 'form.role_writer_netlinking'|trans }} {% endif %}
+                {% if entity.hasRole(constant('CoreBundle\\Entity\\User::ROLE_WRITER_COPYWRITING')) %} {{ 'form.role_writer_copywriting'|trans }} {% endif %}
+                {% if entity.hasRole(constant('CoreBundle\\Entity\\User::ROLE_WEBMASTER')) %} {{ 'form.role_webmaster'|trans }} {% endif %}
+                {% if entity.hasRole(constant('CoreBundle\\Entity\\User::ROLE_WRITER_ADMIN')) %} {{ 'form.role_writer_admin'|trans }} {% endif %}
+                {% if entity.hasRole(constant('CoreBundle\\Entity\\User::ROLE_SUPER_ADMIN')) %} {{ 'form.role_superadmin'|trans }} {% endif %}
+            </td>
+            <td {% if entity.email | length > 25 %}class="break-all"{% endif %}>{{ entity.email }}</td>
+            <td class="{% if entity.phone | length > 20 %}break-all {% else %}no-wrap{% endif %}">{{ entity.phone }}</td>
+            <td {% if entity.zip | length > 10 %}class="break-all"{% endif %}>{{ entity.zip }}</td>
+            <td {% if entity.city | length > 25 %}class="break-all"{% endif %}>{{ entity.city }}</td>
+            <td {% if entity.company | length > 25 %}class="break-all"{% endif %}>{{ entity.company }}</td>
+
+            {% block projects_column %}
+            {% endblock %}
+            <td>
+                {% if entity.enabled %}
+                    {{ 'table.active'|trans }}
+                {% else %}
+                    {{ 'table.not_active'|trans }}
+                {% endif %}
+            </td>
+            <td>
+                {% if entity.lastLogin %}
+                    {{ entity.lastLogin|date("d/m/Y H:i:s") }}
+                {% endif %}
+            </td>
+            <td>
+                {% if entity.createdAt %}
+                    {{ entity.createdAt|date("d/m/Y H:i:s") }}
+                {% endif %}
+            </td>
+            <td>
+                <span id="balance{{ entity.id }}">{{ entity.balance }}€</span>
+            </td>
+            {% block additional_columns %}
+            {% endblock %}
+            <td>
+                {% include ':user:buttons.html.twig' %}
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>

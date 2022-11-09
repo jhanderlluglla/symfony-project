@@ -1,0 +1,113 @@
+user:
+    resource: "@UserBundle/Resources/config/routing/user.yml"
+
+static_page:
+    resource: "@UserBundle/Resources/config/routing/static_page.yml"
+    prefix: /static-page
+
+email_templates:
+    resource: "@UserBundle/Resources/config/routing/email_templates.yml"
+    prefix: /email-template
+
+category:
+    resource: "@UserBundle/Resources/config/routing/category.yml"
+    prefix: /category
+
+settings:
+    resource: "@UserBundle/Resources/config/routing/settings.yml"
+    prefix: /settings
+
+replenish_account:
+    resource: "@UserBundle/Resources/config/routing/replenish_account.yml"
+    prefix: /replenish-account
+
+directories_list:
+    resource: "@UserBundle/Resources/config/routing/directories_list.yml"
+    prefix: /directories-list
+
+message:
+    resource: "@UserBundle/Resources/config/routing/message.yml"
+    prefix: /message
+
+directory:
+    resource: "@UserBundle/Resources/config/routing/directory.yml"
+    prefix: /directory
+
+exchange_site:
+    resource: "@UserBundle/Resources/config/routing/exchange_site.yml"
+    prefix: /exchange-site
+
+exchange_site_private:
+    resource: "@UserBundle/Resources/config/routing/exchange_site_private.yml"
+    prefix: /exchange-site-private
+
+exchange_site_find:
+    resource: "@UserBundle/Resources/config/routing/exchange_site_find.yml"
+
+exchange_site_proposals:
+    resource: "@UserBundle/Resources/config/routing/exchange_site_proposals.yml"
+
+exchange_site_result_proposals:
+    resource: "@UserBundle/Resources/config/routing/exchange_site_result_proposals.yml"
+
+netlinking:
+    resource: "@UserBundle/Resources/config/routing/netlinking.yml"
+    prefix: /netlinking
+
+submissions:
+    resource: "@UserBundle/Resources/config/routing/submissions.yml"
+    prefix: /submissions
+
+project_comment:
+    resource: "@UserBundle/Resources/config/routing/project_comments.yml"
+    prefix: /project-comment
+
+backlinks:
+    resource: "@UserBundle/Resources/config/routing/backlinks.yml"
+    prefix: /backlinks
+
+## Affiliation ##
+admin_affiliation:
+    path:     /affiliation
+    defaults: { _controller: UserBundle:Affiliation:index }
+
+## Transaction ##
+admin_transaction:
+    path:     /transaction
+    defaults: { _controller: UserBundle:Transaction:index }
+
+copywriting:
+    resource: "@UserBundle/Resources/config/routing/copywriting.yml"
+    prefix: /copywriting
+
+invoice:
+    resource: "@UserBundle/Resources/config/routing/invoice.yml"
+    prefix: /invoice
+
+search:
+    path: /search
+    defaults: { _controller: UserBundle:Search:search }
+
+copywriting_sites:
+    resource: "@UserBundle/Resources/config/routing/copywriting_sites.yml"
+    prefix: /copywriting-sites
+
+pages:
+    resource: "@UserBundle/Resources/config/routing/pages.yml"
+    prefix: /pages
+
+article_blog:
+    resource: "@UserBundle/Resources/config/routing/article_blog.yml"
+    prefix: /article-blog
+
+plugin:
+    resource: "@UserBundle/Resources/config/routing/plugin.yml"
+    prefix: /plugin
+
+withdraw:
+    resource: "@UserBundle/Resources/config/routing/withdraw.yml"
+    prefix: /withdraw
+
+images:
+    resource: "@UserBundle/Resources/config/routing/admin_images.yml"
+    prefix: /images

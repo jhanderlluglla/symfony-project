@@ -1,0 +1,112 @@
+{% extends 'layout.html.twig' %}
+
+{% trans_default_domain 'copywriting' %}
+
+{% block title %}
+    {{ 'copywriting.statistics'|trans({}, 'menu') }}
+{% endblock %}
+
+{% block breadcrumb %}
+    {{ include('breadcrumb/copywriting.html.twig', {'childrens': [block('title')]}) }}
+{% endblock %}
+
+{% block content %}
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox-content clear">
+                {{ form_start(form) }}
+                    {{ form_errors(form) }}
+                    <div class="col-xs-6 col-sm-4 col-md-3 col-lg-2" >
+                        <div class="input-group date">
+                            {{ form_widget(form.year) }}
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+                        </div>
+                    </div>
+                <div class="col-md-2">
+                    <button type="submit" class="btn btn-primary btn">{{ 'filter'|trans }}</button>
+                </div>
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox">
+                <div class="ibox-content scroll-x">
+                    <table class="table table-striped orders-table">
+                        <thead>
+                            <tr>
+                                <th>
+                                    {{ 'copywriter'|trans }}
+                                </th>
+                                {% for month in 1..12 %}
+                                    <th>
+                                        {% set date = month ~ "/1/2000" %}
+                                        {{ date|localizeddate('medium', 'none', app.request.locale, null, 'LLL') }}
+                                    </th>
+                                {% endfor %}
+                                <th class="text-success">
+                                    {{ 'total'|trans }}
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {% for copywriter in statistics.copywriterEarnings %}
+                            <tr>
+                                <td>
+                                    <p><b>{{ 'full_name'|trans }}: </b>{{ copywriter.copywriterName }}</p>
+                                    <p><b>{{ 'joined'|trans }}: </b>{{ copywriter.copywriterRegisteredAt|localizeddate('medium', 'none', app.request.locale, null, 'LLLL YYYY') }}</p>
+                                </td>
+                                {% for month in 1..12 %}
+                                    <td>
+                                        <p></b>{{ copywriter.monthsCounts[month] is defined ? copywriter.monthsCounts[month]|round(2) : 0 }}</p>
+                                        <p><b>{{ copywriter.monthsEarnings[month] is defined ? copywriter.monthsEarnings[month]|round(2) : 0}} {{ 'euro'|trans }}</b></p>
+                                    </td>
+                                {% endfor %}
+                                <td>
+                                    <p class="text-success">{{ copywriter.totalCount is defined ? copywriter.totalCount|round(2) : 0 }}</p>
+                                    <p class="text-success"><b>{{ copywriter.totalEarning is defined ? copywriter.totalEarning|round(2): 0 }} {{ 'euro'|trans }}</b></p>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                        <tfoot class="bg-muted">
+                            <tr>
+                                <th>
+                                    {{ 'total'|trans }}
+                                </th>
+                                {% for month in 1..12 %}
+                                    <th>
+                                        <p>{{ statistics.monthsTotalCounts[month] is defined ? statistics.monthsTotalCounts[month]|round(2) : 0 }}</p>
+                                        <p><b>{{ statistics.monthsTotalEarnings[month] is defined ? statistics.monthsTotalEarnings[month]|round(2): 0 }} {{ 'euro'|trans }}</b></p>
+                                    </th>
+                                {% endfor %}
+                                <th>
+                                    <p class="text-success">{{ statistics.totalCount is defined ? statistics.totalCount|round(2) : 0 }}</p>
+                                    <p class="text-success"><b>{{ statistics.totalEarning is defined ? statistics.totalEarning|round(2): 0 }} {{ 'euro'|trans }}</b></p>
+                                </th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascript %}
+    <script>
+        $datepciker =  $(".input-group.date").datepicker({
+            format: " yyyy",
+            viewMode: "years",
+            minViewMode: "years"
+        });
+
+        if (!$('#statistics_year_filter_year').val()) {
+            $datepciker.datepicker("setDate", new Date());
+        }
+
+    </script>
+{% endblock %}

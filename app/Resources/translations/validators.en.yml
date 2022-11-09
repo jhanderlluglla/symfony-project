@@ -1,0 +1,25 @@
+exchange:
+    duplicate_site: This url is already used
+    credits:
+        less_then_max_credits: Credits must be less or equal then maximum credits
+    form_of_writing: At least 1 must be ticked
+
+copywriting_project:
+    recurrent_total:
+        higher_then_articles_number: Total number of articles must be higher then number of articles for period
+
+settings:
+    identificator_exists: Identificator is already in use
+
+withdraw_request:
+    choice_required: One of this fields is required
+    file_extension:  The extension of the file is invalid. Allowed extension is "pdf"
+    not_blank: This value should not be blank
+
+replenish:
+    insufficient:
+        paypal: Insufficient amount to pay by PayPal
+        wire_transfer: Insufficient amount to pay by Wire transfer
+
+article_blog:
+    url_path_error: The url path must contain only the domain

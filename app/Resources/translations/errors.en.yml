@@ -1,0 +1,32 @@
+no_token: Expected authorization token
+wrong_token: Wrong api key
+empty_data: Data is empty
+invalid_json: Invalid JSON
+invalid_data: Invalid data
+invalid_file_name: Invalid file name
+
+error_400:
+    title: Bad request
+    description: Bad request
+error_403:
+    title: Access denied
+    description: Sorry, you're not allowed to visit this page!
+error_404:
+    title: Page not found
+    description: Page not found
+error_500:
+    title: Internal Server Error
+    description: Internal Server Error
+
+errors:
+    enough_balance: You do not have enough money on your balance to submit a proposal on this site.
+    balance_insufficient: Your balance is insufficient to request a copy. (You have a balance of %balance% €.)
+    writing_ereferer:
+        fields: You must enter at least the URL 1 and Anchor 1 fields before proceeding.
+    writing_webmaster:
+        fields: You must enter at least the URL 1 and Anchor 1 fields before proceeding.
+    submit_your_article:
+        fields: You must enter at least the URL 1 and Anchor 1 fields before proceeding.
+    invalid_min_range: Min value must be less then max
+    invalid_max_range: Max value must be higher then min
+    invalid_url: Invalid url

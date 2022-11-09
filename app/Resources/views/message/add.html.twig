@@ -1,0 +1,49 @@
+{% extends 'layout.html.twig' %}
+
+{% trans_default_domain 'message' %}
+
+{% block title %}
+    {{ 'add_title'|trans }}
+{% endblock %}
+
+{% block breadcrumb %}
+    {{ include('breadcrumb/message.html.twig', {'childrens': [block('title')]}) }}
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-lg-8 col-lg-offset-2 animated fadeInRight">
+            <div class="mail-box-header">
+                <h2>
+                    {{ 'add_new'|trans }}
+                </h2>
+            </div>
+            <div class="mail-box">
+                {{ form_start(form) }}
+                <div class="mail-body">
+                    {{ form_errors(form) }}
+                    {{ form_row(form.recipient, {'attr': {'class' : 'chosen-select'}}) }}
+                    {{ form_row(form.subject) }}
+                    {{ form_row(form.content) }}
+                    <div class="horizontal-line m-t-sm">
+                        {{ form_row(form.sendMessage) }}
+                    </div>
+
+
+                </div>
+                <div class="mail-body text-right tooltip-demo">
+                        {{ form_widget(form.save) }}
+                        {{ form_widget(form.discard) }}
+                </div>
+                <div class="clearfix"></div>
+                {{ form_rest(form) }}
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block javascript %}
+    <script src="{{ asset('js/front/message.js') }}"></script>
+{% endblock %}

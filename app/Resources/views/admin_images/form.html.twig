@@ -1,0 +1,31 @@
+{% trans_default_domain 'admin_images' %}
+
+<div class="row">
+    <div class="col-lg-offset-2 col-lg-8">
+        <div id="admin_image_form">
+            {{ form_start(form) }}
+            {{ form_errors(form) }}
+            <div class="form-group">
+                <h3>{{ form_label(form) }}</h3>
+            </div>
+            {{ form_row(form.author) }}
+            {{ form_row(form.description) }}
+            <div class="form-group col-sm-12 col-sm-offset-3">
+                <input type="file" id="upload_image" required>
+                <label for="upload_image" class="btn btn-primary m-t-md">
+                    <i class="fa fa-folder-open"></i>
+                    {{ 'form.upload_image'|trans }}
+                </label>
+
+                {{ form_row(form.filename) }}
+                {{ form_row(form.url) }}
+
+                <div class="image-preview__wrap">
+                    <img id="image-preview" src="{{ asset('img/no_image_placeholder_2.png') }}" alt="downloaded image">
+                </div>
+
+            </div>
+            {{ form_end(form) }}
+        </div>
+    </div>
+</div>

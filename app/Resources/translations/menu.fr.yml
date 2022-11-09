@@ -1,0 +1,87 @@
+dashboard: Tableau de bord
+plugin: Plugin
+
+my_account:
+    main: Mon compte
+    transaction: Transactions
+    invoice: Factures
+    replenish_account: Recharger son compte
+    replenish_requests: Demande de rechargement
+    withdraw_earning: Retirer ses gains
+    withdraw_requests: Demande de retrait
+
+affiliation:
+    main: Affiliation
+    contract: Contrat
+
+
+user:
+    main: Utilisateurs
+    seos: Rédacteurs
+    webmasters: Clients
+    administrators: Administrateurs
+    statistic: Statistiques
+    add_new: Ajouter
+
+messages:
+    main: Messages
+    incoming: Reçus
+    outgoing: Envoyés
+    new: Nouveau message
+    list: Voir Emails
+
+profile: Profils
+comission: Commission
+earning: Gains
+email_notification: Notifications
+settings:
+    main: Réglages principaux
+    settings: Réglages
+    pages: Pages
+    static_page: Page statique
+    category: Categorie
+    email_templates: Modèle d'Email
+    directory: Annuaire
+
+netlinking:
+    main: Achat
+    annuaire: Annuaire
+    add: Créer un projet
+    directories_list: liste de référencement
+    current_projects: Projets en cours
+    projects_pending: Projets en attente
+    projects_pending_webmaster: Projets en attente
+    projects_not_started: Projets non démarrés
+    completed_projects: Projets terminés
+    get_new: Plus de projets
+    submissions: Soumissions
+    backlinks: Liens
+    search: Recherche
+
+exchange_site:
+    main: Ventes
+    management: Mes sites
+    private: Sites privés
+    find_sites: Achat rapide
+    proposals_received: Propositions reçues
+
+copywriting:
+    site_management: Gérer les sites
+    main: Rédaction
+    create: Créer un projet
+    pending: Projets en attente
+    waiting_take_projects: Projets en attente
+    in_progress: Projets en cours
+    completed: Projets terminés
+    submitted_to_admin: En cours de révision
+    submitted_to_webmaster_admin: En cours de révision par le webmaster
+    submitted_to_admin_webmaster: En cours de révision par l'admin
+    statistics: Statistiques
+    under_review: En cours de révision
+
+article_blog: Articles du blog
+
+admin_images:
+    main: Images
+
+logout: Se déconnecter

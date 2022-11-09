@@ -1,0 +1,30 @@
+{% extends 'layout.html.twig' %}
+
+{% trans_default_domain 'exchange_site' %}
+
+{% block title %}
+    {{ 'edit_copywriting_title'|trans }}
+{% endblock %}
+
+{% block breadcrumb %}
+    {{ include('breadcrumb/copywriting.html.twig', {'childrens': [
+        {'name': 'copywriting.site_management'|trans({}, 'menu'), 'path': 'admin_copywriting_sites'},
+        block('title')
+    ]}) }}
+{% endblock %}
+
+{% block content %}
+    {% include "copywriting_sites/form.html.twig" %}
+{% endblock %}
+
+{% block javascript %}
+    {{ parent() }}
+    <script src="{{ asset('js/admin/plugins/clipboard/clipboard.min.js') }}"></script>
+    <script src="{{ asset('js/front/exchange_site/exchange_site.js') }}"></script>
+    <script src="{{ asset('js/front/plugin/download_plugin.js') }}"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            getPrice();
+        })
+    </script>
+{% endblock %}

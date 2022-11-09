@@ -1,0 +1,12 @@
+{% extends 'netlinking/admin_current_item_without_checkbox.html.twig' %}
+
+{% trans_default_domain 'netlinking' %}
+{% form_theme changeWriterForm.createView() "form/theme.html.twig" %}
+
+{% block checkbox %}
+    {% if entity.containsType != constant('CoreBundle\\Entity\\DirectoriesList::CONTAINS_ONLY_BLOG') %}
+        <input type="checkbox" class="i-checks" value="{{ entity.id }}">
+    {% else %}
+        <div class="m-t-xl"></div>
+    {% endif %}
+{% endblock %}

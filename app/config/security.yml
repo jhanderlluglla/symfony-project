@@ -1,0 +1,87 @@
+# To get started with security, check out the documentation:
+# http://symfony.com/doc/current/security.html
+security:
+    encoders:
+        FOS\UserBundle\Model\UserInterface: bcrypt
+
+    role_hierarchy:
+        ROLE_WEBMASTER:          ROLE_USER
+        ROLE_WRITER_NETLINKING:  ROLE_USER
+        ROLE_WRITER_COPYWRITING: ROLE_USER
+        ROLE_WRITER:             [ROLE_WRITER_NETLINKING, ROLE_WRITER_COPYWRITING]
+        ROLE_WRITER_ADMIN:       ROLE_WRITER
+        ROLE_SUPER_ADMIN:        [ROLE_WRITER_ADMIN, ROLE_WEBMASTER]
+
+
+    # http://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded
+    providers:
+        fos_userbundle:
+            id: fos_user.user_provider.username_email
+
+
+    firewalls:
+        main:
+            pattern: ^/
+            form_login:
+                provider:       fos_userbundle
+                #csrf_token_generator: security.csrf.token_manager
+                login_path:     /login
+                use_forward:    false
+                check_path:     fos_user_security_check #/ login_check #/ fos_user_security_check
+                failure_path:   null
+                default_target_path: user_dashboard
+                always_use_default_target_path: false
+
+            remember_me:
+                secret:      "%secret%"
+                lifetime: 604800 # 1 week in seconds
+                path:     /
+
+            logout:
+                path: /logout
+                invalidate_session: false
+
+            anonymous:    true
+
+    access_control:
+        - { path: ^/login$, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/register, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/resetting, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/bo/exchange-site/update-partner, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/bo/article-blog/view, role: IS_AUTHENTICATED_ANONYMOUSLY }
+
+        - { path: ^/bo/user/modal, roles: [ROLE_USER] }
+        - { path: ^/bo/user, roles: [ROLE_SUPER_ADMIN, ROLE_WRITER_ADMIN] }
+        - { path: ^/bo/submissions, roles: [ROLE_WRITER_ADMIN] }
+        - { path: ^/bo/settings, roles: ROLE_SUPER_ADMIN }
+        - { path: ^/bo/static-page, roles: ROLE_SUPER_ADMIN }
+        - { path: ^/bo/category/list, roles: ROLE_WEBMASTER }
+        - { path: ^/bo/category, roles: ROLE_SUPER_ADMIN }
+        - { path: ^/bo/directory, roles: ROLE_SUPER_ADMIN }
+        - { path: ^/bo/pages, roles: ROLE_SUPER_ADMIN }
+        - { path: ^/bo/article-blog, roles: ROLE_SUPER_ADMIN }
+        - { path: ^/bo/exchange-site-proposals-task-impossible, roles: [ROLE_WRITER_COPYWRITING, ROLE_WRITER_NETLINKING] }
+
+        - { path: ^/bo/invoice, roles: ROLE_WEBMASTER }
+        - { path: ^/bo/replenish-account, roles: ROLE_WEBMASTER }
+        - { path: ^/bo/exchange-site, roles: [ROLE_WEBMASTER, ROLE_WRITER_ADMIN] }
+        - { path: ^/bo/exchange-proposal-delete, roles: [ROLE_WRITER_ADMIN] }
+        - { path: ^/bo/directories-list, roles: ROLE_WEBMASTER }
+        - { path: ^/bo/netlinking/job, roles: ROLE_WRITER_NETLINKING }
+        - { path: ^/bo/netlinking/add, roles: ROLE_WEBMASTER }
+        - { path: ^/bo/netlinking/nostart, roles: [ROLE_WEBMASTER, ROLE_WRITER_ADMIN] }
+        - { path: ^/bo/netlinking/waiting, roles: [ROLE_WEBMASTER, ROLE_WRITER_ADMIN] }
+        - { path: ^/bo/netlinking/finished, roles: [ROLE_WEBMASTER, ROLE_WRITER_ADMIN] }
+        - { path: ^/bo/copywriting/about, roles: ROLE_WEBMASTER }
+        - { path: ^/bo/copywriting-sites, roles: [ROLE_WEBMASTER, ROLE_WRITER_ADMIN] }
+        - { path: ^/bo/copywriting/free-article, roles: ROLE_WRITER_ADMIN }
+        - { path: ^/bo/copywriting/order/statistics, roles: [ROLE_WRITER_ADMIN] }
+        - { path: ^/bo/copywriting/project/create, roles: ROLE_WEBMASTER }
+        - { path: ^/bo/withdraw, roles: [ROLE_WEBMASTER, ROLE_WRITER_ADMIN] }
+        - { path: ^/bo/plugin, roles: ROLE_WEBMASTER }
+        - { path: ^/bo/email-notification, roles: ROLE_WEBMASTER }
+        - { path: ^/bo/endis, roles: ROLE_WRITER_ADMIN }
+
+        - { path: ^/bo/backlinks, roles: ROLE_WRITER_NETLINKING }
+
+        - { path: ^/bo/, role: IS_AUTHENTICATED_FULLY }

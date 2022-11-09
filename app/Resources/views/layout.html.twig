@@ -1,0 +1,150 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+
+    <link href="/css/admin/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/admin/font-awesome/css/font-awesome.css" rel="stylesheet">
+    <link href="/css/admin/plugins/chosen/bootstrap-chosen.css" rel="stylesheet">
+    <link href="/css/admin/plugins/cropper/cropper.min.css" rel="stylesheet">
+    <link href="/css/admin/plugins/iCheck/custom.css" rel="stylesheet">
+    <link href="/css/admin/plugins/datapicker/datepicker3.css" rel="stylesheet">
+    <link href="/css/admin/plugins/toastr/toastr.min.css" rel="stylesheet">
+    <link href="/css/admin/plugins/bootstrap-tagsinput/bootstrap-tagsinput.css" rel="stylesheet">
+    <link href="/css/admin/plugins/jasny/jasny-bootstrap.min.css" rel="stylesheet">
+    <link href="/css/admin/plugins/footable/footable.core.css" rel="stylesheet">
+    <link href="/css/admin/plugins/blueimp/css/blueimp-gallery.min.css" rel="stylesheet">
+    <link href="/css/admin/plugins/sweetalert/sweetalert.css" rel="stylesheet">
+    <link href="/css/admin/plugins/touchspin/jquery.bootstrap-touchspin.min.css" rel="stylesheet">
+    <link href="/css/admin/plugins/slick/slick.css" rel="stylesheet">
+    <link href="/css/admin/plugins/slick/slick-theme.css" rel="stylesheet">
+    <link href="/css/admin/animate.css" rel="stylesheet">
+    <link href="/css/admin/style.css" rel="stylesheet">
+    <link href="/css/admin/custom.min.css" rel="stylesheet">
+    <link href="/css/front/style.css" rel="stylesheet">
+
+    <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+    <script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
+
+{% endblock %}
+
+{% block javascript_main %}
+    {{ parent() }}
+    <!-- Mainly scripts -->
+    <script src="/js/admin/jquery-3.1.1.min.js"></script>
+    <script src="/js/admin/bootstrap.min.js"></script>
+    <script src="/js/admin/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <script src="/js/admin/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+
+
+
+    <!-- iCheck -->
+    <script src="/js/admin/plugins/iCheck/icheck.min.js"></script>
+
+    <!-- Chosen -->
+    <script src="/js/admin/plugins/chosen/chosen.jquery.js"></script>
+
+    <!-- Data picker -->
+    <script src="/js/admin/plugins/datapicker/bootstrap-datepicker.js"></script>
+
+    <script src="/js/admin/plugins/toastr/toastr.min.js"></script>
+
+    <script src="/js/admin/plugins/bootstrap-tagsinput/bootstrap-tagsinput.js"></script>
+    <script src="/js/admin/plugins/jasny/jasny-bootstrap.min.js"></script>
+
+    <script src="/js/admin/plugins/moment/moment.min.js"></script>
+    <script src="/js/admin/plugins/footable/footable.all.min.js"></script>
+    <script src="/js/admin/plugins/blueimp/jquery.blueimp-gallery.min.js"></script>
+    <script src="/js/admin/plugins/sweetalert/sweetalert.min.js"></script>
+    <script src="/js/front/plugin/sticky-table-headers.js"></script>
+
+    <!-- Custom and plugin javascript -->
+    <script src="/js/admin/inspinia.js"></script>
+    <script src="/js/admin/plugins/pace/pace.min.js"></script>
+    <script src="/js/front/plugin/resize-sensor.js"></script>
+    <script src="/js/front/plugin/sticky-sidebar.js"></script>
+    <script src="{{ asset('/js/main.js') }}"></script>
+    <script src="{{ asset('/js/front/minmax-validation.js') }}"></script>
+
+    <script type="text/javascript">
+      $body = $("body");
+        $(document).on({
+            ajaxStart: function () {
+                $body.addClass("loading");
+            },
+            ajaxStop: function () {
+                $body.removeClass("loading");
+            }
+        });
+
+        $(document).ready(function () {
+
+            $('.admin-search').chosen({
+                disable_search_threshold: 7,
+                width: "100%"
+            });
+
+            $('select.form-control[multiple!=multiple]')
+                .not( "#filters_ageCondition" ).not('.footable select')
+                .chosen({
+                    width: "100%",
+                    search_contains: true
+                })
+                .on('chosen:showing_dropdown', function (evt, params) {
+                    checkChosenPosition(evt);
+                });
+
+            $('.chosen-select[multiple!=multiple]').chosen({
+              width: "100%",
+              search_contains: true
+            });
+
+            $('.input-group.date').datepicker({
+                todayBtn: "linked",
+                keyboardNavigation: false,
+                forceParse: false,
+                calendarWeeks: true,
+                autoclose: true
+            });
+        });
+
+        var translations = {
+            modal: {
+                delete: {
+                    title: '{{ 'modal.delete.title'|trans({}, 'general') }}',
+                    text: '{{ 'modal.delete.text'|trans({}, 'general') }}',
+                    confirmButtonText: '{{ 'modal.delete.confirm_button_text'|trans({}, 'general') }}'
+                },
+                confirmation: {
+                    title: '{{ 'modal.confirmation.title'|trans({}, 'general') }}',
+                    text: '{{ 'modal.confirmation.text'|trans({}, 'general') }}',
+                    confirmButtonText: '{{ 'modal.confirmation.confirm_button_text'|trans({}, 'general') }}'
+                },
+                cancel: {
+                    text:  '{{ 'modal.cancel'|trans({}, 'general') }}',
+                },
+              error: '{{ 'modal.error'|trans({}, 'general') }}',
+              error_500: '{{ 'modal.error_500'|trans({}, 'general') }}',
+              invalid_json: '{{ 'invalid_json' | trans({}, 'errors') }}',
+            },
+            successCopied: '{{ 'copied_successfully'|trans({}, 'general') }}',
+            infoTitle: '{{ 'info-box_title' | trans({}, 'general') }}',
+            noResults: '{{ 'no_results' | trans({}, 'general') }}',
+            errors: {
+                writing_ereferer: {
+                    fields: '{{ 'errors.writing_ereferer.fields'| trans({}, 'errors') }}'
+                },
+                writing_webmaster: {
+                    fields: '{{ 'errors.writing_webmaster.fields'| trans({}, 'errors') }}'
+                },
+                submit_your_article: {
+                    fields: '{{ 'errors.submit_your_article.fields'| trans({}, 'errors') }}'
+                },
+                wrong_min_range: '{{ 'errors.invalid_min_range'| trans({}, 'errors') }}',
+                wrong_max_range: '{{ 'errors.invalid_max_range'| trans({}, 'errors') }}',
+                wrong_url: '{{ 'errors.invalid_url'| trans({}, 'errors') }}',
+            }
+        };
+
+    </script>
+{% endblock %}

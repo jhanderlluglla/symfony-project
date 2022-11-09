@@ -1,0 +1,15 @@
+article_blog:
+    path:     /
+    defaults: { _controller: UserBundle:ArticleBlog:index }
+
+article_blog_add:
+    path:     /add
+    defaults: { _controller: UserBundle:ArticleBlog:add }
+
+article_blog_edit:
+    path:     /edit/{id}
+    defaults: { _controller: UserBundle:ArticleBlog:edit }
+
+article_blog_delete:
+    path:     /delete/{id}
+    defaults: { _controller: UserBundle:ArticleBlog:delete }

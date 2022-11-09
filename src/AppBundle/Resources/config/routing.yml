@@ -1,0 +1,21 @@
+app_index:
+    path:     /
+    defaults: { _controller: AppBundle:Index:index }
+
+app_test_index:
+    path:     /test
+    defaults: { _controller: AppBundle:Test:index }
+
+app_test_test:
+    path:     /testing
+    defaults: { _controller: AppBundle:Test:test }
+
+app_affiliation:
+    path:     /affiliation/{hash}
+    defaults: { _controller: AppBundle:Index:affiliation }
+
+app_download_plugin:
+    path:     /download-plugin
+    defaults: { _controller: AppBundle:Index:downloadPlugin}
+    options:
+        expose: true

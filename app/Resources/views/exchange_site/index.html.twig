@@ -1,0 +1,122 @@
+{% extends 'layout.html.twig' %}
+
+{% trans_default_domain 'exchange_site' %}
+
+{% block title %}
+    {{ 'exchange_site.management'|trans({}, 'menu') }}
+{% endblock %}
+
+{% block breadcrumb %}
+    {{ include('breadcrumb/exchange_site.html.twig', {'childrens': [block('title')]}) }}
+{% endblock %}
+
+{% block stylesheets %}
+  {{ parent() }}
+  <link href="/css/admin/plugins/OverlayScrollbars/OverlayScrollbars.min.css" rel="stylesheet">
+{% endblock %}
+
+{% block javascript %}
+{{ parent() }}
+    {{ include('directories_list/translations.html.twig') }}
+    <script src="/js/admin/plugins/OverlayScrollbars/jquery.overlayScrollbars.min.js"></script>
+    <script src="/js/front/directory/jquery-throttle-debounce.js"></script>
+    <script src="/js/front/directory/jquery.stickyheader.js"></script>
+    <script src="{{ asset('js/front/directory/custom-popup.js') }}"></script>
+
+    <script type="text/javascript">
+        initFreeze();
+        var responseGlobalItems = {{ jsonBlogs|raw }};
+    </script>
+
+{% endblock %}
+
+{% block action %}
+    <div class="col-sm-6">
+        <div class="title-action">
+            <a href="{{ path('admin_exchange_site_add') }}" class="btn btn-primary"><strong>{{ 'add_new'|trans }}</strong></a>
+        </div>
+    </div>
+{% endblock %}
+{% block content %}
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox">
+                <div class="ibox-content">
+                    {% if collection.haveToPaginate %}
+                        <div class="pagerfanta">
+                            {{ pagerfanta(collection) }}
+                        </div>
+                    {% endif %}
+
+                    <div class="directories-table-wrap">
+                        <table class="table-freeze table table-striped" id="salesWebsiteTable">
+                            <thead>
+                                <tr>
+                                    {% embed 'exchange_site/details_th.html.twig'%}
+                                        {% block price %}
+                                            <th>{{ 'price'|trans }}</th>
+                                        {% endblock %}
+                                    {% endembed %}
+                                    <th class="text-right" >{{ 'table.action'|trans }}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for entity in collection %}
+                                    <tr>
+                                        {% embed 'exchange_site/details_td.html.twig'%}
+                                            {% block price %}
+                                                <td><b class="text-primary text-bigger no-wrap">{{ entity.credits }}€</b></td>
+                                            {% endblock %}
+                                        {% endembed %}
+                                        <td class="text-right action">
+                                            <div class="buttons-wrapper">
+                                                {% set state = (entity.active == constant('CoreBundle\\Entity\\StateInterface::ACTIVE_YES')) ? 'deactivate':'activate' %}
+                                                <a href="{{ path('admin_exchange_site_endis', {'id': entity.id}) }}" class="btn btn-warning state" title="{{ state|trans({}, 'list') }}">
+                                                    {% if entity.active == constant('CoreBundle\\Entity\\StateInterface::ACTIVE_YES') %}
+                                                        <i class="fa fa-eye-slash"></i><span>{{ 'deactivate'|trans({}, 'list') }}</span>
+                                                    {% else %}
+                                                        <i class="fa fa-eye"></i><span>{{ 'activate'|trans({}, 'list') }}</span>
+                                                    {% endif %}
+                                                </a>
+                                                <a href="{{ path('admin_exchange_site_edit', {'id': entity.id}) }}" class="btn btn-primary" title="{{ 'edit'|trans }}">
+                                                    <i class="fa fa-edit"></i>{{ 'edit'|trans }}
+                                                </a>
+                                                <a href="{{ path('admin_exchange_site_delete', {'id': entity.id}) }}" class="btn btn-danger delete" title="{{ 'delete'|trans }}">
+                                                    <i class="fa fa-trash"></i>{{ 'delete'|trans }}
+                                                </a>
+                                                <button class="btn btn-default toggle-details" data-key="{{ loop.index0 }}" data-toggle="modal" data-target="#details" title="{{ 'table.show_details'|trans }}">
+                                                    <i class="fa fa-list-alt"></i>{{ 'table.show_details'|trans }}
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    {% if collection.haveToPaginate %}
+                        <div class="pagerfanta">
+                            {{ pagerfanta(collection) }}
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade moreDetail" id="details" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title"></h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body"></div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">{{ 'modal.close'|trans({}, 'general') }}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+

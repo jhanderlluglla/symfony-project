@@ -1,0 +1,116 @@
+{% trans_default_domain 'netlinking' %}
+
+<table class="footable table table-striped toggle-arrow-tiny">
+    <thead>
+    <tr>
+        <th width="200px">{{ 'table.task'|trans }}</th>
+        <th data-breakpoints="m">{{ 'table.to_do'|trans }}</th>
+        <th data-breakpoints="m">{{ 'table.submitted_on'|trans }}</th>
+        <th data-breakpoints="l">{{ 'table.comment'|trans }}</th>
+        <th data-breakpoints="s">{{ 'table.status'|trans }}</th>
+        <th width="150px" data-sortable="false" class="action">{{ 'table.action'|trans }}</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for task in tasks %}
+        <tr data-task-id="{{ task.id }}"
+                {% if task.job is not null %}
+                    data-job-id="{{ task.job.id }}"
+                {% endif %}
+        >
+            <td><a class="underlined-link-r" href="{{ task.taskUrl }}" target="_blank">{{ task.taskUrl }}</a></td>
+            <td><b>{{ task.startAt|date('d/m/Y') }}</b></td>
+
+            <td>
+                {% if task.job is not null %}
+                    <b>{{ task.job.takeAt|date('d/m/Y') }}</b>
+                {% endif %}
+            </td>
+            <td class="break-word">
+                {% if task.job is not null %}
+                    {% if task.job.netlinkingProjectComment is not null  %}
+                        <div class="hidden j-comment-content">{{ task.job.netlinkingProjectComment.comment|nl2br }}</div>
+                        <button class="underlined-link btn-link j-netlinking-comment_show">{{ 'table.show_comment'| trans }}</button>
+                    {% endif %}
+                    {% if task.job.exchangeProposition is not null %}
+                        {{ exchange_proposition_comment(task.job.exchangeProposition) }}
+                    {% endif %}
+                {% endif %}
+            </td>
+            <td>
+                {% if task.job is not null %}
+                    {% if task.job.status == constant('CoreBundle\\Entity\\Job::STATUS_COMPLETED') %}
+                        {% if task.job.directoryBacklink.status == constant('CoreBundle\\Entity\\DirectoryBacklinks::STATUS_NOT_FOUND_YET') %}
+                            <i class="status-marker not_found_yet"></i>
+                            <span>{{ 'statuses.not_found_yet'|trans }}</span><br>
+                        {% endif %}
+                        {% if task.job.directoryBacklink.status == constant('CoreBundle\\Entity\\DirectoryBacklinks::STATUS_FOUND') %}
+                            <i class="status-marker found"></i>
+                            <span>{{ 'statuses.found'|trans }} <br>
+                                <a class="underlined-link" target="_blank" href="{{ task.job.directoryBacklink.backlink }}">{{ 'table.see_link'|trans }}</a>
+                            </span><br>
+                        {% endif %}
+                        {% if task.job.directoryBacklink.status == constant('CoreBundle\\Entity\\DirectoryBacklinks::STATUS_NOT_FOUND') %}
+                            <i class="status-marker not_found"></i>
+                            <span>{{ 'statuses.not_found'|trans }}</span><br>
+                        {% endif %}
+                        {% if task.job.exchangeProposition is not null %}
+                            <i class="status-marker {{ exchange_proposition_status_class(task.job.exchangeProposition) }}"></i>
+                            <span>
+                                {{ exchange_proposition_status_text(task.job.exchangeProposition) }}
+                            </span><br>
+                        {% endif %}
+                    {% else %}
+                        <i class="status-marker {{ task.job.status }}"></i>
+                        <span>{{ ('statuses.' ~ task.job.status) | trans }}</span><br>
+                    {% endif %}
+                {% else %}
+                    <i class="status-marker waiting"></i>
+                    <span>{{ 'statuses.waiting'|trans }}</span>
+                {% endif %}
+            </td>
+            <td class="text-right action">
+                <div class="buttons-wrapper">
+                    {% if app.user.isAdmin %}
+                        {% if task.job is not null %}
+                            {% if task.job.status in [constant('CoreBundle\\Entity\\Job::STATUS_COMPLETED'), constant('CoreBundle\\Entity\\Job::STATUS_IMPOSSIBLE')] %}
+                                <button data-action="rejectTask" class="btn btn-danger"><i class="fa fa-eraser"></i> {{ 'table.reject_task'|trans }}</button>
+                            {% endif %}
+                        {% endif %}
+                        <button class="btn btn-warning js_show_task"><i class="fa fa-eye"></i> {{ 'table.see_task'|trans }}</button>
+                    {% endif %}
+                    {% if task.job is not null %}
+                        {% if app.user.isWebmaster %}
+                            {% set exchangeProposition = task.job.exchangeProposition %}
+                            {% if exchangeProposition is not null %}
+                                {% include 'exchange_site_result_proposals/actions.html.twig' %}
+                            {% endif %}
+                            <div class="btn-group">
+                                <button data-toggle="dropdown" class="btn btn-default dropdown-toggle">
+                                    <i class="fa fa-chevron-down" aria-hidden="true"></i>
+                                    <i class="fa fa-chevron-up" aria-hidden="true"></i>
+                                    {{ 'table.show_more'|trans }}
+                                </button>
+                                <ul class="dropdown-menu raiting">
+                                    <li>
+                                        <button class="btn-reset rating-like {% if task.job.rating is not null and task.job.rating %} {{ 'hovered' }}{% endif %}">
+                                            <i class="fa fa-thumbs-up"></i>
+                                            {{ 'table.like'|trans }}
+                                        </button>
+                                    </li>
+                                    <li>
+                                        <button class="btn-reset rating-dislike {% if task.job.rating is not null and not task.job.rating %} {{ 'hovered' }}{% endif %}">
+                                            <i class="fa fa-thumbs-down"></i>
+                                            {{ 'table.dislike'|trans }}
+                                        </button>
+                                    </li>
+                                </ul>
+                            </div>
+                        {% endif %}
+                    {% endif %}
+                </div>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>

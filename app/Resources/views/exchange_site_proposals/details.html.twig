@@ -1,0 +1,15 @@
+{% trans_default_domain 'exchange_site_proposals' %}
+
+<p>{{ 'modal.links_perform'|trans }}</p>
+<ul>
+    {% for links in entity.checkLinks %}
+        <li>{{ 'modal.link_to'|trans({'%url%': links.url,'%anchor%': links.anchor}) }}</li>
+    {% endfor %}
+</ul>
+
+<h4>{{ 'modal.instructions'|trans }}:</h4>
+{% if entity.instructions %}
+    <p>{{ entity.instructions|nl2br }}</p>
+{% endif %}
+<p>{{ 'modal.images'|trans }}: {{ entity.exchangeSite.minImagesNumber }}</p>
+<p>{{ 'modal.words'|trans }}: {{ entity.exchangeSite.minWordsNumber }}</p>

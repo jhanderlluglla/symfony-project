@@ -1,0 +1,119 @@
+title: liste de référencement
+add_title: Ajouter une nouvelle liste de référencement
+edit_title: Modifier une liste de référencement
+
+add_new: Ajouter
+edit: Modifier le nom
+edit_list: Modifier la liste
+duplicate_list: Dupliquer la liste
+delete: Supprimer
+actions: Actions
+to: à
+
+table:
+    name: Nom
+    words_count: Nombre de mots
+    created: Créée
+    directories: Annuaires / Blogs
+    action: Action
+    site: Site
+    categories: Catégories
+    tags: Tags
+    category: Catégorie
+    age: Age
+    semrush_traffic: Trafic Semrush
+    trust_flow: Trust flow
+    referring_domains: Domaines référents
+    preferences: Préférences
+    words: Mots
+    links: Liens
+    images: Images
+    accept_subdomains: Accepte sous-domaines
+    reject_subdomains: Refuse sous-domaines
+    legal: Site avec mentions légales
+    dont_legal: Site sans mentions légales
+    blog: Blog
+    directory: Annuaire
+    validation_rate: Taux de validation
+    validation_time: Temps pour valider
+    plugin: Plugin
+    metrics: Metrics
+    publication-requirements: Critères de publication
+
+name: Nom
+save: Enregistrer
+form:
+    moz: Moz
+    google: Google
+    add_category: Ajouter une catégorie
+    remove_category: Supprimer
+    directories: Annuaires
+    blogs: Blogs
+    price: Prix
+    show_filters: Afficher les filtres
+    hide_filters: Cacher les filtres
+    items_found: Résultat(s)
+filter:
+    button: Filtrer
+    directories_list:
+        label: Liste d'annuaires
+        all: Tous
+    categories: Catégories
+    sorting:
+        label: Trier par
+        no_sorting: Pas de tri
+        tariff_group:
+            label: Tarif
+            asc: Tarif croissant
+            desc: Tarif décroissant
+        page_rank_group:
+            label: Page rank
+            asc: Page rank croissant
+            desc: Page rank décroissant
+        age_group:
+            label: Age
+            asc: Age croissant
+            desc: Age décroissant
+        trust_flow_group:
+            label: Trust flow
+            asc: Trust flow croissant
+            desc: Trust flow décroissant
+        domain_referrals_group:
+            label: Nombre domaines référents
+            asc: Nombre domaines référents croissant
+            desc: Nombre domaines référents décroissant
+        validation_time_group:
+            label: Temps de validation
+            asc: Temps de validation croissant
+            desc: Temps de validation décroissant
+        validation_rate_group:
+            label: Taux de validation
+            asc: Taux de validation croissant
+            desc: Taux de validation décroissant
+    tariff: Tarif
+    trust_flow: Trust flow
+    age: Âge
+    validation_time: Temps de validation
+    validation_rate: Taux de validation
+    total_backlink: Backlinks totaux
+    accept_inner_pages: Je souhaite référencer un sous-domaine ou une page profonde
+    accept_legal_info: Je n'ai pas de mentions légales sur mon site
+    min_words_count: Nombre de mots minimum souhaités
+    min_words_count_tooltip: "En complétant ce champ, le prix indiqué sera ajusté en fonction du nombre de mots supplémentaires que nous aurons à écrire, au prix de %redaction_price% &euro;/100 mots. Ainsi, si vous demandez 300 mots en minimum, et l'annuaire n'exige que 200 mots, un complément de %redaction_price_euro% vous sera appliqué pour les 100 mots supplémentaires. <br/>Laissez vide pour avoir les soumissions au tarif minimum."
+errors:
+    writing_ereferer:
+        fields: Vous devez mentionner votre URL et l'ancre souhaitée afin de poursuivre.
+    writing_webmaster:
+            fields: Vous devez mentionner votre URL et l'ancre souhaitée afin de poursuivre.
+    submit_your_article:
+        fields: Vous devez mentionner votre URL et l'ancre souhaitée afin de poursuivre.
+    invalid_min_range: La valeur minimale ne peut pas être inférieur à la maximale !
+    invalid_max_range: La valeur maximale doit être supérieur à la minimale !
+    get_price_error: Le prix n'a pas changé.
+    unsaved: Vous n'avez pas sauvegardé votre liste. Voulez-vous la sauvegarder avant de quitter la page ?
+age:
+    archive: Âge (Archive.org)
+    whois: Âge (Whois)
+    year: Année(s)
+    month: Mois
+    day: Jour(s)

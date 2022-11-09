@@ -1,0 +1,37 @@
+framework:
+    workflows:
+        copywriting_order:
+            type: 'state_machine'
+            marking_store:
+                type: 'single_state'
+                arguments:
+                    - 'status'
+            supports:
+                - CoreBundle\Entity\CopywritingOrder
+            places:
+                - waiting
+                - progress
+                - submitted_to_admin
+                - submitted_to_webmaster
+                - declined
+                - impossible
+                - completed
+            transitions:
+                take_to_work:
+                    from: waiting
+                    to: progress
+                submit_to_admin:
+                    from: [progress, declined]
+                    to: submitted_to_admin
+                submit_to_webmaster:
+                    from: submitted_to_admin
+                    to: submitted_to_webmaster
+                complete:
+                    from: submitted_to_webmaster
+                    to: completed
+                impossible:
+                    from: [progress, declined]
+                    to: impossible
+                decline:
+                    from: [submitted_to_admin, submitted_to_webmaster, completed]
+                    to: declined

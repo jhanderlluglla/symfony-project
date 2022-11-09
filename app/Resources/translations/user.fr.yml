@@ -1,0 +1,190 @@
+title: Profil de l'utilisateur
+add_title: Ajouter un nouvel utilisateur
+edit_title: Modifier l'utilisateur
+title_email_notification: Notification par Emaeil
+title_comission: Commission
+title_comission_detail: Détails de la commission
+get_credits: Recharger son compte
+credits_exp: Vos crédits disponibles
+save: Enregistrer
+
+title_seo: Liste des rédacteurs
+title_webmaster: Liste des clients
+title_administrator: Liste des administrateurs
+title_writer_admin: Liste des administrateurs/rédacteurs
+title_writer_netlinking: Liste des référenceurs
+title_writer_copywriting: Liste des rédacteurs partie rédaction
+title_reset: Réinitialiser
+title_reset_password: Réinitialiser le mot de passe
+title_search: Résultat de la recherche
+
+warning_payment_message: Vous allez recevoir la liste des rédacteurs ayant des gains. Leur solde va cependant passer à 0.
+
+add_new: Ajouter
+action:
+    title: Action
+    send_message: Envoyer un message
+    list_projects: Liste des projets
+    list_submissions: Liste des soumissions
+    edit_password: Modifier le mot de passe
+    modify_balance: Modifier le solde
+    edit_user: Modifier
+    delete: Supprimer
+
+user_settings:
+    notification_zero_amount: Recevoir un email lorsque votre solde est épuisé.
+    notification_project_finished: Recevoir un email lorsque l'un de ses projets est terminé.
+    notification_backlink_found: Recevoir un email quotidien mentionnant les nouveaux liens trouvés.
+    notification_new_prop: Recevoir un email lorsque vous recevez une proposition de publication d'article.
+    notification_mod_prop: Recevoir un email lorsqu'un partenaire demande une modification à son article.
+    notification_site_disabled: Recevoir un email si l'un de mes sites est désactivé de la liste de vente.
+
+registration:
+    full_name: Nom complet
+    phone: Téléphone
+    address: Adresse
+    zip: Code postal
+    company: Entreprise
+    web_site: Votre site web
+    country: Pays
+    city: Ville
+    avatar: Photo/Avatar
+    words_per_day: Mots par jour
+    country_placeholder: Pays
+    work_language: Langue de travail
+    vat_number: IVA Nombre
+    conditions: Je suis d'accord avec le CGU
+
+profile:
+    settings:
+        notification_zero_amount: Recevoir un email lorsque votre solde est épuisé.
+        notification_netlinking_project_finished: Recevoir un email lorsque l'un de ses projets de référencement est terminé.
+        notification_copywriting_project_finished: Recevoir un email lorsque l'un de ses projets de rédaction est terminé.
+        notification_backlink_found: Recevoir un email quotidien mentionnant les nouveaux liens trouvés.
+        notification_new_proposal: Recevoir un email lorsque vous recevez une proposition de publication d'article.
+        notification_change_proposal: Recevoir un email lorsqu'un partenaire demande une modification à son article.
+        notification_article_ready: Recevoir un email quand un article doit être relu.
+        notification_start_new_netlinking_project: Recevoir un email lorsqu'un partenaire lance un nouveau projet de référencement.
+        notification_new_message: Recevoir un email lorsque je reçois un nouveau message sur Ereferer.
+        notification_new_proposal_reminder:
+            part_1: 'me rappeler la proposition tous les '
+            part_2: ' jour(s)'
+
+user_data:
+    account_type: Type de compte
+    balance: Balance
+    billing: Facturation
+    submission: soumission
+
+account_type:
+    seo: Rédacteur
+    webmaster: Client
+    administrator: Administrateur
+    none: Aucun
+
+edit: Modifier son profil
+change_password: Changer mon mot de passe
+
+modal:
+    save: Enregistrer
+    close: Fermer
+    error:
+        header: Erreur
+        user_not_found: Utilisateur non trouvé
+    send_message:
+        title: Envoyer un message
+    edit_password:
+        title: Modifier le mot de passe
+    modify_balance:
+        title: Modifier le solde
+
+table:
+    information: Information
+    action: Action
+    fullname: Nom complet
+    email : Email
+    phone: Téléphone
+    zip: Code postal
+    city: Ville
+    company: Entreprise
+    projects: Projet(s)
+    status: Statut
+    statistics: Statistiques
+    last_connection: Dernière connexion
+    registration: Inscription
+    active: Actif
+    not_active: Inactif
+    balance: Solde
+    seo:
+        total_month_passed: Total month passed
+        total_current_month: Total current month
+        links_found: Liens trouvés
+        links_pending: Liens en attente
+        links_not_found: Liens non trouvés
+        submission: soumissions
+        connections: connexion(s)
+        redaction_likes: "J'aime reçu"
+        were_loved: '%texts% ont été aimés par %customers% clients différents'
+        were_not_liked: "%texts% n'ont pas été aimés par %customers% clients différents"
+        mention: Mention
+        remuneration: Rémunération
+        count_projects: "%current% in progress / %completed% completed"
+        netlinking_project: référencement
+        copywriting_project: rédaction
+        earning_bonus: Gagner des bonus
+        netlinking_likes_bonus: Référencement aime les bonus
+        netlinking_backlinks_bonus: Référencement backlinks bonus
+        copywriting_rating_bonus: Bonus de rédaction
+
+form:
+    balance: Balance
+    role: Rôle
+    role_superadmin: Super admin
+    role_writer_admin: Writer admin
+    role_writer_netlinking: Rédacteur référencement
+    role_writer_copywriting: Rédacteur partie rédaction
+    role_writer: Rédacteur
+    role_webmaster: Client
+    spending: Prix par soumission
+    affiliation_tariff: Rémunération de l'affiliation
+    spending_helper: 'Mettre ce champs sur "0" pour mettre le taux par défaut de : %spending%'
+    affiliation_tariff_helper: 'Mettre ce champ sur "0" pour mettre le taux par défaut de : %affiliation_tariff%'
+    trusted: Webmaster de confiance
+    project_hidden_editor: Projets cachés
+    bonus_projects: Projets bonus
+    copywriting_rate: Rémunération partie rédaction
+    writer_directory: Annuaire
+    writer_writing: Rédaction
+    edit_password:
+        button: Modifier le mot de passe
+    show_affiliation: Afficher le menu d'affiliation
+    amount_wire_transfer: Montant du virement bancaire
+    discount_rate: Discount rate
+
+comission:
+    summary: Résumé de vos soumissions sur les 12 derniers mois
+    validated_links: Liens validés
+    earnings: Gains
+    action: Action
+    details: Détails
+    period: 'Détails des gains. Période : %%month%%/%%year%%'
+    directory: Annuaire
+    validated_site: Site validé
+    gain : Gains
+    date: Date
+
+resetmessage:
+    emailsent: Un e-mail a été envoyé.
+    aboutemail: Il contient un lien sur lequel il vous faudra cliquer pour réinitialiser votre mot de passe.
+    note: Remarque
+    noteabouttime: Vous ne pouvez demander un nouveau mot de passe que toutes les
+    hours: heures.
+    checkspam: Si vous ne recevez pas un email, vérifiez votre dossier spam ou essayez à nouveau.
+    user_not_found: Désolé, aucun utilisateur de notre base de données n'utilise cet email!
+
+resetrequest:
+    forgot_password: Mot de passe oublié
+    enter_email: Merci d'indiquer l'adresse Email utilisée afin que vous puissions vous envoyer votre mot de passe.
+
+validation:
+    vat_number: Vous devez mettre le numéro de TVA pour le pays européen

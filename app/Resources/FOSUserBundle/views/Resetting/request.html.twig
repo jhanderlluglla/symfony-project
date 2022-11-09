@@ -1,0 +1,10 @@
+{% extends "@FOSUser/layout.html.twig" %}
+
+{% block title %}Ereferer | {{ 'title_reset_password'|trans({},'user')  }}{% endblock %}
+
+{% block class_for_form %}centered animated fadeInDown {% endblock %}
+
+
+{% block fos_user_content %}
+  {% include "@FOSUser/Resetting/request_content.html.twig" %}
+{% endblock fos_user_content %}

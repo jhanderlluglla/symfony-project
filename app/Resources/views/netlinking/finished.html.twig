@@ -1,0 +1,13 @@
+{% trans_default_domain 'netlinking' %}
+
+{% if collection|length == 0 %}
+    <div class="no_results">
+        {{ 'no_results'| trans({}, 'general') }}
+    </div>
+{% else %}
+    <div class="project-wrapper">
+        {% for entity in collection %}
+            {% include 'netlinking/card/card.html.twig' %}
+        {% endfor %}
+    </div>
+{% endif %}

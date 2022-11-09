@@ -1,0 +1,73 @@
+{% trans_default_domain 'exchange_site' %}
+
+<td>
+    <div class="main-site-info">
+        {% if app.user.hasRole(constant('CoreBundle\\Entity\\User::ROLE_SUPER_ADMIN')) or app.user.id == entity.user.id %}
+            <a  class="underlined-link" href="{{ entity.url }}" target="_blank">{{ entity.url }}</a><br>
+        {% else %}
+            <a  class="underlined-link" href="{% if entity.hideUrl %}#{% else %}{{ entity.url }} {% endif %}" target="_blank">{{ entity.hiddenUrl }}</a><br>
+        {% endif %}
+        <span class="directories-list_badge blogs-badge"><b>{{ 'table.categories'|trans }}:</b> {{ entity.categoriesFormatted }}</span><br>
+        <button class="btn btn-link toggle-details" data-key="{{ loop.index0 }}" data-toggle="modal" data-target="#details" >
+            <span class="show-detail">{{ 'table.show_details'|trans }}</span>
+            <span class="hide-detail">{{ 'table.hide_details'|trans }}</span>
+            <i class="fa fa-chevron-up"></i>
+            <i class="fa fa-chevron-down"></i>
+        </button>
+    </div>
+</td>
+{% block price %}
+{% endblock %}
+<td class="publication-age">
+    <p>{{ 'form.age_whois'|trans({},'exchange_site_find') }}:<br>
+        {{ entity.bwaAge|age }}</p>
+    <p>{{ 'form.age_archive_org'|trans({},'exchange_site_find') }}:<br>
+        {{ entity.archiveAge|age }}</p>
+</td>
+<td>{{ entity.semrushTraffic }}</td>
+<td>{{ entity.majesticTrustFlow }}</td>
+<td>{{ entity.majesticRefDomains }}</td>
+<td>{{ entity.mozDomainAuthority }}</td>
+<td>
+    <ul class="preferences">
+        <li>
+            <div class="preferences-item">
+                <span class="preferences-item__title">{{ 'table.words'|trans }}:</span>
+                {% if filterWords is defined and filterWords is not empty and entity.minWordsNumber < filterWords %}
+                    {% set words = filterWords %}
+                {% else %}
+                    {% set words = entity.minWordsNumber %}
+                {% endif %}
+                <b class="preferences-item__value">{{ words }}</b>
+            </div>
+        </li>
+        <li>
+            <div class="preferences-item">
+                <span class="preferences-item__title">{{ 'table.links'|trans }}:</span>
+                <b class="preferences-item__value">{{ entity.maxLinksNumber }}</b>
+            </div>
+        </li>
+        <li>
+            <div class="preferences-item">
+                <span class="preferences-item__title">{{ 'table.images'|trans }}:</span>
+                <b class="preferences-item__value">
+                    <span>{{ entity.minImagesNumber }}</span>
+                    <span>{{ 'to'|trans }}</span>
+                    <span>{{ entity.maxImagesNumber }}</span>
+                </b>
+            </div>
+        </li>
+        <li>
+            <div class="preferences-item">
+                <span class="preferences-item__title">{{ 'table.plugin'|trans }}:</span>
+                {% if entity.hasPlugin(constant('CoreBundle\\Entity\\ExchangeSite::EXCHANGE_TYPE')) %}
+                    <b class="preferences-item__value glyphicon glyphicon-ok text-info" aria-hidden="true"></b>
+                {% else %}
+                    <b class="preferences-item__value glyphicon glyphicon-remove text-danger" aria-hidden="true"></b>
+                {% endif %}
+            </div>
+        </li>
+    </ul>
+</td>
+{% block additionalDetailes %}
+{% endblock %}

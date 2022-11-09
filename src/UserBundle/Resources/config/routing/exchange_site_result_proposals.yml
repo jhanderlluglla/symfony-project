@@ -1,0 +1,21 @@
+user_exchange_site_result_proposals:
+    path:     /exchange-site-result-proposals
+    defaults: { _controller: UserBundle:ExchangeSiteResultProposals:index }
+
+user_exchange_site_result_proposals_modal:
+    path:     /exchange-site-result-proposals-modal
+    defaults: { _controller: UserBundle:ExchangeSiteResultProposals:modal }
+    options:
+        expose: true
+
+user_exchange_site_result_proposals_modification:
+    path:     /exchange-site-result-proposals-modification
+    defaults: { _controller: UserBundle:ExchangeSiteResultProposals:modification }
+    options:
+        expose: true
+
+user_exchange_site_result_proposals_vote:
+    path:     /exchange-site-result-proposals-vote
+    defaults: { _controller: UserBundle:ExchangeSiteResultProposals:vote }
+    options:
+        expose: true

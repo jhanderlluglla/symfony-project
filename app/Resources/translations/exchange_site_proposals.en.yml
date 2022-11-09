@@ -1,0 +1,131 @@
+title: Proposals received
+
+proposals_received: "Proposals received: %result% result(s) found."
+main_text: You have 15 days to accept, refuse, or request a modification of an article. After this period of 15 days, your site will be "inactive" and can no longer receive proposals. You will need to reactivate it on
+this_page: this page
+
+modal:
+    close: Close
+    error: Error
+    site_error: Proposal not found
+    access_denide: Access denied
+    links_perform: Links to perform
+    link_to: "A link to: %url% with the following anchor: %anchor%"
+    instructions: Reminder of the instructions of your site
+    images: Minimum number of images
+    words: Minimum number of words
+    validate: Validate the publication
+    accept:
+        title: Accept the proposal
+        attention: Attention, by accepting the article, you agree to publish it within 24 hours!
+        continue: Would you like to continue?
+        button: Accept
+    validation:
+        title: Validate the publication of the article
+        download: Download
+        main_message: You have agreed to publish this article, you can now download it as a document
+        url_page: URL of the page where the article was published
+        button: Validate
+        wait: Please wait, the article is under verification and validation...
+        errors:
+            url: Please enter the URL field
+            url_invalid: URL must begin with https or http
+            domains: "The domain of this URL <b>%user_url%</b> does not match the site URL <b>%site_url%</b>"
+            none_access: Can not access the URL
+            link_not_found: "The link(s) <b>%link%</b> was not found on this page"
+        success:
+            publication_validated: The publication has been validated, you balance have been increaced with %money% €.
+            done: Success
+    refuse:
+        title: Please indicate the reason for the refusal
+        button: Send
+        reason: Reason
+        been_refused: The text has been refused
+    modification:
+        title: Change request
+        comment: Comment
+        button: Send
+        amendment_request_sent: An amendment request has been sent to the editor
+        change_article:
+            success: We updated your article
+            error: Error with updating your article please do it manually
+        success:
+            done: Success
+            change_request_taken: The change request has been taken into account
+    modification_refuse:
+        title: I refuse to make the change
+        text: Please tell the partner why you do not want to make the requested changes
+        button: Send
+        reason: Reason
+        been_refused: Your refusal has been taken into account
+        checkbox: Definitive refusal? (The exchange will be closed and the webmaster will not be able to answer you anymore)
+    details:
+        title: Writing guidelines
+    impossible:
+        error: Something went wrong while making impossible, please try again
+        success: Successfully was changed at impossible status
+
+table:
+    sites: Sites
+    url: URL
+    win: To win
+    characteristics: Characteristics
+    story: Story
+    action: Action
+    partner_asked: The partner asked you to write the article
+    words: Words
+    images: Images
+    links: Links
+    editorial_guidelines: Editorial guidelines
+    see_article: See article
+    have_days: You still have %days% day(s) to answer.
+    date_of_published: Date of published
+    modification:
+        title: Requests for changes received
+        url: URL of the article
+        changes: Changes to be made
+        action: Action
+        made_correct: I made the correction
+        refuse: I refuse to do it
+        comments: Modification comments
+
+tabs:
+    find_sites: Find sites
+    proposals: Proposals
+    to_publish: To Publish
+    to_modify: To Modify
+    finished: Finished
+
+view_article: View article
+
+statuses:
+    waiting_response: Waiting response
+    expired: Expired
+    awaiting_writing: Awaiting_writing
+    modify: Modify
+    refuse: Refuse
+    accepted: Accepted
+    accepted_published: Accepted published
+
+transaction_details:
+    delete_order_comment: "Order has been deleted"
+
+reminder:
+    proposal_row: "%siteUrl% - %credits%€ - %days% day(s) left to answer"
+
+response_error_main_message: 'We got an error and were not able to publish your article. You will have to publish it manually.'
+response_code:
+    incorrect_api_key: 'Error: incorrect api key.'
+    invalid_json: 'Error: invalid json.'
+    incorrect_post_id: 'Error: incorrect post id.'
+    incorrect_post: 'Error: incorrect post id.'
+    post_not_editable: 'Error: editing posts disabled in plugin settings.'
+    error_update_post: 'Error: error creating / updating post.'
+    error_import_image: 'Error importing images.'
+    error_import_thumbnail: 'Error: error importing thumbnails.'
+    impossible: 'Error: internal error when submitting an article.'
+    unknown_error: 'Error: unknown error.'
+    publish_pending: "Article published with 'pending' status."
+
+errors:
+    delete_proposal_with_copywriting_order: Deletion of Exchange Proposition with Copywriting Order is not possible

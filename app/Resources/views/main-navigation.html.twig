@@ -1,0 +1,51 @@
+<nav class="navbar-default navbar-static-side" role="navigation">
+  <div class="sidebar-collapse">
+    <ul class="nav metismenu">
+      <li class="nav-header">
+        <div class="dropdown profile-element">
+          <span>
+            {% if app.user.avatar %}
+                {% if file_exists(upload_avatar_dir ~ '/' ~ app.user.avatar) %}
+                  <img alt="image" class="img-circle img-sm" src="{{ asset('/uploads/avatars/' ~ app.user.avatar) }}"/>
+                {% elseif app.user.avatar.fileName is defined and file_exists(upload_avatar_dir ~ '/' ~ app.user.avatar.filename) %}
+                  <img alt="image" class="img-circle img-sm" src="{{ asset('/uploads/avatars/' ~ app.user.avatar.getFilename) }}"/>
+                {% else %}
+                  <img alt="image" class="img-circle img-sm" src="{{ asset('/img/avatar.png') }}"/>
+                {% endif %}
+            {% else %}
+              <img alt="image" class="img-circle img-sm" src="{{ asset('/img/avatar.png') }}"/>
+            {% endif %}
+          </span>
+          <span class="clear">
+            <span class="block m-t-xs">
+              <strong class="font-bold">{{ app.user.fullName }}</strong>
+            </span>
+            <span class="text-muted text-xs block">
+              {{ 'user_data.balance'|trans({}, 'user') }}:
+              <span class="text-info"><span id="user_balance">{{ app.user.balance }}</span> €</span>
+            </span>
+          </span>
+          <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+            <span class="clear">
+              <span class="text-muted text-xs block">
+                <strong class="">{{ app.user.getAccountTypeString|trans({}, 'user') }}</strong>
+                <b class="caret"></b>
+              </span>
+            </span>
+          </a>
+          <ul class="dropdown-menu animated fadeInRight m-t-xs">
+            <li><a href="{{ path('user_profile') }}">{{ 'profile'|trans({}, 'menu') }}</a></li>
+            {% if app.user.isWriterNetlinking or app.user.isWriterCopywriting %}
+                <li><a href="{{ path('user_earning') }}">{{ 'earning'|trans({}, 'menu') }}</a></li>
+            {% else %}
+                <li><a href="{{ path('user_comission') }}">{{ 'comission'|trans({}, 'menu') }}</a></li>
+            {% endif %}
+            <li class="divider"></li>
+            <li><a href="{{ path('fos_user_security_logout') }}">{{ 'logout'|trans({}, 'menu') }}</a></li>
+          </ul>
+        </div>
+      </li>
+    </ul>
+    {{ knp_menu_render('user_main', { 'template': ':menu:menu-item.html.twig', 'currentClass': 'active' }) }}
+  </div>
+</nav>

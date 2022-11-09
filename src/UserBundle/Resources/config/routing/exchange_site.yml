@@ -1,0 +1,46 @@
+admin_exchange_site:
+    path:     /
+    defaults: { _controller: UserBundle:ExchangeSite:index }
+    options:
+        expose: true
+
+admin_exchange_site_get_api_key:
+    path:     /get-api-key
+    defaults: { _controller: UserBundle:ExchangeSite:getApiKey }
+    options:
+        expose: true
+
+admin_exchange_site_check_credits:
+    path:     /check-credits
+    defaults: { _controller: UserBundle:ExchangeSite:checkCredits }
+    options:
+        expose: true
+
+admin_exchange_site_add:
+    path:     /add
+    defaults: { _controller: UserBundle:ExchangeSite:add }
+
+admin_exchange_site_edit:
+    path:     /edit/{id}
+    defaults: { _controller: UserBundle:ExchangeSite:edit }
+    requirements:
+        id: '\d+'
+
+admin_exchange_site_delete:
+    path:     /delete/{id}
+    defaults: { _controller: UserBundle:ExchangeSite:delete }
+    requirements:
+        id: '\d+'
+
+admin_exchange_site_show:
+    path:     /show/{id}
+    defaults: { _controller: UserBundle:ExchangeSite:show }
+
+admin_exchange_site_endis:
+    path:     /endis/{id}
+    defaults: { _controller: UserBundle:ExchangeSite:endis }
+
+admin_exchange_site_update_partner:
+    path:     /update-partner
+    defaults: { _controller: UserBundle:ExchangeSite:updatePartner }
+    methods:    [PATCH]

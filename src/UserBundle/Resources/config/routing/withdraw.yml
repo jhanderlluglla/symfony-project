@@ -1,0 +1,21 @@
+withdraw_request:
+    path:     /
+    defaults: { _controller: UserBundle:Withdraw:request }
+
+accepted_request:
+    path:     /accept-request
+    defaults: { _controller: UserBundle:Withdraw:acceptedRequest }
+
+change_status:
+    path:     /change-status/{id}
+    defaults: { _controller: UserBundle:Withdraw:changeStatus }
+    requirements:
+        id: '\d+'
+    options:
+        expose: true
+
+view_invoice:
+    path:     /view-invoice/{id}
+    defaults: { _controller: UserBundle:Withdraw:viewInvoice }
+    requirements:
+        id: '\d+'

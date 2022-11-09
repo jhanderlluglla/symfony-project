@@ -1,0 +1,80 @@
+{% extends 'layout.html.twig' %}
+
+{% trans_default_domain 'user' %}
+
+{% block title %}
+    {{ 'title'|trans }}
+{% endblock %}
+
+{% block content %}
+    <div class="row m-b-lg m-t-lg">
+        <div class="col-md-6">
+            <div class="row m-b-sm m-t-sm">
+                <div class="col-sm-4">
+                    <div class="profile-image">
+                        {% if app.user.avatar and file_exists(upload_avatar_dir ~ '/' ~ app.user.avatar) %}
+                            <img alt="image" class="img-circle circle-border m-b-md" src="{{ asset('/uploads/avatars/' ~ app.user.avatar) }}"/>
+                        {% else %}
+                            <img alt="image" class="img-circle circle-border m-b-md" src="{{ asset('/img/avatar.png') }}">
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="col-sm-8">
+                    <div class="profile-info">
+                        <div class="">
+                            <div>
+                                <h2 class="no-margins">
+                                    {{ app.user.fullName }}
+                                </h2>
+                                <h4><a href="//{{ app.user.webSite }}" target="_blank">{{ app.user.webSite }}</a> </h4>
+                                <h4>{{ app.user.getAccountTypeString|trans() }}</h4>
+                                <h4>{{ app.user.phone }}</h4>
+                                <h4>{{ app.user.email }}</h4>
+                                <h4>{{ app.user.address }}</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row m-b-sm m-t-sm">
+                <div class="col-md-4">
+                </div>
+                <div class="col-md-8">
+                    <a href="{{ path('fos_user_profile_edit') }}" class="btn btn-primary">
+                        <i class="fa fa-fw fa-paste"></i>
+                        {{ 'edit'|trans }}
+                    </a>
+                </div>
+            </div>
+            <div class="row m-b-sm m-t-sm">
+                <div class="col-md-4">
+                </div>
+                <div class="col-md-8">
+                    <a href="#" data-toggle="modal" data-target="#userProfile" data-id="{{ app.user.id }}" data-type="edit_password" class="btn btn-primary">
+                        <i class="fa fa-fw fa-paste"></i>
+                        {{ 'change_password'|trans }}
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <table class="table m-b-xs">
+                <tbody>
+                    <tr>
+                        <td>
+                            <strong>{{ app.user.balance }}</strong> {{ 'user_data.balance'|trans }}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    {{ include('user/user_profile_modal.html.twig') }}
+{% endblock %}
+
+{% block javascript %}
+    {{ parent() }}
+    <script src="{{ asset('js/front/user.js') }}"></script>
+{% endblock %}

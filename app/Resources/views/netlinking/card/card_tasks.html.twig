@@ -1,0 +1,14 @@
+{% trans_default_domain 'netlinking' %}
+
+<li class="large-text">
+    <span>{{ 'table.total_task'|trans }}:</span>
+    <span>{{ tasksStatistic[entity.id]['total'] | default(0) }}</span>
+</li>
+<li>
+    <span>{{ 'table.task_remaining'|trans }}:</span>
+    <span>{{ tasksStatistic[entity.id]['remaining'] | default(0)}}</span>
+</li>
+<li>
+    <span>{{ 'table.accomplished_task'|trans }}:</span>
+    <span>{{ tasksStatistic[entity.id]['accomplished'] | default(0) }}</span>
+</li>

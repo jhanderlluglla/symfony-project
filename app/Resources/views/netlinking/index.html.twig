@@ -1,0 +1,72 @@
+{% extends 'layout.html.twig' %}
+
+{% trans_default_domain 'netlinking' %}
+
+{% block title %}
+    {% set title = 'title_' ~ status %}
+    {{ title|trans }}
+{% endblock %}
+
+{% block breadcrumb %}
+    {{ include('breadcrumb/netlinking.html.twig', {'childrens': [block('title')]}) }}
+{% endblock %}
+
+{% block action %}
+    {% if app.user.hasRole(constant('CoreBundle\\Entity\\User::ROLE_WEBMASTER')) %}
+        <div class="col-sm-6">
+            <div class="title-action">
+                <a href="{{ path('netlinking_add') }}" class="btn btn-primary"><strong>{{ 'add_new'|trans }}</strong></a>
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+    {% for message in app.session.flashBag.get('error') %}
+        <div class="alert alert-warning">
+            {{ message }}
+        </div>
+    {% endfor %}
+
+    {% if accessManager().canManageWriterUser() and status in ['current', 'waiting'] %}
+        {% include "netlinking/modal/assign_modal.html.twig" %}
+    {% endif %}
+    {% if collection.haveToPaginate %}
+        <div class="pagerfanta">
+            {{ pagerfanta(collection) }}
+        </div>
+    {% endif %}
+    {% set template = 'netlinking/' ~ status ~ '.html.twig' %}
+    {% include template %}
+
+    {% if collection.haveToPaginate %}
+        <div class="pagerfanta">
+            {{ pagerfanta(collection) }}
+        </div>
+    {% endif %}
+{% endblock %}
+
+{% block javascript %}
+    {{ parent() }}
+    <script src="{{ asset('js/front/plugin/shorten.js') }}"></script>
+    <script type="text/javascript">
+
+        translations.modal.waiting_admin = {
+            title: '{{ 'modal.waiting_admin.title'|trans }}',
+            text: '{{ 'modal.waiting_admin.text'|trans }}'
+        };
+        var hide_comment = "{{ 'table.hide_comment'| trans }}";
+        var show_more = "{{ 'table.show_more'| trans }}";
+
+        function shortenInit(){
+            $(".j-netlinking-comment").shorten({
+                "showChar" : 120,
+                "moreText"	: show_more,
+                "lessText"	: hide_comment,
+            });
+        }
+        shortenInit();
+    </script>
+    <script src="{{ asset('js/front/netlinking/netlinking_waiting_admin.js') }}"></script>
+    <script src="{{ asset('js/front/copywriting/assign_form.js') }}"></script>
+{% endblock %}

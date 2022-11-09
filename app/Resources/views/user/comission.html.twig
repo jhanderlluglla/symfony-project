@@ -1,0 +1,49 @@
+{% extends 'layout.html.twig' %}
+
+{% trans_default_domain 'user' %}
+
+{% block title %}
+    {{ 'title_comission'|trans }}
+{% endblock %}
+
+{% block breadcrumb %}
+    {{ include('breadcrumb/comission.html.twig') }}
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox">
+                <div class="ibox-title">
+                    <h5>{{ 'comission.summary'|trans }}</h5>
+                </div>
+                <div class="ibox-content">
+                    <table class="table footable table-striped m-b-none">
+                        <thead>
+                            <tr class="bg-info">
+                                <th></th>
+                                <th data-breakpoints="s">{{ 'comission.validated_links'|trans }}</th>
+                                <th>{{ 'comission.earnings'|trans }}</th>
+                                <th>{{ 'comission.action'|trans }}</th>
+                            </tr>
+                        </thead>
+                        <tboby>
+                            {% for data in comissions %}
+                                <tr>
+                                    <td>{{ data.date }}</td>
+                                    <td>{{ data.registered }}</td>
+                                    <td>{{ data.earnings }} €</td>
+                                    <td>
+                                        <div class="buttons-wrapper">
+                                            <a class="btn btn-warning" href="{{ path('user_comission_detail', {'month': data.month, 'year': data.year}) }}"><i class="fa fa-eye"></i>{{ 'comission.details'|trans }}</a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tboby>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

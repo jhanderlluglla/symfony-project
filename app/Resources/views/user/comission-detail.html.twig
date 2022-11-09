@@ -1,0 +1,45 @@
+{% extends 'layout.html.twig' %}
+
+{% trans_default_domain 'user' %}
+
+{% block title %}
+    {{ 'title_comission_detail'|trans }}
+{% endblock %}
+
+{% block breadcrumb %}
+    {{ include('breadcrumb/comission.html.twig', {'childrens': [block('title')]}) }}
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox">
+                <div class="ibox-title">
+                    <h5>{{ 'comission.period'|trans({'%%month%%': month,'%%year%%': year}) }}</h5>
+                </div>
+                <div class="ibox-content">
+                    <table class="table footable table-striped m-b-none">
+                        <thead>
+                            <tr class="bg-info">
+                                <th>{{ 'comission.directory'|trans }}</th>
+                                <th>{{ 'comission.validated_site'|trans }}</th>
+                                <th data-breakpoints="s">{{ 'comission.gain'|trans }}</th>
+                                <th data-breakpoints="s">{{ 'comission.date'|trans }}</th>
+                            </tr>
+                        </thead>
+                        <tboby>
+                            {% for entity in comissions %}
+                                <tr>
+                                    <td>{{ entity.directory.name }}</td>
+                                    <td>{{ entity.netlinkingProject.url }}</td>
+                                    <td>{{ entity.amount }} €</td>
+                                    <td>{{ entity.createdAt|date('m/d/Y') }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tboby>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

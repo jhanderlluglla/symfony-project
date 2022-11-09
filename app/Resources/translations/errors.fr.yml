@@ -1,0 +1,32 @@
+no_token: Jeton d'autorisation attendu
+wrong_token: Mauvaise clé d'api
+empty_data: Les données sont vides
+invalid_json: JSON invalide
+invalid_data: Données invalides
+invalid_file_name: Données invalides
+
+error_400:
+    title: Mauvaise Demande
+    description: Mauvaise Demande
+error_403:
+    title: Accès refusé
+    description: Désolé, vous n'êtes pas autorisé à visiter cette page!
+error_404:
+    title: Page non trouvée
+    description: Page non trouvée
+error_500:
+    title: Erreur Interne du Serveur
+    description: Erreur Interne du Serveur
+
+errors:
+    enough_balance: Vous n'avez pas assez d'article pour envoyer cette proposition.
+    balance_insufficient: Vous n'avez malheureusement pas assez d'argent. (Votre balance est de %balance% €.)
+    writing_ereferer:
+        fields: Vous devez mentionner au moins 1 url et son ancre afin de pouvoir poursuivre.
+    writing_webmaster:
+        fields: Vous devez mentionner au moins 1 url et son ancre afin de pouvoir poursuivre.
+    submit_your_article:
+        fields: Vous devez mentionner au moins 1 url et son ancre afin de pouvoir poursuivre.
+    invalid_min_range: La valeur minimale ne peut être supérieure à la maximale
+    invalid_max_range: La valeur maximale doit être supérieur à la minimale
+    invalid_url: Url incorrecte

@@ -1,0 +1,46 @@
+<div class="clearfix border-bottom top-nav_wrapper">
+  <nav class="navbar navbar-static-top" role="navigation">
+    <div class="navbar-header">
+      <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a>
+      <button class="btn-link fa fa-search j-search-trigger"></button>
+      <form role="search" class="navbar-form-custom j-navbar-search" action="{{ path('search') }}">
+
+        <div class="input-group">
+          <input class="form-control" type="text" id="serch-query" name="query" placeholder="{{ 'search'|trans({}, 'top_navigation') }}" value="{{ app.request.get('query') }}">
+        {% if app.user.isAdmin() %}
+        <div class="input-group-addon">
+          <select class="form-control admin-search" name="search_type">
+            <option value="netlinking_projects" {{ app.request.get('search_type') == 'netlinking_projects' ? 'selected'}}>{{ 'search_type.netlinking_projects'|trans({}, 'top_navigation') }}</option>
+            <option value="users" {{ app.request.get('search_type') == 'users' ? 'selected'}}>{{ 'search_type.users'|trans({}, 'top_navigation') }}</option>
+            <option value="exchange_sites" {{ app.request.get('search_type') == 'exchange_sites' ? 'selected'}}>{{ 'search_type.exchange_sites'|trans({}, 'top_navigation') }}</option>
+          </select>
+        </div>
+        {% endif %}
+        </div>
+        <input type="submit" hidden>
+      </form>
+    </div>
+    <ul class="nav navbar-top-links navbar-right">
+      <li>
+        <span class="m-r-sm text-muted welcome-message">{{ 'welcome'|trans({}, 'top_navigation') }}.</span>
+      </li>
+      <li>
+        <a class="count-info" href="{{ path('message_all', {'mode': 'incoming'}) }}">
+          <i class="fa fa-envelope"></i>
+          {% set msg = count_unread_messages(app.user) %}
+          {% if msg > 0 %}
+            <span class="label label-warning">{{ msg }}</span>
+          {% endif %}
+        </a>
+      </li> 
+      <li>
+        {% include 'form/changeLanguage.html.twig' %}
+      </li>
+      <li>
+        <a href="{{ path('fos_user_security_logout') }}">
+          <i class="fa fa-sign-out"></i> {{ 'logout'|trans({}, 'menu') }}
+        </a>
+      </li>
+    </ul>
+  </nav>
+</div>

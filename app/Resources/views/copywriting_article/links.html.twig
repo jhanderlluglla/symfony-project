@@ -1,0 +1,15 @@
+{% trans_default_domain 'copywriting' %}
+
+{% if links %}
+    <li>{{ 'requirements.links.value'|trans() }}
+        <ul class="m-l-md">
+            {% for link in links %}
+                {% if link.url starts with 'http' %}
+                    <li><a href="{{ link.url }}" target="_blank">{{ link.anchor }}</a></li>
+                {% else %}
+                    <li><a href="http://{{ link.url }}" target="_blank">{{ link.anchor }}</a></li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+    </li>
+{% endif %}

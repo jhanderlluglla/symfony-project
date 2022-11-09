@@ -1,0 +1,108 @@
+title: Propositions reçues
+
+proposals_received: "Propositions reçues : %result% resultat(s) trouvés."
+main_text: Vous disposez de 15 jours pour accepter, refuser, ou demander la modification d'un article. Passé ce délai, sans réaction de votre part, votre site sera statué en "inactif" et retiré de la liste.
+this_page: cette page
+
+modal:
+    close: Fermer
+    error: Erreur
+    site_error: Proposition on trouvée
+    access_denide: Accès refusée
+    links_perform: Liens à effectuer
+    link_to: "Un lien vers : %url% sur l'ancre : %anchor%"
+    instructions: Rappel des instructions de votre site
+    images: Nombre d'images minimum
+    words: Nombre de mots minimum
+    validate: Valider la publication
+    accept:
+        title: Accepter la proposition
+        attention: Attention, en acceptant l'article, vous vous engagez à la publier sous 24 heures !
+        continue: Souhaitez-vous continuer ?
+        button: Accepter
+    validation:
+        title: Valider la publication de l'article
+        download: Télécharger
+        main_message: Vous avez acceptez cet article, voici le lien pour le télécharger
+        url_page: URL de la page où l'article a été publié
+        button: Valider
+        wait: L'article est en cours de vérification. Merci de bien vouloir patienter.
+        errors:
+            url: Merci de bien vouloir renseigner l'URL
+            domains: "Le domaine où a été publié l'article <b>%user_url%</b> ne correspond pas avec le site où il doit être publié <b>%site_url%</b>"
+            none_access: L'URL ne peut être lue
+            link_not_found: "Le lien <b>%link%</b> n'a pas pu être trouvé dans l'article"
+        success:
+            publication_validated: La publication a été validé. Vous venez d'être crédité de %money% €.
+            done: Action effectuée avec succès !
+    refuse:
+        title: Merci d'indiquer la raison de votre refus.
+        button: Envoyer
+        reason: Raison
+        been_refused: Le texte a été refusé
+    modification:
+        title: Demande de modification
+        comment: Commentaire
+        button: Envoyer
+        amendment_request_sent: Une demande de modification a été envoyée
+        change_article:
+            success: Votre article a bien été modifié
+            error: Nous n'avons pas pu modifier votre article. Merci de le faire manuellement.
+        success:
+            done: Action effectuée avec succès !
+            change_request_taken: La demande de modification a bien été prise en compte.
+    modification_refuse:
+        title: Je refuse de faire la modification
+        text: Merci d'indiquer au partenaire votre raison
+        button: Envoyer
+        reason: Raison
+        been_refused: Votre refus a bien été pris en compte !
+        checkbox: Refus définitif ? (L'échange sera fermé et le webmaster ne pourra plus demander de modifications)
+    details:
+        title: Consignes de rédaction
+    impossible:
+        error: Une erreur s'est produite. Merci de réessayer !
+        success: Action effectuée avec succès !
+
+table:
+    sites: Sites
+    url: URL
+    win: Gains
+    characteristics: Caractéristiques
+    story: Story
+    action: Action
+    partner_asked: Le partenaire souhaite que vous rédigiez l'article
+    words: Mots
+    images: Image(s)
+    links: Lien(s)
+    editorial_guidelines: Consignes
+    see_article: Voir l'article
+    have_days: Il vous reste %days% jour(s) pour répondre.
+    modification:
+        title: Demande de modifications reçue
+        url: URL de l'article
+        changes: Modification à effectuer
+        action: Action
+        made_correct: J'ai effectué les corrections
+        refuse: Je refuse de les faire
+        comments: Commentaires
+
+view_article: Voir l'article
+
+statuses:
+    waiting_response: En attente de réponse
+    expired: Expiré
+    awaiting_writing: En cours de rédaction
+    modify: Modification
+    refuse: Refus
+    accepted: Accepté
+    accepted_published: Accepté et publié
+
+transaction_details:
+    delete_order_comment: "La commande a été annulée"
+
+reminder:
+    proposal_row: "%siteUrl% - %credits%€ - %days% jour(s) pour répondre"
+
+errors:
+    delete_proposal_with_copywriting_order: "La suppression d'une proposition d'échange avec l'ordre de rédaction n'est pas possible"

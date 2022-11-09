@@ -1,0 +1,119 @@
+title: Netlinking list
+add_title: Add new Netlinking list
+edit_title: Edit Netlinking list
+
+add_new: Add new
+edit: Edit
+edit_list: Edit list
+duplicate_list: Duplicate the list
+delete: Delete
+actions: Actions
+to: to
+
+table:
+    name: Name
+    words_count: Words count
+    created: Created
+    directories: Directories / Blogs
+    action: Action
+    site: Site
+    categories: Categories
+    tags: Tags
+    category: Category
+    age: Age
+    semrush_traffic: Semrush traffic
+    trust_flow: Trust flow
+    referring_domains: Referring domains
+    preferences: Preferences
+    words: Words
+    links: Links
+    images: Images
+    accept_subdomains: Accept Subdomains
+    reject_subdomains: Reject Subdomains
+    legal: Only legal websites
+    dont_legal: Without legal information
+    blog: Blog
+    directory: Directory
+    validation_rate: Validation Rate
+    validation_time: Validation Time
+    plugin: Plugin
+    metrics: Metrics
+    publication-requirements: Publication requirements
+
+name: Name
+save: Save
+form:
+    moz: Moz
+    google: Google
+    add_category: Add Category
+    remove_category: Remove
+    directories: Directories
+    blogs: Blogs
+    price: Price
+    show_filters: Show filters
+    hide_filters: Hide filters
+    items_found: Items found
+filter:
+    button: Filter
+    directories_list:
+        label: Directory list
+        all: All
+    categories: Categories
+    sorting:
+        label: Rearrange By
+        no_sorting: No sorting
+        tariff_group:
+            label: Tariff
+            asc: Tariff ascending
+            desc: Tariff descending
+        page_rank_group:
+            label: Page rank
+            asc: Page rank ascending
+            desc: Page rank descending
+        age_group:
+            label: Age
+            asc: Age ascending
+            desc: Age descending
+        trust_flow_group:
+            label: Trust flow
+            asc: Trust flow ascending
+            desc: Trust flow descending
+        domain_referrals_group:
+            label: Total Domain Referrals
+            asc: Total Domain Referrals ascending
+            desc: Total Domain Referrals descending
+        validation_time_group:
+            label: Validation time
+            asc: Validation time ascending
+            desc: Validation time descending
+        validation_rate_group:
+            label: Validation rate
+            asc: Validation rate ascending
+            desc: Validation rate descending
+    tariff: Tariff
+    trust_flow: Trust flow
+    age: Age
+    validation_time: Validation time
+    validation_rate: Validation rate
+    total_backlink: Total Backlinks
+    accept_inner_pages: I want to reference a subdomain or a deep page
+    accept_legal_info: I do not have a legal mention on my site
+    min_words_count: Number of minimum words desired
+    min_words_count_tooltip: "En complétant ce champ, le prix indiqué sera ajusté en fonction du nombre de mots supplémentaires que nous aurons à écrire, au prix de %redaction_price% &euro;/100 mots. Ainsi, si vous demandez 300 mots en minimum, et l'annuaire n'exige que 200 mots, un complément de %redaction_price_euro% vous sera appliqué pour les 100 mots supplémentaires. <br/>Laissez vide pour avoir les soumissions au tarif minimum."
+errors:
+    writing_ereferer:
+        fields: You must enter at least the URL 1 and Anchor 1 fields before proceeding.
+    writing_webmaster:
+            fields: You must enter at least the URL 1 and Anchor 1 fields before proceeding.
+    submit_your_article:
+        fields: You must enter at least the URL 1 and Anchor 1 fields before proceeding.
+    invalid_min_range: Min value must be less then max
+    invalid_max_range: Max value must be higher then min
+    get_price_error: Price was not changed.
+    unsaved: You didnt save your list. Do you want to save it before leaving the page ?
+age:
+    archive: Archive age
+    whois: Whois age
+    year: year(s)
+    month: month(s)
+    day: day(s)

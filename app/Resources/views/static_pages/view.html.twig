@@ -1,0 +1,25 @@
+{% extends 'base_front.html.twig' %}
+
+{% trans_default_domain 'static_page' %}
+
+{% block title %}{{ staticPage.name }}{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+{% endblock %}
+
+{% block content %}
+
+    <div class="container article-page">
+        <div class="row">
+            <div class="col-sm-8 col-sm-offset-2">
+                <h1 class="section__title"> {{ staticPage.name }}</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-10 col-lg-offset-1">
+                {{ staticPage.pageContent|raw }}
+            </div>
+        </div>
+    </div>
+{% endblock %}

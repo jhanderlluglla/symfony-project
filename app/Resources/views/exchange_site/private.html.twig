@@ -1,0 +1,86 @@
+{% extends 'exchange_site/index.html.twig' %}
+
+{% trans_default_domain 'exchange_site' %}
+
+{% block title %}
+    {{ 'private_title'|trans }}
+{% endblock %}
+
+{% block action %}
+    <div class="col-sm-6">
+        <div class="title-action">
+            <button class="btn btn-primary" data-toggle="modal" data-target="#addPrivateProjects" data-href="{{ path('admin_exchange_site_mass_private') }}">
+                <strong>{{ 'add_new_private_site'|trans }}</strong>
+            </button>
+        </div>
+    </div>
+{% endblock %}
+
+{% block content %}
+    {{ parent() }}
+    <div class="modal fade" id="addPrivateProjects" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title"></h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body">
+                    <table class="footable table table-striped m-b-none">
+                        <thead>
+                        <tr>
+                            <th class="table-id">#</th>
+                            <th>{{ 'table.url'|trans }}</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for entity in notPrivateSites %}
+                            <tr>
+                                <td class="table-id">
+                                    <input type="checkbox" class="i-checks" value="{{ entity.id }}">
+                                </td>
+                                <td>{{ entity.url }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">{{ 'modal.close'|trans }}</button>
+                    <button type="button" class="btn btn-primary">{{ 'modal.add_to_private'|trans }}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascript %}
+{{ parent() }}
+    <script>
+        var modal = $('#addPrivateProjects');
+        modal.find('.btn-primary').on('click', function () {
+            var iChecks = modal.find('.i-checks');
+            var ids = [];
+            iChecks.each(function (idx, elem) {
+                if(elem.checked){
+                    ids.push(elem.value);
+                }
+            });
+            console.log(ids);
+            if(ids.length > 0){
+                $.post(
+                    $('[data-target="#addPrivateProjects"]').data('href'),
+                    {'ids' : ids},
+                    function (response) {
+                       if(response.status === "error"){
+                           modal.modal('hide');
+                           toastr.error(response.message);
+                       }else{
+                           location.reload();
+                       }
+                    }
+                )
+            }
+        });
+    </script>
+{% endblock %}

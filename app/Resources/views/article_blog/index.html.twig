@@ -1,0 +1,65 @@
+{% extends 'layout.html.twig' %}
+
+{% trans_default_domain 'article_blog' %}
+
+{% block title %}
+    {{ 'title'|trans }}
+{% endblock %}
+
+{% block breadcrumb %}
+    {{ include('breadcrumb/article_blog.html.twig') }}
+{% endblock %}
+
+{% block action %}
+    <div class="col-sm-6">
+        <div class="title-action">
+            <a class="btn btn-primary btn-sm" href="{{ path('article_blog_add')}}">{{ 'add_article_blog'|trans }}</a>
+        </div>
+    </div>
+{% endblock %}
+
+{% block content %}
+
+    <div class="ibox-content">
+        <table class="footable table table-striped article-blog">
+            <thead>
+            <tr>
+                <th>{{ 'language'|trans({}, 'general') }}</th>
+                <th>{{ 'entity.title'|trans }}</th>
+                <th>{{ 'entity.url_path'|trans }}</th>
+                <th data-breakpoints="m">{{ 'entity.text'|trans }}</th>
+                <th>{{ 'entity.is_enable'|trans }}</th>
+                <th>{{ 'table.actions'|trans }}</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for element in collection %}
+                <tr>
+                    <td>{{ element.language }}</td>
+                    <td>{{ element.title }}</td>
+                    <td>{{ element.urlPath }}</td>
+                    <td>{{ element.text|raw|striptags|truncate(400) }}</td>
+                    <td>
+                        {% if element.isEnable %}
+                            <span class="glyphicon glyphicon-ok text-info" aria-hidden="true"></span>
+                        {% else %}
+                            <span class="glyphicon glyphicon-remove text-danger" aria-hidden="true"></span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        <div class="buttons-wrapper">
+                            <a class="btn btn-primary" href="{{ path('article_blog_edit', {'id':element.id}) }}" title="{{ 'table.edit'|trans }}"><i class="fa fa-edit"></i> {{ 'table.edit'|trans }}</a>
+                            <a class="btn btn-danger delete" href="{{ path('article_blog_delete', {'id':element.id}) }}" title="{{ 'table.delete'|trans }}"><i class="fa fa-trash"></i>{{ 'table.delete'|trans }}</a>
+                        </div>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        {% if collection.haveToPaginate %}
+            <div class="pagerfanta">
+                {{ pagerfanta(collection) }}
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

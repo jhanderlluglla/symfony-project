@@ -1,0 +1,78 @@
+{% trans_default_domain 'netlinking' %}
+{% form_theme changeWriterForm.createView() "form/theme.html.twig" %}
+
+<div class="netlink-project project-card" data-project-id="{{ entity.id }}">
+    {% block checkbox %}{% endblock %}
+    <div class="flex-justify">
+        <ul class="block-information">
+            {% include 'netlinking/card/card_header.html.twig' %}
+            <li>
+                <div class="block-information__title">{{ 'table.assigned_on'|trans }}:</div>
+                <div class="block-information__value">{{ entity.affectedAt|date("m/d/Y") }}</div>
+            </li>
+        </ul>
+        <div class="actions">
+            <div class="buttons-wrapper">
+                <a href="{{ path('netlinking_detail', {'id': entity.id}) }}" class="btn btn-warning"><i
+                            class="fa fa-bar-chart"></i>{{ 'progression'|trans }}</a>
+                <a href="{{ path('netlinking_edit', {'status': status, 'id': entity.id}) }}" class="btn btn-primary"><i
+                            class="fa fa-edit"></i>{{ 'edit'|trans }}</a>
+                <a href="{{ path('netlinking_stop', {'id': entity.id}) }}" class="btn btn-warning confirmation"><i
+                            class="fa fa-times-circle"></i>{{ 'stop_project'|trans }}</a>
+                <a href="{{ path('netlinking_evolution', {'id': entity.id}) }}" class="btn btn-primary"><i
+                            class="fa fa-times-circle"></i>{{ 'evolution'|trans }}</a>
+
+                <button data-toggle="dropdown" class="btn btn-default dropdown-toggle"><span
+                            class="caret"></span> {{ 'table.show_more'|trans }}</button>
+                <ul class="dropdown-menu pull-right">
+                    <li>
+                        <a href="{{ path('netlinking_report', {'id':entity.id}) }}" class=""><i
+                                    class="fa fa-info"></i> {{ 'reports'|trans }}</a>
+                    </li>
+                    {% if accessManager().canManageWriterUser() %}
+                        <li>
+                            <a href="#" data-toggle="modal" data-target="#assignProject" class=""><i
+                                        class="fa fa-user-plus"></i> {{ 'reassign_to'|trans }}</a>
+                        </li>
+                    {% endif %}
+                    <li>
+                        <a href="{{ path('netlinking_delete', {'status': status, 'id': entity.id}) }}" class="delete"
+                           title="{{ 'delete'|trans }}"><i class="fa fa-trash"></i> {{ 'delete'|trans }}</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <ul class="block-information reassign">
+        {% if entity.affectedToUser is not null and accessManager().canManageWriterUser() %}
+            <li class="j-writer">
+                <div class="block-information__title">{{ 'table.copywriter'|trans }}:</div>
+                <div class="block-information__value">
+                    <a href="{{ path('user_edit', {'id':entity.affectedToUser.id }) }}"
+                       target="_blank">{{ entity.affectedToUser.fullName }}</a>
+                </div>
+            </li>
+            <li>
+                <div class="block-information__title m-t-sm">{{ 'table.re_assign'|trans }}:</div>
+                <div class="block-information__value grow copy_writer_select j-quick-reassign">
+                    {{ form_widget(changeWriterForm.createView(), {'attr': {'data-language': entity.language }}) }}
+                </div>
+            </li>
+        {% else %}
+            <div class="m-t-xl p-xs"></div>
+        {% endif %}
+    </ul>
+    <div class="border-top">
+        <h4 class="group-title">{{ 'table.statistics'|trans }}:</h4>
+        <ul class="information-list">
+            {% include 'netlinking/card/card_tasks.html.twig' %}
+            {% include 'netlinking/card/card_stat.html.twig' %}
+        </ul>
+
+    </div>
+    <div class="border-top">
+        <p class="text-block">{{ 'table.patience'|trans }}</p>
+    </div>
+
+    {% include 'netlinking/card/card_comment.html.twig' %}
+</div>

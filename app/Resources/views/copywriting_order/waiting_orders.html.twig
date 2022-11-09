@@ -1,0 +1,168 @@
+{% extends 'layout.html.twig' %}
+
+{% trans_default_domain 'copywriting' %}
+
+{% block title %}
+    {{ 'waiting_orders_title'|trans }}
+{% endblock %}
+
+{% block breadcrumb %}
+    {{ include('breadcrumb/copywriting.html.twig', {'childrens': [block('title')]}) }}
+{% endblock %}
+
+{% block content %}
+
+    <div class="row">
+        <div class="col-lg-12">
+            {% if collection is not empty %}
+                <div class="ibox">
+                    <div class="ibox-title">
+                        <h5>{{ 'waiting_orders_title'|trans }}</h5>
+                    </div>
+                    <div class="ibox-content">
+                        <table class="footable table table-striped m-b-none orders-table ">
+                            <thead>
+                            <tr>
+                                <th>{{ 'dates'|trans }}</th>
+                                <th data-breakpoints="xxxl">{{ 'information'|trans }}</th>
+                                <th data-breakpoints="xxl">{{ 'deadline'|trans }}</th>
+                                <th data-breakpoints="m">{{ 'instructions'|trans }}</th>
+                                <th data-breakpoints="l">{{ 'status'|trans }}</th>
+                                <th>{{ 'action'|trans }}</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for waitingOrder in collection %}
+                                {% set order = waitingOrder.copywritingOrder %}
+                                <tr>
+                                    <td>
+                                        <ul class="block-information">
+                                            <li>
+                                                <div class="block-information__title">{{ 'proposed_on'|trans }}</div>
+                                                <div class="block-information__value">{{ order.createdAt|date('Y/m/d') }}</div>
+                                            </li>
+                                        </ul>
+                                    </td>
+                                    <td>
+                                        <dl class="dl-horizontal">
+                                            <dt>{{ 'words_number'|trans }}</dt>
+                                            <dd>{{ order.wordsNumber }}</dd>
+                                        </dl>
+                                    </td>
+                                    <td>
+                                        <dl class="dl-horizontal">
+                                            <dt>{{ 'reply_to'|trans }}</dt>
+                                            <dd>{{ waitingOrder.getCandidateByUser(app.user).deadline|date("m/d/Y") }}</dd>
+                                        </dl>
+                                    </td>
+                                    <td>
+                                        <dl class="dl-horizontal">
+                                            <dt>{{ 'article_title'|trans }}</dt>
+                                            <dd>{{ order.title }}</dd>
+                                            <dt>{{ 'instructions'|trans }}</dt>
+                                            <dd>{{ order.instructions }}</dd>
+                                            <dt>{{ 'description'|trans }}</dt>
+                                            <dd>{{ order.project.description }}</dd>
+                                            <dt>{{ 'potential_earning'|trans }}</dt>
+                                            <dd>{{ calculate_potential_earning(order, app.user) }}€</dd>
+                                            {% if order.express and order.deadline %}
+                                                <div class="font-italic text-danger express-timer">
+                                                    <dt>{{ 'express.article'|trans }}</dt>
+                                                    {% if order.deadline > date() %}
+                                                        <span class="time" data-express-timer="{{ order.deadline.getTimestamp() - date().getTimestamp() }}"></span>
+                                                        {% if app.user.writer %}
+                                                            <dt></dt>
+                                                            <dd>
+                                                                <span>{{ 'express.bonus'|trans }}:</span>
+                                                                <span>+{{ order.writerExpressBonus }}€</span>
+                                                            </dd>
+                                                        {% endif %}
+                                                    {% else %}
+                                                        <span>{{ 'express.expired'|trans }}</span>
+                                                    {% endif %}
+                                                </div>
+                                            {% endif %}
+                                            {% if order.project.writerCategory %}
+                                                <div class="text-success">
+                                                    {{ 'been_chosen'|trans }}
+                                                    <br>
+                                                    {{ 'express.bonus'|trans }}: +{{ calculatorPriceService.chooseWriterPrice(order.wordsNumber, order.project.writerCategory, 'writer') }}€
+                                                </div>
+                                            {% endif %}
+                                        </dl>
+                                    </td>
+                                    <td class="status">
+                                        <h3 class="text-muted">{{ order.status|trans }}</h3>
+                                    </td>
+                                    <td class="orders-actions">
+                                        {% if app.user.isWriterCopywriting %}
+                                            {% if waitingOrder.status == constant('STATUS_WAITING', waitingOrder) %}
+                                                <div class="buttons-wrapper">
+                                                    <a href="{{ path('copywriting_waiting_order_take_to_work', {'id': waitingOrder.id}) }}" class="btn btn-primary" ><i class="fa fa-check"></i>{{ 'take_to_work'|trans }}</a>
+                                                    <a href="{{ path('copywriting_waiting_order_reject_work', {'id': waitingOrder.id}) }}" class="btn btn-danger" ><i class="fa fa-bolt"></i>{{ 'reject_work'|trans }}</a>
+                                                </div>
+                                            {% endif %}
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    {% if collection.haveToPaginate %}
+                        <div class="ibox-footer col-sm-12">
+                            {% if collection.haveToPaginate %}
+                                <div class="pagerfanta">
+                                    {{ pagerfanta(collection, 'custom_twitter_bootstrap3', {'pageParameter': '[waiting-page]'}) }}
+                                </div>
+                            {% endif %}
+                        </div>
+                    {% endif %}
+                </div>
+            {% endif %}
+            {% if expressOrders is not empty %}
+                <h5>{{ 'express_orders'|trans }}</h5>
+                {{ include('copywriting_order/order_table.html.twig', {'collection': expressOrders}) }}
+                {% if expressOrders.haveToPaginate %}
+                    <div class="ibox-footer col-sm-12">
+                        {% if expressOrders.haveToPaginate %}
+                            <div class="pagerfanta">
+                                {{ pagerfanta(expressOrders, 'custom_twitter_bootstrap3', {'pageParameter': '[express-page]'}) }}
+                            </div>
+                        {% endif %}
+                    </div>
+                {% endif %}
+            {% endif %}
+
+            {% if pendingOrders is not empty %}
+                <div class="ibox">
+                    <div class="ibox-title">
+                        <h5>{{ 'pending_orders'|trans }}</h5>
+                    </div>
+                    <div class="ibox-content">
+                        {{ include('copywriting_order/order_table.html.twig', {'collection': pendingOrders}) }}
+                    </div>
+                    {% if pendingOrders.haveToPaginate %}
+                        <div class="ibox-footer col-sm-12">
+                            {% if pendingOrders.haveToPaginate %}
+                                <div class="pagerfanta">
+                                    {{ pagerfanta(pendingOrders, 'custom_twitter_bootstrap3', {'pageParameter': '[penging-page]'}) }}
+                                </div>
+                            {% endif %}
+                        </div>
+                    {% endif %}
+                </div>
+            {% endif %}
+            {% if expressOrders is empty and collection is empty and pendingOrders is empty %}
+                <h2>{{ "empty_orders"|trans }}</h2>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascript %}
+    {{ parent() }}
+    <script src="{{ asset('js/admin/plugins/jquery-ui/jquery-ui.min.js') }}"></script>
+    <script src="{{ asset('js/front/copywriting/express-timer.js') }}"></script>
+    <script src="{{ asset('js/admin/plugins/peity/jquery.peity.min.js') }}"></script>
+{% endblock %}

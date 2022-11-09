@@ -1,0 +1,69 @@
+{% trans_default_domain 'user' %}
+
+{% embed "user/users_table.html.twig" %}
+    {% trans_default_domain 'user' %}
+
+    {% block projects_header %}
+        <th data-breakpoints="l">{{ 'table.projects'|trans }}</th>
+    {% endblock %}
+
+    {% block additional_headers %}
+        <th data-breakpoints="all">{{ 'table.statistics'|trans }}</th>
+    {% endblock %}
+
+    {% block projects_column %}
+        <td>
+            {% if entity.isWriter %}
+                {{ 'table.seo.count_projects'|trans({'%current%': projects[entity.id]['netLinking_current'], '%completed%': projects[entity.id]['netLinking_completed']}) }}
+                ({{ 'table.seo.netlinking_project'|trans }})<br>
+                {{ 'table.seo.count_projects'|trans({'%current%': projects[entity.id]['copywriting_current'], '%completed%': projects[entity.id]['copywriting_completed']}) }}
+                ({{ 'table.seo.copywriting_project'|trans }})
+            {% else %}
+                {% if entity.isWriterNetlinking %}
+                    {{ 'table.seo.count_projects'|trans({'%current%': projects[entity.id]['netLinking_current'], '%completed%': projects[entity.id]['netLinking_completed']}) }}
+                {% endif %}
+                {% if entity.isWriterCopywriting %}
+                    {{ 'table.seo.count_projects'|trans({'%current%': projects[entity.id]['copywriting_current'], '%completed%': projects[entity.id]['copywriting_completed']}) }}
+                {% endif %}
+            {% endif %}
+        </td>
+    {% endblock %}
+
+    {% block additional_columns %}
+        <td>
+            <hr/>
+            <p>
+                <b>{{ 'table.seo.total_month_passed'|trans }}</b>: {{ projects[entity.id]['total'] }} {{ 'table.seo.submission'|trans }}<br/>
+                <b>{{ 'table.seo.total_current_month'|trans }}</b>: {{ projects[entity.id]['success'] }} {{ 'table.seo.submission'|trans }}
+            </p>
+            {% if statistics[entity.getId] is defined %}
+                <hr/>
+                {% include 'netlinking/statistics.html.twig' %}
+            {% endif %}
+            <hr/>
+            <p>
+                <b>{{ 'table.seo.redaction_likes'|trans }}:</b><br/>
+                <b>{{ 'table.seo.were_loved'|trans({'%texts%': projects[entity.id]['text_likes'] , '%customers%': projects[entity.id]['text_likes_dif']}) }}</b><br/>
+                <b>{{ 'table.seo.were_not_liked'|trans({'%texts%': projects[entity.id]['text_dislikes'] , '%customers%': projects[entity.id]['text_dislikes_dif']}) }}</b>
+            </p>
+            <hr/>
+            <p>
+                <b>{{ 'table.seo.earning_bonus'|trans }}</b>: {{ projects[entity.id]['earning_bonus'] }}€<br/>
+                {% if entity.isWriterNetlinking %}
+                    <b>{{ 'table.seo.netlinking_likes_bonus'|trans }}</b>: {{ projects[entity.id]['netlinking_likes'] }}€<br/>
+                    <b>{{ 'table.seo.netlinking_backlinks_bonus'|trans }}</b>: {{ projects[entity.id]['netlinking_backlinks'] }}€<br/>
+                {% endif %}
+                {% if entity.isWriterCopywriting %}
+                    <b>{{ 'table.seo.copywriting_rating_bonus'|trans }}</b>: {{ projects[entity.id]['copywriting_rating'] }}€<br/>
+                {% endif %}
+            </p>
+        </td>
+    {% endblock %}
+{% endembed %}
+
+{% if app.user.isSuperAdmin() %}
+    <div class="alignright">
+        <a href="{{ path('user_pay') }}" target="_blank" class="btn btn-primary confirmation" data-text="{{ 'warning_payment_message'|trans }}" data-close-on-confirm="1">{{ 'make_payment'|trans }}</a>
+    </div>
+{% endif %}
+<div class="clearfix"></div>

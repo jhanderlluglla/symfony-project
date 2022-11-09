@@ -1,0 +1,13 @@
+admin_exchange_site_private:
+    path: /
+    defaults: { _controller: UserBundle:ExchangeSitePrivate:private }
+
+admin_exchange_site_mass_private:
+    path: /mass
+    defaults: { _controller: UserBundle:ExchangeSitePrivate:massPrivate }
+
+admin_exchange_site_public:
+    path: /public/{id}
+    defaults: { _controller: UserBundle:ExchangeSitePrivate:makePublic }
+    requirements:
+        id: '\d+'

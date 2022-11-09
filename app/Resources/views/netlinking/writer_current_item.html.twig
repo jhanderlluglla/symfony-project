@@ -1,0 +1,24 @@
+{% trans_default_domain 'netlinking' %}
+
+<div class="netlink-project project-card">
+    <div class="flex-justify">
+        <ul class="block-information">
+            <li>
+                <div class="block-information__title">{{ 'table.url'|trans }}:</div>
+                <div class="block-information__value">
+                    <a href="{{ entity.url }}" target="_blank">{{ entity.url }}</a>
+                </div>
+            </li>
+            <li>
+                <div class="block-information__title">{{ 'table.state'|trans }}:</div>
+                <div class="block-information__value">{{ netlinking_project_status(scheduleTasksMinDated[entity.id]) }}</div>
+            </li>
+        </ul>
+        <div class="actions">
+            <div class="buttons-wrapper">
+                <a class="btn btn-warning" href="{{ path('netlinking_detail', {'id': entity.id}) }}"><i class="fa fa-eye"></i> {{ 'table.my_tasks'|trans }}</a>
+            </div>
+        </div>
+    </div>
+    {% include 'netlinking/card/card_comment.html.twig' %}
+</div>

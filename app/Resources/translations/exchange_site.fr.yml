@@ -1,0 +1,238 @@
+title: Exchange Sites
+copywriting_site_title: Sites Rédaction
+add_title: Ajouter un nouveau site
+add_copywriting_title: Ajouter un nouveau site
+edit_title: Modifier un site
+edit_copywriting_title: Modifier un site
+show_title: Détails du site
+private_title: Sites privés
+
+add_new: Ajouter
+add_new_private_site: Ajouter un nouveau site privé
+edit: Modifier
+delete: Supprimer
+make_public: Rendre public
+attention: Attention
+
+table:
+    sites: Sites
+    site: Site
+    url: URL
+    credit_requested: Gains demandés
+    categories: Catégories
+    tags: Tags
+    note: Note
+    metrics: Metrics
+    subcategories:
+          majestic_metrics: Majestic
+          semrush_metrics: Semrush
+          moz_metrics: Moz
+          google_metrics: Google
+          age: Âge
+          other_metrics: Autres metrics
+    words: Mots
+    links: Liens
+    min_images: Min images
+    max_images: Max images
+    min: min
+    max: max
+    to: à
+    images: Images
+    preferences: Préférences
+    age: Âge
+    alexa: Alexa
+    trust_flow: Trust flow
+    referring_domains: Domaines référents
+    action: Action
+    majestic_backlinks: Liens
+    majestic_edu_backlinks: Liens EDU
+    majestic_gov_backlinks: Liens GOV
+    bwa_age: Âge (whois)
+    archive_age: Âge (Archive.org)
+    hide_url: Cacher l'URL
+    max_credits: Gains maximum
+    rubrics: WP catégories
+    language: Langue
+    google_news: Google News
+    google_analytics: Google analytics
+    moz_page_authority: Page authority
+    moz_domain_authority: Domain Authority
+    authorized_anchor: Ancre autorisée
+    semrush_traffic: Trafic Semrush
+    publication_rules: Règles de publication
+    majestic_citation: Citation Flow
+    majestic_ttf_categories: Trust flow categories
+    semrush_keyword: Mot-clés Semrush
+    semrush_traffic_cost: Coût du trafic Semrush
+    user: Propriétaire
+    show_details: Voir les détails
+    header_two_start: Min H2
+    header_two_end: Max H2
+    header_three_start: Min H3
+    header_three_end: Max H3
+    plugin_status: Statut du Plugin
+    plugin: Plugin
+    price: Prix
+    actions:
+        writing_ereferer: Rédaction par Ereferer
+        writing_webmaster: Rédaction par le webmaster
+        submit_your_article: Soumettre son article
+    common: informations
+    publication_requirements: Règles de publication
+    publication_metrics: Metrics
+    site_type: Type du site
+    hide_details: Cacher les details
+    nofollow_link: Lien Nofollow
+    sponsorised_article: Article sponsorisé
+
+form:
+    step: Etape
+    step_heading_general: Informations générales
+    step_heading_rules: Règles de publication
+    step_heading_accept: Accepter les règles
+    meta_title: Meta title
+    meta_title_label: Rédiger un meta-title
+    meta_description: Meta description
+    meta_description_label: Rédiger une meta-description
+    placeholder_number: Entrez une valeur
+    placeholder_rules: Vos autres règles de publications
+    header_one_set: H1
+    header_one_set_label: Besoin d'un titre H1
+    header_two_start_end: H2
+    header_three_start_end: H3
+    bold_text: Passages en gras
+    quoted_text: Passages en Citation
+    italic_text: Passages en Italic
+    ul_tag: Liste à puce
+    images_range: Images dans l'article
+    min: Min
+    max: Max
+    meta_desc: Meta Description
+    images_hint: <span type='button' class='info-button-icon'><svg><use xlink:href="#info-icon"></use></svg></span> Additional cost of 0.35€ per image! High quality images from 123RF.com <span class='data-tooltip' data-toggle="tooltip" data-placement="top" data-original-title="We negociated a partnership with 123RF and can provide profesionnal looking images to illustrate your article. If we don't use the 'max images' you set up, we will recredit your account for the number of images we didn't use. You will be able to see it in transaction page."><u>More information</u></span>
+    download_plugin: Télécharger le plugin
+    custom_file_name: Nom souhaité du plugin
+    price: Prix
+    google_news: Google news
+    tags_text: 3 mots-clés maximum
+    categories_text: 2 catégories maximum
+    next: Suivant
+    info-box_title: Informations
+
+attributes:
+    meta_title:
+        popup_message: Il s'agit du titre de la page qui sera affiché en haut de votre navigateur et, généralement, par les moteurs de recherche sur leurs pages de résultats.
+    meta_description:
+        popup_message: Les moteurs de recherche utilisent essentiellement cette très courte description et la retranscrivent sur leurs pages de résultats. (Description d'une 20aine de mots)
+    header_h1:
+        description:
+        popup_message: Il s'agit du titre principal de votre article. Ce titre est capital pour une bonne structure de votre article et pour une optimisation en terme de SEO. Cette balise est donc indispensable à tout article.
+    header_h2:
+        popup_message: Il s'agit d'un sous-titre à votre article et, par définition, à votre titre H1. Il est indispensable pour une bonne mise en forme si votre article est particulièrement long.
+    header_h3:
+        popup_message: Il s'agit d'un sous-sous-titre à votre article ou d'un sous-titre à votre titre H3. Il est conseillé pour une bonne mise en forme si votre article est particulièrement long.
+    bold_text:
+        description: Mettre des expressions importantes en gras
+    ul_tag:
+        description: Utilisation de puces dans votre texte (votre texte contiendra alors une lise d'énumération)
+    headers:
+        part1: Utilisation de
+        part2: à
+        part3: "balises %header% dans votre texte"
+
+popup_title: Qu'est-ce que c'est ?
+
+yes: Oui
+no: Non
+to: à
+optional: Optionnel
+url: Url du site / blog sur lequel l'article doit être publié
+api_key: Clé API
+affected_webmaster: Webmaster
+select_webmaster: Sélectionner webmaster
+button_key: Genérer une clé API
+hide_url: Cacher mon URL (Non recommandé!)
+hide_text: Cochez cette case si vous souhaitez cacher votre URL. Seules les metrics seront visibles aux partenaires. A noter que les sites cachés reçoivent 2 fois moins de proposition en moyenne.
+webmaster: Souhaitez-vous tout de même montrer votre URL aux partenaires de confiance ?
+webmaster_text: Par "Partenaires de confiance", il s'agit des agences SEO connues et reconnues.
+displayed_url_text: "L'URL qui sera affichées sera :"
+credits: Combien souhaitez-vous gagner par publication ?
+credits_text: Moins vous demandez et plus vous serez en mesure de reçevoir des offres ! Trouvez le juste prix !
+credits_maximum: Maximum
+categories: 'Sélectionnez vos catégories : (2 maximum)'
+categories_placeholder: 'Sélectionnez vos catégories'
+tags: 'Entrez des mots-clés pour décrire votre site : (3 maximum)'
+publication_rules: Règles de publication
+accept_rules: Accepter les règles
+specific_rules: Règles spécifiques
+min_words_number: Nombre de mots minimum
+max_links_number: Nombre de liens maximum
+min_images_number: Nombre d'images maximum
+publication_rules_help: Conseils ! Demandez la source des images afin de vous assurer qu'elles soient libres de droit !
+other_rules: Autres règles de publication
+proposals: Propositions
+accept_eref: J'accepte les articles rédigés par Ereferer (recommandés)
+accept_web: J'accepte les articles rédigés par les partenaires
+accept_self: J'accepte de rédiger moi-même l'article contre 10€ supplémentaires
+nofollow_link: Les liens sont en Nofollow
+nofollow_link_rule: Lien Nofollow
+sponsorised_article: Les articles posséderont la mention "article sponsorisée"
+sponsorised_article_rule: Mention d'article sponsorisé
+additional_external_link: L'article contiendra des liens supplémentaires vers des sources externes.
+additional_external_link_rule: count_link liens supplémentaires vers un site externe
+count_additional_external_link_start: Jusqu'à
+count_additional_external_link_end: liens externes supplémentaires
+accept_commission: "J'ai compris que Ereferer prend une commission de %commission_percent%% lors de la vente ainsi qu'une commission supplémentaire de %withdraw_percent%% lors du retrait d'argent."
+
+authorized_anchor: Ancre autorisée
+authorized_anchor_unoptimized: Seules les ancres désoptimisées
+authorized_anchor_semioptimized: Ancres désoptimisées et semi-optimisées
+authorized_anchor_optimized: Ancres optimisées, semi-optimisées et désoptimisées sont acceptées
+accept_authorized_anchor_unoptimized: Le partenaire n'accepte que les ancres désoptimisées !
+accept_authorized_anchor_semioptimized: Le partenaire n'accepte que les ancres désoptimisées et semi-optimisées
+accept_authorized_anchor_optimized: Le partenaire accepte les ancres optimisées, semi-optimisées et désoptimisées
+
+earning_type: Gains
+final_price_text: "Après les %percent%% de commission, vous gagnerez %final_price%€"
+language: Langue
+save: Enregistrer
+type: Type
+private_error: Le site ne peut être enregistré
+private_success: Le site a été correctement enregistré
+check_credits:
+    errors:
+        host: "L'URL doit contenir <b>http://</b> ou <b>https://</b>"
+        duplicate: L'URL <b>%url%</b>  a déjà été ajouté
+        duplicate_copywriting: Le plugin pour <b>%url%</b> est déjà utilisé pour la partie Rédaction. Souhaitez-vous également l'utiliser pour vendre des articles ? <br><a href="#" class="duplicate_copywriting btn btn-primary btn-outline m-t-md" data-id="%id%">Oui, l'activer</a>
+        duplicate_exchange: Le plugin pour <b>%url%</b> est déjà utilisé pour vendre des articles. Souhaitez-vous également l'utiliser pour la partie Rédaction ? <br><a href="#" class="duplicate_copywriting btn btn-primary btn-outline m-t-md" data-id="%id%">Oui, l'activer</a>
+        duplicate_universal: L'URL <b>%url%</b> a déjà été ajouté
+        duplicate_by_another : L'URL <b>%url%</b> a déjà été ajouté par un autre compte. Si vous êtes le propriétaire et souhaitez ajouter/supprimer votre site, contactez-nous !
+
+modal:
+    close: Fermer
+    add_to_private: Ajouter en privé
+
+successfully_changed_type: "Le site a été modifié en %type%"
+redirect_to_edit: Vous allez être redirigé vers la page de modification
+invalid_data: Données incorrectes
+site_type:
+    exchange: Vente
+    sponsored: Articlé sponsorisé
+    copywriting: Rédaction
+    universal: Rédaction + Vente
+    change_on_exchange: Modifier en Vente
+    change_on_copywriting: Modifier en Rédaction
+    change_on_universal: Modifier en Vente + Rédaction
+
+download_plugin_ad: Souhaitez-vous télécharger le Plugin Wordpress pour une publication automatique sur votre blog ? Vous pourrez mettre les articles "en attente" pour les réviser si besoin !
+download_plugin_helper: Quel nom souhaitez-vous donner au Plugin ?
+download_plugin_success: Le plugin est correctement installé sur votre site
+download_plugin_failed: Le plugin n'est actuellement pas correctement installé sur votre site
+more_information: Plus d'informations
+optional_plugin: Plugin optionnel
+
+popup_disabled_exchange_site:
+    title: Êtes vous sûr?
+    text: Souhaitez-vous désactiver le plugin (vous continuerez cependant à vendre des articles sans le plugin) ou souhaitez-vous supprimer votre site (Ce dernier sera supprimé d'Ereferer)?
+    buttons:
+        cancel: Désactiver le plugin
+        confirm: Supprimer mon site

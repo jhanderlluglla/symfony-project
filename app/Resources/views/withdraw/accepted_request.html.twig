@@ -1,0 +1,15 @@
+{% extends 'layout.html.twig' %}
+
+{% trans_default_domain 'withdraw' %}
+
+{% block title %}
+    {{ "accepted_request.title"|trans }}
+{% endblock %}
+
+{% block breadcrumb %}
+    {{ include('breadcrumb/my_account.html.twig', {'childrens': ['my_account.withdraw_earning'|trans({}, 'menu'), block('title')]}) }}
+{% endblock %}
+
+{% block content %}
+    <h1>{{ 'accepted_request.message'|trans }}</h1>
+{% endblock %}

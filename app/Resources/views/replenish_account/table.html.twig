@@ -1,0 +1,49 @@
+{% trans_default_domain 'replenish_account' %}
+
+{% if collection.haveToPaginate %}
+    <div class="pagerfanta">
+        {{ pagerfanta(collection) }}
+    </div>
+{% endif %}
+<table class="footable table table-striped">
+    <thead>
+    <tr>
+        <th>{{ 'table.request_amount'|trans }}</th>
+        <th>{{ 'table.amount_with_tax'|trans }}</th>
+        <th data-breakpoints="xs">{{ 'table.user'|trans({}, 'general') }}</th>
+        <th data-breakpoints="xs">{{ 'table.status'|trans({}, 'general') }}</th>
+        <th data-breakpoints="m">{{ 'table.created_at'|trans({}, 'general') }}</th>
+        <th>{{ 'table.action'|trans({}, 'general') }}</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for entity in collection %}
+        <tr>
+            <td>{{ entity.amount }}€</td>
+            <td>{{ calculatorVat.calculateVat(entity.amount, entity.user) }}€</td>
+            <td>{{ entity.user.fullName }}</td>
+            <td>{{ ('table.statuses.' ~ entity.status)|trans }}</td>
+            <td>{{ entity.createdAt|date("d/m/Y H:i:s") }}</td>
+            <td>
+                {% if entity.status == constant('CoreBundle\\Entity\\ReplenishRequest::STATUS_WAITING') %}
+                    <div class="buttons-wrapper">
+                        <a class="btn btn-primary" href="{{ path('change_replenish_request_status', {'id':entity.id, 'status':constant('CoreBundle\\Entity\\ReplenishRequest::STATUS_ACCEPTED') }) }}">
+                            <i class="fa fa-check"></i>
+                            {{ 'table.accept'|trans }}
+                        </a>
+                        <a class="btn btn-danger" href="{{ path('change_replenish_request_status', {'id':entity.id, 'status':constant('CoreBundle\\Entity\\ReplenishRequest::STATUS_REJECTED') }) }}">
+                            <i class="fa fa-times-circle"></i>
+                            {{ 'table.reject'|trans }}
+                        </a>
+                    </div>
+                {% endif %}
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% if collection.haveToPaginate %}
+    <div class="pagerfanta">
+        {{ pagerfanta(collection) }}
+    </div>
+{% endif %}

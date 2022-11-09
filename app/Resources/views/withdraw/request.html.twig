@@ -1,0 +1,252 @@
+{% extends 'layout.html.twig' %}
+
+{% form_theme form "form/theme.html.twig" %}
+
+{% trans_default_domain 'withdraw' %}
+
+{% block title %}
+    {{ 'my_account.withdraw_earning'|trans({}, 'menu') }}
+{% endblock %}
+
+{% block breadcrumb %}
+    {{ include('breadcrumb/my_account.html.twig', {'childrens': [block('title')]}) }}
+{% endblock %}
+
+{% block content %}
+    {% if app.user.isWebmaster %}
+        {% set condition = app.user.balance > settings['minimum_withdraw'] and countByLastMonth < settings['withdraw_per_month'] %}
+                <div class="tabs-container withdraw">
+                        <ul class="nav nav-tabs j-tabs-with-footable">
+                            <li class="active"><a data-toggle="tab" href="#make-withdraw" aria-expanded="true">Make a withdraw</a></li>
+                            <li><a data-toggle="tab" href="#withdraw-historical" aria-expanded="false">Withdraw historical</a></li>
+                        </ul>
+                        <div class="tab-content">
+                            <div id="make-withdraw" class="tab-pane active high-inputs">
+                                <div class="panel-body no-paddings">
+                                    {% if condition %}
+                                        {{ form_start(form) }}
+                                    {% endif %}
+                                        <div class="steps-item">
+                                            <div class="step-number">
+                                                {{ 'step'|trans({}, 'general') }} 1
+                                            </div>
+                                            <div class="step-content">
+                                                <div class="row">
+                                                    <div class="col-lg-12 {% if condition %} col-lg-6 {% endif %}">
+                                                        <p class="step-heading m-b">{{ 'step.title'|trans }}</p>
+                                                        {% if condition %}
+                                                            <div class="payment-commision_wrap j-withdraw-amount">
+                                                                <div class="step-rows_flex-group">
+                                                                    {{ form_row(form.withdrawAmount, {'attr': {class: 'step-rows_flex-group_input'}}) }}
+                                                                    <button type="button" class="btn btn-primary btn-outline j-withdraw-amount_btn">{{ 'count'|trans({}, 'general') }}</button>
+                                                                </div>
+                                                            </div>
+                                                            <table class="payment-calculate">
+                                                                <tr>
+                                                                    <td>{{ 'withdraw.commissions'|trans({'%withdraw_percent%': settings['withdraw_percent']}) }}:</td>
+                                                                    <td><span id="commissionAmount" class="small value">0€</span></td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>{{ 'amount_billable'|trans({}, 'general') }}:</td>
+                                                                    <td><span id="billableAmount" class="text-info value">0€</span></td>
+                                                                </tr>
+                                                            </table>
+                                                        {% endif %}
+                                                    </div>
+                                                    <div class="col-lg-12 {% if condition %} col-lg-6 {% endif %}">
+                                                        <div class="withdraw-requirements-list_wrapper">
+                                                            <h3 class="withdraw-requirements-list_title">
+                                                                <i class="fa fa-exclamation-triangle"></i>
+                                                                {{ 'withdraw.some_information'|trans }}
+                                                            </h3>
+
+                                                            <ul class="withdraw-requirements-list square-marker">
+                                                                <li class="{% if app.user.balance <= settings['minimum_withdraw'] %} text-danger {% endif %}">
+                                                                    {{ 'requirements.minimum_to_withdraw'|trans({'%minimum_amount%': settings['minimum_withdraw']}) }}
+                                                                </li>
+                                                                <li class="{% if countByLastMonth >= settings['withdraw_per_month'] %} text-danger {% endif %}">
+                                                                    {{ 'requirements.count_per_month'|trans({'%count_per_month%': settings['withdraw_per_month']}) }}
+                                                                </li>
+                                                                <li>
+                                                                    {{ 'requirements.commision'|trans({'%withdraw_percent%': settings['withdraw_percent']}) }}
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                {% if form.vars.valid and condition %}
+                                                    <div class="m-t-md text-right">
+                                                        <button type="button" class="btn btn-primary" data-action="nextStep" disabled>{{ 'next_step'|trans({}, 'general') }}</button>
+                                                    </div>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                        <div class="steps-item">
+                                            <div class="step-number">
+                                                {{ 'step'|trans({}, 'general') }} 2
+                                            </div>
+                                            <div class="step-content">
+                                                <p class="step-heading">{{ 'step.invoice'|trans }}</p>
+                                                <div class="step-rows">
+                                                    <div class="row">
+                                                        <div class="col-lg-7">
+                                                            {% if condition %}
+                                                                <div class="m-b-sm">
+                                                                    <b>{{ 'requirements.invoice'|trans }}:</b>
+                                                                </div>
+                                                                {{ include('withdraw/invoice_data.html.twig') }}
+
+                                                                <div class="upload-pdf">
+                                                                    {{ form_label(form.invoice) }}
+                                                                    {{ form_widget(form.invoice, { 'attr': {'accept': 'application/pdf'} }) }}
+                                                                    {{ form_errors(form.invoice) }}
+                                                                    <div id="file_ext_error" class="alert alert-danger hidden">
+                                                                        {{ 'withdraw_request.file_extension' |trans({}, 'validators') }}
+                                                                    </div>
+                                                                </div>
+                                                            {% endif %}
+                                                        </div>
+                                                    </div>
+                                                    {% if form.vars.valid and condition %}
+                                                        <div class="m-t-md text-right">
+                                                            <button type="button" class="btn btn-primary" disabled data-action="nextStep">{{ 'next_step'|trans({}, 'general') }}</button>
+                                                        </div>
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="steps-item">
+                                            <div class="step-number">
+                                                {{ 'step'|trans({}, 'general') }} 3
+                                            </div>
+                                            <div class="step-content">
+                                                <p class="step-heading">{{ 'step.payment'|trans }}</p>
+                                                <div class="step-rows">
+                                                    {% if condition %}
+                                                        <div class="withdraw-payment">
+                                                            <div>
+                                                                <div class="radio">
+                                                                    <label for="paypal">
+                                                                            <span class="checkbox_radio_widget_wrapper">
+                                                                                <input type="radio" id="paypal" {{ lastPaymentType == 'paypal' ? 'checked' : ''}} name="withdraw-payment" required="required" value="paypal">
+                                                                                <label for="paypal"></label>
+                                                                            </span>
+                                                                        {{ 'table.paypal'|trans }}
+                                                                    </label>
+                                                                </div>
+                                                                <div class="radio">
+                                                                    <label for="bank-transfer">
+                                                                            <span class="checkbox_radio_widget_wrapper">
+                                                                                <input type="radio" id="bank-transfer" {{ lastPaymentType == 'bank' ? 'checked' : ''}} name="withdraw-payment" required="required" value="bank-transfer">
+                                                                                <label for="bank-transfer"></label>
+                                                                            </span>
+                                                                        {{ 'table.transfer'|trans }}
+                                                                    </label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="inputs" data-withdraw="inputsWrapper">
+                                                                <div class="paypal {{ lastPaymentType == 'paypal' ? 'active' : ''}}" data-withdraw="paymentInputs">
+                                                                    {{ form_row(form.paypal, {'value': ('paypal' in userPaymentData|keys ? userPaymentData['paypal'].value()) }) }}
+                                                                </div>
+                                                                <div class="bank-transfer {{ lastPaymentType == 'bank' ? 'active' : ''}}" data-withdraw="paymentInputs">
+                                                                    {{ form_row(form.companyName, {'label': 'table.company_name'|trans, 'value': ('company' in userPaymentData|keys ? userPaymentData['company'].value()) }) }}
+                                                                    {{ form_row(form.swift, {'value': ('swift' in userPaymentData|keys ? userPaymentData['swift'].value()) }) }}
+                                                                    {{ form_row(form.iban, {'value': ('iban' in userPaymentData|keys ? userPaymentData['iban'].value()) }) }}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div>
+                                                            {{ form_row(form.confirm, {'label': 'confirm_label'|trans({'%billable_amount%':0})}) }}
+                                                            <span data-confirm-message="{{ 'confirm_label'|trans }}" hidden></span>
+                                                        </div>
+                                                        <div class="text-right">
+                                                            {{ form_row(form.send) }}
+                                                        </div>
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {% if condition %}
+                                        {{ form_end(form) }}
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div id="withdraw-historical" class="tab-pane">
+                                <div class="panel-body">
+                                    {{ include('withdraw/table.html.twig') }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+    {% else %}
+        <div class="ibox">
+            <div class="ibox-content">
+                {{ include('withdraw/table.html.twig') }}
+            </div>
+        </div>
+    {% endif %}
+
+
+
+
+{% endblock %}
+
+
+{% block javascript %}
+    {{ parent() }}
+    <script type="text/javascript">
+        var withdrawPercent = {{ settings['withdraw_percent'] }};
+
+        $('#withdraw_request_invoice').on('change', function() {
+            if(invoiceValidate($(this))) {
+                var nextBtn = $(this).parents('.steps-item').find('[data-action="nextStep"]');
+                nextBtn.prop('disabled', $(this).val() === '');
+            }
+        });
+
+        var activeName = $('.withdraw-payment').find('input:checked').val();
+
+        $('input[name="withdraw-payment"]').on('change', function(){
+            activeName = $('.withdraw-payment').find('input:checked').val();
+            $('[data-withdraw="paymentInputs"]').removeClass('active');
+            $('[data-withdraw="inputsWrapper"]').find('.' + activeName).addClass('active');
+        });
+
+        $('#withdraw_request_send').on('click', function(e) {
+            e.preventDefault();
+            var form = $('form[name="withdraw_request"]')[0];
+            form.reportValidity();
+
+            if(form.checkValidity()){
+                $('[data-withdraw="paymentInputs"]').each(function() {
+                    if(!$(this).hasClass(activeName)) {
+                    $(this).find('input').val('');
+                    }
+                });
+                form.submit();
+            }
+        })
+
+    </script>
+    <script src="{{ asset('js/front/withdraw/calculate_amount.js') }}"></script>
+    {% if accessManager().canManageEarning() %}
+        <script type="text/javascript">
+            translations.errors = {
+                'change_status':"{{ 'errors.change_status'|trans }}"
+            };
+        </script>
+        <script src="{{ asset('js/front/withdraw/change_status.js') }}"></script>
+    {% endif %}
+    <script type="text/javascript">
+        var formValid = {{ form.vars.valid ? 1 : 0 }};
+
+        if(formValid === 1) {
+          var steps = $('.steps-item').slice(1);
+            steps.each(function (index, element) {
+                $(element).addClass('disabled');
+            });
+        }
+    </script>
+    <script src="{{ asset('js/front/next_step.js') }}"></script>
+{% endblock %}

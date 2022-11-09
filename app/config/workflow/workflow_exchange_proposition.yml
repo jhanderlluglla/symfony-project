@@ -1,0 +1,45 @@
+framework:
+    workflows:
+        exchange_proposition:
+            type: 'state_machine'
+            marking_store:
+                type: 'single_state'
+                arguments:
+                    - 'status'
+            supports:
+                - CoreBundle\Entity\ExchangeProposition
+            places:
+                - awaiting_webmaster
+                - awaiting_writer
+                - in_progress
+                - changed
+                - impossible
+                - expired
+                - accepted
+                - published
+                - refused
+            transitions:
+                assigned_writer:
+                    from: awaiting_writer
+                    to: in_progress
+                impossible:
+                    from: [in_progress, awaiting_writer]
+                    to: impossible
+                expire:
+                    from: [awaiting_webmaster, accepted]
+                    to: expired
+                accept:
+                    from: [in_progress, awaiting_webmaster]
+                    to: accepted
+                publish:
+                    from: accepted
+                    to: published
+                change:
+                    from: [awaiting_webmaster, accepted]
+                    to: changed
+                accept_changes:
+                    from: changed
+                    to: awaiting_webmaster
+                refuse:
+                    from: [awaiting_webmaster, accepted]
+                    to: refused

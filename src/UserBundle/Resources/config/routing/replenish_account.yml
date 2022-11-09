@@ -1,0 +1,21 @@
+admin_replenish_account:
+    path:     /
+    defaults: { _controller: UserBundle:ReplenishAccount:index }
+
+admin_replenish_account_success:
+    path:     /success
+    defaults: { _controller: UserBundle:ReplenishAccount:success }
+
+admin_replenish_account_cancel:
+    path:     /cancel
+    defaults: { _controller: UserBundle:ReplenishAccount:cancel }
+
+admin_replenish_requests:
+    path:     /replenish-requests
+    defaults: { _controller: UserBundle:ReplenishAccount:showRequests }
+
+change_replenish_request_status:
+    path:     /change-replenish-request-status/{id}
+    defaults: { _controller: UserBundle:ReplenishAccount:changeStatus }
+    requirements:
+        id: '\d+'

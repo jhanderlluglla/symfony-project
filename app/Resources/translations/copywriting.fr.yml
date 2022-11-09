@@ -1,0 +1,415 @@
+title: Projects de rédaction
+article: Article
+orders_title: Commandes de rédaction
+add_title: Créer un nouveau projet
+show_title: Voir l'article
+show_order: Voir le projet
+edit_title: Modifier le projet
+edit_article: Modifier l'article
+articles_title: Liste des articles
+edit_article_title: Modifier l'article
+see_task: Voir ma tâche
+waiting_orders_title: Commandes en attente
+time_left: Il vous reste %d% days, %h% hours et %m% minutes pour délivrer l'article
+photos_max: Photos max
+potential_earning: Gains potentiels
+choose_images: Images personnelles & Pixabay
+admin_images: Images personnelles de l'administrateur
+pixabay_images: Pixabay
+
+not_selected: Pas encore selectionné
+change_wysiwyg: Basculer l'éditeur vers wysiwyg
+
+add_new: Créer
+edit: Modifier
+delete: Supprimer
+show: Voir
+remove: Retirer
+status: Statut
+action: Action
+submit: Soumettre
+save: Enregistrer
+cancel: Annuler
+validate: Valider
+validate_save: Valider et envoyer
+decline: Refuser
+confirm: Confirmer
+return: Retour
+show_caption: Voir la légende
+
+upload_image: Ajouter une image
+error_upload_image: Erreur lors de l'ajout. Merci de réessayer
+
+yes: Oui
+no: Non
+optional: Optionnel
+
+reassign_to: Réaffecter à
+task_impossible: Tâche impossible
+warning_message: Utiliser ce bouton seulement si l'article ne peut pas être rédiger. Merci d'indiquer la raison.
+
+comment_article_edited: L'article a bien été modifié.
+comment_article_pending: L'article a bien été modifié, mais il est en attente de révision sur le site.
+empty_comment: Le commentaire est vide
+
+form:
+    step: Étape
+    template_label: Charger un projet
+    template_placeholder: Sélectionner le titre de votre projet
+    template: Enregistrer comme modèle
+    title: Titre du projet
+    title_placeholder: Écrivez ici le titre de votre projet
+    description: Description du projet
+    description_placeholder: Écrivez ici la description de votre projet
+    number_articles: Nombre d'articles
+    number_words: Nombre de mots
+    number_placeholder: Entrez un chiffre
+    next: Étape suivante
+    title_text: Titre de votre texte
+    instructions: Instructions
+    meta_title: Meta title
+    meta_description: Meta description
+    header_one_set: H1
+    header_two_start_end: H2
+    header_three_start_end: H3
+    exchange_site: Publier les article sur
+    exchange_site_popup_mesage: Si vous le souhaitez, ajoutez notre Plugin Wordpress sur votre site pour une publication automatique ! Vous pourrez toutefois les mettre 'En attente' pour les relire au préalable.
+    exchange_site_placeholder: Sélectionnez votre site
+    project_type_label: Projet
+    fix: Projet unique
+    recurrent: Projet récurrent
+    recurrent_popup_mesage: C'est l'option idéale pour ceux qui désirent alimenter un blog de façon régulière ! Définissez la fréquence de livraison des articles ainsi que le nombre total d'articles souhaités. Si par exemple vous souhaitez recevoir 1 article par semaine durant 1 année, choisissez 1 pour le nombre d'article, XXX pour le nombre de mots, 7 pour la fréquence, et 54 pour le nombre total d'articles.
+    period: Tous les
+    recurrent_total: Nombre total d'articles
+    bold_text: Mots/expressions en gras
+    quoted_text: Citations
+    italic_text: Passages en Italic
+    ul_tag: Liste à puce
+    keywords: Mots-clés
+    keywords_per_article: Mots-clés par article
+    min: Min
+    max: Max
+    start: De
+    end: à
+    keyword_meta_title: Utilisation d'un mot-clé dans la balise Meta Title
+    keyword_header_one: Mot-clé dans le H1
+    keyword_header_two: Mot-clé dans le H2
+    keyword_header_three: Mot-clé dans le H3
+    word: Mot
+    alt: Alt
+    add_word: Ajouter un nouveau mot
+    remove_word: Retirer le mot actuel
+    add_image: Ajouter une image
+    remove_image: Retirer l'image
+    images: Images
+    images_range: Images dans l'article
+    images_hint: Coût additionnel de 0.35€ par image! Images de qualité provenant de Pixabay.com et 123RF.com. Le surplus d'images non utilisés vous sera bien entendu remboursé.
+    images_per_article_from: A partir de
+    images_per_article_to: images par article à
+    copy_rules: Copier les règles pour un autre article
+    days: Jours
+    express: <b>Article urgent:</b> coût additionnel de 0.50€ pour 100 mots. L'article sera délivré sous 24 heures. Si nous n'y parvenons pas, le coût additionnel vous sera remboursé et nous ferons notre maximum pour livrer l'article aussi vite que possible !
+    writer_category: Sélectionnez le type de rédacteurs souhaité
+    confirm: Confirmer
+    show_all: Voir tous les éléments
+    hide_all: Cacher tous les éléments
+    items: Eléments
+    info-box_title: Boite d'info du fichier copywr
+    info-box_text: explications fichiers copywri.
+
+no_selection:
+    title: Aucune sélection
+    text: Le premier rédacteur disponible (normal, top ou meilleur) prendra votre projet !
+you_like_writers:
+    title: Les rédacteurs que vous aimez
+    text: Ce sont les rédacteurs que vous avez le plus aimés !
+top_writers:
+    title: Top rédacteurs
+    text: Ce sont les rédacteurs sur Ereferer ayant plus de 90% de textes aimés !
+best_writers:
+    title: Meilleurs rédacteurs
+    text: Ce sont les rédacteurs ayant plus de 95% de textes aimés !
+been_chosen: Vous avez été choisi pour rédiger cet article.
+
+modal:
+    close: Fermer
+    accept: Accepter
+    already_reviewing: "'%name%' est déjà en train de relire cet article. Prendre la main ?"
+    send: Envoyer
+
+no_additional_price: Aucun coût supplémentaire
+additional_price: Coût supplémentaire
+words: mots
+personal_stats: Vos stats avec ce rédacteur
+create_new: Créer
+
+reccurent_message:
+    part1: Avec une fréquence de
+    part2: articles tous les
+    part3: jours, cela prendra
+    part4: jours pour écrire tous les
+    part5: articles
+
+express_order_refund:
+
+express:
+    article: Article Urgent
+    bonus: Bonus
+    expired: Expiré
+
+popup:
+    title: Continuer cette action ?
+    text: De nombreux champs sont vides !
+    cancel_button_text: Annuler
+    confirm_button_text: Oui, poursuivre
+
+delete_confirm: Êtes-vous sûr de vouloir supprimer les éléments sélectionnés ?
+
+dates: Dates
+information: Information
+deadline: Date butoire
+reply_to: Repondre à
+instructions: Instructions
+orders: Commandes
+proposed_on: Proposé le
+launch_date: Date de lancement estimée
+completed_at: Completé le
+declined_at: Refusé à
+taken_at: Commande prise
+project_name: Projet
+site_url: Url du site
+words_number: Nombre de mots
+cost: Coût de l'article
+article_title: Titre de l'article
+description: Description
+days_at_work: Jours de travail
+customer: Client
+copywriter: Rédacteur
+total: Total
+joined: Rejoins
+full_name: Nom
+finished_at: Terminé le
+caption_text: Il s'agit de la légende par défaut, merci de modifier le titre et la ALT de l'image
+not_consulted: Non consulté
+publication_url: URL de la publication
+
+project_description: Description du projet
+article_description: Description de l'article
+article_requirements: Consignes de l'article
+article_published: L'article sera publié sur
+
+waiting: En attente
+progress: En cours
+declined: Refusé
+submitted_to_webmaster: En attente de révision
+submitted_to_admin: Prêt à être relu par l'admin
+completed: Completé
+under_review: En cours de révision
+
+euro: €
+
+take_to_work: Prendre la commande
+reject_work: Rejeter la commande
+assign: Attribuer à un rédacteur
+
+mark_unviewed: Marquer comme non lu
+not_viewed: Non lu
+
+filter: Filtrer
+filter.rating: Filtrer par J'aime/Je n'aime pas
+filter.copywriter: Filtrer par rédacteur
+filter.rating.label: J'aime/je n'aime pas
+filter.keyword.label: Mot clé de recherche
+filter.keyword_title.label: Titre
+filter.keyword_description.label: La description
+filter.keyword_content.label: Contenu
+
+errors: Erreurs
+errors_hint: Merci de corriger les erreurs ou de se justifier
+customer_msg: Message du client
+admin_msg: Message de l'admin
+
+meta_title: Meta Title
+meta_desc: Meta Description
+attributes:
+    meta_title:
+        description: Ajoutera une Meta Title à votre article
+        popup_message: Il s'agit du titre de la page qui sera affiché en haut de votre navigateur et, généralement, par les moteurs de recherche sur leurs pages de résultats.
+    meta_description:
+        description: Ajouter une Meta Description à votre article
+        popup_message: Les moteurs de recherche utilisent essentiellement cette très courte description et la retranscrivent sur leurs pages de résultats. (Description d'une 20aine de mots)
+    header_h1:
+        description: Utiliser un titre H1
+        popup_message: Il s'agit du titre principal de votre article. Ce titre est capital pour une bonne structure de votre article et pour une optimisation en terme de SEO. Cette balise est donc indispensable à tout article.
+    header_h2:
+        popup_message: Il s'agit d'un sous-titre à votre article et, par définition, à votre titre H1. Il est indispensable pour une bonne mise en forme si votre article est particulièrement long.
+    header_h3:
+        popup_message: Il s'agit d'un sous-sous-titre à votre article ou d'un sous-titre à votre titre H3. Il est conseillé pour une bonne mise en forme si votre article est particulièrement long.
+    bold_text:
+        description: Mettre des expressions importantes en gras
+    ul_tag:
+        description: Utilisation de puces dans votre texte (votre texte contiendra alors une lise d'énumération )
+    headers:
+        part1: The use of
+        part2: at
+        part3: "balises %header% dans votre texte"
+
+popup_title: Qu'est-ce que c'est ?
+rubrics: Catégories
+
+nonconform: Impossible de respecter cette règle
+reason: Raison
+
+valid_success: Validation effectuée avec succès
+text_empty: Le champ ne peut être vide
+
+
+decline_article: Merci d'expliquer votre refus
+
+like: J'aime
+dislike: Je n'aime pas
+dislike_reason: Merci d'indiquer la raison (optionnel).
+
+customer_comment: Commentaire du client
+download: Télécharger
+like_dislike: J'aime/je n'aime pas
+writers:
+    error: Oups, nous n'avons pas trouvé de rédacteurs !
+    success: Le rédacteur a bien été trouvé
+    start_today: Peux commencer votre projet sous 24 heures
+    start_days: "Peux commencer votre projet sous %days% jour(s)"
+express_orders: Commande urgente
+pending_orders: Commande en attente
+empty_orders: Vous n'avez aucune commande en ce moment
+
+featured_image: Image à la une
+json_error_parse: Error with parse json template
+default_article_title: Titre de l'article
+
+images:
+  choice_images: Choix des images
+  query: Rechercher
+
+articles:
+    new_article: Nouvel article
+    all_articles: Tous les articles
+    all_articles_placeholder: Vous devez d'abord sélectionner un projet
+
+validation:
+    amount: "Vous n'avez pas assez d'argent dans votre compte, pensez à recharger !"
+    number_of_words: Merci d'entrer au moins 100
+    wrong_range: Merci de revoir vos valeurs !
+
+ajax:
+    delete:
+        success: Commande supprimée avec succès !
+        bad_request: Impossible de supprimer la commande
+    assign:
+        success: Commande attribuée avec succès !
+        bad_request: Impossible d'attribuer cette commande
+    rating:
+        success: Merci pour la notation !
+        bad_request: Une erreur s'est produite
+    saved:
+        success: Article créé avec succès !
+
+choose_option: Choisir une option
+requirements:
+    words_number:
+        value: '%n% mots.'
+        success: 'Le texte contient %n% mots'
+        fail: "{0} Le texte ne contient aucun mot. %m% demandés|{1} le texte ne contient qu'1 mot. %m% demandé|]1,Inf[ Le texte contient %n% mots. %m% demandés"
+        nonconform: "{0} Le texte ne contient aucun mot.|{1} Le texte ne contient qu'1 mot.|]1,Inf[ Le texte contient %n% mots."
+    meta_title:
+        value: 'Champ pour la Meta-Title'
+        success: 'Le texte contient bien une meta-title.'
+        fail: "Merci de vérifier la Meta Title."
+        nonconform: 'Merci de vérifier la Meta Title.'
+    meta_desc:
+        value: 'Champ pour la Meta Description'
+        success: "L'article contient bien une Meta Description."
+        fail: 'Merci de vérifier la Meta Description.'
+        nonconform: 'Merci de vérifier la Meta Description.'
+    H1_set:
+        value: 'H1'
+        success: 'Le texte contient bien un titre H1'
+        fail: "Le titre H1 semble manquer"
+        nonconform: 'Le titre H1 semble manquer'
+        not_contain: "Le client n'a pas demandé de titre H1. Cependant, il s'agit peut-être d'une erreur lors de la commande, à vous de voir !"
+        max_count:  'Le texte contient %max_count% titres H1. Trouvé : %n% titres'
+    H2_range:
+        value: 'Entre %n% et %m% titres H2'
+        success: 'Le texte contient %n% titre(s) H2.'
+        fail: "{0} Les titres H2 n'ont pas été utilisés dans le texte. Entre %n% et %m% doivent être utilisés.|{1} Le titre H2 a été utilisé 1 fois dans le texte. Entre %n% et %m% fois est demandé.|]1,Inf[ Les titres H2 ont été utilisés %l% fois dans le texte. Entre %n% et %m% fois est demandé."
+        nonconform: "{0} Les titres H2 n'ont pas été utilisés dans le texte. Entre %n% et %m% doivent être utilisés.|{1} Le titre H2 a été utilisé 1 fois dans le texte. Entre %n% et %m% fois est demandé.|]1,Inf[ Les titres H2 ont été utilisés %l% fois dans le texte. Entre %n% et %m% fois est demandé."
+        not_contain: "Le texte ne doit pas contenir de titre H2. Assurez-vous toutefois que ce n'est pas une erreur lors de la commande !"
+    H3_range:
+        value: 'Entre %n% et %m% titres H3.'
+        success: 'Le texte contient %n% titre(s) H3.'
+        fail: "{0} Les titres H3 n'ont pas été utilisés dans le texte. Entre %n% et %m% doivent être utilisés.|{1} Le titre H3 a été utilisé 1 fois dans le texte. Entre %n% et %m% fois est demandé.|]1,Inf[ Les titres H3 ont été utilisés %l% fois dans le texte. Entre %n% et %m% fois est demandé."
+        nonconform: "{0} Les titres H3 n'ont pas été utilisés dans le texte. Entre %n% et %m% doivent être utilisés.|{1} Le titre H3 a été utilisé 1 fois dans le texte. Entre %n% et %m% fois est demandé.|]1,Inf[ Les titres H3 ont été utilisés %l% fois dans le texte. Entre %n% et %m% fois est demandé."
+        not_contain: "Le texte ne doit pas contenir de titre H3"
+    bold_text:
+        value: "{0} Aucun mot ou expression en gras.|{1} Mots en gras."
+        success: "{0} Il n'y a aucun mot ou expression en gras.|{1} Le texte doit contenir des mots ou expression en gras."
+        fail: "{0} Le texte contient des mots ou expression en gras.|{1} Il n'y a aucun mot ou expression en gras."
+        nonconform: "{0} Le texte contient des mots ou expression en gras.|{1} Il n'y a aucun mot ou expression en gras."
+        not_contain: "Le texte de devrait pas contenir de mots ou expressions en gras"
+    UL_set:
+        value: "{0} Il n'y a aucune liste à puce dans le texte.|{1} Le texte contient une liste à puce."
+        success: "{0} Il n'y a aucune liste à puce dans le texte.|{1} Le texte contient une liste à puce."
+        fail: "{0} Le texte contient une liste à puce.|{1} Il n'y a aucune liste à puce dans le texte."
+        nonconform: "{0} Le texte contient une liste à puce.|{1} Le texte ne contient pas de liste à puce."
+        not_contain: "Le texte ne devrait pas contenir de liste à puce"
+    quoted_text:
+        value: "{0} Aucune citation|{1} citation."
+        success: "{0} Il n'y a aucune citation dans le texte.|{1} Le texte contient une citation."
+        fail: "{0} Le texte contient une citation.|{1} Il n'y a aucune citation."
+        nonconform: "{0} Le texte contient une citation.|{1} Il n'y a aucune citation."
+        not_contain: "Le texte ne devrait pas contenir de citation"
+    italic_text:
+        value: "{0} Aucun mot en italic.|{1} mots en italic."
+        success: "{0} Il n'y a aucun mot ou expression en italic.|{1} Le texte contient des mots ou expressions en italic."
+        fail: "{0} Le texte contient des mots ou expressions en italic.|{1} Il n'y a aucun mot ou expression en italic."
+        nonconform: "{0} Le texte contient des mots ou expressions en italic.|{1} Il n'y a aucun mot ou expression en italic."
+        not_contain: "Le texte de devrait pas contenir de mots ou expressions en italic"
+    keywords:
+        value: "Entre %n% et %m% fois l'utilisation de ces mots-clés :"
+        success: 'Les mots-clés ont été utilisés %n% fois dans le texte.'
+        fail: "{0} Les mots-clés n'ont pas été utilisés dans le texte. Entre %n% et %m% fois est demandé.|{1} Vous n'avez utilisé qu'un seul mot-clé. Entre %n% et %m% fois est demandé.|]1,Inf[ Les mots-clés ont été utilisés %l% fois dans le texte. Entre %n% et %m% fois est demandé."
+        nonconform: "{0} Les mots-clés n'ont pas été utilisés dans le texte.|{1} 1 seul mot-clé a été utilisé dans le texte.|]1,Inf[ Les mots-clés ont été utilisés %n% fois dans le texte."
+    keywords_used:
+        value: "{0}"
+        success: 'Le texte contient bien tous les mots-clés'
+        fail: 'Les mots-clés suivants manquant au texte : <em>%keywords%</em>'
+        nonconform: 'Les mots-clés suivants manquant au texte : %keywords%'
+    keyword_meta_title:
+        value: "La Meta Title contient bien un mot-clé."
+        success: "La Meta Title contient bien le mot-clé : %keywords%"
+        fail: "La Meta Title doit contenir au moins un mot-clé."
+        nonconform: 'La Meta Title doit contenir au moins un mot-clé.'
+    keyword_H1_set:
+        value: "Utilisation d'un mot-clé dans le titre H1."
+        success: "Le titre H1 contient le mot-clé : %keywords%"
+        fail: "Au moins un mot-clé doit être utilisé dans le titre H1."
+        nonconform: 'Le titre H1 ne contient pas de mot-clé.'
+    keyword_H2_set:
+        value: "Utilisation d'un mot-clé dans le titre H2."
+        success: "Le titre H2 contient le mot-clé : %keywords%"
+        fail: "Au moins un mot-clé doit être utilisé dans le titre H2."
+        nonconform: 'Le titre H2 ne contient pas de mot-clé.'
+    keyword_H3_set:
+        value: "Utilisation d'un mot-clé dans le titre H3"
+        success: "Le titre H3 contient le mot-clé : %keywords%"
+        fail: "Au moins un mot-clé doit être utilisé dans le titre H3."
+        nonconform: 'Le titre H3 ne contient pas de mot-clé.'
+    images_range:
+        value: "%n%-%m% images (image à la une incluse)."
+        success: 'Le texte contient %n% image(s).'
+        fail: "Entre %n% et %m% images doivent être utilisée dans le texte (image à la une incluse)."
+        nonconform: 'Le texte contient %n% image(s).'
+        not_contain: "Le texte ne devrait pas contenir d'images"
+    links:
+        value: "Liens"
+        fail: "Le lien dont l'url est \"url\" et l'ancre : \"anchor\" doit être utilisé dans le texte"
+        not_same: "Le nouveau lien doit être le même que l'ancien lien"

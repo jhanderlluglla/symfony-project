@@ -1,0 +1,65 @@
+services:
+    user.netlinking_project.voter:
+        class: UserBundle\Security\NetlinkingProjectVoter
+        arguments:
+            - "@security.access.decision_manager"
+            - "@core.service.access_manager"
+            - "@doctrine.orm.entity_manager"
+        tags:
+            - { name: 'security.voter' }
+
+    user.invoice.voter:
+        class: UserBundle\Security\InvoiceVoter
+        arguments: ["@security.access.decision_manager"]
+        tags:
+            - { name: 'security.voter' }
+
+    user.main.voter:
+        class: UserBundle\Security\MainVoter
+        arguments:
+            - "@security.access.decision_manager"
+            - "@core.service.access_manager"
+        tags:
+            - { name: 'security.voter' }
+
+    user.user.voter:
+        class: UserBundle\Security\UserVoter
+        arguments:
+            - "@security.access.decision_manager"
+            - "@core.service.access_manager"
+        tags:
+            - { name: 'security.voter' }
+
+    user.message.voter:
+        class: UserBundle\Security\MessageVoter
+        arguments:
+            - "@security.access.decision_manager"
+            - "@core.service.access_manager"
+        tags:
+            - { name: 'security.voter' }
+
+    user.directory_backlinks.voter:
+        class: UserBundle\Security\DirectoryBacklinksVoter
+        arguments:
+            - "@security.access.decision_manager"
+            - "@core.service.access_manager"
+        tags:
+            - { name: 'security.voter' }
+
+    user.exchange_proposition.voter:
+        class: UserBundle\Security\ExchangePropositionVoter
+        arguments:
+            - "@security.access.decision_manager"
+            - "@core.service.access_manager"
+            - 'CoreBundle\Entity\ExchangeProposition'
+            - [
+                  'UserBundle\Security\ExchangePropositionVoter::ACTION_DELETE',
+                  'UserBundle\Security\ExchangePropositionVoter::ACTION_SHOW_LIST'
+                ]
+        tags:
+            - { name: 'security.voter' }
+
+    user.search.voter:
+        class: UserBundle\Security\SearchVoter
+        tags:
+            - { name: 'security.voter' }

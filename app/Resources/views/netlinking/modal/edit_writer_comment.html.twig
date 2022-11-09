@@ -1,0 +1,10 @@
+{% trans_default_domain 'submission' %}
+
+{{ form_start(form) }}
+    {{ form_widget(form) }}
+    <input type="hidden" id="commentId" name="commentId" value="{{ commentId }}" />
+    <div class="text-right m-t-md action_button">
+        <button type="button" class="btn btn-white" data-dismiss="modal">{{ 'modal.close'|trans }}</button>
+        <button type="button" class="btn btn-primary save_comment">{{ 'modal.save'|trans }}</button>
+    </div>
+{{ form_end(form) }}

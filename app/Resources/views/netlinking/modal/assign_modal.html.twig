@@ -1,0 +1,29 @@
+{% trans_default_domain 'netlinking' %}
+
+<div class="tooltip-demo m-t-md m-b-md">
+    <button class="btn btn-primary multiple-action" data-toggle="modal" data-target="#assignProject" disabled><i class="fa fa-user-plus"></i> {{ 'assign'|trans }}</button>
+    <div class="modal inmodal" id="assignProject" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
+        {% set assignFormView = changeWriterForm.createView() %}
+        {{ form_start(assignFormView, {'attr': {'id': 'assign-form'}}) }}
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">{{ 'assign'|trans }}</h4>
+                    <i class="fa fa-user-plus modal-icon"></i>
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only"></span></button>
+                </div>
+                <div class="modal-body">
+                    <p>
+                        {{ 'assign'|trans }}
+                        {{ form_row(assignFormView.copywriter) }}
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-white" data-dismiss="modal">{{ 'modal.cancel'|trans({}, 'general') }}</button>
+                    <button id="assign" type="button" class="btn btn-primary">{{ 'modal.submit'|trans({}, 'general') }}</button>
+                </div>
+            </div>
+        </div>
+        {{ form_end(assignFormView) }}
+    </div>
+</div>

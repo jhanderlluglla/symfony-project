@@ -1,0 +1,161 @@
+{% extends 'layout.html.twig' %}
+
+{% trans_default_domain 'transaction' %}
+
+{% block title %}
+    {{ 'my_account.transaction'|trans({}, 'menu') }}
+{% endblock %}
+
+{% block breadcrumb %}
+    {{ include('breadcrumb/my_account.html.twig', {'childrens': [block('title')]}) }}
+{% endblock %}
+
+{% block content %}
+    {% if app.user.isAdmin() %}
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="ibox-content">
+                    {{ form_start(filter_form) }}
+                    {{ form_errors(filter_form) }}
+                    {{ form_widget(filter_form) }}
+                    <button type="submit" class="btn btn-primary btn">{{ 'filter'|trans }}</button>
+                    {{ form_end(filter_form) }}
+                </div>
+            </div>
+        </div>
+    {% endif %}
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>{{ 'title'|trans }}</h5>
+                </div>
+                <div class="ibox-content">
+                    {% if collection.haveToPaginate %}
+                        <div class="pagerfanta">
+                            {{ pagerfanta(collection) }}
+                        </div>
+                    {% endif %}
+
+                    <table class="table footable table-striped" id="tableTransactions">
+                        <thead>
+                            <tr>
+                                <th>{{ 'table.user'|trans }}</th>
+                                <th data-breakpoints="m">{{ 'table.details'|trans }}</th>
+                                <th data-breakpoints="all">{{ 'table.more_details'|trans }}</th>
+                                <th data-breakpoints="s">{{ 'table.debit'|trans }}</th>
+                                <th data-breakpoints="xs">{{ 'table.credit'|trans }}</th>
+                                <th>{{ 'table.balance'|trans }}</th>
+                                <th data-breakpoints="l">{{ 'table.date'|trans }}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {% for entity in collection %}
+                            {% set multi = entity.hasDetails(constant('CoreBundle\\Entity\\CopywritingProject::TRANSACTION_DETAIL_NUMBER_OF_ARTICLES')) and entity.details(constant('CoreBundle\\Entity\\CopywritingProject::TRANSACTION_DETAIL_NUMBER_OF_ARTICLES')) > 1 %}
+                            <tr data-id="{{ entity.id }}">
+                                <td>{{ entity.user.fullName }}</td>
+                                <td class="break-all">
+                                    {{ ('description.' ~ entity.description) | trans(entity.getMarks) | raw }}
+                                </td>
+                                {% if not entity.details %}
+                                    <td class="more-details">
+                                        <div class="col-md-6">
+                                            {{ 'more_details.empty' |trans }}
+                                        </div>
+                                    </td>
+                                {% else %}
+                                    <td>
+                                        <div class="col-md-6">
+                                            {% if multi %}
+                                                {{ 'global_price'|trans({'%articles%': entity.getDetails(constant('CoreBundle\\Entity\\CopywritingProject::TRANSACTION_DETAIL_NUMBER_OF_ARTICLES'))}) }}:
+                                            {% endif %}
+
+                                            {% if entity.details is iterable %}
+                                                {% set moveToRight = false %}
+                                                {% for key, item in entity.details %}
+                                                    {% set showDetail = true %}
+                                                    {% if item is iterable %}
+                                                        {% for var, value in item %}
+                                                            {% set showDetail = floatval(value) > 0 %}
+                                                            {{ var }}
+                                                        {% endfor %}
+                                                    {% else %}
+                                                        {% set showDetail = floatval(item) > 0 %}
+                                                        {% if key == 'rejection_reason' %}
+                                                            {% set showDetail = true %}
+                                                        {% endif %}
+                                                    {% endif %}
+                                                    {% if showDetail and isShow(key) %}
+                                                        <p {% if moveToRight %} class="m-l-lg" {% endif %}>
+                                                            <strong class="text-info">{{ ('more_details.' ~ key)|trans }}: </strong>
+                                                            {% if item is iterable %}
+                                                                {% for var, value in item %}
+                                                                    {{ var }}&nbsp;{{ value }}
+                                                                {% endfor %}
+                                                            {% else %}
+                                                                {{ prepareValue(key, item, entity.details) }}
+                                                            {% endif %}
+                                                        </p>
+                                                    {% endif %}
+                                                    {% if key == constant('CoreBundle\\Entity\\CopywritingOrder::TRANSACTION_DETAIL_REDACTION_PRICE') %}
+                                                        {% set moveToRight = true %}
+                                                    {% endif %}
+                                                {% endfor %}
+                                            {% endif %}
+                                        </div>
+                                        {% if multi %}
+                                            <div class="col-md-6">
+                                                {{ 'unit_price'|trans }}:
+                                                {% for key, item in entity.details %}
+                                                    {% if isShow(key, 1) %}
+                                                        {% if floatval(item) > 0 %}
+                                                            <p>
+                                                                <strong class="text-info">{{ ('more_details.' ~ key)|trans }}: </strong>
+                                                                {{ prepareValueUnit(key, item, entity.details) }}
+                                                            </p>
+                                                        {% endif %}
+                                                    {% endif %}
+                                                {% endfor %}
+                                            </div>
+                                        {% endif %}
+
+                                        <div class="col-md-12">
+                                            <ul>
+                                                {% for item in transactionGetContextLinks(entity) %}
+                                                    <li>{{ item.label }}: <a href="{{ item.url }}" target="_blank">{{ item.name }}</a></li>
+                                                {% endfor %}
+                                            </ul>
+                                        </div>
+                                    </td>
+                                {% endif %}
+                                <td>
+                                    {% if entity.getDebit() != 0 %}
+                                        {{ entity.getDebit() }} €
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% if entity.getCredit() != 0 %}
+                                        {{ entity.getCredit() }} €
+                                    {% endif %}
+                                </td>
+                                <td>{{ entity.solder }} €</td>
+                                <td>{{ entity.createdAt|date("m/d/Y H:i:s") }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                    {% if collection.haveToPaginate %}
+                        <div class="pagerfanta">
+                            {{ pagerfanta(collection) }}
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascript %}
+    {{ parent() }}
+    <script src="{{ asset('js/front/transactions-custom.js') }}"></script>
+{% endblock %}

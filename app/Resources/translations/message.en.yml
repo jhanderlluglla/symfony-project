@@ -1,0 +1,61 @@
+add_title: Add new Message
+reply_title: Reply Message
+title:
+    all: All Messages
+    incoming: Incoming Message
+    outgoing: Outgoing Message
+view_title: View Message
+
+add_new: Compose mail
+edit: Edit
+delete: Delete
+
+table:
+    name: Message
+    language: Language
+    action: Action
+
+name: Name
+language: Language
+save: Save
+
+header:
+    all: Messages
+    incoming: Inbox
+    outgoing: Outbox
+discard:
+    text: Discard
+    title: Discard email
+refresh:
+    text: Refresh
+    title: Refresh inbox
+read:
+    title: Mark as read
+
+to: To
+from: From
+subject: Subject
+answered: Answered
+date: Date
+content: Content
+send: Send
+reply: Reply
+remove: Remove
+real_message: Send by email the real message
+
+recipient_list:
+    all: All the users
+    administrator: All Administrators
+    seo: All SEOs
+    webmaster: All Webmasters
+
+ajax:
+    send:
+        success: Your message was sending successfully
+        bad_request: Something went wrong
+    read:
+        success: Success
+        bad_request: Something went wrong
+    delete:
+        success: Success
+        bad_request: Something went wrong

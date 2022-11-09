@@ -1,0 +1,85 @@
+{% trans_default_domain 'FOSUserBundle' %}
+{% form_theme form "bootstrap_3_layout.html.twig" %}
+
+<div class="container registration">
+    <div class="row">
+        <div class="col-md-6">
+            <h2 class="registration-title">{{ 'form.register'|trans({}, 'general') }}</h2>
+        </div>
+        <div class="col-md-6 text-right">
+            {% if app.request.get('_route') != 'fos_user_security_login' %}
+                <a class="btn btn-primary btn-transparent" href="{{ path('fos_user_security_login') }}">{{ 'layout.login'|trans({}, 'FOSUserBundle') }}</a>
+            {% endif %}
+        </div>
+    </div>
+    {{ form_start(form, {'method': 'post', 'action': path('fos_user_registration_register'), 'attr': {'class': 'fos_user_registration_register'}}) }}
+        <div class="row flex">
+            <div class="col-md-4">
+                <div class="registraton-step active">
+                    <div class="registraton-step_title">
+                        <h2>{{ 'form.step'|trans({}, 'general') }} 1</h2>
+                        <p>{{ 'form.general_information'|trans({}, 'general') }}</p>
+                    </div>
+                    <div class="registraton-step_card">
+                        {{ form_row(form.fullName, {'attr': {'class': 'input-lg'}}) }}
+                        {{ form_row(form.email, {'attr': {'class': 'input-lg'}}) }}
+                        <fieldset class="password-fieldset">
+                            {{ form_row(form.plainPassword.first, {'attr': {'class': 'input-lg'}}) }}
+                            {{ form_row(form.plainPassword.second, {'attr': {'class': 'input-lg'}}) }}
+                        </fieldset>
+                        {% if form.vars.valid %}
+                            <div class="text-right">
+                                <button type="button" class="btn btn-primary m-t" data-action="validateStep">{{ 'form.next_step'|trans({}, 'general') }}</button>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="registraton-step {% if not form.vars.valid %}active{% endif %}">
+                    <div class="registraton-step_title">
+                        <h2>{{ 'form.step'|trans({}, 'general') }} 2</h2>
+                        <p>{{ 'form.address'|trans({}, 'general') }}</p>
+                    </div>
+                    <div class="registraton-step_card">
+                        <fieldset>
+                            {{ form_row(form.country, {'attr': {'class': 'input-lg user_country'}}) }}
+                            {{ form_row(form.city, {'attr': {'class': 'input-lg'}}) }}
+                            {{ form_row(form.address, {'attr': {'class': 'input-lg'}}) }}
+                            {{ form_row(form.zip, {'attr': {'class': 'input-lg'}}) }}
+                        </fieldset>
+                        {% if form.vars.valid %}
+                            <div class="text-right">
+                                <button type="button" class="btn btn-primary m-t" data-action="validateStep">{{ 'form.next_step'|trans({}, 'general') }}</button>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="registraton-step {% if not form.vars.valid %}active{% endif %}">
+                    <div class="registraton-step_title">
+                        <h2>{{ 'form.step'|trans({}, 'general') }} 3</h2>
+                        <p>{{ 'form.additional_information'|trans({}, 'general') }}</p>
+                    </div>
+                    <div class="registraton-step_card">
+                        <div>
+                            {{ form_row(form.phone, {'attr': {'class': 'input-lg'}}) }}
+                            {{ form_row(form.company, {'attr': {'class': 'input-lg user_company'}}) }}
+                            {{ form_row(form.vatNumber, {'attr': {'class': 'input-lg user_vat-number'}}) }}
+                            {{ form_row(form.webSite, {'attr': {'class': 'input-lg'}}) }}
+                            {{ form_row(form.conditions) }}
+                        </div>
+                        {{ form_rest(form) }}
+                        <div>
+                            <label class="control-label required" for="fos_user_registration_form_zip">&nbsp;</label>
+                            <input type="submit" class="btn btn-primary full-width" value="{{ 'registration.submit'|trans }}" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {{ form_end(form) }}
+</div>
+
+

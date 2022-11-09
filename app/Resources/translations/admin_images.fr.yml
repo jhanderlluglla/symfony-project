@@ -1,0 +1,22 @@
+title: Images personnelles
+
+add_title: New image FR
+
+edit_title: Edit image FR
+search_placeholder: Searching via a description FR
+
+upload_image: Upload image FR
+error_upload_image: Error with upload your image. Please try  FR
+
+author: Author FR
+description: Description FR
+
+table:
+  image: Image FR
+  actions: Actions FR
+  edit: Edit FR
+  delete: Delete FR
+
+form:
+  upload_image: Upload an image FR
+  submit: Submit FR

@@ -1,0 +1,1173 @@
+{% extends 'layout.html.twig' %}
+
+{% form_theme form "form/theme.html.twig" %}
+
+{% trans_default_domain 'copywriting' %}
+
+{% block title %}
+    {{ 'edit_title'|trans }}
+{% endblock %}
+
+{% block breadcrumb %}
+    {{ include('breadcrumb/copywriting.html.twig',
+        {'childrens': [
+            {'name': 'copywriting.pending'|trans({}, 'menu'), 'path': 'copywriting_order_list', 'status': 'waiting'},
+            block('title')
+        ]})
+    }}
+{% endblock %}
+
+{% if form.writer_category is defined %}
+    {% form_theme form.writer_category _self %}
+{% endif %}
+
+{% block radio_widget %}
+    {% spaceless %}
+        <input type="radio" {{ block('widget_attributes') }}{% if value is defined %} value="{{ value }}"{% endif %}{% if checked %} checked="checked"{% endif %} />
+    {% endspaceless %}
+{% endblock radio_widget %}
+
+{% block content %}
+
+    <div class="fixed-price">
+        <span>{{ 'table.price'|trans({}, 'general') }}: </span>
+        <span id="price">0€</span>
+    </div>
+    {{ form_start(form, {
+        'attr': {
+            'class': 'high-inputs',
+            'id': 'create-copywriting-project'
+        }
+    }) }}
+    {{ form_errors(form) }}
+    <div class="steps-item">
+        <div class="step-number">
+            {{ 'form.step'|trans }} 1
+        </div>
+        <div class="step-content">
+            <p class="step-heading">Select from the existed projects or create new</p>
+            <div class="step-rows">
+                <div class="row">
+                    <div class="col-lg-7">
+                        <div class="flex-group">
+                            <div class="flex-group_input m-b-sm">
+                                {{ form_row(form.load_template, {
+                                    'attr': {
+                                            'data-bind':"value: selectedTemplate,
+                                                    event: {change: loadTemplate}",
+                                            'data-url':path('copywriting_template_fetch', {'id':"1"})
+                                        }
+                                    })
+                                }}
+                            </div>
+                            <span class="flex-group_divider m-b-sm">or</span>
+                            <div class="m-b-sm">
+                                <button class="btn btn-primary j-create-new"
+                                        data-bind="click: showNextStep, disable: articles().length">{{ 'create_new'| trans }}</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="steps-item {% if form.vars.valid %} disabled {% endif %}">
+        <div class="step-number">
+            {{ 'form.step'|trans }} 2
+        </div>
+        <div class="step-content">
+            <p class="step-heading">Enter information about project</p>
+            <div class="step-rows">
+                <div class="row j-floating-row">
+                    <div class="col-lg-7">
+                        {{ form_row(form.title, {'attr':{'data-bind': "value: title, valueUpdate: ['afterkeydown', 'input']"}}) }}
+                        {{ form_row(form.description, {'attr':{'data-bind': "value: description"}}) }}
+
+                        <div class="form-group m-t-lg">
+                            <div class="form-inline">
+                                <div class="input-group">
+                                    <div class="radio">
+                                        <label for="project_type_fix" class="control-label">
+                                            <span class="checkbox_radio_widget_wrapper">
+                                                <input class="control-input"
+                                                       type="radio"
+                                                       id="project_type_fix"
+                                                       name="copywriting_project[recurrent]"
+                                                       value="0"
+                                                       data-bind="checked: recurrent, click: recurrentCheck">
+                                                <label for="project_type_fix"></label>
+                                            </span>
+                                            {{ 'form.fix'|trans }}
+                                        </label>
+                                    </div>
+                                    <div class="radio">
+                                        <label for="project_type_recurrent" class="control-label">
+                                            <span class="checkbox_radio_widget_wrapper">
+                                                <input  class="control-input"
+                                                        type="radio"
+                                                        id="project_type_recurrent"
+                                                        name="copywriting_project[recurrent]"
+                                                        value="1"
+                                                        data-bind="checked: recurrent, click: recurrentCheck"
+                                                >
+                                                <label for="project_type_recurrent"></label>
+                                            </span>
+                                            {{ 'form.recurrent'|trans }}
+                                            <button type="button"
+                                                    class="info-button-icon"
+                                                    data-toggle="popover-floating"
+                                                    data-placement="auto right"
+                                                    title=""
+                                                    data-float-title="{{ 'form.recurrent'|trans }}"
+                                                    data-content="{{ 'form.recurrent_popup_mesage'|trans }}">
+                                                <svg><use xlink:href="#info-icon"></use></svg>
+                                            </button>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-6 m-b-md">
+                                <div class="form-group">
+                                    <label  for="number_of_articles" class="control-label">{{ 'form.number_articles'|trans }}</label>
+                                    <input
+                                            id="number_of_articles"
+                                            required
+                                            type="number"
+                                            placeholder="{{ 'form.number_placeholder'|trans }}"
+                                            min="1"
+                                            max="150"
+                                            class="form-control"
+                                            data-bind="value: articlesCount, disable: articles().length">
+                                </div>
+                            </div>
+                            <div class="col-lg-6 m-b-md">
+                                <div class="form-group">
+                                    <label for="number_of_words" class="control-label">{{ 'form.number_words'|trans }}</label>
+                                    <input
+                                            id="number_of_words"
+                                            required
+                                            placeholder="{{ 'form.number_placeholder'|trans }}"
+                                            type="number"
+                                            min="50"
+                                            max="999999"
+                                            class="form-control"
+                                            data-bind="value: wordsCount, disable: articles().length">
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group" data-bind="visible: isRecurrent()">
+                            <div class="row">
+                                <div class="col-lg-6  m-b-sm">
+                                    <label class="control-label" for="recurrent_period">{{ 'form.period'|trans }}</label>
+                                    <div class="input-group">
+                                        {{ form_widget(form.recurrent_period, {'attr':{'data-bind': "value: recurrentPeriod"}}) }}
+                                        <span class="custom-addon input-group-addon">{{ 'form.days'|trans }}</span>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <label for="recurrent_total" class="control-label">{{ 'form.recurrent_total'|trans }}</label>
+                                    {{ form_widget(form.recurrent_total, {'attr':{'data-bind': "value: recurrentTotal"}}) }}
+                                </div>
+                                <div class="col-lg-12">
+                                    <p class="recurrent-calculate">
+                                        {{ 'reccurent_message.part1'|trans }}
+                                        <span data-bind="text: articlesCount"></span>
+                                        {{ 'reccurent_message.part2'|trans }}
+                                        <span data-bind="text: recurrentPeriod"></span>
+                                        {{ 'reccurent_message.part3'|trans }}
+                                        <span data-bind="text: recurrentDaysTotal"></span>
+                                        {{ 'reccurent_message.part4'|trans }}
+                                        <span data-bind="text: recurrentTotal"></span>
+                                        {{ 'reccurent_message.part5'|trans }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="form_exchange_site" class="control-label">{{ 'form.exchange_site'|trans }}</label>
+                            <button type="button"
+                                    class="info-button-icon"
+                                    data-toggle="popover-floating"
+                                    data-placement="auto right"
+                                    title=""
+                                    data-float-title="{{ 'form.exchange_site'|trans }}"
+                                    data-content="{{ 'form.exchange_site_popup_mesage'|trans }}">
+                                <svg><use xlink:href="#info-icon"></use></svg>
+                            </button>
+                            {{ form_widget(form.exchange_site, {'id': 'form_exchange_site', 'attr':{'data-bind': "value: exchangeSite, disable: articles().length"}}) }}
+                        </div>
+
+                        <div class="form-group">
+                            <label for="form_language" class="control-label">{{ 'form.language'|trans }}</label>
+                            <button type="button"
+                                    class="info-button-icon"
+                                    data-toggle="popover-floating"
+                                    data-placement="auto right"
+                                    title=""
+                                    data-float-title="{{ 'form.language'|trans }}"
+                                    data-content="{{ 'form.language_popup_message'|trans }}">
+                                <svg><use xlink:href="#info-icon"></use></svg>
+                            </button>
+                            {{ form_widget(form.language, {'id': 'form_language', 'attr': {'data-bind':"disable: articles().length"}}) }}
+                        </div>
+
+                        <div class="form-group">
+                            <div class="text-right">
+                                <button class="btn btn-primary" data-bind="click: addMultiple, disable: articles().length">{{ 'form.next'|trans }}</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-5">
+                        {% include ':form:info-box.html.twig' with {'title': 'form.info-box_title', 'content': 'form.info-box_text'|trans} %}
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    {% do form.recurrent.setRendered %}
+
+    <div class="steps-item float" data-bind="css: { disabled: articles().length == 0 }">
+        <div class="step-number">
+            {{ 'form.step'|trans }} 3
+        </div>
+        <div class="step-content">
+            <p class="step-heading">{{ form_label(form.writer_category) }}</p>
+            <div class="step-rows">
+                {{ form_widget(form.writer_category) }}
+                <div class="slick_writers" data-bind="foreach: writers">
+                        <label class="card-writer">
+                            <input type="checkbox" class="card-writer__checkbox" name="checkbox-writer" data-bind="value: id, checked: chosen"/>
+                            <div class="card-writer__wrap">
+                                <div class="card-writer__main">
+                                    <h3 class="card-writer__title" data-bind="text: username"></h3>
+                                    <div class="card-writer__text">
+                                        <div class="card-writer__img-avatar" data-bind="style: { 'background-image': 'url(' + avatar() + ')' }">
+                                        </div>
+
+                                        <!-- ko if: isSetLikes() -->
+                                        <div class="small-text">
+                                            {{ 'personal_stats'|trans }}
+                                            <p class="raiting">
+                                                <span><i class="fa fa-thumbs-up"></i>  <b data-bind="text: likes"></b></span>
+                                                <span><i class="fa fa-thumbs-down"></i> <b data-bind="text: dislikes"></b></span>
+                                            </p>
+                                        </div>
+                                        <!-- /ko -->
+                                    </div>
+                                </div>
+                                <footer class="card-writer__footer">
+                                    <p data-bind="text: getDeadlineMessage()"></p>
+                                </footer>
+                            </div>
+                        </label>
+                </div>
+                <input type="hidden" name="chosen_writers" value=""/>
+                <div class="articles-nav tag-navs">
+
+
+                    <a class="btn btn-primary j-all-articles" data-toggle="tab" data-bind="click: clearNavTabs" aria-expanded="true" href="#idAll" title="All articles">
+                        <!-- ko if: articles().length > 1 -->
+                        {{ 'articles.all_articles' | trans }}<span> (<span data-bind="text: articles().length - 1"></span> {{ 'form.items' | trans }})</span>
+                        <!-- /ko -->
+                        <!-- ko if: articles().length == 1 -->
+                        <span data-bind="text: myTitle" >{{ 'articles.new_article'|trans }}</span>
+                        <!-- /ko -->
+                    </a>
+                    <!-- ko if: articles().length > 1 -->
+                    <button class="btn btn-link" data-bind="click: showArticleNav">
+                        <!-- ko if: buttonStatus -->
+                        {{ 'form.hide_all' | trans }} <i class="fa fa-chevron-up"></i>
+                        <!-- /ko -->
+                        <!-- ko ifnot: buttonStatus -->
+                        {{ 'form.show_all' | trans }} <i class="fa fa-chevron-down"></i>
+                        <!-- /ko -->
+                    </button>
+                    <ul class="nav nav-tabs" data-bind="foreach: articles">
+                        <!-- ko ifnot: isAllTab -->
+                        <li data-bind="attr: { 'aria-controls': id }, css: { active: $index() == 0 }">
+                            <a data-toggle="tab" aria-expanded="true" data-bind="attr: { title: title, href: href}">
+                                <span data-bind="text: titleTab"></span>
+                                <!-- ko if: $parent.articles().length > 2 -->
+                                    <i class="fa fa-lg fa-fw fa-times-circle" data-bind="click: $parent.removeArticle"></i>
+                                <!-- /ko -->
+                            </a>
+                        </li>
+                        <!-- /ko -->
+                        </ul>
+                    <!-- /ko -->
+                </div>
+                <div class="row j-floating-row">
+                    <div class="col-lg-7">
+                        <div class="tab-content">
+                            <!-- ko foreach: articles -->
+                            <div class="tab-pane" data-bind="attr: { id: id }, css: { active: $index() == 0 }">
+                                <div data-bind="event: {change: $parent.changeOnAllTab}">
+                                    <input type="hidden"
+                                           data-bind="value: wordsNumber,
+                                           attr: {
+                                                id: 'copywriting_project_orders_' + $index() + '_wordsNumber',
+                                                name: 'copywriting_project[orders][' + $index() + '][wordsNumber]'
+                                            }"
+                                           required="required" pattern=".{1,}" class="form-control" />
+                                    <div class="form-group">
+                                        <label class="control-label required"
+                                               data-bind="attr: { for: 'copywriting_project_orders_' + $index() + '_title' }">{{ 'form.title_text'|trans }}</label>
+                                        <input type="text"
+                                               maxlength="100"
+                                               data-bind="
+                                                       value: title,
+                                                       valueUpdate: ['afterkeydown', 'input'],
+                                                       disable: isAllTab,
+                                                       attr: {
+                                                           id: 'copywriting_project_orders_' + $index() + '_title',
+                                                           name: 'copywriting_project[orders][' + $index() + '][title]' }"
+                                               required="required"
+                                               class="form-control" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label"
+                                               data-bind="attr: { for: 'copywriting_project_orders_' + $index() + '_instructions' }">{{ 'form.instructions'|trans }}</label>
+                                        <textarea data-bind="value: instructions,
+                                                        valueUpdate: ['afterkeydown', 'input'],
+                                                        disable: isAllTab,
+                                                        attr: {
+                                                            id: 'copywriting_project_orders_' + $index() + '_instructions',
+                                                            name: 'copywriting_project[orders][' + $index() + '][instructions]'
+                                                        }"
+                                                maxlength="3000"
+                                                class="form-control">
+                                        </textarea>
+                                    </div>
+                                    <hr>
+                                    <div class="form-group">
+                                        <label class="control-label bold-label">{{ 'form.meta_title'|trans }}</label>
+                                        <div class="checkbox">
+                                            <label data-bind="attr: { for: 'copywriting_project_orders_' + $index() + '_metaTitle' }" class="radio-inline">
+                                                <span class="checkbox_radio_widget_wrapper">
+                                                    <input type="checkbox"
+                                                           data-bind="checked: metaTitle,
+                                                           attr: {
+                                                               id: 'copywriting_project_orders_' + $index() + '_metaTitle',
+                                                               name: 'copywriting_project[orders][' + $index() + '][metaTitle]'
+                                                           }"
+                                                           value="1" />
+                                                    <label data-bind="attr: { for: 'copywriting_project_orders_' + $index() + '_metaTitle' }"></label>
+                                                </span>
+                                                {{ 'attributes.meta_title.description'|trans }}
+                                            </label>
+                                            <button type="button"
+                                                    class="info-button-icon"
+                                                    data-toggle="popover-floating"
+                                                    data-placement="auto right"
+                                                    title=""
+                                                    data-float-title="{{ 'form.meta_title'|trans }}"
+                                                    data-content="{{ 'attributes.meta_title.popup_message'|trans }}">
+                                                <svg><use xlink:href="#info-icon"></use></svg>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label bold-label">{{ 'form.meta_description'|trans }}</label>
+                                        <div class="checkbox">
+                                            <div class="row">
+                                                <div class="col-lg-7">
+                                                    <label data-bind="attr: { for: 'copywriting_project_orders_' + $index() + '_metaDescription' }" class="radio-inline">
+                                                        <span class="checkbox_radio_widget_wrapper">
+                                                            <input type="checkbox"
+                                                                   data-bind="checked: metaDescription,
+                                                                   click: $parent.calculatePrice(),
+                                                                   attr: {
+                                                                       id: 'copywriting_project_orders_' + $index() + '_metaDescription',
+                                                                       name: 'copywriting_project[orders][' + $index() + '][metaDescription]'
+                                                                   }"
+                                                                   value="1" />
+                                                            <label data-bind="attr: { for: 'copywriting_project_orders_' + $index() + '_metaDescription' }"></label>
+                                                        </span>
+                                                        {{ 'attributes.meta_description.description'|trans }}
+                                                    </label>
+                                                    <button type="button"
+                                                            class="info-button-icon"
+                                                            data-toggle="popover-floating"
+                                                            data-placement="auto right"
+                                                            title=""
+                                                            data-float-title="{{ 'form.meta_description'|trans }}"
+                                                            data-content="{{ 'attributes.meta_description.popup_message'|trans }}">
+                                                        <svg><use xlink:href="#info-icon"></use></svg>
+                                                    </button>
+                                                </div>
+                                                <div class="col-lg-5">
+                                                    <div>
+                                                        {{ 'form.meta_description_hint'|trans({'%cost%': additionalData.prices.price_for_meta_description}) }}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    {#  headings H1 H2 ...  #}
+                                    <div class="form-group">
+                                        <label class="control-label bold-label">{{ 'form.header_one_set'|trans }}</label>
+                                        <div class="checkbox">
+                                            <label data-bind="attr: { for: 'copywriting_project_orders_' + $index() + '_headerOneSet' }" class="radio-inline">
+                                                <span class="checkbox_radio_widget_wrapper">
+                                                    <input type="checkbox"
+                                                           data-bind="checked: headerOneSet,
+                                                            attr: {
+                                                                id: 'copywriting_project_orders_' + $index() + '_headerOneSet',
+                                                                name: 'copywriting_project[orders][' + $index() + '][headerOneSet]'
+                                                            }"
+                                                           value="1" />
+                                                    <label data-bind="attr: { for: 'copywriting_project_orders_' + $index() + '_headerOneSet' }"></label>
+                                                </span>
+                                                {{ 'attributes.header_h1.description'|trans }}
+                                            </label>
+                                            <button type="button"
+                                                    class="info-button-icon"
+                                                    data-toggle="popover-floating"
+                                                    data-placement="auto right"
+                                                    title=""
+                                                    data-float-title="{{ 'form.header_one_set'|trans }}"
+                                                    data-content="{{ 'attributes.header_h1.popup_message'|trans }}">
+                                                <svg><use xlink:href="#info-icon"></use></svg>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label bold-label"
+                                               data-bind="attr: { for: 'copywriting_project_orders_' + $index() + '_headerTwoStart' }">
+                                            {{ 'form.header_two_start_end'|trans }}
+                                        </label>
+                                        <div class="form-inline minmaxrange j-pair-num">
+                                            <span class="control-label">{{ 'attributes.headers.part1'|trans }}</span>
+                                            <div class="input-group">
+                                                <input type="number"
+                                                    range-type="min"
+                                                       min="0"
+                                                       max="999"
+                                                       step="1"
+                                                       placeholder="{{ 'form.min'|trans }}"
+                                                       data-pair = "min"
+                                                       data-bind="value: headerTwoStart,
+                                                            valueUpdate: ['afterkeydown', 'input'],
+                                                            attr: {
+                                                                id: 'copywriting_project_orders_' + $index() + '_headerTwoStart',
+                                                                name: 'copywriting_project[orders][' + $index() + '][headerTwoStart]',
+                                                                required: headerTwoRequired
+                                                            },
+                                                            event: { change: $parent.headerTwoRange }"
+                                                       class="form-control form-control_small" />
+                                            </div>
+                                            <span class="control-label">{{ 'attributes.headers.part2'|trans }}</span>
+                                            <div class="input-group">
+                                                <input type="number"
+                                                        range-type="max"
+                                                       min="0"
+                                                       max="999"
+                                                       step="1"
+                                                       placeholder="{{ 'form.max'|trans }}"
+                                                       data-pair = "max"
+                                                       data-bind="value: headerTwoEnd,
+                                                            valueUpdate: ['afterkeydown', 'input'],
+                                                            attr: {
+                                                                id: 'copywriting_project_orders_' + $index() + '_headerTwoEnd',
+                                                                name: 'copywriting_project[orders][' + $index() + '][headerTwoEnd]',
+                                                                required: headerTwoRequired
+                                                            },
+                                                            event: { change: $parent.headerTwoRange }"
+                                                       class="form-control form-control_small" />
+                                            </div>
+                                            <span class="control-label">
+                                                            {{ 'attributes.headers.part3'|trans({'%header%': 'H2'}) }}
+                                                <button type="button"
+                                                        class="info-button-icon"
+                                                        data-toggle="popover-floating"
+                                                        data-placement="auto right" title=""
+                                                        data-float-title="{{ 'form.header_two_start_end'|trans }}"
+                                                        data-content="{{ 'attributes.header_h2.popup_message'|trans }}">
+                                                    <svg><use xlink:href="#info-icon"></use></svg>
+                                                </button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label bold-label"
+                                               data-bind="attr: { for: 'copywriting_project_orders_' + $index() + '_headerThreeStart' }">
+                                            {{ 'form.header_three_start_end'|trans }}
+                                        </label>
+                                        <div class="form-inline minmaxrange j-pair-num">
+                                            <span class="control-label">{{ 'attributes.headers.part1'|trans }}</span>
+                                            <div class="input-group">
+                                                <input type="number"
+                                                    range-type="min"
+                                                       min="0"
+                                                       max="999"
+                                                       step="1"
+                                                       placeholder="{{ 'form.min'|trans }}"
+                                                       data-pair = "min"
+                                                       data-bind="value: headerThreeStart,
+                                                        valueUpdate: ['afterkeydown', 'input'],
+                                                        attr: {
+                                                            id: 'copywriting_project_orders_' + $index() + '_headerThreeStart',
+                                                            name: 'copywriting_project[orders][' + $index() + '][headerThreeStart]',
+                                                            required: headerThreeRequired
+                                                        }"
+                                                       class="form-control form-control_small" />
+                                            </div>
+                                            <span class="control-label">{{ 'attributes.headers.part2'|trans }}</span>
+                                            <div class="input-group">
+                                                <input type="number"
+                                                    range-type="max"
+                                                       min="0"
+                                                       max="999"
+                                                       step="1"
+                                                       placeholder="{{ 'form.max'|trans }}"
+                                                       data-pair = "max"
+                                                       data-bind="value: headerThreeEnd,
+                                                       valueUpdate: ['afterkeydown', 'input'],
+                                                       attr: {
+                                                            id: 'copywriting_project_orders_' + $index() + '_headerThreeEnd',
+                                                            name: 'copywriting_project[orders][' + $index() + '][headerThreeEnd]',
+                                                            required: headerThreeRequired
+                                                        }"
+                                                       class="form-control form-control_small" />
+                                            </div>
+                                            <span class="control-label">
+                                                            {{ 'attributes.headers.part3'|trans({'%header%': 'H3'}) }}
+                                                <button type="button"
+                                                        class="info-button-icon"
+                                                        data-toggle="popover-floating"
+                                                        data-placement="auto right"
+                                                        title=""
+                                                        data-float-title="{{ 'form.header_three_start_end'|trans }}"
+                                                        data-content="{{ 'attributes.header_h3.popup_message'|trans }}">
+                                                    <svg><use xlink:href="#info-icon"></use></svg>
+                                                </button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    {#  font decoration #}
+                                    <div class="form-group">
+                                        <label class="control-label bold-label">{{ 'form.bold_text'|trans }}</label>
+                                        <span class="inline-block control-label">({{ 'attributes.bold_text.description'|trans }})</span>
+                                        <div class="form-inline">
+                                            <div class="input-group">
+                                                <div class="radio">
+                                                    <label data-bind="attr: { for: 'copywriting_project_orders_' + $index() + '_boldText_0' }">
+                                                        <span class="checkbox_radio_widget_wrapper">
+                                                            <input type="radio"
+                                                                   value="0"
+                                                                   data-bind="checked: boldText,
+                                                                   attr: {
+                                                                        id: 'copywriting_project_orders_' + $index() + '_boldText_0',
+                                                                        name: 'copywriting_project[orders][' + $index() + '][boldText]'
+                                                                    }">
+                                                            <label data-bind="attr: { for: 'copywriting_project_orders_' + $index() + '_boldText_0' }"></label>
+                                                        </span>
+                                                        {{ 'yes'|trans }}
+                                                    </label>
+                                                </div>
+                                                <div class="radio">
+                                                    <label data-bind="attr: { for: 'copywriting_project_orders_' + $index() + '_boldText_1' }">
+                                                        <span class="checkbox_radio_widget_wrapper">
+                                                            <input type="radio"
+                                                                   value="1"
+                                                                   data-bind="checked: boldText,
+                                                                   attr: {
+                                                                        id: 'copywriting_project_orders_' + $index() + '_boldText_1',
+                                                                        name: 'copywriting_project[orders][' + $index() + '][boldText]'
+                                                                    }">
+                                                            <label data-bind="attr: { for: 'copywriting_project_orders_' + $index() + '_boldText_1' }"></label>
+                                                        </span>
+                                                        {{ 'no'|trans }}
+                                                    </label>
+                                                </div>
+                                                <div class="radio">
+                                                    <label data-bind="attr: { for: 'copywriting_project_orders_' + $index() + '_boldText_2' }">
+                                                        <span class="checkbox_radio_widget_wrapper">
+                                                            <input type="radio"
+                                                                   value="2"
+                                                                   data-bind="checked: boldText,
+                                                                   attr: {
+                                                                        id: 'copywriting_project_orders_' + $index() + '_boldText_2',
+                                                                        name: 'copywriting_project[orders][' + $index() + '][boldText]'
+                                                                    }">
+                                                            <label data-bind="attr: { for: 'copywriting_project_orders_' + $index() + '_boldText_2' }"></label>
+                                                        </span>
+                                                        {{ 'optional'|trans }}
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="control-label bold-label">{{ 'form.quoted_text'|trans }}</label>
+                                        <div class="form-inline">
+                                            <div class="input-group">
+                                                <div class="radio">
+                                                    <label data-bind="attr: { for: 'copywriting_project_orders_' + $index() + '_quotedText_0' }">
+                                                        <span class="checkbox_radio_widget_wrapper">
+                                                            <input type="radio"
+                                                                   value="0"
+                                                                   data-bind="checked: quotedText,
+                                                                   attr: {
+                                                                        id: 'copywriting_project_orders_' + $index() + '_quotedText_0',
+                                                                        name: 'copywriting_project[orders][' + $index() + '][quotedText]'
+                                                                    }">
+                                                            <label data-bind="attr: { for: 'copywriting_project_orders_' + $index() + '_quotedText_0' }"></label>
+                                                        </span>
+                                                        {{ 'yes'|trans }}
+                                                    </label>
+                                                </div>
+                                                <div class="radio">
+                                                    <label data-bind="attr: { for: 'copywriting_project_orders_' + $index() + '_quotedText_1' }">
+                                                        <span class="checkbox_radio_widget_wrapper">
+                                                            <input type="radio"
+                                                                   value="1"
+                                                                   data-bind="checked: quotedText,
+                                                                   attr: {
+                                                                        id: 'copywriting_project_orders_' + $index() + '_quotedText_1',
+                                                                        name: 'copywriting_project[orders][' + $index() + '][quotedText]'
+                                                                    }">
+                                                            <label data-bind="attr: { for: 'copywriting_project_orders_' + $index() + '_quotedText_1' }"></label>
+                                                        </span>
+                                                        {{ 'no'|trans }}
+                                                    </label>
+                                                </div>
+                                                <div class="radio">
+                                                    <label data-bind="attr: { for: 'copywriting_project_orders_' + $index() + '_quotedText_2' }">
+                                                        <span class="checkbox_radio_widget_wrapper">
+                                                            <input type="radio"
+                                                                   value="2"
+                                                                   data-bind="checked: quotedText,
+                                                                   attr: {
+                                                                        id: 'copywriting_project_orders_' + $index() + '_quotedText_2',
+                                                                        name: 'copywriting_project[orders][' + $index() + '][quotedText]'
+                                                                    }">
+                                                            <label data-bind="attr: { for: 'copywriting_project_orders_' + $index() + '_quotedText_2' }"></label>
+                                                        </span>
+                                                        {{ 'optional'|trans }}
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="control-label bold-label">{{ 'form.italic_text'|trans }}</label>
+                                        <div class="form-inline">
+                                            <div class="input-group">
+                                                <div class="radio">
+                                                    <label data-bind="attr: { for: 'copywriting_project_orders_' + $index() + '_italicText_0' }">
+                                                        <span class="checkbox_radio_widget_wrapper">
+                                                            <input type="radio"
+                                                                   value="0"
+                                                                   data-bind="checked: italicText,
+                                                                   attr: {
+                                                                        id: 'copywriting_project_orders_' + $index() + '_italicText_0',
+                                                                        name: 'copywriting_project[orders][' + $index() + '][italicText]'
+                                                                    }">
+                                                            <label data-bind="attr: { for: 'copywriting_project_orders_' + $index() + '_italicText_0' }"></label>
+                                                        </span>
+                                                        {{ 'yes'|trans }}
+                                                    </label>
+                                                </div>
+                                                <div class="radio">
+                                                    <label data-bind="attr: { for: 'copywriting_project_orders_' + $index() + '_italicText_1' }">
+                                                        <span class="checkbox_radio_widget_wrapper">
+                                                            <input type="radio"
+                                                                   value="1"
+                                                                   data-bind="checked: italicText,
+                                                                   attr: {
+                                                                        id: 'copywriting_project_orders_' + $index() + '_italicText_1',
+                                                                        name: 'copywriting_project[orders][' + $index() + '][italicText]'
+                                                                    }">
+                                                            <label data-bind="attr: { for: 'copywriting_project_orders_' + $index() + '_italicText_1' }"></label>
+                                                        </span>
+                                                        {{ 'no'|trans }}
+                                                    </label>
+                                                </div>
+                                                <div class="radio">
+                                                    <label data-bind="attr: { for: 'copywriting_project_orders_' + $index() + '_italicText_2' }">
+                                                        <span class="checkbox_radio_widget_wrapper">
+                                                            <input type="radio"
+                                                                   value="2"
+                                                                   data-bind="checked: italicText,
+                                                                    attr: {
+                                                                        id: 'copywriting_project_orders_' + $index() + '_italicText_2',
+                                                                        name: 'copywriting_project[orders][' + $index() + '][italicText]'
+                                                                    }">
+                                                            <label data-bind="attr: { for: 'copywriting_project_orders_' + $index() + '_italicText_2' }"></label>
+                                                        </span>
+                                                        {{ 'optional'|trans }}
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <hr>
+
+                                    <div class="form-group">
+                                        <label class="control-label bold-label">{{ 'form.ul_tag'|trans }}</label>
+                                        <span class="inline-block control-label">({{ 'attributes.ul_tag.description'|trans }})</span>
+
+                                        <div class="form-inline">
+                                            <div class="input-group">
+                                                <div class="radio">
+                                                    <label data-bind="attr: { for: 'copywriting_project_orders_' + $index() + '_ulTag_0' }">
+                                                        <span class="checkbox_radio_widget_wrapper">
+                                                            <input type="radio"
+                                                                   value="0"
+                                                                   data-bind="checked: ulTag,
+                                                                   attr: {
+                                                                       id: 'copywriting_project_orders_' + $index() + '_ulTag_0',
+                                                                       name: 'copywriting_project[orders][' + $index() + '][ulTag]'
+                                                                   }">
+                                                            <label data-bind="attr: { for: 'copywriting_project_orders_' + $index() + '_ulTag_0' }"></label>
+                                                        </span>
+                                                        {{ 'yes'|trans }}
+                                                    </label>
+                                                </div>
+                                                <div class="radio">
+                                                    <label data-bind="attr: { for: 'copywriting_project_orders_' + $index() + '_ulTag_1' }" class="radio-inline">
+                                                        <span class="checkbox_radio_widget_wrapper">
+                                                            <input type="radio"
+                                                                   value="1"
+                                                                   data-bind="checked: ulTag,
+                                                                   attr: {
+                                                                       id: 'copywriting_project_orders_' + $index() + '_ulTag_1',
+                                                                       name: 'copywriting_project[orders][' + $index() + '][ulTag]'
+                                                                   }">
+                                                            <label data-bind="attr: { for: 'copywriting_project_orders_' + $index() + '_ulTag_1' }"></label>
+                                                        </span>
+                                                        {{ 'no'|trans }}
+                                                    </label>
+                                                </div>
+                                                <div class="radio">
+                                                    <label data-bind="attr: { for: 'copywriting_project_orders_' + $index() + '_ulTag_2' }" class="radio-inline">
+                                                        <span class="checkbox_radio_widget_wrapper">
+                                                            <input type="radio"
+                                                                   value="2"
+                                                                   data-bind="checked: ulTag,
+                                                                   attr: {
+                                                                       id: 'copywriting_project_orders_' + $index() + '_ulTag_2',
+                                                                       name: 'copywriting_project[orders][' + $index() + '][ulTag]'
+                                                                   }">
+                                                            <label data-bind="attr: { for: 'copywriting_project_orders_' + $index() + '_ulTag_2' }"></label>
+                                                        </span>
+                                                        {{ 'optional'|trans }}
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <hr>
+
+                                    {#  keywords    #}
+                                    <div class="form-group">
+                                        <label class="control-label bold-label"
+                                               data-bind="attr: { for: 'copywriting_project_orders_' + $index() + '_keywords' }">
+                                            {{ 'form.keywords'|trans }}
+                                        </label>
+
+                                        <input type="text"
+                                               style="opacity: 0; position: absolute"
+                                               data-bind="value: keywords,
+                                               attr: {
+                                                    id: 'copywriting_project_orders_' + $index() + '_keywords',
+                                                    name: 'copywriting_project[orders][' + $index() + '][keywords]',
+                                                    required: keywordsRequired
+                                                },
+                                                event: { change: $parent.setKeywords }"
+
+                                               class="tagsinput form-control" />
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="control-label bold-label"
+                                               data-bind="attr: { for: 'copywriting_project_orders_' + $index() + '_keywordsPerArticleFrom' }">
+                                            {{ 'form.keywords_per_article'|trans }}
+                                        </label>
+                                        <div class="input-group minmaxrange j-pair-num">
+                                            <input type="number"
+                                                    range-type="min"
+                                                    min="0"
+                                                    max="999"
+                                                    placeholder="{{ 'form.min'|trans }}"
+                                                    data-pair = "min"
+                                                    data-bind="value: keywordsPerArticleFrom,
+                                                    valueUpdate: ['afterkeydown', 'input'],
+                                                    attr: {
+                                                        id: 'copywriting_project_orders_' + $index() + '_keywordsPerArticleFrom',
+                                                        name: 'copywriting_project[orders][' + $index() + '][keywordsPerArticleFrom]',
+                                                        required: keywordsRequired
+                                                    }"
+                                                    class="form-control form-control_small m-r-md" />
+
+                                            <input type="number"
+                                                    range-type="max"
+                                                    min="0"
+                                                    max="999"
+                                                    placeholder="{{ 'form.max'|trans }}"
+                                                    data-pair = "max"
+                                                    data-bind="value: keywordsPerArticleTo,
+                                                    valueUpdate: ['afterkeydown', 'input'],
+                                                    attr: {
+                                                        id: 'copywriting_project_orders_' + $index() + '_keywordsPerArticleTo',
+                                                        name: 'copywriting_project[orders][' + $index() + '][keywordsPerArticleTo]',
+                                                        required: keywordsRequired
+                                                    }"
+                                                   class="form-control form-control_small" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <!-- ko if: keywordsEnabled -->
+                                            <div class="row">
+                                                <div class="col-lg-4">
+                                                    <!-- ko if: metaTitle -->
+                                                        <div class="checkbox">
+                                                        <label data-bind="attr: { for: 'copywriting_project_orders_' + $index() + '_keywordInMetaTitle' }">
+                                                            <span class="checkbox_radio_widget_wrapper">
+                                                                <input type="checkbox"
+                                                                       data-bind="checked: keywordInMetaTitle,
+                                                                       attr: {
+                                                                            id: 'copywriting_project_orders_' + $index() + '_keywordInMetaTitle',
+                                                                            name: 'copywriting_project[orders][' + $index() + '][keywordInMetaTitle]'
+                                                                        }"
+                                                                       value="1" />
+                                                                <label data-bind="attr: { for: 'copywriting_project_orders_' + $index() + '_keywordInMetaTitle' }"></label>
+                                                            </span>
+                                                            {{ 'form.keyword_meta_title'|trans }}
+                                                        </label>
+                                                    </div>
+                                                    <!-- /ko -->
+                                                    <!-- ko if: headerOneSet -->
+                                                        <div class="checkbox">
+                                                        <label data-bind="attr: { for: 'copywriting_project_orders_' + $index() + '_keywordInHeaderOne' }">
+                                                            <span class="checkbox_radio_widget_wrapper">
+                                                                <input type="checkbox"
+                                                                       data-bind="checked: keywordInHeaderOne,
+                                                                        attr: {
+                                                                            id: 'copywriting_project_orders_' + $index() + '_keywordInHeaderOne',
+                                                                            name: 'copywriting_project[orders][' + $index() + '][keywordInHeaderOne]'
+                                                                        }"
+                                                                       value="1" />
+                                                                <label data-bind="attr: { for: 'copywriting_project_orders_' + $index() + '_keywordInHeaderOne' }"></label>
+                                                            </span>
+                                                            {{ 'form.keyword_header_one'|trans }}
+                                                        </label>
+                                                    </div>
+                                                    <!-- /ko -->
+                                                </div>
+                                                <div class="col-lg-4">
+                                                    <!-- ko if: headerTwoEnabled -->
+                                                        <div class="checkbox">
+                                                        <label data-bind="attr: { for: 'copywriting_project_orders_' + $index() + '_keywordInHeaderTwo' }">
+                                                            <span class="checkbox_radio_widget_wrapper">
+                                                                <input type="checkbox"
+                                                                       data-bind="checked: keywordInHeaderTwo,
+                                                                        attr: {
+                                                                            id: 'copywriting_project_orders_' + $index() + '_keywordInHeaderTwo',
+                                                                            name: 'copywriting_project[orders][' + $index() + '][keywordInHeaderTwo]'
+                                                                        }"
+                                                                       value="1" />
+                                                                <label data-bind="attr: { for: 'copywriting_project_orders_' + $index() + '_keywordInHeaderTwo' }"></label>
+                                                            </span>
+                                                            {{ 'form.keyword_header_two'|trans }}
+                                                        </label>
+                                                    </div>
+                                                    <!-- /ko -->
+                                                    <!-- ko if: headerThreeEnabled -->
+                                                        <div class="checkbox">
+                                                        <label data-bind="attr: { for: 'copywriting_project_orders_' + $index() + '_keywordInHeaderThree' }">
+                                                            <span class="checkbox_radio_widget_wrapper">
+                                                                <input type="checkbox"
+                                                                       data-bind="checked: keywordInHeaderThree,
+                                                                        attr: {
+                                                                            id: 'copywriting_project_orders_' + $index() + '_keywordInHeaderThree',
+                                                                            name: 'copywriting_project[orders][' + $index() + '][keywordInHeaderThree]'
+                                                                        }"
+                                                                       value="1" />
+                                                                <label data-bind="attr: { for: 'copywriting_project_orders_' + $index() + '_keywordInHeaderThree' }"></label>
+                                                            </span>
+                                                            {{ 'form.keyword_header_three'|trans }}
+                                                        </label>
+                                                    </div>
+                                                    <!-- /ko -->
+                                                </div>
+                                            </div>
+                                        <!-- /ko -->
+                                    </div>
+
+                                    <hr>
+
+                                    {#  images  #}
+
+                                    <div class="form-group">
+                                        <label class="control-label bold-label required">{{ 'form.images_range'|trans }}</label>
+                                        <div class="row">
+                                            <div class="col-lg-5">
+                                                <div class="input-group minmaxrange j-pair-num">
+                                                    <input type="number"
+                                                        range-type="min"
+                                                           min="0"
+                                                           max="999"
+                                                           placeholder="{{ 'form.min'|trans }}"
+                                                           data-pair = "min"
+                                                           data-bind="
+                                                            value: imagesPerArticleFrom,
+                                                            valueUpdate: ['afterkeydown', 'input'],
+                                                            attr: {
+                                                                id: 'copywriting_project_orders_' + $index() + '_imagesPerArticleFrom',
+                                                                name: 'copywriting_project[orders][' + $index() + '][imagesPerArticleFrom]', required: imagesRequired
+                                                            },
+                                                            event: { change: $parent.calculatePrice}"
+                                                           class="form-control form-control_small m-r-md"
+                                                           id="copywriting_project_orders_0_imagesPerArticleFrom"
+                                                           name="copywriting_project[orders][0][imagesPerArticleFrom]" >
+                                                    <input type="number"
+                                                        range-type="max"
+                                                           min="0"
+                                                           max="999"
+                                                           placeholder="{{ 'form.max'|trans }}"
+                                                           data-pair = "max"
+                                                           data-bind="
+                                                            value: imagesPerArticleTo,
+                                                            valueUpdate: ['afterkeydown', 'input'],
+                                                            attr: {
+                                                                id: 'copywriting_project_orders_' + $index() + '_imagesPerArticleTo',
+                                                                name: 'copywriting_project[orders][' + $index() + '][imagesPerArticleTo]', required: imagesRequired
+                                                            },
+                                                            event: { change: $parent.calculatePrice}"
+                                                           class="form-control form-control_small"
+                                                           id="copywriting_project_orders_0_imagesPerArticleTo"
+                                                           name="copywriting_project[orders][0][imagesPerArticleTo]">
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-7">
+                                                <div class="help-block">
+                                                    {{ 'form.images_hint'|trans|raw }}
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    <hr>
+
+                                    {#  express article     #}
+                                    <div class="form-group">
+                                        <div class="checkbox">
+                                            <label data-bind="attr: { for: 'copywriting_project_orders_' + $index() + '_express' }" class="radio-inline">
+                                                <span class="checkbox_radio_widget_wrapper">
+                                                    <input type="checkbox"
+                                                           data-bind="checked: express,
+                                                        attr: {
+                                                            id: 'copywriting_project_orders_' + $index() + '_express',
+                                                            name: 'copywriting_project[orders][' + $index() + '][express]'
+                                                        },
+                                                        event: { change: $parent.calculatePrice}"
+                                                           value="1"
+                                                    />
+                                                    <label data-bind="attr: { for: 'copywriting_project_orders_' + $index() + '_express' }"></label>
+                                                </span>
+                                                {{ 'form.express'|trans|raw }}
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /ko -->
+                        </div>
+                    </div>
+                    <div class="col-lg-5">
+                        <div class="info-box floating">
+                            <h3>
+                                <span class="icon-svg">
+                                    <svg><use xlink:href="#info-icon"></use></svg>
+                                </span>
+                                <span class="info-box_title">{{ 'form.info-box_title'|trans }}</span>
+                            </h3>
+                            <p class="info-box_content">{{ 'form.info-box_text'|trans }}</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-7 m-t-lg">
+                        <div class="pull-right">
+                            {{ form_widget(form.submit) }}
+                        </div>
+                        <div class="like-button pull-left">
+                            {{ form_widget(form.template) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% do form.orders.setRendered %}
+
+    {{ form_end(form) }}
+
+    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="0" height="0" style="position:absolute">
+
+        <symbol id="icon_you_like_writers" viewBox="0 0 55 54.6">
+            <style>.st0{fill:#1ea782}</style><path class="st0" d="M13.2 29.7c-1.3 0-2.4 1.1-2.4 2.4 0 1.3 1.1 2.4 2.4 2.4 1.3 0 2.4-1.1 2.4-2.4 0-1.3-1.1-2.4-2.4-2.4zm0 3.3c-.5 0-.8-.4-.8-.8 0-.5.4-.8.8-.8.5 0 .8.4.8.8s-.4.8-.8.8zm22.1 12.3c-.1-.3-.4-.6-.8-.6h-4.8l-1.5-4.6c-.1-.3-.4-.6-.8-.6-.3 0-.7.2-.8.6l-1.5 4.6h-4.8c-.3 0-.7.2-.8.6-.1.3 0 .7.3.9l3.9 2.8-1.5 4.6c-.1.3 0 .7.3.9.3.2.7.2 1 0l3.9-2.8 3.9 2.8c.3.2.7.2 1 0 .2-.2.3-.6.2-.9L31.1 49l3.9-2.8c.3-.2.4-.6.3-.9zM29.7 48c-.3.2-.4.6-.3.9l.9 2.8L28 50c-.3-.2-.7-.2-.9 0l-2.3 1.7.9-2.8c.1-.3 0-.7-.3-.9l-2.3-1.7H26c.3 0 .7-.2.8-.6l.9-2.8.9 2.8c.1.3.4.6.8.6h2.9L29.7 48zM55 45.3c-.1-.3-.4-.6-.8-.6h-4.8l-1.5-4.6c-.1-.3-.4-.6-.8-.6-.3 0-.7.2-.8.6l-1.5 4.6H40c-.3 0-.7.2-.8.6-.1.3 0 .7.3.9l3.9 2.8-1.4 4.6c-.1.3 0 .7.3.9.3.2.7.2 1 0l3.9-2.8 3.9 2.8c.3.2.7.2 1 0 .2-.2.3-.6.2-.9L50.8 49l3.9-2.8c.3-.2.4-.6.3-.9zM49.4 48c-.3.2-.4.6-.3.9l.9 2.8-2.4-1.7c-.3-.2-.7-.2-.9 0l-2.3 1.7.9-2.8c.1-.3 0-.7-.3-.9l-2.3-1.7h2.9c.3 0 .7-.2.8-.6l.9-2.8.9 2.8c.1.3.4.6.8.6h2.9L49.4 48zm-33.7-2.7c-.1-.3-.4-.6-.8-.6h-4.8l-1.5-4.6c-.1-.3-.4-.6-.8-.6-.3 0-.7.2-.8.6l-1.5 4.6H.8c-.3 0-.7.2-.8.6-.1.3 0 .7.3.9L4.2 49l-1.5 4.6c-.1.3 0 .7.3.9.3.2.7.2.9 0l3.9-2.8 3.9 2.8c.3.2.7.2 1 0 .2-.2.3-.6.2-.9L11.5 49l3.9-2.8c.3-.2.4-.6.3-.9zM10.1 48c-.3.2-.4.6-.3.9l.9 2.8L8.3 50c-.3-.2-.7-.2-.9 0L5 51.7l.9-2.8c.1-.3 0-.7-.3-.9l-2.3-1.7h2.9c.3 0 .7-.2.8-.6l.9-2.7.9 2.8c.1.3.4.6.8.6h2.9L10.1 48z"></path><path class="st0" d="M48.5 20.1c.8-.7 1.4-1.7 1.4-2.9 0-2-1.6-3.7-3.7-3.7h-13c.4-.9.9-2.2 1.1-4.1.6-4.3-.3-6.6-1.2-7.8-.8-1-1.8-1.6-2.9-1.7-1-.1-1.9.7-1.9 1.6-.2 1.6-.7 5.8-1.5 7.4-2 4.1-6.9 6.5-8.4 7.2-.5-.5-1.2-.7-1.9-.7H9.9c-1.7 0-3 1.3-3 3v16.4c0 1.7 1.3 3 3 3h6.6c.9 0 1.7-.4 2.2-1 .9.5 2.2 1.1 4.1 1.1h21.1c2 0 3.7-1.6 3.7-3.7 0-.9-.3-1.8-.9-2.4 1.2-.6 2.1-1.8 2.1-3.3 0-.9-.3-1.8-.9-2.4 1.2-.6 2.1-1.8 2.1-3.3-.2-1-.7-2-1.5-2.7zM16.4 36.3H9.9c-.8 0-1.4-.6-1.4-1.4V18.5c0-.8.6-1.4 1.4-1.4h6.6c.4 0 .7.2 1 .4v18c0 .1 0 .2.1.3-.4.3-.7.5-1.2.5zm26.4-15.4h3.4c1.1 0 2 .9 2 2s-.9 2-2 2h-3.4c-.4 0-.8.4-.8.8s.4.8.8.8H45c1.1 0 2 .9 2 2s-.9 2-2 2h-2.9c-.4 0-.8.4-.8.8s.4.8.8.8h1.7c1.1 0 2 .9 2 2s-.9 2-2 2h-21c-1.7 0-2.8-.6-3.4-1 0-.2.1-.4.1-.5V18.5c0-.3 0-.6-.1-.9 1.9-.9 6.7-3.4 8.9-7.8 1.1-2.2 1.6-7.8 1.7-8v-.2h.1c.5.1 1.2.3 1.9 1.1.7.9 1.4 2.8.9 6.6-.5 3.2-1.5 4.6-1.5 4.6-.4.5 0 1.3.6 1.3h14.4c1.1 0 2 .9 2 2s-.9 2-2 2H43c-.4 0-.8.4-.8.8-.2.6.1.9.6.9z"></path>
+        </symbol>
+
+        <symbol id="icon_top_writers" viewBox="0 0 55 52.2">
+            <style>.st2{clip-path:url(#SVGID_2_);fill:#1ab192}</style><path d="M35.3 42.9c-.1-.3-.4-.6-.8-.6h-4.8l-1.5-4.6c-.1-.3-.4-.6-.8-.6-.3 0-.7.2-.8.6l-1.5 4.6h-4.8c-.3 0-.7.2-.8.6-.1.3 0 .7.3.9l3.9 2.8-1.5 4.6c-.1.3 0 .7.3.9.3.2.7.2 1 0l3.9-2.8 3.9 2.8c.3.2.7.2 1 0 .2-.2.3-.6.2-.9L31 46.6l3.9-2.8c.4-.2.5-.6.4-.9zm-5.6 2.8c-.3.2-.4.6-.3.9l.9 2.8-2.3-1.8c-.3-.2-.7-.2-.9 0l-2.3 1.7.9-2.8c.1-.3 0-.7-.3-.9L22.9 44h2.9c.3 0 .7-.2.8-.6l.9-2.8.9 2.8c.1.3.4.6.8.6h2.9l-2.4 1.7zM55 42.9c-.1-.3-.4-.6-.8-.6h-4.8l-1.5-4.6c-.1-.3-.4-.6-.8-.6-.3 0-.7.2-.8.6l-1.5 4.6H40c-.3 0-.7.2-.8.6-.1.3 0 .7.3.9l3.9 2.8-1.4 4.6c-.1.3 0 .7.3.9.3.2.7.2 1 0l3.9-2.8 3.9 2.8c.3.2.7.2 1 0 .2-.2.3-.6.2-.9l-1.5-4.6 3.9-2.8c.3-.2.4-.6.3-.9zm-5.6 2.8c-.3.2-.4.6-.3.9l.9 2.8-2.3-1.7c-.3-.2-.7-.2-.9 0l-2.3 1.7.9-2.8c.1-.3 0-.7-.3-.9L42.6 44h2.9c.3 0 .7-.2.8-.6l.9-2.8.9 2.8c.1.3.4.6.8.6h2.9l-2.4 1.7zm-33.7-2.8c-.1-.3-.4-.6-.8-.6h-4.8l-1.5-4.6c-.1-.3-.4-.6-.8-.6-.3 0-.7.2-.8.6l-1.5 4.6H.8c-.3 0-.7.2-.8.6-.1.3 0 .7.3.9l3.9 2.8-1.5 4.6c-.1.3 0 .7.3.9.3.2.7.2.9 0l3.9-2.8 3.9 2.8c.3.2.7.2 1 0 .2-.2.3-.6.2-.9l-1.5-4.6 3.9-2.8c.4-.2.5-.6.4-.9zm-5.6 2.8c-.3.2-.4.6-.3.9l.9 2.8-2.3-1.7c-.3-.2-.7-.2-.9 0L5 49.3l.9-2.8c.1-.3 0-.7-.3-.9L3.3 44h2.9c.3 0 .7-.2.8-.6l.9-2.8.9 2.8c.1.3.4.6.7.6h2.9l-2.3 1.7z" fill="#1ea782"></path><path d="M12.6 38s4.9-17.5 16.3-28.7c3.2-3.1 10-5.2 9.5-4.8-1.9 1.5-4.7-.4-9.5 6.6 0 0 13.1-3.9 16.1-4.2 0 0-20.1 6.5-21.4 11.3-2 2.2 11.5-3.2 16.4-4.6 0 0-.6 3.1-10.9 5.7-6.8-.5-9.6 6.5-9.6 6.5S28.6 22 32.3 21c0 0 .6 1.1 1.8.6 0 0-.2 3.4-10.3 3.5-1 0-2.6.9-3.6 2-1 .9-7.6 10.9-7.6 10.9zm0 0" fill="#006053"></path><defs><path id="icon_ereferer-SVGID_1_" d="M49.5 0s-2.2.2-4.7.7c-4.6.8-8.8 2.8-12.4 5.5-2.2 1.5-3.9 2.9-3.9 2.9l.8-.2c-5.8 5.5-10 12.6-12.7 18.4S15.5 30 15.5 30c-2 4.7-2.9 8-2.9 8s2.1-3.2 4.1-6.1c1.2-1.7 1.7-2.4 2.4-3.3 1.3-1.2 1.4-1.1 3.6-2 2.2-.9 4.3-1.2 6.5-1.7 1.6-.4 3.7-.9 4.8-2.1.6-.6 1.1-1.5 1.2-2.2 0-.2.1-.4.1-.6l.1-.6-8.7 2.1c.7-.4 2.8-1.6 4.4-1.8 2.2-.3 2.1-.3 2.5-.3 6.8-.9 6.5-5.7 6.5-5.7l-7.6.6c.7-.3 2-.5 3.8-.8 2.2-.3 2.2-.7 2.6-.7 6.8-.9 6.3-5.8 6.3-5.8l-7.2.5c.7-.4 1.7-1.3 3.4-1.5.4-.1.7-.1.9-.1h-.1C48.7 4.7 49.5 0 49.5 0zM35.1 7.7s.1 0 .2-.1h.4l-.6.1z"></path></defs><clipPath id="icon_ereferer-SVGID_2_"><use xlink:href="#SVGID_1_" overflow="visible"></use></clipPath><path class="st2" d="M11.2 30.8c-1.2 1.2 2.2-.6 2.2-.6l-.8 5.6s.2-2 3.7-3.2c3.3-1.1 5.9-5.9 7.4-6.1 2.3-.3 4.3-1.1 4.8-1.2 6.8-.7 6.7-5.3 6.7-5.3s-18.8 1.4-24 10.8z"></path><path class="st2" d="M15.9 21.8c-4.1 3.1-2.8 2.5-2.8 2.5l1-.5c-6 .7 1.5.2 1.5.2l-.9.7s4.4-2.3 6.7-3.1c2.4-.8 4.7-1.6 6.9-2.1 2.6-.6 4.2-.9 4.6-1 6.8-.9 7-5 7-5s-15.2 1.7-24 8.3z"></path><path class="st2" d="M29.2 11c-3.6 1.5-9.6 5.7-9.6 5.7l-.6-2.5c-3.6.3 3.7 1.1 3.7 1.1l-.4.3s-9.4 7.6-3.4 3.4 12.7-5.5 14.9-5.9c2.6-.5 4.4-.9 4.9-1 6.3-1.1 6.4-5.3 6.4-5.3S36.6 8.6 29.2 11z"></path><path class="st2" d="M25.9 11.9s-1.7-.1 1.3-1c3.9-2.4 6.3-3.1 9.6-3.9 6.5-1.1 9.4-6 9.4-6s-2.7.8-6.4 1.8c-5.7 1.3-13.9 9.1-13.9 9.1z"></path>
+        </symbol>
+
+        <symbol id="icon_best_writers" viewBox="0 0 48 55.8">
+            <style>.st0{fill:#1ea782}.st2{clip-path:url(#SVGID_2_);fill:#1ab192}</style><path class="st0" d="M20.2 49.9c-.5 0-.9.4-.9.9s.4.9.9.9.9-.4.9-.9c.1-.5-.3-.9-.9-.9zm5.7-9.4H25v-6.6c0-.5-.4-.9-.9-.9h-1.9c-.5 0-.9.4-.9.9s.4.9.9.9h.9v5.6h-.9c-.5 0-.9.4-.9.9s.4.9.9.9H26c.5 0 .9-.4.9-.9-.1-.4-.5-.8-1-.8zm-15.3 5.6c.5 0 .9-.4.9-.9v-3.8c0-.5-.4-.9-.9-.9H6.8c-.5 0-.9.4-.9.9s.4.9.9.9h2.8v1.9H6.8c-.5 0-.9.4-.9.9v3.8c0 .5.4.9.9.9h3.8c.5 0 .9-.4.9-.9s-.4-.9-.9-.9H7.8v-1.9h2.8zm30.6-3.7h-3.8c-.5 0-.9.4-.9.9s.4.9.9.9h2.8v1.9h-2.8c-.5 0-.9.4-.9.9s.4.9.9.9h2.8v1.9h-2.8c-.5 0-.9.4-.9.9s.4.9.9.9h3.8c.5 0 .9-.4.9-.9v-7.5c0-.4-.4-.8-.9-.8z"></path><path class="st0" d="M47.1 38.6H32.4v-8.7c0-.5-.4-.9-.9-.9h-15c-.5 0-.9.4-.9.9v5H.9c-.5 0-.9.4-.9.9v19c0 .5.4.9.9.9h46.2c.5 0 .9-.4.9-.9V39.5c0-.5-.4-.9-.9-.9zM15.6 53.9H1.9V36.7h13.7v17.2zm15 0H17.4V30.8h13.1v23.1zm15.5 0H32.4V40.5h13.7v13.4z"></path><path class="st0" d="M27.8 49.9H24c-.5 0-.9.4-.9.9s.4.9.9.9h3.8c.5 0 .9-.4.9-.9s-.4-.9-.9-.9z"></path><path d="M13.2 27.2s3.5-12.5 11.7-20.5C27.2 4.5 32 3 31.7 3.2c-1.4 1.1-3.4-.3-6.8 4.7 0 0 9.4-2.8 11.5-3 0 0-14.4 4.6-15.3 8.1-1.4 1.6 8.2-2.3 11.7-3.3 0 0-.4 2.2-7.8 4.1-4.9-.3-6.8 4.7-6.8 4.7s6.5-2.7 9.1-3.5c0 0 .4.8 1.3.5 0 0-.1 2.5-7.4 2.5-.7 0-1.8.7-2.6 1.4s-5.4 7.8-5.4 7.8zm0 0" fill="#006053"></path><defs><path id="icon_ereferer-best-SVGID_1_" d="M39.7 0s-1.6.1-3.3.5c-3.4.6-6.3 2-8.9 4-1.6 1.1-2.8 2-2.8 2l.6-.2c-4.2 3.9-7.1 9-9.1 13.2s-.8 1.9-.8 1.9c-1.4 3.3-2.1 5.7-2.1 5.7s1.5-2.3 3-4.4c.8-1.2 1.2-1.7 1.7-2.4.9-.8 1-.8 2.6-1.4 1.6-.6 3.1-.9 4.6-1.2 1.1-.3 2.6-.6 3.4-1.5.4-.4.8-1 .9-1.6 0-.1.1-.3 0-.5l.1-.4-6.2 1.5c.5-.3 2-1.1 3.1-1.3 1.6-.2 1.5-.2 1.8-.2 4.8-.6 4.6-4.1 4.6-4.1l-5.4.5c.5-.2 1.4-.4 2.7-.6 1.6-.2 1.6-.5 1.9-.5 4.8-.6 4.5-4.1 4.5-4.1l-5.1.4c.5-.3 1.2-.9 2.4-1.1.3 0 .5-.1.6-.1-.1 0-.1 0 0 0 4.6-.7 5.2-4.1 5.2-4.1zM29.4 5.5h.4-.4z"></path></defs><clipPath id="icon_ereferer-best-SVGID_2_"><use xlink:href="#SVGID_1_" overflow="visible"></use></clipPath><path class="st2" d="M12.3 22c-.8.8 1.5-.5 1.5-.5l-.6 4s.1-1.4 2.6-2.3c2.3-.8 4.2-4.2 5.3-4.4 1.6-.2 3.1-.8 3.4-.9 4.8-.5 4.8-3.8 4.8-3.8S16 15.3 12.3 22z"></path><path class="st2" d="M15.6 15.6c-2.9 2.2-2 1.8-2 1.8l.7-.4c-4.3.5 1.1.2 1.1.2l-.6.5s3.1-1.6 4.8-2.2 3.4-1.2 4.9-1.5c1.8-.4 3-.7 3.3-.7 4.8-.6 5-3.5 5-3.5s-10.9 1.1-17.2 5.8z"></path><path class="st2" d="M25.2 7.8c-2.6 1.1-6.9 4.1-6.9 4.1l-.5-1.7c-2.6.2 2.7.8 2.7.8l-.3.2s-6.7 5.4-2.4 2.4 9.1-3.9 10.7-4.2c1.8-.4 3.2-.7 3.5-.7 4.5-.8 4.6-3.8 4.6-3.8s-6.2 1.2-11.4 2.9z"></path><path class="st2" d="M22.8 8.5s-1.2 0 .9-.7c2.8-1.7 4.5-2.2 6.8-2.8 4.6-.8 6.7-4.3 6.7-4.3s-1.9.6-4.5 1.3c-4 .9-9.9 6.5-9.9 6.5z"></path>
+        </symbol>
+
+        <symbol id="icon_no_selection" viewBox="0 0 52 52">
+            <style>.st0{fill:#1ea782}</style><path class="st0" d="M10.8 12.3c-.2-.2-.5-.3-.8-.3s-.6.2-.8.4C6 16.2 4.3 21.1 4.3 26 4.3 37.9 14 47.7 26 47.7c4.9 0 9.8-1.7 13.6-4.8.2-.2.4-.5.4-.8s-.1-.6-.3-.8l-28.9-29zM26 45.5C15.2 45.5 6.5 36.8 6.5 26c0-4.1 1.2-8 3.6-11.3l27.2 27.2c-3.3 2.4-7.2 3.6-11.3 3.6z"></path><path class="st0" d="M26 0C11.7 0 0 11.7 0 26s11.7 26 26 26 26-11.7 26-26S40.3 0 26 0zm0 49.8C12.9 49.8 2.2 39.1 2.2 26S12.9 2.2 26 2.2 49.8 12.9 49.8 26 39.1 49.8 26 49.8z"></path><path class="st0" d="M26 4.3c-4.9 0-9.8 1.7-13.6 4.8-.3.3-.4.5-.4.8 0 .3.1.6.3.8l28.9 28.9c.2.2.5.3.8.3h.1c.3 0 .6-.2.8-.4 3.1-3.8 4.8-8.7 4.8-13.6 0-11.8-9.8-21.6-21.7-21.6zm15.9 33L14.7 10.1C18 7.7 21.9 6.5 26 6.5c10.8 0 19.5 8.7 19.5 19.5 0 4.1-1.2 8-3.6 11.3z"></path>
+        </symbol>
+
+        <symbol id="icon_user" viewBox="0 0 512 512">
+            <path fill="#020201" d="M454.426 392.582c-5.439-16.32-15.298-32.782-29.839-42.362-27.979-18.572-60.578-28.479-92.099-39.085-7.604-2.664-15.33-5.568-22.279-9.7-6.204-3.686-8.533-11.246-9.974-17.886-.636-3.512-1.026-7.116-1.228-10.661 22.857-31.267 38.019-82.295 38.019-124.136 0-65.298-36.896-83.495-82.402-83.495-45.515 0-82.403 18.17-82.403 83.468 0 43.338 16.255 96.5 40.489 127.383-.221 2.438-.511 4.876-.95 7.303-1.444 6.639-3.77 14.058-9.97 17.743-6.957 4.133-14.682 6.756-22.287 9.42-31.521 10.605-64.119 19.957-92.091 38.529-14.549 9.58-24.403 27.159-29.838 43.479-5.597 16.938-7.886 37.917-7.541 54.917h411.932c.348-16.999-1.946-37.978-7.539-54.917z"></path>
+        </symbol>
+    </svg>
+
+{% endblock %}
+
+{% block javascript %}
+
+{% trans_default_domain 'copywriting' %}
+
+<script type="text/html" id="article-images">
+    <div class="form-group" data-bind="attr: { id: 'copywriting_project_orders_' + $parentContext.$index() + '_images_' + $index() }">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                     <input type="text"
+                            data-bind="value: url,
+                                    valueUpdate: ['afterkeydown', 'input'],
+                                    attr: {
+                                        id: 'copywriting_project_orders_' + $parentContext.$index() + '_images_' + $index() + '_url',
+                                        name: 'copywriting_project[orders][' + $parentContext.$index() + '][images][' + $index() + '][url]'
+                                    }"
+                            required="required"
+                            maxlength="350"
+                            class="form-control"
+                            placeholder="Url"/>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <div class="input-group">
+                        <input type="text"
+                                data-bind="value: alt,
+                                        valueUpdate: ['afterkeydown', 'input'],
+                                        attr: {
+                                            id: 'copywriting_project_orders_' + $parentContext.$index() + '_images_' + $index() + '_alt',
+                                            name: 'copywriting_project[orders][' + $parentContext.$index() + '][images][' + $index() + '][alt]'
+                                        }"
+                                        required="required"
+                                        maxlength="350"
+                                        class="form-control"
+                                        placeholder="Alt"/>
+                        <span class="input-group-btn">
+                            <a href="#" class="btn btn-danger remove-btn"
+                                        data-bind='click: $parent.removeImage'
+                                        title="{{ 'form.remove_image'|trans }}">
+                                <i class="fa fa-times"></i>
+                            </a>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</script>
+<script>
+    translations.popup = {
+            'title' : "{{ 'popup.title'|trans }}",
+            'text' : "{{ 'popup.text'|trans }}",
+            'cancel_button_text' : "{{ 'popup.cancel_button_text'|trans }}",
+            'confirm_button_text' : "{{ 'popup.confirm_button_text'|trans }}",
+            'select_writer_text' : "{{ 'popup.select_writer_text'|trans }}",
+            'not_selected_message' : "{{ 'popup.selected_message'|trans }}",
+            'select_category_text' : "{{ 'popup.select_category_text'|trans }}",
+            'empty_category_message' : "{{ 'popup.empty_category_message'|trans }}",
+    };
+    translations.jsonParse = {
+        'error_parse' : "{{ 'json_error_parse'|trans }}",
+    };
+    translations.articles = {
+        'new_article' : "{{ 'articles.new_article'|trans }}",
+        'all_articles' : "{{ 'articles.all_articles'|trans }}",
+        'all_articles_placeholder' : "{{ 'articles.all_articles_placeholder'|trans|raw }}",
+    };
+    translations.writers = {
+        'start_today' : "{{ 'writers.start_today'|trans }}",
+        'start_days' : "{{ 'writers.start_days'|trans |raw}}"
+    };
+    translations.validation = {
+        'numberOfWords': "{{ 'validation.number_of_words'|trans }}",
+        'wrongRange': "{{ 'validation.wrong_range'|trans }}",
+    }
+</script>
+<script src="{{ asset('js/admin/plugins/slick/slick.min.js') }}"></script>
+<script >
+ var slickConfig = {
+                infinite: false,
+                centerMode: false,
+                arrows: true,
+                focusOnSelect: false,
+                slidesToScroll: 5,
+                slidesToShow: 5,
+                responsive: [
+                    {
+                        breakpoint: 1600,
+                        settings: {
+                            slidesToShow: 4,
+                            slidesToScroll: 4
+                        }
+                    },
+                    {
+                        breakpoint: 1400,
+                        settings: {
+                            slidesToShow: 3,
+                            slidesToScroll: 2
+                        }
+                    },
+                    {
+                        breakpoint: 1200,
+                        settings: {
+                            slidesToShow: 2,
+                            slidesToScroll: 1
+                        }
+                    },
+                    {
+                        breakpoint: 584,
+                        settings: {
+                            slidesToShow: 1,
+                            slidesToScroll: 1
+                        }
+                    }
+                ]
+            };
+</script>
+<script src="{{ asset('js/front/knockout-3.4.2.js') }}"></script>
+<script src="{{ asset('js/front/knockout.validation.min.js') }}"></script>
+<script src="{{ asset('js/front/copywriting/entities.js') }}"></script>
+<script src="{{ asset('js/front/copywriting/project_add.js') }}"></script>
+<script src="{{ asset('js/front/copywriting/validate_rules.js') }}"></script>
+<script src="{{ asset('js/front/copywriting/floating-popover.js') }}"></script>
+<script type="text/javascript">
+    var prices = {{ additionalData.prices|json_encode|raw }};
+    var siteLanguage = '{{ getSiteLanguage() }}';
+</script>
+{% endblock %}

@@ -1,0 +1,218 @@
+title: Projets de Référencement
+title_current: Projets en cours
+title_nostart: Projets non démarrés
+title_waiting: Projets en attente
+title_finished: Projets terminés
+title_getnew: Plus de projets
+title_detail: Détails du projet
+title_evolution: Evolution du projet
+
+add_title: Créer un nouveau projet de référencement
+edit_title: Modifier un projet de référencement
+
+add_new: Créer
+edit: Modifier
+delete: Supprimer
+start: Démarrer
+progression: Progression
+stop_project: Arrêter
+evolution: Évolution
+take_project: Prendre le projet
+reports: Rapport
+reassign_to: Reaffecter
+not_found_tasks: Aucune tâche n'a été trouvée
+job_rejected: Tâche rejetée
+step: Étape
+next_step: Étape suivante
+add_information: Ajouter des informations
+confirmation: Confirmation
+waiting_time: Votre projet devrait démarrer d'ici 24 heures !|Votre projet devrait démarrer sous %count% jours !
+directory_list_not_found: Avant de pouvoir créer un projet de référencement, vous devez dans un premier temps <a href="%%link_create%%">créer une liste</a> des sites sur lesquels vous souhaitez être référencé.
+
+tab:
+    directories: Annuaires
+    blogs: Blogs
+    all: Tous
+    impossible: Impossible
+    not_found: Non trouvés
+    awaiting: En attente
+    found: Trouvés
+    summary: Résumé
+
+table:
+    information: Information
+    statistics: Statistiques
+    action: Action
+    project: Projet
+    directories: Annuaires
+    url: URL
+    task: Tâche
+    proposed_on: Proposé le
+    performed: Tâches effectuées
+    links_found: Liens trouvés
+    waiting_links: Liens en attente
+    links_not_found: Liens non trouvés
+    impossible_submissions: Soumissions impossibles
+    not_billed: Non facturés
+    patience: 'Tous les "liens en attente" seront statués en "liens trouvés" or "liens non trouvés". Merci de votre patience !'
+    no_comment: Aucun commentaire
+    dates: Dates
+    instructions: Instructions
+    estimated_date: Date de lancement estimée
+    proposed_started: Commencement
+    validation_progress: En cours de validation
+    frequency: Fréquence
+    frequency_text: "%directory% tâche(s) tous les %day% jour(s)"
+    number_words_wanted: Nombre de mots souhaités
+    current_cost_project: Coût actuel du projet
+    remaining_cost: Coût restant
+    current_cost_project_tooltip: "Il s'agit du coût actuel engagé sur le projet. Cette somme a déjà été débitée de votre compte."
+    remaining_cost_tooltip: "Le coût restant correspond aux soumissions qui n'ont pas encore été effectuée. Cette somme n'a donc pas encore été débitée de votre compte. Dans le tableau ci-dessous, elles sont affichées sur un fond blanc."
+    state: Statut
+    comment: Commentaire
+    my_tasks: Voir la tâche
+    ongoing_project: Projets en cours
+    task_remaining: Tâches restantes
+    accomplished_task: Tâches effectuées
+    total_task: Total tâches
+    day_tasks: Tâche(s) du jour
+    started_on: Commencé le
+    assigned_on: Affecté le
+    finished_on: Terminé le
+    webmaster: Client
+    copywriter: Rédacteur
+    re_assign: Reaffecter
+    to_do: A faire
+    submitted_on: Proposé le
+    see_task: Voir la tâche
+    status: Statut
+    submission: Tâche
+    submission_complete: Tâche effectuée
+    submission_impossible: Tâche Impossible
+    reject_task: Tâche rejetée
+    rejected: Rejetée
+    show_comment: Voir le commentaire
+    show_more: Lire la suite
+    hide_comment: Cacher
+    statuses:
+        task_day: Tâche du jour
+        days_late: "%days% jour(s) de retard"
+        start_tomorrow: Le projet devrait commencer demain.
+        insufficient_webmaster_funds: Projet en pause. Fonds insuffisants
+        insufficient_funds: Projet en pause. Fonds insuffisants
+        no_submissions: Aucune tâche effectuée pour ce projet
+        reallocate_tomorrow: Ce projet sera reaffecté demain si rien n'est fait.
+        will_start: Le projet commencera dans %%days%% jour(s)
+        late_submissions: Tâche en retard de +/- %%late%% day(s)
+        last_submission: Dernière tâche
+        none_submission: Vous n'avez aucune tâche actuellement
+        finished_project: Projet terminé
+    buttons:
+        stop_project: Arrêter le(s) projet(s)
+        start_project: Démarrer le(s) projet(s)
+    not_available: Non disponible
+    blog: Blog
+    site: Site
+    writer: Rédacteur
+    date: Date
+    see_link: Voir le lien
+    like: J'aime
+    dislike: Je n'aime pas
+
+form:
+    frequency_title: Fréquence des tâches
+    frequency_example: "Exemple: 1 tâche(s) tous les 2 jours"
+    frequency_directory: Directory(s) all
+    frequency_day: Jours(s)
+    directory_list: Liste de référencement
+    comment: Avez-vous une consigne précise à nous soumettre ?
+    comment_optional: Optionnel
+    url: Url
+    anchor: Ancre
+    next: Suivant
+    save: Enregistrer
+    confirm: Valider
+    placeholder: Ecrivez ici
+    url_list: Ancres de vos liens
+    not_defined: L'ancre ne peut être choisie !
+    minimum_words: Nombre de mots souhaités
+    modify_list: '<a href="%%path%%">Cliquez ici</a> pour modifier ce seuil associé à votre liste'
+    url_exists: L'URL %%url%% existe déjà
+    task_already_executed: Cette tâche a déjà été effectuée !
+    copywriter: Rédacteur
+    choose_option: Choisir une option
+    error_urls: Merci d'entrer au moins une URL
+    directoryList_help: This list does not display empty directories list.
+    accept_rules: J'accepte et comprends les règles de publication de chaque partenaire.
+
+modal:
+    take_to_work: Faire la tâche
+    take_to_work_success: Tâche prise avec succès pour travailler
+    submission_completed: Compléter soumission
+    submission_impossible: Soumission impossible
+    error: Erreur
+    project_error: Projet non trouvé
+    task_error: Tâche non trouvée
+    close: Fermer
+    directory_error: Annuaire non trouvé
+    directory_backlink_error: Lien non trouvé
+    customer_not_enough_funds: Le client manque de fonds pour pouvoir poursuivre les soumissions.
+    task_already_completed: Cette tâche a déjà été faite.
+    submission_detail: Détails de la tâche
+    reference_on: A référencer sur
+    remuneration: Rémunération
+    webmaster_cost: Webmaster coût
+    referer_cost: Referer coût
+    minimum_words: Nombre de mots minimum
+    directory_instructions: Consignes de l'annuaire
+    project_guidelines: Consignes du projets
+    anchors_use: Ancre à utiliser
+    select: Sélectionner
+    dislike_reason: Merci d'indiquer la raison (optionnel).
+    confirm: Valider
+    cancel: Annuler
+    feedback_accepted: Votre avis nous a bien été parvenu
+    feedback_error: Une erreur s'est produire, merci de réessayer !
+    comment:
+        comment: Commentaire
+        submission_impossible: Tâche avec succès marquée comme impossible
+        submission_possible: Soumission acceptée
+        reasons_failure: Merci d'indiquer les raisons pour lesquelles vous n'avez pas pu effectuer la soumission
+        reasons: Raisons pour lesquelles la tâche n'a pas pu être effectuée
+        description: Merci d'y copier votre description
+        why_impossible: Pour quelle raison la soumission est-elle impossible ?
+        button: Envoyer
+        empty: Le texte est vide
+        error: "Le texte doit contenir au moins %need% mots. Vous avez écrit %given% mots"
+        range_error: "Le texte ne doit pas faire moins que %minimum_words% et pas plus que %maximum_words% mot(s). Vous avez écrit %given% mots"
+
+    message:
+        subject: Votre texte pour le projet %%project_name%% sur %%directory_name%% a bien été envoyé
+        message: "Bonjour, vous avez reçu le commentaire suivant : %%message%%"
+        change_writer: Action effectuée avec succès
+        title: Erreur
+        text: Vous devez choisir au moins un projet
+
+errors:
+    insufficient_balance: Fonds insuffisants pour lancer votre projet. Pensez à recharger votre compte !
+
+assign: Affecter à une rédacteur
+assign_to: Affecter
+
+report:
+    title: Rapport
+    heading: Rapport du projet
+
+statuses:
+    waiting: Tâche en attente
+    not_found_yet: Non encore trouvé
+    found: Trouvé
+    not_found: Non trouvé
+    impossible: Impossible
+    completed: Effectuée avec succès !
+    new: Nouveau
+    rejected: Rejeté
+    in_progress: En cours
+    expired_hold: En cours
+
+job_is_not_init: Tâche lors de l'initialisation

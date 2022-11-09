@@ -1,0 +1,24 @@
+{% trans_default_domain 'copywriting' %}
+
+{% macro print(order, name, requirement_params, article_params) %}
+    {% set article = order.article %}
+    {{ ('requirements.' ~ name ~ '.value')|transchoice(requirement_params|first, requirement_params) }}
+    {% if order.status not in [constant('CoreBundle\\Entity\\CopywritingOrder::STATUS_PROGRESS'), constant('CoreBundle\\Entity\\CopywritingOrder::STATUS_WAITING')] %}
+        <em>
+            {% if not article.isNonconformExist(name) %}
+                <span class="text-info">
+                    {{ ('requirements.' ~ name ~ '.success')|transchoice(requirement_params|first, article_params) }}
+                </span>
+            {% else %}
+                <span class="text-danger">
+                    {{ ('requirements.' ~ name ~ '.nonconform')|transchoice(article_params|first, article_params) }}
+                </span>
+                <br>
+                <b>{{ 'reason'|trans }}: </b>
+                <span class="text-warning">
+                    {{ article.getNonconform(name).reason }}
+                </span>
+            {% endif %}
+        </em>
+    {% endif %}
+{% endmacro %}

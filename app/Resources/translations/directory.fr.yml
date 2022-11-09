@@ -1,0 +1,75 @@
+title: Annuaires
+add_title: Ajouter un annuaire
+edit_title: Modifier un annuaire
+
+add_new: Ajouter
+edit: Modifier
+delete: Supprimer
+
+tabs:
+    directory: Annuaires
+    blogs: Blogs
+    all: Tous
+
+table:
+    directory: Annuaire
+    type: Type
+    partnership: Partenariat
+    tariff: Tarif
+    alexa_rank: Alexa Rank
+    age: Âge (Années)
+    trust_flow: Trust Flow
+    validation_time: Taux de validation
+    validation_rate: Temps de validation
+    referring_domain: Domaines référents
+    categories: Catégories
+    action: Action
+    type_string:
+        directory: Annuare
+        cp: CP
+        blog: Blog
+    validation_time_string:
+        na: N/A
+        jsr: Jr(s)
+    validation_rate_string:
+        na: N/A
+    partnership_string:
+        yes: Oui
+        no: Non
+        tooltip: Ereferer peut soumettre librement dans cet annuaire
+        advantage: Voir les avantages
+
+form:
+    name: URL de l'annuaire
+    ndd_target: NDDCible
+    link_submission: Page où soumettre
+    webmaster_order: Consignes pour l'ancre
+    webmaster_partner: Propiétaire de l'annuaire
+    webmaster_account: Possibilité de créer un compte privé au client
+    tariff_webmaster_partner: Commission versé au propriétaire par validation
+    webmaster_anchor: Le client peut-il choisir son ancre ?
+    directory_type: Type de l'annuaire
+    tariff_extra_webmaster: Prix supplémentaire
+    tariff_extra_seo: Rémunération rédacteur supplémentaire
+    age: Date de création
+    trust_flow: Trust flow
+    page_rank: Page rank
+    total_referring_domain: Nombre de domaines référents
+    total_back_link: Backlinks totaux
+    instructions: Instructions de l'annuaire
+    accept_inner_pages: Accepte les sous-domaines
+    accept_legal_info: Accepte les sites sans mentions légales
+    accept_company_websites: Accepte seulement les entreprises
+    page_count: Nombre de pages que le CRON doit consulter pour rechercher les liens
+    min_words_count: Nombre de mots minimum demandé
+    max_words_count: Nombre de mots maximum possible
+    active: Statut de l'annuaire
+    vip_state: Avantages VIP
+    vip_text: Quels sont les avantages VIP
+    categories: 'Catégorie(s) : (maximum 6)'
+    directory_type_string:
+        directory: Annuaire
+        cp: CP
+
+name: Nom
+save: Enregistrer

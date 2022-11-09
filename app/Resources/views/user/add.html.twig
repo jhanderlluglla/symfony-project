@@ -1,0 +1,63 @@
+{% extends 'layout.html.twig' %}
+
+{% trans_default_domain 'user' %}
+
+{% block title %}
+    {{ 'user.add_new'|trans({}, 'menu') }}
+{% endblock %}
+
+{% block breadcrumb %}
+    {{ include('breadcrumb/users.html.twig', {'childrens': [block('title')]}) }}
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-lg-offset-2 col-lg-8">
+            {{ form_start(form) }}
+            {{ form_row(form.email) }}
+            {{ form_row(form.plainPassword) }}
+            {{ form_row(form.fullName) }}
+            {{ form_row(form.phone) }}
+            {{ form_row(form.address) }}
+            {{ form_row(form.zip) }}
+            {{ form_row(form.city) }}
+            {{ form_row(form.company) }}
+            {{ form_row(form.vatNumber) }}
+            {{ form_row(form.webSite) }}
+            {{ form_row(form.country) }}
+
+            {% if form.roles is defined %}
+                {{ form_row(form.roles, {'id': 'form_user_role'}) }}
+            {% endif %}
+
+            <div class="only_writer" style="display: none">
+                {{ form_row(form.workLanguage) }}
+            </div>
+
+            {% if form.permission is defined %}
+                <div id="user_permission" class="horizontal-line" style="display: none">
+                    {{ form_row(form.permission) }}
+                </div>
+            {% endif %}
+
+            <div class="form-group">
+                <div class="col-sm-12 text-right">
+                    <input type="submit" class="btn btn-primary btn-sm" value="{{ 'save'|trans }}" />
+                </div>
+            </div>
+            {{ form_end(form) }}
+        </div>
+    </div>
+{% endblock %}
+
+
+{% block javascript %}
+    <script type="text/javascript">
+        var role_writerAdmin = '{{ constant('CoreBundle\\Entity\\User::ROLE_WRITER_ADMIN') }}';
+        var role_writer = '{{ constant('CoreBundle\\Entity\\User::ROLE_WRITER') }}';
+        var role_writerNetlinking = '{{ constant('CoreBundle\\Entity\\User::ROLE_WRITER_NETLINKING') }}';
+        var role_writerCopywriting = '{{ constant('CoreBundle\\Entity\\User::ROLE_WRITER_COPYWRITING') }}';
+    </script>
+    <script type="text/javascript" src="{{ asset('js/front/user.js') }}"></script>
+    <script src="{{ asset('/js/front/custom-vat-number.js') }}"></script>
+{% endblock %}

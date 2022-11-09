@@ -1,0 +1,13 @@
+{% trans_default_domain 'exchange_site_find' %}
+{% form_theme form "form/theme.html.twig" %}
+
+{{ form_start(form, {'attr': {'id': 'add-new-record' } }) }}
+    <p class="text-danger attention_message"><span class="info-box_title attention">{{ 'modal.writing_webmaster.attention'|trans }}</span>, {{ 'modal.writing_webmaster.attention_message'|trans }}</p>
+    <p class="m-t-md m-b-lg">{{ 'modal.writing_webmaster.content'|trans }}</p>
+
+    {{ include('exchange_site_find/form.html.twig') }}
+
+    <p>{{ 'modal.writing_webmaster.footer'|trans({'%credits%': credits}) }}</p>
+{{ form_end(form) }}
+
+{% do form.urls.setRendered %}

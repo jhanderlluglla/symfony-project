@@ -1,0 +1,27 @@
+imports:
+    - { resource: config_dev.yml }
+    - { resource: "@CoreBundle/Resources/config/services_test.yml" }
+
+framework:
+    test: ~
+    session:
+        storage_id: session.storage.mock_file
+    profiler:
+        collect: false
+
+web_profiler:
+    toolbar: false
+    intercept_redirects: false
+
+swiftmailer:
+    disable_delivery: true
+
+doctrine:
+    dbal:
+        dbname: "%database_name%__test"
+
+security:
+    encoders:
+        FOS\UserBundle\Model\UserInterface:
+            algorithm: bcrypt
+            cost: 4

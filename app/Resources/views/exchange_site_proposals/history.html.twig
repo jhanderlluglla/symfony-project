@@ -1,0 +1,15 @@
+{% extends 'layout.html.twig' %}
+
+{% trans_default_domain 'exchange_site_proposals' %}
+
+{% block title %}
+    {{ 'exchange_site.history'|trans({}, 'menu') }}
+{% endblock %}
+
+{% block breadcrumb %}
+    {{ include('breadcrumb/exchange_site.html.twig', {'childrens': [block('title')]}) }}
+{% endblock %}
+
+{% block content %}
+    {% include "exchange_site_proposals/finished_proposals_table.html.twig" %}
+{% endblock %}

@@ -1,0 +1,9 @@
+{% trans_default_domain 'copywriting' %}
+
+{% include 'copywriting_order/card.html.twig' %}
+
+{% if order.article is not null %}
+    <div class="text-right">
+        <a target="_blank" href="{{ path('copywriting_article_edit', {'id': order.article.id}) }}" class="btn btn-primary">{{ 'show_title'|trans }}</a>
+    </div>
+{% endif %}

@@ -1,0 +1,10 @@
+{% extends 'breadcrumb/base.html.twig' %}
+{% block main_breadcrumb %}
+    {% if link is defined %}
+        <a href="{{ path(link) }}">
+            {{ 'admin_images.main'|trans({}, 'menu') }}
+        </a>
+    {% else %}
+        {{ 'admin_images.main'|trans({}, 'menu') }}
+    {% endif %}
+{% endblock %}

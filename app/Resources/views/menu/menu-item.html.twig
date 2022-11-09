@@ -1,0 +1,38 @@
+{% extends 'knp_menu.html.twig' %}
+
+{% block label_text %}
+    {% if item.extra('trans_params') is not null %}
+        {{ item.label|trans(item.extra('trans_params'))|raw }}
+    {% else %}
+        {{ item.label|trans|raw }}
+    {% endif %}
+{% endblock %}
+
+{% block label %}
+    <div class="nav-item-col">
+    {% if item.extra('icon') is not null %}
+      <i class="{{ item.extra('icon') }}"></i>
+    {% endif %}
+
+    {% if item.level == 1 %}
+      <span class="nav-label">{{ block('label_text') }}</span>
+    {% else %}
+        {{ block('label_text') }}
+    {% endif %}
+    </div>
+    <div class="nav-item-col">
+        {% if item.extra('count') is not null or item.extra('express') is not null %}
+            <span class="label-wrap pull-right">
+            {% if item.extra('count') is not null %}
+                <span class="label label-info pull-right">{{ item.extra('count') }}</span>
+            {% endif %}
+            {% if item.extra('express') > 0 %}
+                <span class="label label-danger pull-right">{{ item.extra('express') }}</span>
+            {% endif %}
+            </span>
+        {% endif %}
+        {% if item.hasChildren and options.depth is not same as(0) and item.displayChildren %}
+            <span class="fa fa-fw arrow"></span>
+        {% endif %}
+    </div>
+{% endblock %}

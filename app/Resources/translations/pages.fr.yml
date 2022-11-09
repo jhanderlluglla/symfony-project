@@ -1,0 +1,32 @@
+title: Pages
+add_title: Créer une nouvelle page
+edit_title: Modifier
+
+table:
+    name: Nom
+    actions: Actions
+    edit: Modifier
+    delete: Delete
+    language: Langue
+
+home_page: Page d'Accueil
+add_version: Ajouter une version
+form:
+    top_list: Top list
+    language: Langue
+    item: Eléments
+    about_us: A propos
+    list_block: List Block
+    top_button: Top button
+    block: Block
+    blocks: Blocks
+    title: Titre
+    text: Texte
+    button: Button
+    submit: Soumettre
+    link: Lien
+    icon: Icone
+    directory: Directory icon
+    redaction: Redaction icon
+    exchange: Exchange icon
+    empty_tooltip: You haven't added any fields yet

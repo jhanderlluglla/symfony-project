@@ -1,0 +1,14 @@
+{% trans_default_domain 'copywriting' %}
+
+{% if order.takenAt is not null and order.status != constant('CoreBundle\\Entity\\CopywritingOrder::STATUS_COMPLETED') %}
+    {% set diffDeadline = order.getWriterDeadline().diff(date()) %}
+    <li class="{% if diffDeadline.invert %} has-notification {% endif %}">
+        <div class="statistick-data_title">{{ 'day_late'|trans({}, 'general') }}</div>
+        <div class="statistick-data_value">
+            <div class="text-danger">{{ order.getLateDays }} {{ 'days'|trans({}, 'general') }}</div>
+            {% if diffDeadline.invert %}
+                <div class="text-danger notification">{{ 'time_left'|trans({'%d%': diffDeadline.d, '%h%': diffDeadline.h < 0 ? 0 : diffDeadline.h, '%m%': diffDeadline.i}) }}</div>
+            {% endif %}
+        </div>
+    </li>
+{% endif %}

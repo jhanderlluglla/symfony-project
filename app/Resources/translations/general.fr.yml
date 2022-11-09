@@ -1,0 +1,57 @@
+form:
+    step: Étape
+    login: Se connecter
+    next_step: Étape suivante
+    general_information: Informations générales
+    address: Adresse
+    additional_information: informations additionnelles
+    register: S'inscrire
+    dont_have_acc: Avez-vous déjà un compte ?
+    forgot_pass: Mot de passe oublié ?
+    create_acc: Créer un compte
+
+next_step: Étape suivante
+step: Étape
+info-box_title: Information
+count: Coompter
+amount_billable: Montant facturable
+name: Nom
+url: Url
+copied_successfully: A bien été copié !
+no_results: Aucun résultat
+
+actions:
+    delete: Supprimer
+    modification: Modification
+    accept: Accepter
+    refuse: Refuser
+    validate: Valider
+
+table:
+    action: Action
+    status: Statut
+    user: Utilisateur
+    created_at: Créé à
+
+modal:
+    delete:
+        title: 'Êtes vous sûr ?'
+        text: 'Vous ne pourrez pas ensuite le récupérer !'
+        confirm_button_text: 'Oui, le supprimer !'
+    confirmation:
+        title: 'Confirmation!'
+        text: 'Êtes vous sûr de vouloir effectuer cette action ?'
+        confirm_button_text: 'Oui !'
+
+    cancel: Annuler
+    close: Fermer
+    submit: Soumettre
+    error: Erreur !
+    error_500: 500 Internal Server Error
+
+filter_form:
+    filter: Filtrer
+    search: Rechercher
+
+day_late: jour de retard
+days: jours

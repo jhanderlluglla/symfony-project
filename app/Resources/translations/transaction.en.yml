@@ -1,0 +1,95 @@
+title: Transactions
+
+table:
+    user: User
+    details: Details
+    more_details: More details
+    debit: Debit
+    credit: Credit
+    balance: Balance
+    date: Date
+
+with_sub_details: with sub details
+
+description:
+    affiliation:
+        affiliation: Affiliation
+    copywriting_order:
+        express_order_refund: "Returning cost for express order \"%order_title%\"."
+        checking_article: "Checking an article for order \"%order_title%\"."
+        images_cashback: "Returning cost for images for order %order_title% (Date %order_date%)"
+        writing_article: "Writing an article for order \"%order_title%\"."
+        reject_order_cashback: "Returning additional cost for writer category of order: %order_title%, project: %project_title%."
+        edit: "Edit order: %order_title%."
+        delete: "Delete order: %order_title%."
+        project_payment: "Project title: %project_title%."
+        multi_project_payment: "<strong>Number of articles: %articles_count%;</strong> Project title: %project_title%."
+        article_impossible: "Rejected article for order #%order_id% \"%order_title%\": task impossible"
+        article_declined: "Rejected article for order #%order_id% \"%order_title%\"."
+    job:
+        writerReward: "Submission complete on site %url% in project #%projectId% (%projectUrl%)"
+        payment: "Payment for job in project #%projectId% (%projectUrl%)"
+        hold: "Withholding money for the submission #%jobId% of the project to netlinking #%netlinkingId%"
+        expiredHold: "Return withheld money for the submission #%jobId% of the project to netlinking #%netlinkingId%"
+        reject: "Reject job in project #%projectId% (%projectUrl%)"
+    account:
+        replenish_wire_transfer: Rechargement Wire transfer
+        replenish_paypal: Rechargement PayPal
+        replenish_description: Rechargement from %name%
+        modify_balance_remove: Removed manually by admin
+        modify_balance_add: Added manually by admin
+        withdraw_transaction_cancelled: Transaction cancelled
+        withdraw_transaction_comment: Withdrawal of funds
+        payment_writer: Payment
+    proposal:
+        money_from_proposal: "Money from proposal on exchange site %url%"
+        pay_for_proposition: Pay for proposition on site %url%
+        writing_ereferer: Article for %url%
+        writing_ereferer_del: Delete writing by ereferer for %url%
+        refund_cost: "Refund cost for proposition on site %url%"
+        impossible: "Refund cost for proposition on site %url%, writer can't write your order because \"%comment%\""
+    credit:
+        convert: "Converting credits into euros"
+
+more_details:
+    empty: No details
+    comment: Comment
+    words: Words
+    wordsPrice: Words price
+    images: Images
+    imagesPrice: Images price
+    writerCategory: Writer category
+    priceWriterCategory: Writer category price
+    expressArticles: Express articles
+    expressArticlesPrice: Express articles price
+    redactionPrice: Price for redaction
+    numberOfWords: Number of Words
+    earningForWords: Earning for Words
+    numberOfImages: Number of images
+    earningForImages: Earning for Images
+    earningForExpress: Earning for express
+    earningForWriterCategory: Earning for writer category
+    imagesPaid: Images paid
+    imagesUsed: Images used
+    reFound: Refound
+    withdraw: Withdraw
+    ereferer_commission: Ereferer Commission
+    net_to_pay: Net to pay
+    rejection_reason: Rejection reason
+    ep_webmasterAdditionalPay: Writing an article
+    ep_commission: Commission
+    ep_exchangeSitePrice: Price for the blog
+    paymentForMetaDescription: "Payment for meta description"
+    paymentForMetaDescriptionValue: "%articles% x %price%€ = %total%€"
+    priceForMetaDescription: "Price for meta description"
+    rewardForMetaDescription: "Earning for meta description"
+    deleteProposition: "Deleted by admin"
+    earningMalus: Malus
+    writerBonus: Bonus
+    writerMalus: Penalty
+
+filter: Filter
+filter.user_name: Filter by user name
+filter.all_users: All users
+global_price: "Global price for %articles% articles"
+unit_price: Unit price

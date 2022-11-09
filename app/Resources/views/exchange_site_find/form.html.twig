@@ -1,0 +1,36 @@
+{% trans_default_domain 'exchange_site_find' %}
+<input type="hidden" id="eSid" name="id" value="{{ id }}">
+<input type="hidden" id="eStype" name="type" value="{{ type }}">
+{{ form_widget(form.countWords, {'attr': {'value': countWords}}) }}
+<div class="alert alert-danger hidden"></div>
+{% macro writing_ereferer_widget(form, index, authorizedAnchor) %}
+    <div class="form-group grid-col-xs-2">
+        <div>
+            <label class="control-label">{{ 'modal.writing_ereferer.form.url'|trans }} {% if index %}{{ index + 1}}{% else %}##index##{% endif %}</label>
+            {{ form_errors(form.url) }}
+            {{ form_widget(form.url) }}
+        </div>
+        <div>
+            <label class="control-label">{{ 'modal.writing_ereferer.form.anchor'|trans }} {% if index %}{{ index + 1}}{% else %}##index##{% endif %}</label>
+            {{ form_errors(form.anchor) }}
+            {{ form_widget(form.anchor) }}
+            <span class="text-danger">{{ ('accept_authorized_anchor_' ~ authorizedAnchor)|trans({}, 'exchange_site') }}</span>
+        </div>
+    </div>
+{% endmacro %}
+
+{% import _self as macro %}
+{% set prototype = macro.writing_ereferer_widget(form.urls.vars.prototype, 0, authorizedAnchor) %}
+
+{% set placehodlerIndex = 0 %}
+
+{#{% for index, url in form.urls %}#}
+    {#{% set placehodlerIndex = placehodlerIndex %}#}
+    {#{{ macro.writing_ereferer_widget(url, index, "") }}#}
+{#{% endfor %}#}
+
+{% if placehodlerIndex == 0 %}
+    {% for i in 1..maxLinksNumber %}
+        {{ prototype|replace({'##index##': i , '__name__': i - 1, '__number__': i - 1}) | raw }}
+    {% endfor %}
+{% endif %}

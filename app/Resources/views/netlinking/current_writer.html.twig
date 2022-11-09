@@ -1,0 +1,8 @@
+{% trans_default_domain 'netlinking' %}
+
+
+<div class="project-wrapper">
+    {% for entity in collection %}
+        {% include 'netlinking/writer_current_item.html.twig' %}
+    {% endfor %}
+</div>

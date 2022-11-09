@@ -1,0 +1,17 @@
+{% extends "@FOSUser/layout.html.twig" %}
+
+{% block title %}Ereferer | {{ 'title_reset'|trans({},'user')  }}{% endblock %}
+
+{% block fos_user_style %}
+{% endblock fos_user_style %}
+
+{% block class_for_form %}centered animated fadeInDown {% endblock %}
+
+{% block fos_user_content %}
+    <div class="reset-form-wrapper">
+        <div class="ibox-content">
+            <h2 class="font-bold">{{ 'title_reset_password'|trans({},'user')  }}</h2>
+            {% include "@FOSUser/Resetting/reset_content.html.twig" %}
+        </div>
+    </div>
+{% endblock fos_user_content %}

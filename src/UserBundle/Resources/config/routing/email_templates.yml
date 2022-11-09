@@ -1,0 +1,19 @@
+admin_email_template:
+    path:     /
+    defaults: { _controller: UserBundle:EmailTemplate:index }
+
+admin_email_template_add:
+    path:     /add
+    defaults: { _controller: UserBundle:EmailTemplate:add }
+
+admin_email_template_edit:
+    path:     /edit/{id}
+    defaults: { _controller: UserBundle:EmailTemplate:edit }
+    requirements:
+        id: '\d+'
+
+admin_email_template_delete:
+    path:     /delete/{id}
+    defaults: { _controller: UserBundle:EmailTemplate:delete }
+    requirements:
+        id: '\d+'

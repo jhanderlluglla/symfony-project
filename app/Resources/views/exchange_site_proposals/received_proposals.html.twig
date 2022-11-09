@@ -1,0 +1,140 @@
+{% trans_default_domain 'exchange_site_proposals' %}
+
+<div class="ibox-content">
+    {% if collection.haveToPaginate %}
+        <div class="pagerfanta">
+            {{ pagerfanta(collection) }}
+        </div>
+    {% endif %}
+    <table class="table table-striped footable" id="exchange_proposition_table">
+        <thead>
+        <tr>
+            <th>{{ 'table.sites'|trans }}</th>
+            <th data-breakpoints="xs">{{ 'table.win'|trans }}</th>
+            <th data-breakpoints="m">{{ 'table.characteristics'|trans }}</th>
+            <th data-breakpoints="s">{{ 'table.story'|trans }}</th>
+            <th data-breakpoints="xxs" class="text-right action">{{ 'table.action'|trans }}</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% set tovalidate = 0 %}
+        {% for entity in collection %}
+            <tr id="proposition_{{ entity.id }}">
+                <td>
+                    <span class="font-bold">{{ 'table.url'|trans }}:</span>
+                    <a href="{{ entity.exchangeSite.url }}" target="_blank">{{ entity.exchangeSite.url }}</a>
+                    {% if entity.publicationResponseCode is not null %}
+                        <br>
+                        <div class="m-t-md message {{ entity.publicationResponseCode != constant('CoreBundle\\Entity\\ExchangeSite::RESPONSE_CODE_PUBLISH_PENDING') ? 'error' : 'info' }}">
+                            {{ 'response_error_main_message' | trans }}
+                            {{ ('response_code.' ~ entity.publicationResponseCode) | trans }}
+                        </div>
+                    {% endif %}
+                </td>
+                <td>{{ entity.credits }} €</td>
+                <td>
+                    {% if entity.isSelf %}
+                        {{ 'table.partner_asked'|trans }}
+                    {% else %}
+                        <p><span
+                                class="font-bold">{{ 'table.words'|trans }}</span>: {{ entity.exchangeSite.minWordsNumber }}
+                        </p>
+                        <p><span
+                                class="font-bold">{{ 'table.images'|trans }}</span>: {{ entity.exchangeSite.minImagesNumber }}
+                        </p>
+                        <p><span
+                                class="font-bold">{{ 'table.links'|trans }}</span>: {{ entity.exchangeSite.maxLinksNumber }}
+                        </p>
+                    {% endif %}
+                </td>
+                <td>
+                    <div class="buttons-wrapper">
+                        {% if entity.isSelf %}
+                            <a class="btn btn-warning"
+                               href="#"
+                               data-toggle="modal"
+                               data-target="#exchangeSiteProposition"
+                               data-id="{{ entity.id }}"
+                               data-mode="details">
+                                <i class="fa fa-list-alt"></i>
+                                {{ 'table.editorial_guidelines'|trans }}
+                            </a>
+                        {% else %}
+                            <a class="btn btn-warning"
+                               href="{{ path('user_exchange_site_proposals_preview', {'id': entity.id}) }}"
+                               target="_blank">
+                                <i class="fa fa-eye"></i>
+                                {{ 'table.see_article'|trans }}
+                            </a>
+                        {% endif %}
+                    </div>
+                </td>
+                <td class="action text-right">
+                    <div class="clearfix">
+                        <div class="buttons-wrapper">
+                            {% if entity.status == constant('CoreBundle\\Entity\\ExchangeProposition::STATUS_AWAITING_WEBMASTER') %}
+                                <a class="btn btn-warning js-accept-send"
+                                   href="#"
+                                   data-toggle="modal"
+                                   data-target="#exchangeSiteProposition"
+                                   data-id="{{ entity.id }}"
+                                   data-mode="accept"
+                                   data-success-view='<i class="fa fa-check-circle"></i>{{ 'actions.validate'|trans({}, 'general') }}'>
+                                    <i class="fa fa-check"></i>
+                                    {{ 'actions.accept'|trans({}, 'general') }}
+                                </a>
+                            {% endif %}
+                            {% if entity.status == constant('CoreBundle\\Entity\\ExchangeProposition::STATUS_ACCEPTED') %}
+                                <a class="btn btn-primary"
+                                   href="#"
+                                   data-toggle="modal"
+                                   data-target="#exchangeSiteProposition"
+                                   data-id="{{ entity.id }}"
+                                   data-mode="validation">
+                                    <i class="fa fa-check-circle"></i>
+                                    {{ 'actions.validate'|trans({}, 'general') }}
+                                </a>
+                            {% endif %}
+                            {% if not entity.isSelf and app.user.isWebmaster %}
+                                <a class="btn btn-primary"
+                                   href="#"
+                                   data-toggle="modal"
+                                   data-target="#exchangeSiteProposition"
+                                   data-id="{{ entity.id }}"
+                                   data-mode="modification">
+                                    <i class="fa fa-edit"></i>
+                                    {{ 'actions.modification'|trans({}, 'general') }}
+                                </a>
+                            {% endif %}
+                            <a class="btn btn-warning"
+                               href="#"
+                               data-toggle="modal"
+                               data-target="#exchangeSiteProposition"
+                               data-id="{{ entity.id }}"
+                               data-mode="refuse">
+                                <i class="fa fa-times-circle"></i>
+                                {{ 'actions.refuse'|trans({}, 'general') }}
+                            </a>
+                            {% if accessManager().canManageNetlinkingProject() %}
+                                <a class="btn btn-danger delete_proposal"
+                                   href="{{ path('user_exchange_proposal_delete', {'id': entity.id}) }}">
+                                    <i class="fa fa-remove"></i>
+                                    {{ 'actions.delete'|trans({}, 'general') }}
+                                </a>
+                            {% endif %}
+                            {% if app.user.isWebmaster %}
+                                <p>{{ entity.createdAt|hasDaysAnswer }}</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% if collection.haveToPaginate %}
+        <div class="pagerfanta">
+            {{ pagerfanta(collection) }}
+        </div>
+    {% endif %}
+</div>

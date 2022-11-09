@@ -1,0 +1,31 @@
+services:
+    core.service.awis_info:
+        class: Tests\CoreBundle\Services\AwisInfo
+        arguments: ["%awis_access_key%", "%awis_secret_key%"]
+
+    core.service.bwa_info:
+        class: Tests\CoreBundle\Services\BwaInfo
+        arguments: ["%bwa_api_key%", "%bwa_api_secret%"]
+
+    core.service.memento_info:
+        class: Tests\CoreBundle\Services\MementoInfo
+
+    core.service.google_news_info:
+        public: true
+        class: Tests\CoreBundle\Services\GoogleNewsInfo
+        arguments: ["%google_news_api_key%"]
+
+    core.service.google_analytics_info:
+        class: Tests\CoreBundle\Services\GoogleAnalyticsInfo
+
+    core.service.moz_info:
+        class: Tests\CoreBundle\Services\MozInfo
+        arguments: ["%moz_access_id%", "%moz_secret_key%"]
+
+    core.service.majestic_info:
+        class: Tests\CoreBundle\Services\MajesticInfo
+        arguments: ["%majestic_api_key%"]
+
+    core.service.semrush_info:
+        class: Tests\CoreBundle\Services\Metrics\Semrush
+        arguments: ["%semrush_api_key%"]

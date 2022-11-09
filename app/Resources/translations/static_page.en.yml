@@ -1,0 +1,27 @@
+title: Static pages
+add_title: Add new Static pages
+edit_title: Edit Static pages
+
+add_new: Add new
+edit: Edit
+delete: Delete
+
+table:
+    name: Name
+    identificator: Identificator
+    page_content: Page content
+    language: Language
+    action: Action
+
+name: Name
+identificator: Identificator
+page_content: Page content
+language: Language
+save: Save
+
+en: English
+fr: French
+de: German
+es: Spanish
+it: Italian
+pt: Portuguese

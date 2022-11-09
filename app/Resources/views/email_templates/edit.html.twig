@@ -1,0 +1,28 @@
+{% extends 'layout.html.twig' %}
+
+{% trans_default_domain 'email_template' %}
+
+{% block title %}
+    {{ 'edit_title'|trans }}
+{% endblock %}
+
+{% block breadcrumb %}
+    {{ include('breadcrumb/settings.html.twig', {'childrens': [
+        {'name': 'title'|trans, 'path': 'admin_email_template'},
+        block('title')
+    ]}) }}
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-lg-8 col-lg-offset-2">
+            {{ form_start(form) }}
+            {{ form_widget(form) }}
+            {{ form_end(form) }}
+        </div>
+    </div>
+
+    {{ tinymce_init({
+        theme: {'simple':{'language': app.request.locale, 'height': 500 }}})
+    }}
+{% endblock %}

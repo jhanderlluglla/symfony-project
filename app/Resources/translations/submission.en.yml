@@ -1,0 +1,23 @@
+title: Submission
+
+modal:
+    modify_comment: Modify comment
+    close: Close
+    save: Save
+
+table:
+    project: Netlinking Project
+    directory: Directory
+    submitted_on: Submitted on
+    copywriter: Copywriter
+    comment: Comment
+    action: Actions
+    modify_comment: Modify comment
+    delete_comment: Delete comment
+    reject_task: Reject task
+
+form:
+    new_comment: New comment
+
+notify:
+    submission_comment_edit: Comment edited

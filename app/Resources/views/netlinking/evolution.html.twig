@@ -1,0 +1,60 @@
+{% extends 'layout.html.twig' %}
+
+{% trans_default_domain 'netlinking' %}
+
+{% block title %}
+    {{ 'title_detail'|trans }}
+{% endblock %}
+
+{% block breadcrumb %}
+    {{ include('breadcrumb/netlinking.html.twig', {'childrens': [block('title')]}) }}
+{% endblock %}
+
+{% block content %}
+
+{% endblock %}
+{% block javascript %}
+    {{ parent() }}
+    <script>
+        var errorMessage = "{{ 'modal.feedback_error'|trans }}";
+        var netlinkingId = {{ netlinkingProject.id }};
+        var hide_comment = "{{ 'table.hide_comment'| trans }}";
+        var show_comment = "{{ 'table.show_comment'| trans }}";
+
+        $('body').on('click', '.j-netlinking-comment_show', function(e) {
+          var btn = $(e.target),
+              row = btn.closest('tr'),
+              removeOnlyBtn = '<button class="underlined-link btn-link j-netlinking-comment_hide">' + hide_comment + '</button>',
+              commentText = btn.siblings('.j-comment-content').text(),
+              comment = '<p class="netlinking-comment">' +  commentText;
+              comment += commentText.length >= 500 ? removeOnlyBtn + '</p>' : '</p>';
+
+              template = '<tr class="j-temporary-row"><td style="display: table-cell;" colspan="100%">' + comment + '</td></tr>';
+
+          btn.text(hide_comment).removeClass('j-netlinking-comment_show').addClass('j-netlinking-comment_hide');
+          row.after(template );
+        });
+
+        $('body').on('click', '.j-netlinking-comment_hide', function(e) {
+          var btnCurrent = $(e.target);
+
+          if(btnCurrent.parents('.j-temporary-row').length) {
+            var parentRow = btnCurrent.parents('.j-temporary-row'),
+                 parentSiblingBtn = parentRow.prev('tr').find('.j-netlinking-comment_hide');
+            parentSiblingBtn.text(show_comment).removeClass('j-netlinking-comment_hide').addClass('j-netlinking-comment_show');
+            parentRow.remove();
+          }else {
+            btnCurrent.text(show_comment).removeClass('j-netlinking-comment_hide').addClass('j-netlinking-comment_show');
+            btnCurrent.closest('tr').next('.j-temporary-row').remove();
+          }
+        });
+
+    </script>
+    <script src="{{ asset('js/front/netlinking/detail_writer.js') }}"></script>
+    {% if app.user.isWebmaster %}
+        <script src="{{ asset('js/front/netlinking/detail.js') }}"></script>
+    {% endif %}
+    <script src="{{ asset('js/front/netlinking/submission/reject.js') }}"></script>
+    <script src="{{ asset('js/front/netlinking/tabs.js') }}"></script>
+    <script src="{{ asset('js/front/exchange_site/exchange_site_result_proposals.js') }}"></script>
+{% endblock %}

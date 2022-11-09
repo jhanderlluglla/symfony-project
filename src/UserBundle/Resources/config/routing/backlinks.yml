@@ -1,0 +1,10 @@
+backlinks_all:
+    path:     /
+    defaults: { _controller: UserBundle:Backlinks:backlinks }
+
+backlinks_update_status:
+    path:     /update-status
+    defaults: { _controller: UserBundle:Backlinks:updateStatus }
+    methods: [POST]
+    options:
+        expose: true

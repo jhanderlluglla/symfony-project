@@ -1,0 +1,35 @@
+{% extends 'layout.html.twig' %}
+
+{% trans_default_domain 'exchange_site' %}
+
+{% block title %}
+    {{ 'edit_title'|trans }}
+{% endblock %}
+
+{% block breadcrumb %}
+    {{ include('breadcrumb/exchange_site.html.twig',
+        {'childrens': [
+            {'name': 'exchange_site.management'|trans({}, 'menu'), 'path': 'admin_exchange_site'},
+            block('title')
+        ]})
+    }}
+{% endblock %}
+
+{% set createNew = false %}
+{% block content %}
+    {% include "exchange_site/form.html.twig" %}
+{% endblock %}
+
+{% block javascript %}
+    {{ parent() }}
+    <script src="{{ asset('js/admin/plugins/clipboard/clipboard.min.js') }}"></script>
+    <script src="{{ asset('js/front/exchange_site/exchange_site.js') }}"></script>
+    <script src="{{ asset('js/front/exchange_site/validate_checkboxes.js') }}"></script>
+    <script src="{{ asset('js/front/plugin/download_plugin.js') }}"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            getPrice();
+            initMultipleSelect($('#admin_exchange_site_categories'), 2);
+        })
+    </script>
+{% endblock %}

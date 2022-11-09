@@ -1,0 +1,459 @@
+{% trans_default_domain 'exchange_site' %}
+
+{% form_theme form "form/theme.html.twig" %}
+
+{{ form_start(form, {'attr': {'class': 'high-inputs' }}) }}
+
+{% set editId = 0 %}
+{% if id is defined %}
+    {% set editId = id %}
+{% endif %}
+
+<div class="steps-item">
+    <div class="step-number">
+        {{ 'form.step'|trans }} 1
+    </div>
+    <div class="step-content">
+        <p class="step-heading">{{ 'form.step_heading_general' |trans() }}</p>
+        <div class="step-rows">
+            <div class="row">
+                <div class="col-lg-7">
+
+                    {{ form_errors(form) }}
+
+                    {{ form_row(form.language) }}
+
+                    <div class="form-group {% if not form.url.vars.valid %} has-error {% endif %}">
+                        {{ form_label(form.url, null, { 'id': 'exchange_site_url'}) }}
+                        {{ form_errors(form.url) }}
+                        <div class="exchange_site_url__wrap">
+                            {{ form_widget(form.url, {
+                                'id': 'exchange_site_url',
+                                'attr': {
+                                    'data-id':  editId,
+                                    'data-type': constant('CoreBundle\\Entity\\ExchangeSite::EXCHANGE_TYPE'),
+                                    'class': 'exchange_site_url'
+                                }
+                            }) }}
+                            <i class="fa fa-exclamation-triangle"></i>
+                        </div>
+                    </div>
+
+                    <div class="form-group {% if not form.hideUrl.vars.valid %} has-error {% endif %}" style="margin-bottom: 0">
+                        <div class="checkbox">
+                            {{ form_errors(form.hideUrl) }}
+                            {{ form_widget(form.hideUrl, {'id': 'admin_exchange_site_hideUrl'}) }}
+                            <button type="button"
+                                    class="info-button-icon"
+                                    data-toggle="popover"
+                                    data-placement="auto right"
+                                    title=""
+                                    data-content="{{ 'hide_text'|trans }} ">
+                                <svg><use xlink:href="#info-icon"></use></svg>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="form-group m-b-md{% if not form.trustedWebmaster.vars.valid %} has-error {% endif %}">
+                        <div id="trusted_webmaster">
+                            {{ form_label(form.trustedWebmaster) }}
+                            {{ form_errors(form.trustedWebmaster) }}
+                            {{ form_widget(form.trustedWebmaster) }}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-5">
+                    <div class="info-box exchange_site_url_error hidden">
+                        <h3 class="info-box_title attention">{{ 'attention'|trans }}</h3>
+                        <p class="alert-message" id="exchange_site_url_error"></p>
+                    </div>
+                </div>
+                <div class="col-lg-5 pull-right">
+                    <div class="info-box">
+                        <h3>
+                            <span class="icon-svg">
+                                <svg><use xlink:href="#info-icon"></use></svg>
+                            </span>
+                            <span class="info-box_title">{{ 'optional_plugin'|trans }}</span>
+                        </h3>
+
+                        <p class="m-b-lg">{{ 'download_plugin_ad'|trans }}<br>
+                            <a class="underlined-link-r" href="{{ additionalData[constant('CoreBundle\\Entity\\Settings::PLUGIN_MORE_INFORMATION')] }}">
+                                {{ 'more_information'|trans() }}
+                            </a>
+                        </p>
+                        <div class="m-b-lg">
+                            <label class="control-label accent-dark smaller" for="fileName"> {{ 'form.custom_file_name'|trans({}, 'exchange_site') }}</label>
+                            <input class="form-control" type="text" name="fileName" id="fileName" placeholder="{{ 'name'|trans({}, 'general') }}">
+                            <button type="button" class="btn btn-primary btn-outline m-t-md"
+                                    id="downloadRenamedPlugin">{{ 'form.download_plugin'|trans({}, 'exchange_site') }}</button>
+                        </div>
+                        <div class="m-b-lg">
+                            <label for="" class="control-label accent-dark smaller">{{ 'api_key'|trans }}</label>
+                            <div class="input-wrapper" style="position: relative">
+                                {{ form_widget(form.apiKey, {id: 'api_key', attr: {placeholder: '---', class: 'form-control copy-action_right'}}) }}
+                                <button type="button"
+                                        class="copy-action generated-key hidden"
+                                        data-clipboard-target="#api_key"
+                                        id="copy_api_key">
+                                    <i class="fa fa-clipboard" aria-hidden="true"></i>
+                                </button>
+                            </div>
+                            <button type="button" class="btn btn-primary btn-outline m-t-md"
+                                    id="button_api_key">{{ 'button_key'|trans }}</button>
+                        </div>
+                        <div class="plugin-status">
+                            <span class="control-label bold-label accent-dark m-b-lg inline-block">{{ 'table.plugin_status'|trans }}:</span>
+                            {% if form.vars.value.pluginStatus %}
+                                <span class="fa fa-check-circle" aria-hidden="true"></span>
+                            {% else %}
+                                <span class="fa fa-times-circle" aria-hidden="true"></span>
+                            {% endif %}
+                            <div class="flex-wrap">
+                                <div>
+                                    <button type="button" class="info-button-icon m-r-sm"><svg><use xlink:href="#info-icon"></use></svg></button>
+                                </div>
+                                {% if form.vars.value.pluginStatus %}
+                                    <p>{{ 'download_plugin_failed'|trans }}!</p>
+                                {% else %}
+                                    <p>{{ 'download_plugin_success'|trans }}!</p>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-7 pull-left">
+                    <div class="form-inline">
+                        <h3>Payment amount</h3>
+                        <div class="form-group {% if not form.credits.vars.valid %} has-error{% endif %}">
+                            {{ form_label(form.credits, null, { 'label_attr': {'class': 'block'}}) }}
+                            {{ form_errors(form.credits) }}
+                            {{ form_widget(form.credits, { 'attr': {'class': 'm-r-md'}}) }}
+                            <span class="text-success" style="display: none">
+                                {{ 'credits_maximum'|trans }}: <span id="credits_maximum"></span>
+                            </span>
+                            <span class="help-block">{{ 'credits_text'|trans }}</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        {#{{ form_label(form.earningType) }}#}
+                        {#{{ form_errors(form.earningType) }}#}
+                        {#{{ form_widget(form.earningType) }}#}
+                        <span class="hidden" id="final-price-template">{{ 'final_price_text'|trans }}</span>
+                        <span class="final-price text-danger"></span>
+                    </div>
+
+                    {{ form_row(form.language) }}
+
+                    <div class="form-group {% if not form.categories.vars.valid %} has-error {% endif %} exchange-site_select">
+                        {{ form_label(form.categories) }}
+                        {{ form_errors(form.categories) }}
+                        {{ form_widget(form.categories, {'id': 'admin_exchange_site_categories'}) }}
+                        <span class="help-block m-b-none">{{ 'form.categories_text'|trans }}</span>
+                    </div>
+
+
+                    <div class="form-group {% if not form.tags.vars.valid %} has-error {% endif %}">
+                        {{ form_label(form.tags) }}
+                        {{ form_errors(form.tags) }}
+                        {{ form_widget(form.tags, {'id': 'exchange_site_tags'}) }}
+                        <span class="help-block m-b-none">{{ 'form.tags_text'|trans }}</span>
+                    </div>
+
+                    {{ form_row(form.authorizedAnchor) }}
+
+                    {% if form.vars.valid  and createNew %}
+                        <div class="form-group">
+                            <div class="text-right">
+                                <button class="btn btn-primary" type="button" disabled
+                                        data-action="nextStep">{{ 'form.next'|trans }}</button>
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        {{ form_widget(form.majesticTrustFlow, {'id': 'exchange_site_trust_flow'}) }}
+        {{ form_widget(form.majesticRefDomains, {'id': 'exchange_site_ref_domains'}) }}
+        {{ form_widget(form.alexaRank, {'id': 'exchange_site_alexa_rank'}) }}
+        {{ form_widget(form.age, {'id': 'exchange_site_age'}) }}
+        {{ form_widget(form.maximumCredits, {'id': 'exchange_site_maximum_credits'}) }}
+    </div>
+
+
+</div>
+
+<div class="steps-item">
+    <div class="step-number">
+        {{ 'form.step'|trans }} 2
+    </div>
+    <div class="step-content">
+        <p class="step-heading">{{ 'form.step_heading_rules' |trans() }}</p>
+        <div class="step-rows">
+            <div class="row">
+                <div class="col-lg-7">
+
+                    {{ form_row(form.minWordsNumber) }}
+                    {{ form_row(form.maxLinksNumber) }}
+                    {{ form_row(form.additionalExternalLink) }}
+                    <div class="form-group hidden" id="count_additional_external_link">
+                        <div class="form-inline">
+                            <span class="control-label">{{ 'count_additional_external_link_start'|trans }} [</span>
+                            <div class="input-group">
+                                {{ form_widget(form.countAdditionalExternalLink) }}
+                            </div>
+                            <span class="control-label">] {{ 'count_additional_external_link_end'|trans }}</span>
+                        </div>
+                    </div>
+                    <hr>
+
+                    {% if app.user.isAdmin %}
+                        {{ form_row(form.user) }}
+                    {% endif %}
+
+                    <div class="form-group hidden" id="trusted_webmaster">
+                        {{ form_label(form.trustedWebmaster) }}
+                        <div class="col-sm-offset-3 col-sm-9">
+                            {{ form_errors(form.trustedWebmaster) }}
+                            {{ form_widget(form.trustedWebmaster) }}
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <h3>{{ 'form.meta_title'|trans }}</h3>
+                        <div class="checkbox">
+                            {{ form_errors(form.metaTitle) }}
+                            {{ form_widget(form.metaTitle) }}
+                            <button type="button" class="info-button-icon" data-toggle="popover"
+                                    data-placement="right" title=""
+                                    data-content="{{ 'attributes.meta_title.popup_message'|trans }}">
+                                <svg><use xlink:href="#info-icon"></use></svg>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <h3>
+                            {{ 'form.meta_description'|trans }}
+                        </h3>
+                        <div class="checkbox">
+                            {{ form_widget(form.metaDescription) }}
+                            {{ form_errors(form.metaDescription) }}
+                            <button type="button" class="info-button-icon" data-toggle="popover"
+                                    data-placement="right" title=""
+                                    data-content="{{ 'attributes.meta_description.popup_message'|trans }}">
+                                <svg><use xlink:href="#info-icon"></use></svg>
+                            </button>
+                        </div>
+
+                    </div>
+
+                    <hr>
+
+                    <div class="form-group">
+                        <h3>
+                            {{ 'form.header_one_set'|trans }}
+                        </h3>
+                        <div class="checkbox">
+                            {{ form_widget(form.headerOneSet) }}
+                            {{ form_errors(form.headerOneSet) }}
+                            <button type="button" class="info-button-icon" data-toggle="popover"
+                                    data-placement="right" title=""
+                                    data-content="{{ 'attributes.header_h1.popup_message'|trans }}">
+                                <svg><use xlink:href="#info-icon"></use></svg>
+                            </button>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label class="control-label bold-label">
+                            {{ 'form.header_two_start_end'|trans }}
+                        </label>
+                        {{ form_errors(form.headerTwoEnd) }}
+                        {{ form_errors(form.headerTwoStart) }}
+                        <div class="form-inline minmaxrange">
+                            <span class="control-label">{{ 'attributes.headers.part1'|trans }}</span>
+                            <div class="input-group">
+                                {{ form_widget(form.headerTwoStart) }}
+                            </div>
+                            <span class="control-label">{{ 'attributes.headers.part2'|trans }}</span>
+                            <div class="input-group">
+                                {{ form_widget(form.headerTwoEnd) }}
+                            </div>
+                            <span class="control-label">
+                            {{ 'attributes.headers.part3'|trans({'%header%': 'H2'}) }}</span>
+                            <button type="button" class="info-button-icon" data-toggle="popover"
+                                    data-placement="right" title=""
+                                    data-content="{{ 'attributes.header_h2.popup_message'|trans }}">
+                                <svg><use xlink:href="#info-icon"></use></svg></button>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <h3>
+                            {{ 'form.header_three_start_end'|trans }}
+                        </h3>
+                        {{ form_errors(form.headerThreeEnd) }}
+                        {{ form_errors(form.headerThreeStart) }}
+                        <div class="form-inline minmaxrange">
+                            <span class="control-label">{{ 'attributes.headers.part1'|trans }}</span>
+                            <div class="input-group">
+                                {{ form_widget(form.headerThreeStart) }}
+                            </div>
+                            <span class="control-label">{{ 'attributes.headers.part2'|trans }}</span>
+                            <div class="input-group">
+                                {{ form_widget(form.headerThreeEnd) }}
+                            </div>
+                            <span class="control-label">
+                            {{ 'attributes.headers.part3'|trans({'%header%': 'H3'}) }}</span>
+                            <button type="button" class="info-button-icon" data-toggle="popover"
+                                    data-placement="right" title=""
+                                    data-content="{{ 'attributes.header_h3.popup_message'|trans }}">
+                                <svg><use xlink:href="#info-icon"></use></svg></button>
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <div class="form-group">
+                        <h3>
+                            {{ 'form.bold_text'|trans }}
+                            <small>({{ 'attributes.bold_text.description'|trans }})</small>
+                        </h3>
+                        <div class="block form-inline">
+                            {{ form_errors(form.boldText) }}
+                            <div class="input-group">
+                                {{ form_widget(form.boldText) }}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <h3>
+                            {{ 'form.quoted_text'|trans }}
+                        </h3>
+                        <div class="block form-inline">
+                            {{ form_errors(form.quotedText) }}
+                            <div class="input-group">
+                                {{ form_widget(form.quotedText) }}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <h3>
+                            {{ 'form.italic_text'|trans }}
+                        </h3>
+                        <div class="block form-inline">
+                            {{ form_errors(form.italicText) }}
+                            <div class="input-group">
+                                {{ form_widget(form.italicText) }}
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <div class="form-group">
+                        <h3>
+                            {{ 'form.ul_tag'|trans }}
+                            <small>({{ 'attributes.ul_tag.description'|trans }})</small>
+                        </h3>
+                        <div class="block form-inline">
+                            {{ form_errors(form.ulTag) }}
+                            <div class="input-group">
+                                {{ form_widget(form.ulTag) }}
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <div class="form-group">
+                        <h3>
+                            {{ form_label(form.minImagesNumber) }}
+                        </h3>
+                        <div class="row">
+                            <div class="col-lg-5">
+                                <div class="input-group minmaxrange">
+                                    {{ form_errors(form.minImagesNumber) }}
+                                    {{ form_widget(form.minImagesNumber) }}
+                                    {{ form_errors(form.maxImagesNumber) }}
+                                    {{ form_widget(form.maxImagesNumber) }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% if form.vars.valid  and createNew %}
+                        <div class="form-group">
+                            <div class="text-right">
+                                <button class="btn btn-primary" type="button"
+                                        data-action="nextStep">{{ 'form.next'|trans }}</button>
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="steps-item">
+    <div class="step-number">
+        {{ 'form.step'|trans }} 3
+    </div>
+    <div class="step-content">
+        <p class="step-heading">{{ 'form.step_heading_accept' |trans() }}</p>
+        <div class="step-rows">
+            <div class="row">
+                <div class="col-lg-7">
+                    <div class="form-group">
+                        {{ form_widget(form.acceptEref) }}
+                    </div>
+                    {{ form_row(form.acceptWeb) }}
+                    {{ form_row(form.acceptSelf, {label: form.acceptSelf.vars.label|trans({ '%webmaster_additional_pay%':additionalData[constant('CoreBundle\\Entity\\Settings::WEBMASTER_ADDITIONAL_PAY')]})}) }}
+                    {{ form_errors(form.acceptEref) }}
+                    <div id="exchange_site_check_box_error" class="alert alert-danger hidden">
+                        {{ 'exchange.form_of_writing' |trans({}, 'validators') }}
+                    </div>
+                    {{ form_label(form.publicationRules) }}
+                    {{ form_row(form.nofollowLink) }}
+                    {{ form_row(form.sponsorisedArticle) }}
+                    {{ form_errors(form.publicationRules) }}
+                    {{ form_widget(form.publicationRules) }}
+                    {{ form_row(form.acceptCommission, {'label_attr' : {'class':'text-danger'},
+                        'label': 'accept_commission'|trans({
+                            '%commission_percent%':additionalData.percents[constant('CoreBundle\\Entity\\Settings::COMMISSION_PERCENT')],
+                            '%withdraw_percent%':additionalData.percents[constant('CoreBundle\\Entity\\Settings::WITHDRAW_PERCENT')]
+                        })
+                    }) }}
+                    <div class="form-group">
+                        <div class="text-right">
+                            {{ form_widget(form.save) }}
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% do form.metaTitle.setRendered %}
+{% do form.metaDescription.setRendered %}
+{% do form.headerOneSet.setRendered %}
+{% do form.headerTwoStart.setRendered %}
+{% do form.headerTwoEnd.setRendered %}
+{% do form.headerThreeStart.setRendered %}
+{% do form.headerThreeEnd.setRendered %}
+
+{{ form_end(form) }}
+
+
+{% include 'exchange_site/modal/plugin_name.html.twig' %}

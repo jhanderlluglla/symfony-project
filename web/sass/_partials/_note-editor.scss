@@ -1,0 +1,69 @@
+.note-editor {
+  .modal {
+    .form-group {
+      margin-left: 0;
+      margin-right: 0;
+    }
+    .modal-body:last-child {
+      margin-bottom: 0;
+    }
+
+    h4 {
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+  }
+
+  .note-form-group:last-child {
+    margin-bottom: 0;
+  }
+
+  .note-tab-content {
+    padding-top: 20px;
+  }
+
+  .modal-footer {
+    margin-top: 0;
+  }
+
+  .figure {
+    margin-top: 5px;
+  }
+
+  .note-float-left {
+    margin-right: 10px;
+  }
+
+  .note-float-right {
+    margin-left: 10px;
+  }
+  &.note-frame.fullscreen {
+    z-index: 2001 !important;
+  }
+}
+
+.ibox-content {
+  .note-editor .btn-primary.disabled,
+  .note-editor .btn-primary[disabled],
+  fieldset[disabled] .note-editor .btn-primary,
+  .note-editor .btn-primary.disabled:hover,
+  .note-editor .btn-primary[disabled]:hover,
+  fieldset[disabled] .note-editor .btn-primary:hover,
+  .note-editor .btn-primary.disabled:focus,
+  .note-editor .btn-primary[disabled]:focus,
+  fieldset[disabled] .note-editor .btn-primary:focus,
+  .note-editor .btn-primary.disabled:active,
+  .note-editor .btn-primary[disabled]:active,
+  fieldset[disabled] .note-editor .btn-primary:active,
+  .note-editor .btn-primary.disabled.active,
+  .note-editor .btn-primary[disabled].active,
+  fieldset[disabled] .note-editor .btn-primary.active,
+  .note-editor .btn-primary {
+    background-color: #1ab394;
+    border-color: #1ab394;
+  }
+  .note-editor .btn-primary:hover {
+    background-color: #18a689;
+    border-color: #18a689;
+  }
+}

@@ -1,0 +1,68 @@
+# This file is a "template" of what your parameters.yml file should look like
+# Set parameters here that may be different on each deployment target of the app, e.g. development, staging, production.
+# http://symfony.com/doc/current/best_practices/configuration.html#infrastructure-related-configuration
+parameters:
+    database_host:     127.0.0.1
+    database_port:     ~
+    database_name:     symfony
+    database_user:     root
+    database_password: ~
+    database_name_old:     symfony
+    # You should uncomment this if you want use pdo_sqlite
+    # database_path: "%kernel.root_dir%/data.db3"
+
+    mailer_transport:  smtp
+    mailer_host:       127.0.0.1
+    mailer_user:       info@test.com
+    mailer_password:   null
+
+    # A secret key that's used to generate certain security-related tokens
+    secret:            ThisTokenIsNotSoSecretChangeIt
+
+    paypal_client_id: AXdIKWa-GFx3_NssABDRG9_QEXPIIWhWmQP-7J20EdOJOt969mmkCZurLnY92sEV2RMtectPl7Jjx5D8
+    paypal_secret_id: EPlGBNYalMuwWRaRgZO80_C-d3c1k2Xy1KVP4QIuRWIZz1UwUPrWCKDB8-ZXE5HEo9XlSWrxUCnA2l4x
+
+    awis_access_key: AKIAINKJPEMKDY4GD3HA
+    awis_secret_key: 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
+
+    majestic_api_key: FF2E75DBECC48B7CD59C0B4BF6E6744A
+
+    bwa_api_key: BWA-GizkdUhrDOBZsFNt
+    bwa_api_secret: Z09D527v1EnfNtUIGqFhTijAV3XQpHocYCO8lsPr
+
+    moz_access_id: mozscape-a07c5fd616
+    moz_secret_key: d9ff5302b8a0b2f306a0b54e80c80a44
+
+    google_news_api_key: 3d02708fe94941a58069d9ec797270b0
+
+    pixabay_api_key: 10833659-a6e615b747b01d6a45af69862
+    tinymce_key: 5zz7o6r106xhslghzngpwt9rbeb76q8526rkxr9k9qlmm8h8
+
+    upload_dir: "%kernel.root_dir%/../web/uploads"
+    upload_docs_dir: "%kernel.root_dir%/../web/uploads/docs"
+    invoice_dir: '%kernel.root_dir%/Resources/invoice'
+    uploaded_invoice_dir: "%invoice_dir%/uploaded"
+    upload_avatar_dir: "%kernel.root_dir%/../web/uploads/avatars"
+    avatar_local_path: /uploads/avatars
+    docs_local_path: "/uploads/docs"
+
+    noreply_email: noreply@ereferer.fr
+
+    onlineconvert_api_key: null
+
+    upload_article_images_dir: '%kernel.root_dir%/../web/uploads/articles/images'
+    article_images_local_path: /uploads/articles/images
+
+    upload_admin_images_dir: '%kernel.root_dir%/../web/uploads/admin_images/'
+    admin_images_local_path : /uploads/admin_images/
+
+    plugin_folder: "%kernel.root_dir%/../../plugin/ereferer_isubmission"
+    install_file: "%plugin_folder%/isubmission.php"
+
+    site_url: "http://ereferer.com"
+    host: "ereferer.com"
+
+    semrush_api_key: null
+    knp_snappy_binary: '/usr/local/bin/wkhtmltopdf'
+
+    emails_for_exceptions: null

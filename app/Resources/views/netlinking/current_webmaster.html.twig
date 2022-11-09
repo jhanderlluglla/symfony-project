@@ -1,0 +1,40 @@
+{% trans_default_domain 'netlinking' %}
+
+{% if collection|length == 0 %}
+    <div class="no_results">
+        {{ 'no_results'| trans({}, 'general') }}
+    </div>
+{% else %}
+    <div class="project-wrapper">
+        {% for entity in collection %}
+            <div class="netlink-project project-card">
+                <div class="flex-justify">
+                    <ul class="block-information">
+                        {% include('netlinking/card/card_header.html.twig') %}
+                    </ul>
+                    <div class="actions">
+                        <div class="buttons-wrapper">
+                            <a href="{{ path('netlinking_detail', {'id': entity.id}) }}" class="btn btn-primary"><i class="fa fa-bar-chart"></i> {{ 'progression'|trans }}</a>
+                            <a href="{{ path('netlinking_evolution', {'id': entity.id}) }}" class="btn btn-primary"><i class="fa fa-line-chart"></i>{{ 'evolution'|trans }}</a>
+                            <a href="{{ path('netlinking_edit', {'status': status, 'id': entity.id}) }}" class="btn btn-warning"><i class="fa fa-edit"></i> {{ 'edit'|trans }}</a>
+                            <a href="{{ path('netlinking_stop', {'id': entity.id}) }}" class="btn btn-danger confirmation"><i class="fa fa-times-circle"></i> {{ 'stop_project'|trans }}</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="border-top">
+                    <h4 class="group-title">{{ 'table.statistics'|trans }}:</h4>
+                    <ul class="information-list">
+                        {% include 'netlinking/card/card_tasks.html.twig' %}
+                        {% include 'netlinking/card/card_stat.html.twig' %}
+                    </ul>
+
+                </div>
+                <div class="border-top">
+                    <p class="text-block">{{ 'table.patience'|trans }}</p>
+                </div>
+                {% include 'netlinking/card/card_comment.html.twig' %}
+            </div>
+        {% endfor %}
+    </div>
+{% endif %}
+

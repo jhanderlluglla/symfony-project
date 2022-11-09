@@ -1,0 +1,7 @@
+{% if app.user.isSuperAdmin or app.user.isWriterAdmin or app.user.isWebmaster %}
+    {% include 'netlinking/detail_manager.html.twig' %}
+{% elseif app.user.hasRole(constant('CoreBundle\\Entity\\User::ROLE_WRITER'))
+       or app.user.hasRole(constant('CoreBundle\\Entity\\User::ROLE_WRITER_ADMIN'))
+       or app.user.hasRole(constant('CoreBundle\\Entity\\User::ROLE_WRITER_NETLINKING'))%}
+    {% include 'netlinking/detail_writer.html.twig' %}
+{% endif %}

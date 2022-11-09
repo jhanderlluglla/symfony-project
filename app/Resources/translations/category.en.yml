@@ -1,0 +1,24 @@
+title: Category
+add_title: Add new Category
+edit_title: Edit Category
+
+add_new: Add new
+edit: Edit
+delete: Delete
+
+table:
+    name: Name
+    language: Language
+    action: Action
+
+name: Name
+language: Language
+parent: Parent
+save: Save
+
+en: English
+fr: French
+de: German
+es: Spanish
+it: Italian
+pt: Portuguese

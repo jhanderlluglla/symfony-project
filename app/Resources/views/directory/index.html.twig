@@ -1,0 +1,144 @@
+{% extends 'layout.html.twig' %}
+
+{% trans_default_domain 'directory' %}
+
+{% block title %}
+    {{ 'title'|trans }}
+{% endblock %}
+
+{% block breadcrumb %}
+    {{ include('breadcrumb/settings.html.twig', {'childrens': [block('title')]}) }}
+{% endblock %}
+
+{% block action %}
+    <div class="col-sm-6">
+        <div class="title-action">
+            <a href="{{ path('admin_directory_add') }}" class="btn btn-primary"><i class="fa fa-list"></i> {{ 'add_new'|trans }}</a>
+        </div>
+    </div>
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox">
+                <div class="ibox-title">
+                    <h5>{{ 'title'|trans }}</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content wrap-table-center">
+                    {% if collection.haveToPaginate %}
+                        <div class="pagerfanta">
+                            {{ pagerfanta(collection) }}
+                        </div>
+                    {% endif %}
+
+                    <table class="footable table table-striped">
+                        <thead>
+                            <tr>
+                                <th data-breakpoints="xs" class="table-id">#</th>
+                                <th >{{ 'table.directory'|trans }}</th>
+                                <th data-breakpoints="s">{{ 'table.type'|trans }}</th>
+                                <th data-breakpoints="xxl">{{ 'table.partnership'|trans }}</th>
+                                <th data-breakpoints="s">{{ 'table.tariff'|trans }}</th>
+                                <th data-breakpoints="xxl">{{ 'table.alexa_rank'|trans }}</th>
+                                <th data-breakpoints="m">{{ 'table.age'|trans }}</th>
+                                <th data-breakpoints="xl">{{ 'table.trust_flow'|trans }}</th>
+                                <th data-breakpoints="xxxl">{{ 'table.validation_time'|trans }}</th>
+                                <th data-breakpoints="xxxl">{{ 'table.validation_rate'|trans }}</th>
+                                <th data-breakpoints="xl">{{ 'table.referring_domain'|trans }}</th>
+                                <th data-breakpoints="xxl">{{ 'table.categories'|trans }}</th>
+                                <th class="text-right action">{{ 'table.action'|trans }}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for entity in collection %}
+                                <tr>
+                                    <td class="table-id">{{ loop.index + collection.getMaxPerPage * (collection.getCurrentPage - 1)}}</td>
+                                    <td>{{ entity.name }}</td>
+                                    <td>
+                                        {{ 'table.type_string.directory'|trans }}
+                                        {#{% if entity.directoryType == constant('CoreBundle\\Entity\\Directory::DIRECTORY_TYPE_DIRECTORY') %}#}
+                                            {#{{ 'table.type_string.directory'|trans }}#}
+                                        {#{% elseif entity.directoryType == constant('CoreBundle\\Entity\\Directory::DIRECTORY_TYPE_CP') %}#}
+                                            {#{{ 'table.type_string.cp'|trans }}#}
+                                        {#{% elseif entity.directoryType == constant('CoreBundle\\Entity\\Directory::DIRECTORY_TYPE_BLOG') %}#}
+                                            {#{{ 'table.type_string.blog'|trans }}#}
+                                        {#{% endif %}#}
+                                    </td>
+                                    <td>
+                                        {% if entity.webmasterPartner %}
+                                            <p>{{ 'table.partnership_string.yes'|trans }}</p>
+                                            <span data-toggle="tooltip" data-placement="top" data-original-title="{{ 'table.partnership_string.tooltip'|trans }}">{{ 'table.partnership_string.advantage'|trans }}</span>
+                                        {% else %}
+                                            {{ 'table.partnership_string.no'|trans }}
+                                        {% endif %}
+                                    </td>
+                                    <td>{{ entity.tariffExtraWebmaster }}</td>
+                                    <td>{{ entity.alexaRank }}</td>
+                                    <td>{{ entity.age|age }}</td>
+                                    <td>{{ entity.majesticTrustFlow }}</td>
+                                    <td>
+                                        {% if entity.validationRate > 0 %}
+                                            {{ entity.validationRate }} {{ 'table.validation_time_string.jsr'|trans }}
+                                        {% else %}
+                                            {{ 'table.validation_rate_string.na'|trans }}
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        {% if entity.validationTime >= 80 %}
+                                            {% set validationTimeClass='text-success' %}
+                                        {% elseif entity.validationTime >= 65 and entity.validationTime < 80 %}
+                                            {% set validationTimeClass='text-info' %}
+                                        {% elseif entity.validationTime >= 50 and entity.validationTime < 65 %}
+                                            {% set validationTimeClass='text-warning' %}
+                                        {% elseif entity.validationTime > 0 and entity.validationTime < 50 %}
+                                            {% set validationTimeClass='text-danger' %}
+                                        {% endif %}
+
+                                        {% if entity.validationTime > 0 %}
+                                            <span class="{{ validationTimeClass }}">{{ entity.validationTime }}%</span>
+                                        {% else %}
+                                            {{ 'table.validation_time_string.na'|trans }}
+                                        {% endif %}
+                                    </td>
+                                    <td>{{ entity.totalReferringDomain }}</td>
+                                    <td>{{ entity.categoriesFormatted }}</td>
+                                    <td class="text-right action">
+                                        <div class="buttons-wrapper">
+                                            {% if entity.active == constant('CoreBundle\\Entity\\StateInterface::ACTIVE_YES') %}
+                                                <a href="{{ path('admin_directory_deactivate', {'id': entity.id}) }}" class="btn state btn-warning" title="{{ 'deactivate'|trans({}, 'list') }}">
+                                                    <i class="fa fa-eye-slash"></i> <span>{{ 'deactivate'|trans({}, 'list') }}</span>
+                                                </a>
+                                            {% else %}
+                                                <a href="{{ path('admin_directory_activate', {'id': entity.id}) }}" class="btn state btn-warning" title="{{ 'activate'|trans({}, 'list') }}">
+                                                    <i class="fa fa-eye"></i> <span>{{ 'activate'|trans({}, 'list') }}</span>
+                                                </a>
+                                            {% endif %}
+                                            <a href="{{ path('admin_directory_edit', {'id': entity.id}) }}" class="btn btn-primary" title="{{ 'edit'|trans }}">
+                                                <i class="fa fa-edit"></i> {{ 'edit'|trans }}
+                                            </a>
+
+                                            <a href="{{ path('admin_directory_delete', {'id': entity.id}) }}" class="btn btn-danger delete" title="{{ 'delete'|trans }}">
+                                                <i class="fa fa-trash"></i> {{ 'delete'|trans }}
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    {% if collection.haveToPaginate %}
+                        <div class="pagerfanta">
+                            {{ pagerfanta(collection) }}
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
